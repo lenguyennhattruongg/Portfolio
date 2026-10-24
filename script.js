@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* --------------------------------------------------------------------------
-     6. CONTACT FORM VALIDATION & SIMULATED SUBMISSION
+     6. CONTACT FORM VALIDATION & EMAIL COMPOSER
      -------------------------------------------------------------------------- */
   const contactForm = document.getElementById('contactForm');
   const toastNotification = document.getElementById('toastNotification');
@@ -388,24 +388,21 @@ document.addEventListener('DOMContentLoaded', () => {
         messageError.classList.remove('visible');
       }
 
-      // Nếu tất cả hợp lệ -> Giả lập gửi tin nhắn thành công
+      // Mở ứng dụng email với nội dung đã điền sẵn; người dùng tự xác nhận gửi.
       if (isValid) {
-        const submitBtn = document.getElementById('submitBtn');
-        const originalBtnText = submitBtn.innerHTML;
+        const recipient = 'nguyenthithaonhu.9a7@gmail.com';
+        const subject = subjectInput.value.trim();
+        const body = [
+          `Họ và tên: ${nameInput.value.trim()}`,
+          `Email liên hệ: ${emailInput.value.trim()}`,
+          '',
+          'Nội dung tin nhắn:',
+          messageInput.value.trim()
+        ].join('\n');
+        const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang gửi...';
-
-        setTimeout(() => {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalBtnText;
-
-          // Thông báo thành công
-          showToast(`Cảm ơn ${nameInput.value.trim()}! Tin nhắn của bạn đã được gửi thành công. Tôi sẽ phản hồi sớm.`);
-
-          // Reset form
-          contactForm.reset();
-        }, 1000);
+        showToast('Ứng dụng email sẽ mở để bạn kiểm tra và nhấn Gửi.');
+        window.location.href = mailtoUrl;
       }
     });
 

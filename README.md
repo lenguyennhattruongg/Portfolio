@@ -55,10 +55,10 @@ profile me/
    - **Dự án chờ (Placeholder)**: Sẵn sàng mở rộng thêm đồ án Backend.
    - **Modal Popup**: Cung cấp chi tiết 10 tiêu chí kỹ thuật (Overview, Problem, Solution, Technologies, Features, Algorithms, Challenges, What I Learned, GitHub, Live Demo).
 7. **Khu vực liên hệ (Contact Me)**:
-   - **Nút Gửi email trực tiếp**: Mở ứng dụng mail ngay lập tức (`mailto:nguyenthithaonhu.9a7@gmail.com`).
+   - **Nút Gửi tin nhắn cho tôi**: Cuộn đến biểu mẫu gửi tin nhắn trong phần liên hệ.
    - **Nút Sao chép email**: Click vào sẽ tự động lưu email vào bộ nhớ tạm (Clipboard) và hiển thị thông báo Toast xác nhận `Đã sao chép email vào bộ nhớ tạm! 📋`.
    - **Nút Mở GitHub cá nhân**: Trỏ thẳng tới `https://github.com/NhuThiNguyen`.
-   - **Biểu mẫu gửi tin nhắn**: Kiểm tra hợp lệ dữ liệu nhập vào (Validation) trước khi gửi.
+   - **Biểu mẫu gửi tin nhắn**: Kiểm tra dữ liệu, sau đó mở ứng dụng email mặc định với nội dung đã điền sẵn (`mailto:`). Người gửi cần xác nhận gửi trong ứng dụng email; website tĩnh không tự gửi email.
 8. **Chân trang (Footer)**:
    - Tên thương hiệu: **Nguyễn Thị Thảo Như**.
    - Phương châm: *"Kiên trì học hỏi mỗi ngày, từng bước xây dựng nền tảng Backend vững chắc và tạo ra giá trị qua từng dòng mã."*

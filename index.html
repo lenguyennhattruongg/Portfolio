@@ -462,7 +462,8 @@
             </div>
           </div>
           <div class="project-content">
-            <div class="project-type-tag">Web Interaction &amp; UI</div>
+            <div class="project-type-tag">Web Interactio
+              n &amp; UI</div>
             <h3 class="project-name">Interactive Love Website</h3>
             <p class="project-desc">
               Website tương tác được xây dựng với mục đích tạo trải nghiệm web cá nhân hóa, sử dụng animation, hình ảnh, hiệu ứng và các tương tác JavaScript.
@@ -695,8 +696,8 @@
 
           <!-- Quick Action Buttons -->
           <div class="contact-quick-actions">
-            <a href="mailto:nguyenthithaonhu.9a7@gmail.com" class="btn btn-primary btn-sm" title="Mở ứng dụng gửi email">
-              <i class="fa-solid fa-paper-plane"></i> Gửi email trực tiếp
+            <a href="#contactForm" class="btn btn-primary btn-sm" title="Chuyển đến biểu mẫu gửi tin nhắn">
+              <i class="fa-solid fa-paper-plane"></i> Gửi tin nhắn cho tôi
             </a>
             <button type="button" class="btn btn-outline btn-sm" id="copyEmailBtn" data-email="nguyenthithaonhu.9a7@gmail.com" title="Sao chép địa chỉ email">
               <i class="fa-regular fa-copy"></i> Sao chép email
@@ -727,7 +728,7 @@
           </div>
         </div>
 
-        <!-- Form gửi tin nhắn (Có JS Validation & Giả lập thông báo thành công) -->
+        <!-- Form kiểm tra dữ liệu và mở ứng dụng email -->
         <div class="contact-form-card reveal">
           <h3 class="contact-card-title">Gửi tin nhắn cho tôi</h3>
           <form id="contactForm" class="contact-form" novalidate>
@@ -756,8 +757,9 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
-              <i class="fa-solid fa-paper-plane"></i> Send Message
+              <i class="fa-solid fa-paper-plane"></i> Mở email để gửi
             </button>
+            <p class="form-note">Ứng dụng email sẽ mở với nội dung đã điền sẵn. Hãy nhấn Gửi trong ứng dụng để gửi tin nhắn.</p>
           </form>
         </div>
       </div>
@@ -865,7 +867,7 @@
   <!-- Toast Notification -->
   <div class="toast" id="toastNotification" role="alert">
     <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
-    <div class="toast-message" id="toastMessage">Tin nhắn của bạn đã được gửi thành công!</div>
+    <div class="toast-message" id="toastMessage">Hãy điền biểu mẫu để soạn email.</div>
   </div>
 
   <!-- Main Script (Relative Path for GitHub Pages) -->
