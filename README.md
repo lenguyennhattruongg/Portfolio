@@ -1,5 +1,8 @@
 # Group Portfolio Website — Lập Trình Web
 
+> 🚆 **Nhánh phát triển Portfolio cá nhân:** `feature/portfolio-truong` — **Lê Nguyễn Nhật Trường** (K24 CNTT, ĐH GTVT TP.HCM — UTH)  
+> 🌐 **Link Web Deploy Trực Tiếp (Portfolio Cá Nhân):** **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)** 👈 *(Không gian Portfolio cá nhân UTH Metro, độc lập 100% với Portfolio nhóm)*
+
 Dự án website portfolio nhóm phục vụ học phần **Lập trình Web** tại Trường Đại học Giao thông Vận tải TP.HCM (UTH). Hệ thống bao gồm 01 Trang chủ nhóm (Group Landing Page) và 06 trang Portfolio cá nhân riêng biệt, kết nối thống nhất qua kiến trúc đa trang (Multi-Page Application) với Vite.
 
 ---
@@ -99,7 +102,7 @@ Mỗi thành viên chịu trách nhiệm chính về nội dung, thẩm mỹ và
 | STT | Họ và tên | Slug thư mục cá nhân | Trách nhiệm chính |
 |:---:|---|---|---|
 | 1 | **Nguyễn Xuân Hiếu** | `members/nguyen-xuan-hieu/` | Trưởng nhóm, phát triển portfolio cá nhân, phụ trách tích hợp & review |
-| 2 | **Lê Nguyễn Nhật Trường** | `members/le-nguyen-nhat-truong/` | Phát triển portfolio cá nhân, kiểm thử giao diện |
+| 2 | **Lê Nguyễn Nhật Trường** | `members/le-nguyen-nhat-truong/`<br>👉 **[Live Demo Cá Nhân](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)** | Phát triển portfolio cá nhân (Tuyến Metro UTH), kiểm thử giao diện |
 | 3 | **Nguyễn Thị Thảo Như** | `members/nguyen-thi-thao-nhu/` | Phát triển portfolio cá nhân, kiểm thử giao diện |
 | 4 | **Nguyễn Phạm Y Huỳnh** | `members/nguyen-pham-y-huynh/` | Phát triển portfolio cá nhân, kiểm thử giao diện |
 | 5 | **Lê Hữu Châu** | `members/le-huu-chau/` | Phát triển portfolio cá nhân, kiểm thử giao diện |

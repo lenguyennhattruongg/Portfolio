@@ -3,20 +3,778 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lê Nguyễn Nhật Trường | Portfolio</title>
+  <meta name="description" content="Portfolio cá nhân của Lê Nguyễn Nhật Trường — Sinh viên K24 Khoa Công nghệ Thông tin, Trường Đại học Giao thông Vận tải TP.HCM (UTH). Định hướng Software Engineer (Backend).">
+  <meta name="author" content="Lê Nguyễn Nhật Trường">
+  <meta name="keywords" content="Lê Nguyễn Nhật Trường, Software Engineer, Java Core, Socket TCP, UTH, K24, Lập trình Mạng, Metro UTH">
+  <title>Lê Nguyễn Nhật Trường | Tuyến K24 — UTH Metro Portfolio</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Lê Nguyễn Nhật Trường | Tuyến K24 — UTH Metro Portfolio">
+  <meta property="og:description" content="Portfolio phong cách Tuyến Metro Sài Gòn của sinh viên K24 UTH — Lập trình Java OOP & Socket TCP/IP.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Bricolage Grotesque (Display), IBM Plex Sans (Body), JetBrains Mono (Technical) — Tất cả đều hỗ trợ subset Vietnamese -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet riêng của Lê Nguyễn Nhật Trường -->
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <header>
-    <h1>Lê Nguyễn Nhật Trường</h1>
-    <a href="../../index.html">&larr; Về trang chủ nhóm</a>
-  </header>
-  <main>
-    <section>
-      <h2>Portfolio Foundation</h2>
-      <p>Khung sẵn sàng tích hợp.</p>
-    </section>
-  </main>
-  <script type="module" src="./script.js"></script>
+
+  <!-- Lớp bọc tổng thể hệ thống Metro -->
+  <div class="metro-layout">
+
+    <!-- =========================================================
+         THANH RAY ĐIỀU HƯỚNG DỌC (METRO RAIL SIDEBAR TRACK)
+         Micro-interaction chữ ký: vạch đường ray và các ga chuyển động theo cuộn trang
+         ========================================================= -->
+    <aside class="metro-rail-sidebar" aria-label="Sơ đồ trạm dừng Metro UTH">
+      <div class="sidebar-header">
+        <span class="route-badge">T24</span>
+        <span class="route-name">TUYẾN UTH</span>
+      </div>
+
+      <!-- Trục ray dẫn đường -->
+      <nav class="rail-track-container" id="railNav" aria-label="Điều hướng các ga">
+        <div class="rail-line-bg" aria-hidden="true"></div>
+        <div class="rail-line-progress" id="railProgress" aria-hidden="true"></div>
+        <div class="train-indicator" id="trainIndicator" aria-hidden="true">
+          <span class="train-dot"></span>
+        </div>
+
+        <ul class="stations-list">
+          <li class="station-stop active" data-station="hero">
+            <a href="#hero" class="station-link">
+              <span class="station-node" aria-hidden="true"></span>
+              <span class="station-label">
+                <span class="station-code">GA 01</span>
+                <span class="station-name">Xuất Phát</span>
+              </span>
+            </a>
+          </li>
+          <li class="station-stop" data-station="about">
+            <a href="#about" class="station-link">
+              <span class="station-node" aria-hidden="true"></span>
+              <span class="station-label">
+                <span class="station-code">GA 02</span>
+                <span class="station-name">Về Tôi</span>
+              </span>
+            </a>
+          </li>
+          <li class="station-stop" data-station="skills">
+            <a href="#skills" class="station-link">
+              <span class="station-node" aria-hidden="true"></span>
+              <span class="station-label">
+                <span class="station-code">GA 03</span>
+                <span class="station-name">Khoang Tải</span>
+              </span>
+            </a>
+          </li>
+          <li class="station-stop" data-station="projects">
+            <a href="#projects" class="station-link">
+              <span class="station-node" aria-hidden="true"></span>
+              <span class="station-label">
+                <span class="station-code">GA 04</span>
+                <span class="station-name">Vé Đồ Án</span>
+              </span>
+            </a>
+          </li>
+          <li class="station-stop" data-station="education">
+            <a href="#education" class="station-link">
+              <span class="station-node" aria-hidden="true"></span>
+              <span class="station-label">
+                <span class="station-code">GA 05</span>
+                <span class="station-name">Lộ Trình</span>
+              </span>
+            </a>
+          </li>
+          <li class="station-stop" data-station="contact">
+            <a href="#contact" class="station-link">
+              <span class="station-node" aria-hidden="true"></span>
+              <span class="station-label">
+                <span class="station-code">GA 06</span>
+                <span class="station-name">Điều Hành</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="tech-tag-mono">TP.HCM • 2026</span>
+      </div>
+    </aside>
+
+    <!-- =========================================================
+         KHU VỰC NỘI DUNG CHÍNH DỌC THEO TUYẾN (MAIN TRACK)
+         ========================================================= -->
+    <div class="metro-main-content">
+
+      <!-- THANH ĐIỀU KHIỂN & CHUYỂN TUYẾN (TRANSIT TOP BAR) -->
+      <header class="transit-topbar" id="transitTopbar">
+        <div class="topbar-inner">
+          <div class="transit-brand">
+            <a href="#hero" class="brand-link">
+              <span class="brand-station-tag">UTH-METRO</span>
+              <span class="brand-title">LÊ NGUYỄN NHẬT TRƯỜNG</span>
+            </a>
+          </div>
+
+          <div class="transit-actions">
+            <!-- Nút chuyển tuyến bắt buộc: Quay về trang chủ nhóm 6 người -->
+            <a href="../../index.html" class="btn-transfer" title="Chuyển tuyến về Cổng Portfolio Nhóm 6 thành viên UTH">
+              <span class="transfer-icon" aria-hidden="true">&#8617;</span>
+              <span class="transfer-text">Đổi Tuyến: Cổng Nhóm UTH</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <!-- =========================================================
+             GA 01: XUẤT PHÁT (HERO SECTION & THẺ NHÂN SỰ ĐIỀU HÀNH)
+             ========================================================= -->
+        <section class="station-section station-hero" id="hero">
+          <div class="station-meta-strip">
+            <span class="meta-tag">TUYẾN SỐ 24</span>
+            <span class="meta-line">BẾN THÀNH — UTH SUỐI TIÊN — BACKEND SYSTEM</span>
+            <span class="meta-status">HOẠT ĐỘNG: ĐÚNG GIỜ</span>
+          </div>
+
+          <div class="hero-brutalist-grid">
+            <div class="hero-editorial-col">
+              <div class="line-identifier">
+                <span class="line-dot"></span>
+                <span>SINH VIÊN CHÍNH QUY K24 • ĐH GIAO THÔNG VẬN TẢI TP.HCM</span>
+              </div>
+
+              <h1 class="hero-mega-title">
+                LÊ NGUYỄN <br>
+                <span class="highlight-text">NHẬT TRƯỜNG</span>
+              </h1>
+
+              <div class="hero-position-banner">
+                <span class="position-tag">ĐỊNH HƯỚNG NGHỀ NGHIỆP</span>
+                <strong class="position-title">SOFTWARE ENGINEER TRAINEE (BACKEND FOCUS)</strong>
+              </div>
+
+              <p class="hero-lead-text">
+                Tôi là sinh viên K24 tại UTH. Thay vì học vẹt lý thuyết, tôi thích mở Wireshark bắt từng gói tin TCP để xem máy tính bắt tay nhau thế nào, hoặc ngồi đọc mã nguồn Socket trong JDK. Những lúc nghẽn logic, tôi ra sân chạy bộ vài vòng để đầu óc thông suốt rồi mới quay lại gỡ deadlock. Định hướng trở thành một Software Engineer làm backend đáng tin cậy.
+              </p>
+
+              <div class="hero-cta-strip">
+                <a href="#projects" class="btn-transit btn-transit-primary">
+                  <span>Xem 3 vé đồ án</span>
+                  <span class="arrow-symbol" aria-hidden="true">&darr;</span>
+                </a>
+                <a href="#contact" class="btn-transit btn-transit-ghost">
+                  <span>Gửi tin nhắn</span>
+                  <span class="arrow-symbol" aria-hidden="true">&rarr;</span>
+                </a>
+                <a href="https://github.com/lenguyennhattruongg" target="_blank" rel="noopener noreferrer" class="btn-transit btn-transit-outline">
+                  <span>GitHub</span>
+                  <span class="arrow-symbol" aria-hidden="true">&#8599;</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- THẺ ĐIỀU HÀNH TÀU METRO (Avatar styled as Operator Transit Pass) -->
+            <div class="hero-visual-col">
+              <div class="operator-pass-card">
+                <div class="pass-punch-hole" aria-hidden="true"></div>
+                <div class="pass-header">
+                  <div class="pass-header-left">
+                    <span class="pass-series">UTH-PASS № 24-0882</span>
+                    <strong class="pass-title">THẺ NHÂN SỰ ĐIỀU HÀNH K24</strong>
+                  </div>
+                  <div class="pass-stamp">UTH CNTT</div>
+                </div>
+
+                <div class="pass-body">
+                  <div class="pass-photo-frame">
+                    <img src="./images/avatar.png" alt="Ảnh chân dung sinh viên Lê Nguyễn Nhật Trường — UTH K24" class="operator-img" loading="eager" onerror="this.onerror=null; this.src='./images/avatar.svg';">
+                    <span class="photo-caption">L.N.N. TRƯỜNG</span>
+                  </div>
+
+                  <div class="pass-fields">
+                    <div class="field-item">
+                      <span class="field-key">HỌ VÀ TÊN</span>
+                      <strong class="field-val">Lê Nguyễn Nhật Trường</strong>
+                    </div>
+                    <div class="field-item">
+                      <span class="field-key">TRƯỜNG ĐÀO TẠO</span>
+                      <strong class="field-val">ĐH GTVT TP.HCM (UTH)</strong>
+                    </div>
+                    <div class="field-item">
+                      <span class="field-key">KHOA / KHÓA</span>
+                      <strong class="field-val">Khoa CNTT • Khóa K24</strong>
+                    </div>
+                    <div class="field-item">
+                      <span class="field-key">MỤC TIÊU</span>
+                      <strong class="field-val highlight-val">Thực tập SE Intern 2026</strong>
+                    </div>
+                    <div class="field-item">
+                      <span class="field-key">KÊNH NHẬN TIN</span>
+                      <strong class="field-val font-mono">truonglnn0882@ut.edu.vn</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pass-footer">
+                  <span class="pass-barcode" aria-hidden="true">|||||||| ||||| |||||||||| |||||| |||||</span>
+                  <span class="pass-signature">XÁC NHẬN CHÍNH QUY</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+             GA 02: VỀ TÔI (CÂU CHUYỆN & TÁC PHONG THỰC CHẤT)
+             ========================================================= -->
+        <section class="station-section" id="about">
+          <div class="station-signpost">
+            <span class="sign-code">GA 02</span>
+            <h2 class="sign-title">Về Bản Thân &amp; Phương Pháp Rèn Luyện</h2>
+          </div>
+
+          <div class="editorial-story-grid">
+            <div class="story-lead-box">
+              <h3 class="story-heading">Tại sao lại là Kỹ thuật Mạng &amp; Java OOP?</h3>
+              <p>
+                Tôi không chọn lập trình vì những lời hứa hẹn hào nhoáng. Tôi chọn vì muốn hiểu chính xác điều gì xảy ra ở tầng thấp khi hai tiến trình trên hai máy tính khác nhau trao đổi từng mảng byte qua dây cáp mạng.
+              </p>
+              <p>
+                Tại giảng đường UTH, tôi dồn năng lượng vào <strong>Lập trình Hướng đối tượng (Java SE 21)</strong> và <strong>Lập trình Mạng Socket TCP/IP</strong>. Khi gặp lỗi ngoại lệ hay tắc nghẽn đường truyền, tôi có thói quen đọc kỹ stack trace và tài liệu RFC thay vì tra giải pháp chắp vá trên mạng.
+              </p>
+              <p>
+                Ngoài giờ học ở trường, tôi rèn luyện thể lực qua thể thao để giữ sự bền bỉ, và thường xuyên xem các kho lưu trữ mã nguồn mở trên GitHub để học cách kỹ sư quốc tế đặt tên hàm, tổ chức gói mã nguồn và kiểm soát chất lượng commit.
+              </p>
+            </div>
+
+            <div class="transit-bulletin">
+              <h3 class="bulletin-title">BẢN TIN VẬN HÀNH KỸ SƯ</h3>
+              <ul class="bulletin-list">
+                <li>
+                  <span class="bulletin-num">01</span>
+                  <div>
+                    <strong>Tác phong gỡ lỗi (Debugging):</strong> Dùng breakpoint, theo dõi luồng biến và phân tích logic thay vì đoán mò.
+                  </div>
+                </li>
+                <li>
+                  <span class="bulletin-num">02</span>
+                  <div>
+                    <strong>Tra cứu nguyên bản:</strong> Ưu tiên Oracle Docs, Java Language Specification và thảo luận kỹ thuật.
+                  </div>
+                </li>
+                <li>
+                  <span class="bulletin-num">03</span>
+                  <div>
+                    <strong>Kỷ luật nhóm:</strong> Viết mã nguồn sạch, phân chia module rõ ràng để 5 thành viên còn lại trong nhóm đồ án phối hợp thông suốt.
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+             GA 03: KHOANG TẢI (KỸ NĂNG & HỆ THỐNG KỸ THUẬT)
+             ========================================================= -->
+        <section class="station-section" id="skills">
+          <div class="station-signpost">
+            <span class="sign-code">GA 03</span>
+            <h2 class="sign-title">Khoang Tải Năng Lực &amp; Ngăn Chứa Công Nghệ</h2>
+          </div>
+
+          <div class="freight-container-grid">
+            <!-- Khoang 1: Java & OOP -->
+            <div class="freight-bay">
+              <div class="bay-header">
+                <span class="bay-index">BAY-01</span>
+                <h3 class="bay-title">Java Core &amp; Hướng Đối Tượng</h3>
+              </div>
+              <div class="bay-body">
+                <div class="tech-item">
+                  <div class="tech-head">
+                    <strong class="tech-name">Java SE 21 Core</strong>
+                    <span class="spec-tag">Trọng tâm</span>
+                  </div>
+                  <p class="tech-detail">4 nguyên lý OOP (Kế thừa, Đóng gói, Đa hình, Trừu tượng), Collection Framework (List, Map, Set), Exception Handling, I/O Streams.</p>
+                </div>
+                <div class="tech-item">
+                  <div class="tech-head">
+                    <strong class="tech-name">Đa luồng (Multithreading)</strong>
+                    <span class="spec-tag">Đang rèn luyện</span>
+                  </div>
+                  <p class="tech-detail">Quản lý vòng đời Thread, Runnable, cơ chế đồng bộ hóa (synchronized) xử lý đồng thời trong ứng dụng điều khiển.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Khoang 2: Mạng & C/C++ -->
+            <div class="freight-bay">
+              <div class="bay-header">
+                <span class="bay-index">BAY-02</span>
+                <h3 class="bay-title">Mạng Máy Tính &amp; C / C++</h3>
+              </div>
+              <div class="bay-body">
+                <div class="tech-item">
+                  <div class="tech-head">
+                    <strong class="tech-name">Socket TCP/IP</strong>
+                    <span class="spec-tag">Thực hành tốt</span>
+                  </div>
+                  <p class="tech-detail">Kiến trúc Client - Server, bắt tay kết nối bằng ServerSocket, truyền nhận mảng byte stream buffer nén cho ứng dụng Remote Desktop.</p>
+                </div>
+                <div class="tech-item">
+                  <div class="tech-head">
+                    <strong class="tech-name">C / C++ Cơ Bản</strong>
+                    <span class="spec-tag">Nền tảng</span>
+                  </div>
+                  <p class="tech-detail">Quản lý con trỏ (pointers), cấp phát bộ nhớ động, mảng, cấu trúc dữ liệu liên kết và giải thuật sắp xếp/tìm kiếm.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Khoang 3: CSDL & Web -->
+            <div class="freight-bay">
+              <div class="bay-header">
+                <span class="bay-index">BAY-03</span>
+                <h3 class="bay-title">Dữ Liệu &amp; Web Căn Bản</h3>
+              </div>
+              <div class="bay-body">
+                <div class="tech-item">
+                  <div class="tech-head">
+                    <strong class="tech-name">SQL / MySQL</strong>
+                    <span class="spec-tag">Nền tảng</span>
+                  </div>
+                  <p class="tech-detail">Thiết kế lược đồ quan hệ, chuẩn hóa 3NF, viết câu truy vấn CRUD, JOIN nhiều bảng và ràng buộc khóa ngoại.</p>
+                </div>
+                <div class="tech-item">
+                  <div class="tech-head">
+                    <strong class="tech-name">Web HTML5 / CSS3 / JS</strong>
+                    <span class="spec-tag">Nền tảng</span>
+                  </div>
+                  <p class="tech-detail">HTML5 semantic, CSS layout thuần, JavaScript ES6+ xử lý sự kiện DOM không phụ thuộc framework cho trang cá nhân.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Khoang 4: Công cụ & Quy trình -->
+            <div class="freight-bay">
+              <div class="bay-header">
+                <span class="bay-index">BAY-04</span>
+                <h3 class="bay-title">Công Cụ &amp; Tiêu Chuẩn Kỹ Sư</h3>
+              </div>
+              <div class="bay-body">
+                <div class="tool-tags-grid">
+                  <span class="metro-chip">Git / GitHub Workflow</span>
+                  <span class="metro-chip">IntelliJ IDEA Ultimate</span>
+                  <span class="metro-chip">VS Code</span>
+                  <span class="metro-chip">PowerShell Terminal</span>
+                  <span class="metro-chip">Wireshark (Bắt gói tin)</span>
+                  <span class="metro-chip">Ôn luyện TOEIC</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+             GA 04: VÉ ĐỒ ÁN (PROJECTS SHOWCASE AS METRO TICKETS)
+             ========================================================= -->
+        <section class="station-section" id="projects">
+          <div class="station-signpost">
+            <span class="sign-code">GA 04</span>
+            <h2 class="sign-title">3 Vé Đồ Án Môn Học Thực Chiến</h2>
+          </div>
+
+          <!-- Bộ lọc tuyến đồ án bằng JavaScript thuần -->
+          <div class="ticket-filter-bar" role="tablist" aria-label="Lọc vé đồ án">
+            <span class="filter-label">CHỌN TUYẾN:</span>
+            <button class="filter-btn active" data-filter="all" type="button" role="tab" aria-selected="true">Tất cả vé (3)</button>
+            <button class="filter-btn" data-filter="network" type="button" role="tab" aria-selected="false">Tuyến Mạng TCP</button>
+            <button class="filter-btn" data-filter="java" type="button" role="tab" aria-selected="false">Tuyến Java OOP</button>
+            <button class="filter-btn" data-filter="web" type="button" role="tab" aria-selected="false">Tuyến Web UTH</button>
+          </div>
+
+          <!-- Danh sách 3 Vé Đồ Án -->
+          <div class="tickets-grid" id="ticketsGrid">
+
+            <!-- VÉ 01: Remote Desktop -->
+            <article class="metro-ticket-card" data-category="network" id="ticket-remote-desktop">
+              <div class="ticket-stub-left">
+                <div class="ticket-perforation-top" aria-hidden="true"></div>
+                <div class="ticket-perforation-bottom" aria-hidden="true"></div>
+                <span class="ticket-serial">TICKET № NET-01</span>
+                <span class="ticket-route-code">TCP/IP</span>
+              </div>
+
+              <div class="ticket-body">
+                <div class="ticket-header-strip">
+                  <span class="route-tag-network">MÔN: LẬP TRÌNH MẠNG</span>
+                  <span class="ticket-date">HỌC KỲ UTH</span>
+                </div>
+
+                <h3 class="ticket-project-title">Remote Desktop Application</h3>
+                <p class="ticket-desc">
+                  Ứng dụng điều khiển máy tính từ xa hoạt động theo mô hình Client - Server qua TCP/IP Socket. Hệ thống truyền phát luồng ảnh chụp màn hình và đồng bộ các sự kiện điều khiển chuột, bàn phím theo thời gian thực.
+                </p>
+
+                <div class="ticket-duties">
+                  <div class="duty-box">
+                    <span class="duty-label">VAI TRÒ CỦA TÔI:</span>
+                    <p class="duty-text">[CẦN SỬA: Ví dụ: Phụ trách lập trình ServerSocket nhận stream ảnh màn hình và xử lý các sự kiện chuột / bàn phím]</p>
+                  </div>
+                  <div class="duty-box">
+                    <span class="duty-label">ĐIỀU TÔI HỌC ĐƯỢC:</span>
+                    <p class="duty-text">[CẦN SỬA: Ví dụ: Hiểu sâu cơ chế bắt tay 3 bước TCP, cách phân mảnh byte buffer để hình ảnh không bị giật lag và cách tách luồng tránh đơ UI]</p>
+                  </div>
+                </div>
+
+                <div class="ticket-tech-strip">
+                  <span class="pill-tech">Java Core</span>
+                  <span class="pill-tech">Socket TCP</span>
+                  <span class="pill-tech">Screen Capture</span>
+                  <span class="pill-tech">Network Protocol</span>
+                </div>
+
+                <div class="ticket-actions">
+                  <button class="btn-inspect-ticket open-modal-btn" data-project="remote-desktop" type="button">
+                    <span>Soát vé &amp; Xem chi tiết</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </button>
+                  <a href="https://github.com/duypham26/prj_UDM_06" target="_blank" rel="noopener noreferrer" class="btn-ticket-repo">
+                    <span>Mã nguồn GitHub</span>
+                    <span aria-hidden="true">&#8599;</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- VÉ 02: FreshVend Java System -->
+            <article class="metro-ticket-card" data-category="java" id="ticket-freshvend">
+              <div class="ticket-stub-left">
+                <div class="ticket-perforation-top" aria-hidden="true"></div>
+                <div class="ticket-perforation-bottom" aria-hidden="true"></div>
+                <span class="ticket-serial">TICKET № OOP-02</span>
+                <span class="ticket-route-code">JAVA-SE</span>
+              </div>
+
+              <div class="ticket-body">
+                <div class="ticket-header-strip">
+                  <span class="route-tag-java">MÔN: LẬP TRÌNH HƯỚNG ĐỐI TƯỢNG</span>
+                  <span class="ticket-date">HỌC KỲ UTH</span>
+                </div>
+
+                <h3 class="ticket-project-title">FreshVend Management System</h3>
+                <p class="ticket-desc">
+                  Phần mềm quản lý và vận hành máy bán hàng tự động bằng Java Core. Triển khai các nguyên lý kiến trúc OOP, quản lý danh mục tồn kho sản phẩm, mô phỏng quy trình xử lý giao dịch và kiểm soát dòng tiền mua hàng.
+                </p>
+
+                <div class="ticket-duties">
+                  <div class="duty-box">
+                    <span class="duty-label">VAI TRÒ CỦA TÔI:</span>
+                    <p class="duty-text">[CẦN SỬA: Ví dụ: Thiết kế các class mô hình hóa sản phẩm, khay chứa và xử lý logic trừ tiền trong giao dịch]</p>
+                  </div>
+                  <div class="duty-box">
+                    <span class="duty-label">ĐIỀU TÔI HỌC ĐƯỢC:</span>
+                    <p class="duty-text">[CẦN SỬA: Ví dụ: Cách áp dụng 4 tính chất OOP để code không bị rối khi mở rộng thêm loại hàng hóa mới]</p>
+                  </div>
+                </div>
+
+                <div class="ticket-tech-strip">
+                  <span class="pill-tech">Java Core (SE 21)</span>
+                  <span class="pill-tech">OOP Architecture</span>
+                  <span class="pill-tech">Inventory System</span>
+                  <span class="pill-tech">Transaction Handler</span>
+                </div>
+
+                <div class="ticket-actions">
+                  <button class="btn-inspect-ticket open-modal-btn" data-project="freshvend" type="button">
+                    <span>Soát vé &amp; Xem chi tiết</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </button>
+                  <a href="https://github.com/nguyenxuanhieu2903/freshvend-java" target="_blank" rel="noopener noreferrer" class="btn-ticket-repo">
+                    <span>Mã nguồn GitHub</span>
+                    <span aria-hidden="true">&#8599;</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- VÉ 03: Group Portfolio Hub -->
+            <article class="metro-ticket-card" data-category="web" id="ticket-portfolio-group">
+              <div class="ticket-stub-left">
+                <div class="ticket-perforation-top" aria-hidden="true"></div>
+                <div class="ticket-perforation-bottom" aria-hidden="true"></div>
+                <span class="ticket-serial">TICKET № WEB-03</span>
+                <span class="ticket-route-code">MPA-UTH</span>
+              </div>
+
+              <div class="ticket-body">
+                <div class="ticket-header-strip">
+                  <span class="route-tag-web">MÔN: LẬP TRÌNH WEB</span>
+                  <span class="ticket-date">HỌC KỲ 1 2026</span>
+                </div>
+
+                <h3 class="ticket-project-title">Group Portfolio Website Hub</h3>
+                <p class="ticket-desc">
+                  Nền tảng website nhóm 6 sinh viên UTH kiến trúc đa trang (Multi-Page Application) tối ưu bằng Vite. Tích hợp thanh tìm kiếm thành viên theo thời gian thực, responsive đa thiết bị và không gian portfolio cá nhân độc lập.
+                </p>
+
+                <div class="ticket-duties">
+                  <div class="duty-box">
+                    <span class="duty-label">VAI TRÒ CỦA TÔI:</span>
+                    <p class="duty-text">[CẦN SỬA: Ví dụ: Thiết kế và hoàn thiện toàn bộ không gian portfolio cá nhân độc lập, tích hợp form liên hệ và tối ưu responsive]</p>
+                  </div>
+                  <div class="duty-box">
+                    <span class="duty-label">ĐIỀU TÔI HỌC ĐƯỢC:</span>
+                    <p class="duty-text">[CẦN SỬA: Ví dụ: Tư duy cấu trúc đa trang MPA, cách viết CSS thuần kiểm soát bố cục và kỹ thuật bắt sự kiện DOM không phụ thuộc framework]</p>
+                  </div>
+                </div>
+
+                <div class="ticket-tech-strip">
+                  <span class="pill-tech">HTML5 Semantic</span>
+                  <span class="pill-tech">CSS3 Vanilla</span>
+                  <span class="pill-tech">JavaScript ES6+</span>
+                  <span class="pill-tech">Vite MPA</span>
+                </div>
+
+                <div class="ticket-actions">
+                  <button class="btn-inspect-ticket open-modal-btn" data-project="portfolio-group" type="button">
+                    <span>Soát vé &amp; Xem chi tiết</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </button>
+                  <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" target="_blank" rel="noopener noreferrer" class="btn-ticket-repo">
+                    <span>Mã nguồn GitHub</span>
+                    <span aria-hidden="true">&#8599;</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- =========================================================
+             GA 05: LỘ TRÌNH (HỌC VẤN, CHỨNG CHỈ & MỤC TIÊU K24)
+             ========================================================= -->
+        <section class="station-section" id="education">
+          <div class="station-signpost">
+            <span class="sign-code">GA 05</span>
+            <h2 class="sign-title">Lộ Trình Đào Tạo &amp; Mốc Điểm</h2>
+          </div>
+
+          <div class="timetable-grid">
+            <div class="timetable-col main-schedule">
+              <h3 class="schedule-heading">LỊCH TRÌNH ĐÀO TẠO CHÍNH QUY</h3>
+              
+              <div class="schedule-timeline">
+                <div class="schedule-stop">
+                  <div class="stop-time">2024 — HIỆN TẠI</div>
+                  <div class="stop-info">
+                    <strong class="stop-title">Trường Đại học Giao thông Vận tải TP.HCM (UTH)</strong>
+                    <span class="stop-sub">Khoa Công nghệ Thông tin • Hệ chính quy • Khóa K24</span>
+                    <p class="stop-desc">Tiếp thu nền tảng kỹ thuật phần mềm, cấu trúc dữ liệu, mạng máy tính và hệ quản trị cơ sở dữ liệu.</p>
+                    <div class="stop-badges">
+                      <span class="stop-tag">Java Core &amp; OOP</span>
+                      <span class="stop-tag">Lập trình Mạng</span>
+                      <span class="stop-tag">Hệ Quản trị CSDL</span>
+                      <span class="stop-tag">Lập trình Web</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="schedule-stop destination-stop">
+                  <div class="stop-time">NĂM 2026</div>
+                  <div class="stop-info">
+                    <strong class="stop-title">Mục Tiêu: Thực Tập Sinh Software Engineer (Backend Intern)</strong>
+                    <span class="stop-sub">Môi trường doanh nghiệp thực tế</span>
+                    <p class="stop-desc">Sẵn sàng cọ xát với quy trình CI/CD, viết kiểm thử tự động, đọc hiểu code base thực tế và đóng góp vào các dịch vụ backend.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timetable-col extra-schedule">
+              <h3 class="schedule-heading">HỒ SƠ BỔ TRỢ &amp; TẬP LUYỆN</h3>
+
+              <div class="extra-notice-box">
+                <span class="notice-badge">CHỨNG CHỈ NGOẠI NGỮ</span>
+                <strong class="notice-title">Tiếng Anh Kỹ Thuật (TOEIC)</strong>
+                <p class="notice-text">
+                  Hiện đang tích cực ôn luyện ngữ pháp và tích lũy từ vựng chuyên ngành để chuẩn bị thi lấy chứng chỉ <strong>TOEIC</strong>, phục vụ trực tiếp cho việc đọc hiểu tài liệu và trao đổi kỹ thuật.
+                </p>
+                <span class="notice-status">&#9679; Đang tập trung tích lũy kiến thức</span>
+              </div>
+
+              <div class="extra-notice-box">
+                <span class="notice-badge">ĐỜI SỐNG KỸ SƯ</span>
+                <strong class="notice-title">Sở Thích Cá Nhân</strong>
+                <p class="notice-text">
+                  Đọc mã nguồn mở trên GitHub, tìm hiểu kiến trúc mạng máy tính, rèn luyện tư duy thuật toán và tập luyện thể thao để duy trì sức bền.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+             GA 06: PHÒNG ĐIỀU HÀNH (LIÊN HỆ & GỬI THƯ THỰC TẾ)
+             ========================================================= -->
+        <section class="station-section" id="contact">
+          <div class="station-signpost">
+            <span class="sign-code">GA 06</span>
+            <h2 class="sign-title">Phòng Điều Hành &amp; Kênh Nhận Tín Hiệu</h2>
+          </div>
+
+          <div class="dispatch-grid">
+            <!-- Cột thông tin liên lạc -->
+            <div class="dispatch-info-card">
+              <h3 class="dispatch-title">KÊNH TIẾP NHẬN TRỰC TIẾP</h3>
+              <p class="dispatch-sub">
+                Tôi luôn sẵn lòng tiếp nhận phản hồi học thuật từ Giảng viên, trao đổi từ bạn bè và các cơ hội thực tập Software Engineer.
+              </p>
+
+              <div class="dispatch-channels">
+                <div class="channel-row">
+                  <span class="channel-label">EMAIL SINH VIÊN (UTH):</span>
+                  <a href="mailto:truonglnn0882@ut.edu.vn" class="channel-val font-mono">truonglnn0882@ut.edu.vn</a>
+                </div>
+
+                <div class="channel-row">
+                  <span class="channel-label">GITHUB CÁ NHÂN:</span>
+                  <a href="https://github.com/lenguyennhattruongg" target="_blank" rel="noopener noreferrer" class="channel-val font-mono">github.com/lenguyennhattruongg &#8599;</a>
+                </div>
+
+                <div class="channel-row">
+                  <span class="channel-label">ĐỊA BÀN HỌC TẬP:</span>
+                  <span class="channel-val">TP. Hồ Chí Minh • Trường ĐH Giao thông Vận tải TP.HCM (UTH)</span>
+                </div>
+              </div>
+
+              <!-- Hộp nút sao chép email dự phòng khi máy không mở được ứng dụng mail -->
+              <div class="copy-email-box">
+                <span class="copy-label">DỰ PHÒNG NẾU KHÔNG DÙNG ỨNG DỤNG MAIL:</span>
+                <button type="button" class="btn-copy-email" id="copyEmailBtn">
+                  <span id="copyBtnText">Sao chép địa chỉ email vào bộ nhớ tạm</span>
+                  <span class="copy-icon" aria-hidden="true">&#128203;</span>
+                </button>
+                <div id="copyAlertToast" class="copy-toast d-none" role="status" aria-live="polite">
+                  Đã sao chép truonglnn0882@ut.edu.vn vào clipboard!
+                </div>
+              </div>
+
+              <!-- Thẻ liên kết đổi tuyến về nhóm -->
+              <div class="transfer-hub-card">
+                <div class="transfer-hub-head">
+                  <span class="transfer-hub-badge">TRẠM TRUNG CHUYỂN</span>
+                  <strong>Cổng Nhóm 6 Thành Viên UTH</strong>
+                </div>
+                <p>Website này là đồ án thành viên thuộc Nền tảng Portfolio Nhóm 6 người học phần Lập trình Web.</p>
+                <a href="../../index.html" class="btn-hub-link">&larr; Xem Trang Chủ Cổng Nhóm UTH</a>
+              </div>
+            </div>
+
+            <!-- Form gửi tin nhắn thật kiểm tra lỗi JS (Tiêu chí 15) -->
+            <div class="dispatch-form-card">
+              <form id="contactForm" class="transit-form" novalidate>
+                <div class="form-header-row">
+                  <h3 class="form-title">GỬI TÍN HIỆU / TIN NHẮN</h3>
+                  <span class="required-note">* Bắt buộc điền</span>
+                </div>
+
+                <!-- Thông báo trạng thái form -->
+                <div id="formAlertBox" class="form-alert d-none" role="alert"></div>
+
+                <!-- 1. Họ và tên -->
+                <div class="form-field">
+                  <label for="fullName" class="field-label">Họ và tên của bạn <span class="req">*</span></label>
+                  <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Ví dụ: Nguyễn Văn A" required autocomplete="name">
+                  <span class="error-text" id="fullNameError"></span>
+                </div>
+
+                <!-- 2. Địa chỉ Email -->
+                <div class="form-field">
+                  <label for="email" class="field-label">Địa chỉ Email phản hồi <span class="req">*</span></label>
+                  <input type="email" id="email" name="email" class="form-input" placeholder="email@domain.com" required autocomplete="email">
+                  <span class="error-text" id="emailError"></span>
+                </div>
+
+                <!-- 3. Tiêu đề -->
+                <div class="form-field">
+                  <label for="subject" class="field-label">Tiêu đề tin nhắn <span class="req">*</span></label>
+                  <input type="text" id="subject" name="subject" class="form-input" placeholder="Ví dụ: Trao đổi về dự án Remote Desktop" required>
+                  <span class="error-text" id="subjectError"></span>
+                </div>
+
+                <!-- 4. Nội dung -->
+                <div class="form-field">
+                  <label for="message" class="field-label">Nội dung trao đổi <span class="req">*</span></label>
+                  <textarea id="message" name="message" rows="4" class="form-input form-textarea" placeholder="Nhập ít nhất 10 ký tự nội dung..." required></textarea>
+                  <span class="error-text" id="messageError"></span>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-transit-submit">
+                  <span>GỬI TÍN HIỆU (MỞ ỨNG DỤNG MAIL)</span>
+                  <span aria-hidden="true">&rarr;</span>
+                </button>
+
+                <p class="form-footer-note">
+                  Sau khi kiểm tra hợp lệ, hệ thống tự động gọi giao thức <code>mailto:</code> với tiêu đề và nội dung được mã hóa điền sẵn đến <strong>truonglnn0882@ut.edu.vn</strong>.
+                </p>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- CHÂN TRANG ĐỒ ÁN (TRANSIT COLOPHON) -->
+      <footer class="transit-footer">
+        <div class="footer-inner">
+          <div class="footer-left">
+            <span class="footer-route-code">TUYẾN K24 • ĐH GIAO THÔNG VẬN TẢI TP.HCM (UTH)</span>
+            <p class="footer-copy">
+              &copy; 2026 <strong>Lê Nguyễn Nhật Trường</strong>. Đồ án cá nhân học phần Lập trình Web.
+            </p>
+          </div>
+          <div class="footer-right">
+            <a href="#hero" class="btn-top-track" title="Về đầu tuyến">
+              <span>ĐẦU TUYẾN</span>
+              <span aria-hidden="true">&uarr;</span>
+            </a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL SOÁT VÉ ĐỒ ÁN (TICKET INSPECTION MODAL)
+       Phục vụ xem chi tiết đồ án, đóng bằng phím ESC, quản lý focus
+       ========================================================= -->
+  <div id="projectModal" class="metro-modal" aria-hidden="true" role="dialog" aria-labelledby="modalProjectTitle" aria-modal="true">
+    <div class="modal-dim-backdrop" id="modalBackdrop"></div>
+    <div class="modal-dialog-card" role="document">
+      <div class="modal-header-strip">
+        <span class="modal-badge-series" id="modalProjectSeries">BẢN KIỂM SOÁT VÉ ĐỒ ÁN</span>
+        <button class="btn-close-modal" id="modalCloseBtn" type="button" aria-label="Đóng cửa sổ soát vé">
+          <span>ĐÓNG [ESC]</span>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-scroll-body" id="modalBodyContent">
+        <!-- JavaScript sẽ điền động thông tin đồ án vào đây -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript logic thuần (Tiêu chí 13, 14, 15) — Tương thích 100% file:/// và HTTP -->
+  <script src="./script.js" defer></script>
 </body>
 </html>
