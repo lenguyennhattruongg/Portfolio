@@ -1,10 +1,3 @@
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-// Portfolio Nguyen Xuan Hieu - Base Script
-console.log('Portfolio Nguyen Xuan Hieu initialized.');
-=======
->>>>>>> Stashed changes
 /**
  * ==============================================================================
  * PORTFOLIO NGUYỄN XUÂN HIẾU - CORE JAVASCRIPT (ES MODULE)
@@ -12,15 +5,12 @@ console.log('Portfolio Nguyen Xuan Hieu initialized.');
  * ==============================================================================
  */
 
-<<<<<<< Updated upstream
-=======
 // Static Diagram Asset Imports for Vite Build Optimization
 import hiunxstarArchSvg from './images/hiunxstar-architecture.svg';
 import hiunxstarErdSvg from './images/hiunxstar-erd.svg';
 import vetArchSvg from './images/veterinary-architecture.svg';
 import vetErdSvg from './images/veterinary-erd.svg';
 
->>>>>>> Stashed changes
 // ------------------------------------------------------------------------------
 // 1. BILINGUAL DICTIONARY (VI / EN)
 // ------------------------------------------------------------------------------
@@ -82,10 +72,7 @@ const translations = {
     skill_group_db: "Cơ sở dữ liệu & Bất đồng bộ",
     skill_group_devops: "DevOps & Công cụ phát triển",
     skill_group_network: "Hạ tầng mạng & Hệ điều hành máy chủ",
-<<<<<<< Updated upstream
-=======
     tooltip_role_tag: "Vai trò ứng dụng",
->>>>>>> Stashed changes
 
     // Projects Section
     projects_tag: "03 / Dự án thực tế",
@@ -156,12 +143,6 @@ const translations = {
     placeholder_subject: "Ví dụ: Thảo luận về dự án backend",
     placeholder_message: "Nhập nội dung cần trao đổi (tối thiểu 10 ký tự)...",
 
-<<<<<<< Updated upstream
-    // Footer
-    footer_subtext: "Thiết kế theo chuẩn Jade Pebble Morning • Responsive • WCAG 2.1 AA Compliant.",
-    footer_group_home: "← Về trang chủ nhóm",
-    footer_top: "Lên đầu trang ↑",
-=======
     // Footer & Live Status Monitor (Stage 2C)
     footer_subtext: "Thiết kế theo chuẩn Jade Pebble Morning • Responsive • WCAG 2.1 AA Compliant.",
     footer_group_home: "Về trang chủ nhóm",
@@ -172,7 +153,6 @@ const translations = {
     status_ssl_label: "SSL:",
     status_ssl_val: "Hợp lệ (256-bit)",
     aria_server_status: "Trạng thái hạ tầng hệ thống thời gian thực",
->>>>>>> Stashed changes
 
     // Modal
     tab_overview: "Tổng quan",
@@ -183,14 +163,10 @@ const translations = {
     architecture_status_desc: "Đang hoàn thiện sơ đồ luồng dữ liệu chuẩn kỹ thuật. Không mô phỏng sơ đồ giả.",
     erd_status_title: "Mô hình Thực thể Kết hợp (ERD 3NF)",
     erd_status_desc: "Sơ đồ quan hệ thực thể đang được trích xuất trực tiếp từ cấu trúc bảng cơ sở dữ liệu thực tế.",
-<<<<<<< Updated upstream
-    modal_btn_close: "Đóng lại (Esc)"
-=======
     modal_btn_close: "Đóng lại (Esc)",
     lightbox_instruction: "Cuộn chuột hoặc dùng các nút công cụ để soi rõ chi tiết bảng dữ liệu 3NF, Stored Procedures, Views & các tầng kiến trúc.",
     cli_toggle_text: "Dev Mode",
     cli_hint: "Gõ 'help' để xem danh sách lệnh • Phím ↑/↓ để duyệt lịch sử • 'exit' hoặc Esc để đóng"
->>>>>>> Stashed changes
   },
 
   en: {
@@ -250,10 +226,7 @@ const translations = {
     skill_group_db: "Databases & Asynchronous Systems",
     skill_group_devops: "DevOps & Developer Tools",
     skill_group_network: "Network Infrastructure & Server OS",
-<<<<<<< Updated upstream
-=======
     tooltip_role_tag: "Practical Role",
->>>>>>> Stashed changes
 
     // Projects Section
     projects_tag: "03 / Featured Projects",
@@ -324,12 +297,6 @@ const translations = {
     placeholder_subject: "e.g., Discussion on backend architecture",
     placeholder_message: "Enter your message here (minimum 10 characters)...",
 
-<<<<<<< Updated upstream
-    // Footer
-    footer_subtext: "Crafted in Jade Pebble Morning • Responsive • WCAG 2.1 AA Compliant.",
-    footer_group_home: "← Back to Group Home",
-    footer_top: "Back to Top ↑",
-=======
     // Footer & Live Status Monitor (Stage 2C)
     footer_subtext: "Crafted in Jade Pebble Morning • Responsive • WCAG 2.1 AA Compliant.",
     footer_group_home: "Back to Group Home",
@@ -340,7 +307,6 @@ const translations = {
     status_ssl_label: "SSL:",
     status_ssl_val: "Valid (256-bit)",
     aria_server_status: "Real-time infrastructure system status",
->>>>>>> Stashed changes
 
     // Modal
     tab_overview: "Overview",
@@ -351,14 +317,10 @@ const translations = {
     architecture_status_desc: "Engineering data flow diagrams are being finalized. No simulated or fake diagrams.",
     erd_status_title: "Entity Relationship Diagram (3NF)",
     erd_status_desc: "Entity relationship schema is directly derived from active database structures.",
-<<<<<<< Updated upstream
-    modal_btn_close: "Close (Esc)"
-=======
     modal_btn_close: "Close (Esc)",
     lightbox_instruction: "Use mouse wheel or toolbar buttons to zoom into 3NF relational tables, Stored Procedures, Views & architectural tiers.",
     cli_toggle_text: "Dev Mode",
     cli_hint: "Type 'help' for manual • Arrow ↑/↓ for history • 'exit' or Esc to close"
->>>>>>> Stashed changes
   }
 };
 
@@ -382,8 +344,6 @@ const formErrorMessages = {
   }
 };
 
-<<<<<<< Updated upstream
-=======
 /**
  * Real-world practical role descriptions for all 19 skill badges across 5 categories
  */
@@ -432,7 +392,6 @@ const skillTooltips = {
   }
 };
 
->>>>>>> Stashed changes
 let currentLang = 'vi';
 
 /**
@@ -506,8 +465,6 @@ export function setLanguage(lang) {
     }
   });
 
-<<<<<<< Updated upstream
-=======
   // 3b. Update accessible attributes (aria-label) with data-i18n-aria-label
   const ariaLabelElements = document.querySelectorAll('[data-i18n-aria-label]');
   ariaLabelElements.forEach((el) => {
@@ -517,7 +474,6 @@ export function setLanguage(lang) {
     }
   });
 
->>>>>>> Stashed changes
   // 4. Update input placeholders
   const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
   placeholderElements.forEach((el) => {
@@ -554,12 +510,8 @@ export function setLanguage(lang) {
 
   const heroCvBtn = document.getElementById('hero-btn-cv');
   if (heroCvBtn) {
-<<<<<<< Updated upstream
-    heroCvBtn.setAttribute('title', lang === 'vi' ? 'File CV PDF sẽ được cập nhật sớm' : 'CV PDF file will be available soon');
-=======
     heroCvBtn.setAttribute('title', lang === 'vi' ? 'Tải xuống CV của Nguyễn Xuân Hiếu (.PDF)' : 'Download Nguyen Xuan Hieu CV (.PDF)');
     heroCvBtn.setAttribute('aria-label', lang === 'vi' ? 'Tải xuống CV của Nguyễn Xuân Hiếu định dạng PDF' : 'Download Nguyen Xuan Hieu CV in PDF format');
->>>>>>> Stashed changes
   }
 
   const copyEmailBtn = document.getElementById('copy-email-btn');
@@ -595,9 +547,6 @@ export function setLanguage(lang) {
   // 9. Update active form validation messages & status
   updateActiveFormErrors(lang);
 
-<<<<<<< Updated upstream
-  // 10. Persist user selection
-=======
   // 10. Update skill badge aria-labels and active tooltip
   document.querySelectorAll('.skill-badge').forEach((badge) => {
     const skillId = badge.getAttribute('data-skill');
@@ -619,7 +568,6 @@ export function setLanguage(lang) {
   window.renderActiveCliWelcome?.();
 
   // 12. Persist user selection
->>>>>>> Stashed changes
   try {
     localStorage.setItem('portfolio_user_lang', lang);
   } catch (err) {
@@ -844,12 +792,6 @@ const projectModalData = {
       `,
       architectureHtml: `
         <div class="modal-detail-section">
-<<<<<<< Updated upstream
-          <div class="coming-soon-box">
-            <span class="coming-soon-icon" aria-hidden="true">📐</span>
-            <h4>Sơ đồ Kiến trúc Hệ thống (3-Tier MVC)</h4>
-            <p>Đang hoàn thiện sơ đồ luồng dữ liệu chuẩn kỹ thuật. Không mô phỏng sơ đồ giả.</p>
-=======
           <div class="diagram-viewer-card">
             <div class="diagram-viewer-header">
               <span class="diagram-badge">System Architecture</span>
@@ -868,7 +810,6 @@ const projectModalData = {
                 <span>Phóng to chi tiết (Fullsize)</span>
               </button>
             </div>
->>>>>>> Stashed changes
           </div>
           <div class="modal-highlight-box">
             <h4>Mô tả cấu trúc kỹ thuật:</h4>
@@ -882,12 +823,6 @@ const projectModalData = {
       `,
       erdHtml: `
         <div class="modal-detail-section">
-<<<<<<< Updated upstream
-          <div class="coming-soon-box">
-            <span class="coming-soon-icon" aria-hidden="true">🗄️</span>
-            <h4>Mô hình Thực thể Kết hợp (ERD 3NF)</h4>
-            <p>Sơ đồ quan hệ thực thể đang được trích xuất trực tiếp từ cấu trúc bảng cơ sở dữ liệu thực tế.</p>
-=======
           <div class="diagram-viewer-card">
             <div class="diagram-viewer-header">
               <span class="diagram-badge">Entity Relationship Diagram</span>
@@ -906,22 +841,14 @@ const projectModalData = {
                 <span>Phóng to chi tiết (Fullsize)</span>
               </button>
             </div>
->>>>>>> Stashed changes
           </div>
           <div class="modal-highlight-box">
             <h4>Các thực thể cốt lõi trong CSDL:</h4>
             <ul>
-<<<<<<< Updated upstream
-              <li><code>Phim</code>, <code>TheLoai</code>, <code>LichChieu</code> (Thông tin suất chiếu &amp; phim)</li>
-              <li><code>PhongChieu</code>, <code>GheNgoi</code>, <code>LoaiGhe</code> (Sơ đồ rạp và định dạng ghế)</li>
-              <li><code>Ve</code>, <code>HoaDon</code>, <code>ThanhToan</code> (Dữ liệu giao dịch ACID)</li>
-              <li><code>NguoiDung</code>, <code>VaiTro</code> (Phân quyền người dùng &amp; quản trị)</li>
-=======
               <li><code>USERS</code>, <code>ROLES</code>: Quản lý danh tính tài khoản, bảo mật mật khẩu và phân quyền RBAC.</li>
               <li><code>MOVIES</code>, <code>SHOWTIMES</code>, <code>AUDITORIUMS</code>: Danh mục phim chiếu rạp, phòng chiếu và lịch suất chiếu.</li>
               <li><code>SEATS</code>, <code>TICKETS</code>, <code>ORDERS</code>: Bản đồ ghế ma trận, vé bán và giao dịch đặt vé tuân thủ ACID.</li>
               <li><code>SP &amp; Views</code>: Stored Procedures phân bổ ghế khóa thời gian thực &amp; Views thống kê doanh thu.</li>
->>>>>>> Stashed changes
             </ul>
           </div>
         </div>
@@ -982,12 +909,6 @@ const projectModalData = {
       `,
       architectureHtml: `
         <div class="modal-detail-section">
-<<<<<<< Updated upstream
-          <div class="coming-soon-box">
-            <span class="coming-soon-icon" aria-hidden="true">📐</span>
-            <h4>System Architecture Diagram (3-Tier MVC)</h4>
-            <p>Engineering data flow diagrams are being finalized. No simulated or fake diagrams.</p>
-=======
           <div class="diagram-viewer-card">
             <div class="diagram-viewer-header">
               <span class="diagram-badge">System Architecture</span>
@@ -1006,7 +927,6 @@ const projectModalData = {
                 <span>View Fullsize Diagram</span>
               </button>
             </div>
->>>>>>> Stashed changes
           </div>
           <div class="modal-highlight-box">
             <h4>Architecture Breakdown:</h4>
@@ -1020,12 +940,6 @@ const projectModalData = {
       `,
       erdHtml: `
         <div class="modal-detail-section">
-<<<<<<< Updated upstream
-          <div class="coming-soon-box">
-            <span class="coming-soon-icon" aria-hidden="true">🗄️</span>
-            <h4>Entity Relationship Diagram (3NF ERD)</h4>
-            <p>Entity relationship schema is directly derived from active database structures.</p>
-=======
           <div class="diagram-viewer-card">
             <div class="diagram-viewer-header">
               <span class="diagram-badge">Entity Relationship Diagram</span>
@@ -1044,22 +958,14 @@ const projectModalData = {
                 <span>View Fullsize Diagram</span>
               </button>
             </div>
->>>>>>> Stashed changes
           </div>
           <div class="modal-highlight-box">
             <h4>Core Relational Entities:</h4>
             <ul>
-<<<<<<< Updated upstream
-              <li><code>Movies</code>, <code>Genres</code>, <code>Showtimes</code> (Film and scheduling metadata)</li>
-              <li><code>Auditoriums</code>, <code>Seats</code>, <code>SeatTypes</code> (Physical theater mapping)</li>
-              <li><code>Tickets</code>, <code>Invoices</code>, <code>Payments</code> (ACID transaction entities)</li>
-              <li><code>Users</code>, <code>Roles</code> (Granular customer and admin RBAC)</li>
-=======
               <li><code>USERS</code>, <code>ROLES</code>: User account credentials, system RBAC and customer profiles.</li>
               <li><code>MOVIES</code>, <code>SHOWTIMES</code>, <code>AUDITORIUMS</code>: Film catalog, hall layouts, and scheduled screenings.</li>
               <li><code>SEATS</code>, <code>TICKETS</code>, <code>ORDERS</code>: Seat positions, tickets and ACID order transactions.</li>
               <li><code>SP &amp; Views</code>: Stored procedures for concurrency seat lock &amp; reporting views.</li>
->>>>>>> Stashed changes
             </ul>
           </div>
         </div>
@@ -1122,20 +1028,6 @@ const projectModalData = {
       `,
       architectureHtml: `
         <div class="modal-detail-section">
-<<<<<<< Updated upstream
-          <div class="coming-soon-box">
-            <span class="coming-soon-icon" aria-hidden="true">📐</span>
-            <h4>Kiến trúc Dịch vụ Container hóa</h4>
-            <p>Đang hoàn thiện sơ đồ luồng dữ liệu chuẩn kỹ thuật. Không mô phỏng sơ đồ giả.</p>
-          </div>
-          <div class="modal-highlight-box">
-            <h4>Dịch vụ trong Docker Compose:</h4>
-            <ul>
-              <li><code>web</code>: Django Application Server xử lý API và routing.</li>
-              <li><code>db</code>: MySQL 8.0 lưu trữ cơ sở dữ liệu quan hệ bền vững.</li>
-              <li><code>redis</code>: In-memory Broker điều phối hàng đợi thông điệp.</li>
-              <li><code>celery_worker</code>: Tiến trình nền thực thi các tác vụ gửi thông báo và email.</li>
-=======
           <div class="diagram-viewer-card">
             <div class="diagram-viewer-header">
               <span class="diagram-badge">Architecture Diagram</span>
@@ -1162,27 +1054,12 @@ const projectModalData = {
               <li><strong>Django Application:</strong> Xử lý API RESTful, logic đặt lịch khám và xác thực người dùng.</li>
               <li><strong>MySQL 8.0 Primary DB:</strong> Lưu trữ dữ liệu hồ sơ bệnh án, lịch hẹn và giao dịch.</li>
               <li><strong>Redis &amp; Celery:</strong> Bộ đệm Message Queue và xử lý tác vụ gửi email nhắc lịch bất đồng bộ.</li>
->>>>>>> Stashed changes
             </ul>
           </div>
         </div>
       `,
       erdHtml: `
         <div class="modal-detail-section">
-<<<<<<< Updated upstream
-          <div class="coming-soon-box">
-            <span class="coming-soon-icon" aria-hidden="true">🗄️</span>
-            <h4>Mô hình Thực thể Kết hợp Thú y</h4>
-            <p>Sơ đồ quan hệ thực thể đang được trích xuất trực tiếp từ cấu trúc bảng cơ sở dữ liệu thực tế.</p>
-          </div>
-          <div class="modal-highlight-box">
-            <h4>Các bảng dữ liệu trung tâm:</h4>
-            <ul>
-              <li><code>Pet</code>, <code>PetType</code>, <code>Owner</code> (Hồ sơ thú cưng và chủ nuôi)</li>
-              <li><code>MedicalRecord</code>, <code>Prescription</code> (Bệnh án và toa thuốc)</li>
-              <li><code>Appointment</code>, <code>Doctor</code> (Lịch hẹn khám và phân công bác sĩ)</li>
-              <li><code>Product</code>, <code>Order</code>, <code>OrderItem</code> (Sản phẩm và đơn hàng COD)</li>
-=======
           <div class="diagram-viewer-card">
             <div class="diagram-viewer-header">
               <span class="diagram-badge">Entity Relationship Diagram</span>
@@ -1210,7 +1087,6 @@ const projectModalData = {
               <li><code>APPOINTMENTS</code>: Lịch hẹn thăm khám được phân công theo bác sĩ.</li>
               <li><code>MEDICAL_RECORDS</code>: Bệnh án chi tiết, chẩn đoán và phác đồ điều trị.</li>
               <li><code>PRESCRIPTIONS &amp; ORDERS</code>: Đơn thuốc điện tử và giao dịch sản phẩm thú y.</li>
->>>>>>> Stashed changes
             </ul>
           </div>
         </div>
@@ -1271,20 +1147,6 @@ const projectModalData = {
       `,
       architectureHtml: `
         <div class="modal-detail-section">
-<<<<<<< Updated upstream
-          <div class="coming-soon-box">
-            <span class="coming-soon-icon" aria-hidden="true">📐</span>
-            <h4>Containerized Service Architecture</h4>
-            <p>Engineering data flow diagrams are being finalized. No simulated or fake diagrams.</p>
-          </div>
-          <div class="modal-highlight-box">
-            <h4>Services in Docker Compose:</h4>
-            <ul>
-              <li><code>web</code>: Django Application Server serving APIs and business logic.</li>
-              <li><code>db</code>: MySQL 8.0 persistent relational storage.</li>
-              <li><code>redis</code>: In-memory message broker coordinating Celery queues.</li>
-              <li><code>celery_worker</code>: Background workers executing asynchronous notification jobs.</li>
-=======
           <div class="diagram-viewer-card">
             <div class="diagram-viewer-header">
               <span class="diagram-badge">Architecture Diagram</span>
@@ -1311,27 +1173,12 @@ const projectModalData = {
               <li><strong>Django Application:</strong> REST APIs, appointment scheduling algorithms, and RBAC authentication.</li>
               <li><strong>MySQL 8.0 Primary DB:</strong> Persisting relational tables for pets, appointments, and medical charts.</li>
               <li><strong>Redis &amp; Celery:</strong> In-memory broker and asynchronous workers for instant and scheduled notification emails.</li>
->>>>>>> Stashed changes
             </ul>
           </div>
         </div>
       `,
       erdHtml: `
         <div class="modal-detail-section">
-<<<<<<< Updated upstream
-          <div class="coming-soon-box">
-            <span class="coming-soon-icon" aria-hidden="true">🗄️</span>
-            <h4>Veterinary Entity Relationship Diagram</h4>
-            <p>Entity relationship schema is directly derived from active database structures.</p>
-          </div>
-          <div class="modal-highlight-box">
-            <h4>Core Relational Tables:</h4>
-            <ul>
-              <li><code>Pet</code>, <code>PetType</code>, <code>Owner</code> (Pet profiles and owner linkage)</li>
-              <li><code>MedicalRecord</code>, <code>Prescription</code> (Health records and treatment logs)</li>
-              <li><code>Appointment</code>, <code>Doctor</code> (Appointment scheduling and duty assignments)</li>
-              <li><code>Product</code>, <code>Order</code>, <code>OrderItem</code> (Catalog and order fulfillment)</li>
-=======
           <div class="diagram-viewer-card">
             <div class="diagram-viewer-header">
               <span class="diagram-badge">Entity Relationship Diagram</span>
@@ -1359,7 +1206,6 @@ const projectModalData = {
               <li><code>APPOINTMENTS</code>: Medical consultation slots assigned to doctors.</li>
               <li><code>MEDICAL_RECORDS</code>: Diagnosis notes, clinical exams, and treatment procedures.</li>
               <li><code>PRESCRIPTIONS &amp; ORDERS</code>: Pharmaceutical prescriptions and pet supply transactions.</li>
->>>>>>> Stashed changes
             </ul>
           </div>
         </div>
@@ -1419,9 +1265,6 @@ function initSpotlightHover() {
 }
 
 // ------------------------------------------------------------------------------
-<<<<<<< Updated upstream
-// 10. ACCESSIBLE MODAL DIALOG ENGINE (Focus Trap & Restoration)
-=======
 // 10. HIGH-RESOLUTION DIAGRAM LIGHTBOX & PAN/ZOOM ENGINE
 // ------------------------------------------------------------------------------
 let diagramLightboxActive = false;
@@ -1591,7 +1434,6 @@ function initDiagramLightbox() {
 
 // ------------------------------------------------------------------------------
 // 11. ACCESSIBLE MODAL DIALOG ENGINE (Focus Trap & Restoration)
->>>>>>> Stashed changes
 // ------------------------------------------------------------------------------
 let currentModalProject = null;
 let lastFocusedTrigger = null;
@@ -1844,8 +1686,6 @@ function initCopyEmail() {
   });
 }
 
-<<<<<<< Updated upstream
-=======
 function initCvDownloadToast() {
   const cvBtn = document.getElementById('hero-btn-cv');
   if (!cvBtn) return;
@@ -1858,7 +1698,6 @@ function initCvDownloadToast() {
   });
 }
 
->>>>>>> Stashed changes
 // ------------------------------------------------------------------------------
 // 13. CLIENT-SIDE CONTACT FORM VALIDATION & MAILTO PROTOCOL
 // ------------------------------------------------------------------------------
@@ -1997,12 +1836,6 @@ function initScrollToTop() {
 }
 
 // ------------------------------------------------------------------------------
-<<<<<<< Updated upstream
-// 15. INITIALIZATION & FOUNDATION EVENT LISTENERS
-// ------------------------------------------------------------------------------
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Nguyen Xuan Hieu Portfolio - Stage E Engine Initialized.');
-=======
 // 15. HERO AVATAR LOADER (Real image with progressive fallback to monogram)
 // ------------------------------------------------------------------------------
 function initHeroAvatar() {
@@ -2580,7 +2413,6 @@ function initLiveStatusMonitor() {
 // ------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Nguyen Xuan Hieu Portfolio - Stage 2C Complete Engine Initialized.');
->>>>>>> Stashed changes
 
   // Initialize Language from LocalStorage or default to 'vi'
   let savedLang = 'vi';
@@ -2591,31 +2423,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   setLanguage(savedLang);
 
-<<<<<<< Updated upstream
-  // Initialize Stage B, C & D Components
-=======
   // Initialize Core Components
   initHeroAvatar();
   initVanillaTilt();
   initSkillTooltips();
   initCliTerminal();
   initLiveStatusMonitor();
->>>>>>> Stashed changes
   initScrollProgress();
   initScrollSpy();
   initSmoothScroll();
   initNumberCounters();
   initSpotlightHover();
   initProjectModal();
-<<<<<<< Updated upstream
-  initTimelineSvg();
-  initCopyEmail();
-=======
   initDiagramLightbox();
   initTimelineSvg();
   initCopyEmail();
   initCvDownloadToast();
->>>>>>> Stashed changes
   initContactForm();
   initScrollToTop();
 
@@ -2657,7 +2480,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 });
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
