@@ -3,21 +3,906 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nguyễn Xuân Hiếu | Portfolio</title>
+  <title>Nguyễn Xuân Hiếu | Full-Stack Web Developer & Network Administrator</title>
+  <meta name="description" content="Portfolio cá nhân của Nguyễn Xuân Hiếu - Full-Stack Web Developer & Network Administrator. Xây dựng ứng dụng toàn diện từ giao diện người dùng, logic hệ thống cho đến hạ tầng mạng vững chắc.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans (Body & Titles) + Newsreader (Editorial Serif Quotes) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <header>
-    <h1>Nguyễn Xuân Hiếu</h1>
-    <p>Full-Stack Web Developer &amp; Network Administrator</p>
-    <a href="../../index.html">&larr; Về trang chủ nhóm</a>
+  <!-- A11y Skip Link -->
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Chuyển đến nội dung chính</a>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Header & Navigation -->
+  <header class="site-header" id="header">
+    <nav class="nav-container" aria-label="Điều hướng chính">
+      <a href="#hero" class="nav-brand" aria-label="Nguyễn Xuân Hiếu Portfolio">
+        <span class="brand-monogram">NXH</span>
+        <span class="brand-name">Nguyễn Xuân Hiếu</span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <ul class="nav-menu" id="nav-menu" role="menubar">
+        <li role="none"><a href="#hero" class="nav-link active" role="menuitem" data-i18n="nav_home">Trang chủ</a></li>
+        <li role="none"><a href="#about" class="nav-link" role="menuitem" data-i18n="nav_about">Giới thiệu</a></li>
+        <li role="none"><a href="#skills" class="nav-link" role="menuitem" data-i18n="nav_skills">Kỹ năng</a></li>
+        <li role="none"><a href="#projects" class="nav-link" role="menuitem" data-i18n="nav_projects">Dự án</a></li>
+        <li role="none"><a href="#process" class="nav-link" role="menuitem" data-i18n="nav_process">Quy trình</a></li>
+        <li role="none"><a href="#team" class="nav-link" role="menuitem" data-i18n="nav_team">Nhóm</a></li>
+        <li role="none"><a href="#contact" class="nav-link" role="menuitem" data-i18n="nav_contact">Liên hệ</a></li>
+      </ul>
+
+      <!-- Action Group: Language Switcher, Group Return & Mobile Menu Toggle -->
+      <div class="nav-actions">
+        <!-- Language Switcher Button -->
+        <button type="button" class="lang-toggle-btn" id="lang-toggle" aria-label="Chuyển sang tiếng Anh" title="Chuyển đổi ngôn ngữ / Switch language">
+          <span class="lang-text lang-vi active" aria-hidden="true">VI</span>
+          <span class="lang-divider" aria-hidden="true">/</span>
+          <span class="lang-text lang-en" aria-hidden="true">EN</span>
+        </button>
+
+        <!-- Return to Group Portal -->
+        <a href="../../index.html" class="group-back-btn" title="Quay lại trang chủ nhóm">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span data-i18n="group_portal">Trang nhóm</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" class="mobile-menu-btn" id="mobile-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Mở menu điều hướng">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </nav>
   </header>
-  <main>
-    <section>
-      <h2>Portfolio Foundation</h2>
-      <p>Sẵn sàng cho triển khai Phase 3.</p>
+
+  <!-- Main Content Landmark -->
+  <main id="main-content" tabindex="-1">
+    
+    <!-- ========================================================================= -->
+    <!-- 1. HERO SECTION                                                          -->
+    <!-- ========================================================================= -->
+    <section class="section hero-section" id="hero" aria-labelledby="hero-title">
+      <!-- Watermark Large Backdrop Typography -->
+      <div class="hero-watermark" aria-hidden="true">PORTFOLIO</div>
+
+      <div class="container hero-container">
+        <!-- Left Column: Identity, Dynamic Tagline & Action CTAs -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span data-i18n="hero_badge">Full-Stack Web Developer &amp; Network Administrator</span>
+          </div>
+
+          <h1 class="hero-title" id="hero-title">
+            <span class="hero-greeting" data-i18n="hero_greeting">Xin chào, tôi là</span>
+            <span class="hero-name">Nguyễn Xuân Hiếu</span>
+          </h1>
+
+          <!-- Typewriter Tagline Area -->
+          <div class="hero-tagline-wrapper">
+            <p class="hero-tagline">
+              <span id="hero-typewriter" data-i18n="hero_tagline_static">
+                Xây dựng ứng dụng toàn diện từ giao diện người dùng, logic hệ thống cho đến hạ tầng mạng vững chắc.
+              </span>
+            </p>
+          </div>
+
+          <!-- Dual Call to Action Buttons -->
+          <div class="hero-cta-group">
+            <a href="#projects" class="btn btn-primary" id="hero-btn-projects">
+              <span data-i18n="hero_cta_projects">Khám phá Dự án</span>
+              <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+              </svg>
+            </a>
+
+            <!-- Disabled CV Download Button (Proper Placeholder) -->
+            <button type="button" class="btn btn-outline" disabled aria-disabled="true" title="File CV PDF sẽ được cập nhật sớm" id="hero-btn-cv">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span data-i18n="hero_cta_cv">Tải CV (.PDF)</span>
+              <small class="btn-tag" data-i18n="tag_soon">Sắp có</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Visual Portrait Card & 4 Hero Stats -->
+        <div class="hero-visual">
+          <div class="portrait-card">
+            <div class="portrait-image-wrapper">
+              <!-- Placeholder avatar container bo góc 24px, sẵn sàng cho ảnh thật vào images/ -->
+              <div class="portrait-placeholder" aria-label="Khung ảnh đại diện của Nguyễn Xuân Hiếu">
+                <div class="portrait-initials">NXH</div>
+                <div class="portrait-caption" data-i18n="portrait_caption">Nguyễn Xuân Hiếu • UTH Campus 2</div>
+              </div>
+            </div>
+            <div class="portrait-badge">
+              <span class="status-indicator-dot" aria-hidden="true"></span>
+              <span data-i18n="portrait_badge_text">Full-Stack &amp; Network</span>
+            </div>
+          </div>
+
+          <!-- 4 Confirmed Hero Stats Cards -->
+          <div class="hero-stats-grid" aria-label="Thống kê nổi bật">
+            <div class="stat-card">
+              <div class="stat-number-wrapper">
+                <span class="stat-number" data-target="2">02</span>
+              </div>
+              <p class="stat-label" data-i18n="stat_projects">Dự án tiêu biểu</p>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-number-wrapper">
+                <span class="stat-number" data-target="3">03</span>
+              </div>
+              <p class="stat-label" data-i18n="stat_years">Năm nền tảng CNTT</p>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-number-wrapper">
+                <span class="stat-number" data-target="2">02</span>
+              </div>
+              <p class="stat-label" data-i18n="stat_domains">Lĩnh vực chuyên môn</p>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-number-wrapper">
+                <span class="stat-number" data-target="10">10</span><span class="stat-suffix">+</span>
+              </div>
+              <p class="stat-label" data-i18n="stat_techs">Công nghệ &amp; Công cụ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 2. ABOUT SECTION                                                         -->
+    <!-- ========================================================================= -->
+    <section class="section about-section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-tag" data-i18n="about_tag">01 / Giới thiệu</span>
+          <h2 class="section-title" id="about-title" data-i18n="about_title">Tư duy hệ thống &amp; Kỷ luật thực thi</h2>
+          <div class="section-divider" aria-hidden="true"></div>
+        </header>
+
+        <div class="about-grid">
+          <!-- Left Column: Story, Practical Mindset & Lab Support Experience -->
+          <div class="about-story">
+            <p class="lead-text" data-i18n="about_lead">
+              Tôi là một kỹ sư phần mềm định hướng <strong>Backend chuyên sâu</strong> và không ngừng mở rộng năng lực <strong>Full-Stack</strong>, kết hợp nền tảng vận hành hạ tầng mạng thực tế.
+            </p>
+
+            <p data-i18n="about_p1">
+              Tôi tin rằng một sản phẩm công nghệ xuất sắc bắt đầu từ kiến trúc dữ liệu chuẩn mực, logic xử lý chặt chẽ và khả năng vận hành ổn định trong môi trường thực tế. Thay vì chỉ viết mã cho giao diện, tôi luôn tiếp cận bài toán dưới góc nhìn hệ thống tổng thể: từ phân tích đặc tả, thiết kế cơ sở dữ liệu đạt chuẩn, xử lý đồng thời, đến việc đảm bảo hạ tầng mạng kết nối liền mạch.
+            </p>
+
+            <p data-i18n="about_p2">
+              Kinh nghiệm thực tế hỗ trợ và quản lý phòng máy tại <strong>UTH Campus 2</strong> (bảo trì mạng nội bộ, cấu hình thiết bị, đảm bảo hạ tầng kỹ thuật thông suốt phục vụ các kỳ thi và sự kiện quy mô của trường) cùng vai trò điều phối kỹ thuật cho nhóm 6 thành viên đã rèn luyện cho tôi tính kỷ luật cao, tư duy phân tích nguyên nhân gốc rễ (Root Cause Analysis) và tinh thần trách nhiệm trong từng dòng mã.
+            </p>
+
+            <!-- Statement Quote Card -->
+            <div class="quote-card">
+              <span class="quote-symbol" aria-hidden="true">“</span>
+              <blockquote class="quote-content" data-i18n="about_quote">
+                Think in systems. Build with purpose. Deliver with discipline.
+              </blockquote>
+              <cite class="quote-author" data-i18n="about_quote_author">— Nguyễn Xuân Hiếu</cite>
+            </div>
+          </div>
+
+          <!-- Right Column: Quick Specs Grid (Strict Confirmed Facts Only) -->
+          <div class="about-specs">
+            <h3 class="specs-title" data-i18n="about_specs_title">Thông tin tổng quan</h3>
+            
+            <div class="specs-grid">
+              <div class="spec-item">
+                <span class="spec-label" data-i18n="spec_institution_label">Đơn vị đào tạo</span>
+                <span class="spec-value" data-i18n="spec_institution_val">ĐH Giao thông Vận tải TP.HCM (UTH - Campus 2)</span>
+              </div>
+
+              <div class="spec-item">
+                <span class="spec-label" data-i18n="spec_major_label">Chuyên ngành</span>
+                <span class="spec-value" data-i18n="spec_major_val">Công nghệ Thông tin</span>
+              </div>
+
+              <div class="spec-item">
+                <span class="spec-label" data-i18n="spec_location_label">Địa điểm làm việc</span>
+                <span class="spec-value" data-i18n="spec_location_val">TP. Hồ Chí Minh, Việt Nam</span>
+              </div>
+
+              <div class="spec-item">
+                <span class="spec-label" data-i18n="spec_focus_label">Định hướng nghề nghiệp</span>
+                <span class="spec-value" data-i18n="spec_focus_val">Backend Specialist &amp; Full-Stack Expansion</span>
+              </div>
+
+              <div class="spec-item">
+                <span class="spec-label" data-i18n="spec_role_label">Vai trò dự án nhóm</span>
+                <span class="spec-value" data-i18n="spec_role_val">Full-Stack Developer &amp; Điều phối kỹ thuật</span>
+              </div>
+
+              <div class="spec-item">
+                <span class="spec-label" data-i18n="spec_credo_label">Nguyên tắc làm việc</span>
+                <span class="spec-value" data-i18n="spec_credo_val">Clean Code • Chuẩn hóa 3NF • ACID Compliant</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 3. SKILLS SECTION                                                        -->
+    <!-- ========================================================================= -->
+    <section class="section skills-section" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-tag" data-i18n="skills_tag">02 / Năng lực công nghệ</span>
+          <h2 class="section-title" id="skills-title" data-i18n="skills_title">Ngăn xếp công nghệ &amp; Hệ thống</h2>
+          <p class="section-subtitle" data-i18n="skills_subtitle">Danh mục kỹ năng thực tế được ứng dụng trực tiếp qua các dự án phần mềm và quản trị hạ tầng.</p>
+          <div class="section-divider" aria-hidden="true"></div>
+        </header>
+
+        <div class="skills-categories-grid">
+          <!-- Group 1: Web Base -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <span class="category-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </span>
+              <h3 class="category-title" data-i18n="skill_group_webbase">Web Base &amp; Ngôn ngữ lõi</h3>
+            </div>
+            <ul class="skill-badges-list" aria-label="Kỹ năng Web Base">
+              <li class="skill-badge">C/C++</li>
+              <li class="skill-badge">Java</li>
+              <li class="skill-badge">Python</li>
+              <li class="skill-badge">PHP</li>
+              <li class="skill-badge">JavaScript</li>
+              <li class="skill-badge">HTML5 / CSS3</li>
+            </ul>
+          </div>
+
+          <!-- Group 2: Frameworks -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <span class="category-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </span>
+              <h3 class="category-title" data-i18n="skill_group_frameworks">Frameworks &amp; Thư viện</h3>
+            </div>
+            <ul class="skill-badges-list" aria-label="Frameworks">
+              <li class="skill-badge">Spring Boot</li>
+              <li class="skill-badge">Django</li>
+              <li class="skill-badge">React</li>
+              <li class="skill-badge">Vue.js</li>
+            </ul>
+          </div>
+
+          <!-- Group 3: Databases & Async -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <span class="category-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+              </span>
+              <h3 class="category-title" data-i18n="skill_group_db">Cơ sở dữ liệu &amp; Bất đồng bộ</h3>
+            </div>
+            <ul class="skill-badges-list" aria-label="Cơ sở dữ liệu">
+              <li class="skill-badge">MySQL</li>
+              <li class="skill-badge">Microsoft SQL Server</li>
+              <li class="skill-badge">Redis</li>
+            </ul>
+          </div>
+
+          <!-- Group 4: DevOps & Tools -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <span class="category-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </span>
+              <h3 class="category-title" data-i18n="skill_group_devops">DevOps &amp; Công cụ phát triển</h3>
+            </div>
+            <ul class="skill-badges-list" aria-label="DevOps và công cụ">
+              <li class="skill-badge">Docker</li>
+              <li class="skill-badge">Git / GitHub</li>
+            </ul>
+          </div>
+
+          <!-- Group 5: Network & Systems -->
+          <div class="skill-category-card full-width-card">
+            <div class="category-header">
+              <span class="category-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </span>
+              <h3 class="category-title" data-i18n="skill_group_network">Hạ tầng mạng &amp; Hệ điều hành máy chủ</h3>
+            </div>
+            <ul class="skill-badges-list" aria-label="Mạng và hệ thống">
+              <li class="skill-badge">Cisco Packet Tracer</li>
+              <li class="skill-badge">GNS3</li>
+              <li class="skill-badge">Linux Server</li>
+              <li class="skill-badge">Windows Server</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 4. PROJECTS SECTION                                                      -->
+    <!-- ========================================================================= -->
+    <section class="section projects-section" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-tag" data-i18n="projects_tag">03 / Dự án thực tế</span>
+          <h2 class="section-title" id="projects-title" data-i18n="projects_title">Sản phẩm kỹ thuật tiêu biểu</h2>
+          <p class="section-subtitle" data-i18n="projects_subtitle">Minh chứng năng lực qua các dự án giải quyết bài toán nghiệp vụ, cơ sở dữ liệu và xử lý hệ thống.</p>
+          <div class="section-divider" aria-hidden="true"></div>
+        </header>
+
+        <div class="projects-grid">
+          <!-- Project Card 01: HIUNXSTAR -->
+          <article class="project-card" data-project-id="hiunxstar" id="card-hiunxstar">
+            <div class="project-header">
+              <span class="project-index">01</span>
+              <span class="status-badge status-completed">
+                <span class="status-dot"></span>
+                <span data-i18n="status_completed">Đã hoàn thành</span>
+              </span>
+            </div>
+
+            <div class="project-body">
+              <div class="project-role-badge">
+                <span data-i18n="role_label">Vai trò:</span> <strong>Full-Stack Developer</strong>
+              </div>
+
+              <h3 class="project-name">HIUNXSTAR</h3>
+              <p class="project-desc" data-i18n="project_01_desc">
+                Hệ thống quản lý và đặt vé xem phim trực tuyến toàn diện, phục vụ khách hàng đặt vé và phân hệ quản trị rạp chiếu phim chuyên sâu.
+              </p>
+
+              <!-- Tech Pills -->
+              <div class="tech-pills-list" aria-label="Công nghệ dự án 1">
+                <span class="tech-pill">PHP thuần (MVC/3-Tier)</span>
+                <span class="tech-pill">Microsoft SQL Server</span>
+                <span class="tech-pill">JavaScript</span>
+                <span class="tech-pill">HTML5/CSS3</span>
+              </div>
+
+              <!-- Technical Highlights -->
+              <div class="project-highlights">
+                <h4 class="highlights-title" data-i18n="highlights_title">Điểm nhấn kỹ thuật chứng minh được:</h4>
+                <ul class="highlights-list">
+                  <li data-i18n="project_01_h1">Thiết kế CSDL chuẩn hóa 3NF, bảo đảm toàn vẹn tham chiếu.</li>
+                  <li data-i18n="project_01_h2">Giao dịch ACID bảo vệ quá trình đặt vé và thanh toán.</li>
+                  <li data-i18n="project_01_h3">Kiểm soát tranh chấp dữ liệu (Concurrency Control &amp; Deadlock Prevention).</li>
+                  <li data-i18n="project_01_h4">Cập nhật trạng thái ghế theo thời gian thực (Realtime Seat Locking).</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <a href="https://github.com/nguyenxuanhieu2903/hiunx-cinema-manager" target="_blank" rel="noopener noreferrer" class="btn btn-outline" id="github-hiunxstar">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <span data-i18n="btn_github">Mã nguồn GitHub</span>
+              </a>
+
+              <button type="button" class="btn btn-secondary open-modal-btn" data-modal-target="hiunxstar" id="details-hiunxstar">
+                <span data-i18n="btn_view_details">Xem chi tiết A11y</span>
+                <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Project Card 02: Veterinary Center Web -->
+          <article class="project-card" data-project-id="veterinary" id="card-veterinary">
+            <div class="project-header">
+              <span class="project-index">02</span>
+              <span class="status-badge status-progress">
+                <span class="status-dot"></span>
+                <span data-i18n="status_in_progress">Đang phát triển (Backend hoàn thành)</span>
+              </span>
+            </div>
+
+            <div class="project-body">
+              <div class="project-role-badge">
+                <span data-i18n="role_label">Vai trò:</span> <strong>Leader / Backend &amp; DevOps</strong>
+              </div>
+
+              <h3 class="project-name" data-i18n="project_02_name">Website Trung tâm Thú y</h3>
+              <p class="project-desc" data-i18n="project_02_desc">
+                Hệ thống quản lý thú cưng, đặt lịch khám, bệnh án điện tử tập trung và sàn mua sắm sản phẩm/dịch vụ thú y trực tuyến.
+              </p>
+
+              <!-- Tech Pills -->
+              <div class="tech-pills-list" aria-label="Công nghệ dự án 2">
+                <span class="tech-pill">Python</span>
+                <span class="tech-pill">Django</span>
+                <span class="tech-pill">MySQL 8.0</span>
+                <span class="tech-pill">Redis</span>
+                <span class="tech-pill">Celery</span>
+                <span class="tech-pill">Docker Compose</span>
+              </div>
+
+              <!-- Technical Highlights -->
+              <div class="project-highlights">
+                <h4 class="highlights-title" data-i18n="highlights_title">Điểm nhấn kỹ thuật chứng minh được:</h4>
+                <ul class="highlights-list">
+                  <li data-i18n="project_02_h1">Kiến trúc dịch vụ container hóa với Docker Compose đồng bộ môi trường.</li>
+                  <li data-i18n="project_02_h2">Hàng đợi tác vụ nền Celery &amp; Redis xử lý email nhắc lịch tự động.</li>
+                  <li data-i18n="project_02_h3">Quản lý bệnh án điện tử và đặt hàng COD an toàn.</li>
+                  <li data-i18n="project_02_h4">Phân quyền chi tiết (Bác sĩ, Khách hàng, Quản trị viên).</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <a href="https://github.com/nguyenxuanhieu2903/veterinary-center-web" target="_blank" rel="noopener noreferrer" class="btn btn-outline" id="github-veterinary">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <span data-i18n="btn_github">Mã nguồn GitHub</span>
+              </a>
+
+              <button type="button" class="btn btn-secondary open-modal-btn" data-modal-target="veterinary" id="details-veterinary">
+                <span data-i18n="btn_view_details">Xem chi tiết A11y</span>
+                <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 5. WORK PROCESS SECTION                                                  -->
+    <!-- ========================================================================= -->
+    <section class="section process-section" id="process" aria-labelledby="process-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-tag" data-i18n="process_tag">04 / Phương pháp làm việc</span>
+          <h2 class="section-title" id="process-title" data-i18n="process_title">Quy trình phát triển chuẩn mực (SDLC)</h2>
+          <p class="section-subtitle" data-i18n="process_subtitle">Cách thức tiếp cận bài toán có hệ thống từ yêu cầu ban đầu cho tới triển khai sản phẩm.</p>
+          <div class="section-divider" aria-hidden="true"></div>
+        </header>
+
+        <div class="process-grid">
+          <!-- Left Column: 5-Step SDLC Interactive Timeline -->
+          <div class="process-timeline-wrapper">
+            <!-- Interactive SVG Connector Line -->
+            <svg class="timeline-svg-connector" aria-hidden="true" preserveAspectRatio="none">
+              <line x1="18" y1="18" x2="18" y2="96%" class="timeline-line-bg"></line>
+              <line x1="18" y1="18" x2="18" y2="96%" class="timeline-line-fill" id="timeline-svg-fill"></line>
+            </svg>
+
+            <ol class="process-timeline-list" aria-label="5 bước quy trình SDLC">
+              <!-- Step 1 -->
+              <li class="timeline-step">
+                <div class="step-marker" aria-hidden="true">01</div>
+                <div class="step-content">
+                  <h3 class="step-title" data-i18n="step_1_title">Đặc tả &amp; Phân tích yêu cầu</h3>
+                  <span class="step-subtitle">Specialization &amp; Analysis</span>
+                  <p class="step-desc" data-i18n="step_1_desc">
+                    Làm rõ nghiệp vụ cốt lõi, xác định phạm vi sản phẩm (MVP Scope), phân tích rủi ro và xây dựng bộ tài liệu đặc tả chức năng rõ ràng.
+                  </p>
+                </div>
+              </li>
+
+              <!-- Step 2 -->
+              <li class="timeline-step">
+                <div class="step-marker" aria-hidden="true">02</div>
+                <div class="step-content">
+                  <h3 class="step-title" data-i18n="step_2_title">Thiết kế Hệ thống &amp; Giao diện</h3>
+                  <span class="step-subtitle">System &amp; UI Design</span>
+                  <p class="step-desc" data-i18n="step_2_desc">
+                    Mô hình hóa dữ liệu chuẩn 3NF, thiết kế sơ đồ ERD, kiến trúc dịch vụ (3-Tier/MVC), luồng tương tác và giao diện chuẩn trợ năng WCAG.
+                  </p>
+                </div>
+              </li>
+
+              <!-- Step 3 -->
+              <li class="timeline-step">
+                <div class="step-marker" aria-hidden="true">03</div>
+                <div class="step-content">
+                  <h3 class="step-title" data-i18n="step_3_title">Lập trình &amp; Phát triển</h3>
+                  <span class="step-subtitle">Development</span>
+                  <p class="step-desc" data-i18n="step_3_desc">
+                    Hiện thực hóa tính năng theo nguyên tắc Clean Code, xử lý giao dịch ACID, tối ưu truy vấn cơ sở dữ liệu và xây dựng API nhất quán.
+                  </p>
+                </div>
+              </li>
+
+              <!-- Step 4 -->
+              <li class="timeline-step">
+                <div class="step-marker" aria-hidden="true">04</div>
+                <div class="step-content">
+                  <h3 class="step-title" data-i18n="step_4_title">Kiểm thử &amp; Tối ưu hóa</h3>
+                  <span class="step-subtitle">Testing &amp; Optimization</span>
+                  <p class="step-desc" data-i18n="step_4_desc">
+                    Kiểm tra các kịch bản biên, xử lý đồng thời/deadlock, rà soát trợ năng A11y, kiểm tra tính tương thích đa thiết bị và loại bỏ lỗi Console.
+                  </p>
+                </div>
+              </li>
+
+              <!-- Step 5 -->
+              <li class="timeline-step">
+                <div class="step-marker" aria-hidden="true">05</div>
+                <div class="step-content">
+                  <h3 class="step-title" data-i18n="step_5_title">Triển khai &amp; Vận hành</h3>
+                  <span class="step-subtitle">Deployment &amp; Operations</span>
+                  <p class="step-desc" data-i18n="step_5_desc">
+                    Đóng gói container Docker, cấu hình web server, tự động hóa build/deploy tĩnh trên GitHub Pages và theo dõi hiệu năng hệ thống.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Right Column: Highlight Statement Card -->
+          <div class="process-quote-panel">
+            <div class="process-quote-card">
+              <span class="quote-big-mark" aria-hidden="true">“</span>
+              <p class="process-quote-text" data-i18n="process_quote_text">
+                Phát triển phần mềm chuẩn mực là tuân thủ chặt chẽ quy trình từ Đặc tả, Thiết kế, Lập trình đến Kiểm thử và Triển khai.
+              </p>
+              <div class="quote-signature">
+                <div class="signature-dot" aria-hidden="true"></div>
+                <span class="signature-name">Nguyễn Xuân Hiếu</span>
+                <span class="signature-role">Full-Stack &amp; Network Engineer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 6. TEAM HUB SECTION                                                      -->
+    <!-- ========================================================================= -->
+    <section class="section team-section" id="team" aria-labelledby="team-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-tag" data-i18n="team_tag">05 / Không gian kết nối</span>
+          <h2 class="section-title" id="team-title" data-i18n="team_title">Thành viên Nhóm Phát triển</h2>
+          <p class="section-subtitle" data-i18n="team_subtitle">Liên kết tới trang portfolio cá nhân của các thành viên trong nhóm dự án Lập trình Web.</p>
+          <div class="section-divider" aria-hidden="true"></div>
+        </header>
+
+        <div class="team-grid">
+          <!-- Member 1: Current Page -->
+          <div class="team-card current-member">
+            <div class="member-avatar-placeholder">NXH</div>
+            <div class="member-info">
+              <h3 class="member-name">Nguyễn Xuân Hiếu</h3>
+              <span class="member-badge" data-i18n="badge_current_page">Trang hiện tại</span>
+            </div>
+            <a href="#hero" class="btn btn-sm btn-outline" data-i18n="btn_view_top">Lên đầu trang</a>
+          </div>
+
+          <!-- Member 2: Nhật Trường -->
+          <div class="team-card">
+            <div class="member-avatar-placeholder">LNT</div>
+            <div class="member-info">
+              <h3 class="member-name">Lê Nguyễn Nhật Trường</h3>
+              <span class="member-slug">le-nguyen-nhat-truong</span>
+            </div>
+            <a href="../le-nguyen-nhat-truong/index.html" class="btn btn-sm btn-primary" data-i18n="btn_view_portfolio">Xem Portfolio</a>
+          </div>
+
+          <!-- Member 3: Thảo Như -->
+          <div class="team-card">
+            <div class="member-avatar-placeholder">NTN</div>
+            <div class="member-info">
+              <h3 class="member-name">Nguyễn Thị Thảo Như</h3>
+              <span class="member-slug">nguyen-thi-thao-nhu</span>
+            </div>
+            <a href="../nguyen-thi-thao-nhu/index.html" class="btn btn-sm btn-primary" data-i18n="btn_view_portfolio">Xem Portfolio</a>
+          </div>
+
+          <!-- Member 4: Ý Huỳnh -->
+          <div class="team-card">
+            <div class="member-avatar-placeholder">NYH</div>
+            <div class="member-info">
+              <h3 class="member-name">Nguyễn Phạm Y Huỳnh</h3>
+              <span class="member-slug">nguyen-pham-y-huynh</span>
+            </div>
+            <a href="../nguyen-pham-y-huynh/index.html" class="btn btn-sm btn-primary" data-i18n="btn_view_portfolio">Xem Portfolio</a>
+          </div>
+
+          <!-- Member 5: Hữu Châu -->
+          <div class="team-card">
+            <div class="member-avatar-placeholder">LHC</div>
+            <div class="member-info">
+              <h3 class="member-name">Lê Hữu Châu</h3>
+              <span class="member-slug">le-huu-chau</span>
+            </div>
+            <a href="../le-huu-chau/index.html" class="btn btn-sm btn-primary" data-i18n="btn_view_portfolio">Xem Portfolio</a>
+          </div>
+
+          <!-- Member 6: Anh Thư -->
+          <div class="team-card">
+            <div class="member-avatar-placeholder">NAT</div>
+            <div class="member-info">
+              <h3 class="member-name">Nguyễn Anh Thư</h3>
+              <span class="member-slug">nguyen-anh-thu</span>
+            </div>
+            <a href="../nguyen-anh-thu/index.html" class="btn btn-sm btn-primary" data-i18n="btn_view_portfolio">Xem Portfolio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 7. CONTACT SECTION                                                       -->
+    <!-- ========================================================================= -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-tag" data-i18n="contact_tag">06 / Trao đổi &amp; Kết nối</span>
+          <h2 class="section-title" id="contact-title" data-i18n="contact_title">Liên hệ hợp tác</h2>
+          <p class="section-subtitle" data-i18n="contact_subtitle">Sẵn sàng trao đổi về các bài toán kiến trúc backend, kỹ thuật hệ thống và các dự án phát triển phần mềm.</p>
+          <div class="section-divider" aria-hidden="true"></div>
+        </header>
+
+        <div class="contact-grid">
+          <!-- Left Column: Contact Channels & 1-Click Copy -->
+          <div class="contact-info-panel">
+            <h3 class="info-title" data-i18n="contact_info_title">Kênh kết nối chính thức</h3>
+            <p class="info-desc" data-i18n="contact_info_desc">
+              Bạn có thể gửi thư trực tiếp qua email hoặc theo dõi các kho mã nguồn dự án công khai trên GitHub.
+            </p>
+
+            <div class="contact-methods-list">
+              <!-- Email Item with 1-Click Copy Utility -->
+              <div class="contact-method-card">
+                <div class="method-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <div class="method-details">
+                  <span class="method-label">Email chính thức</span>
+                  <a href="mailto:nguyenxuanhieu2903@gmail.com" class="method-value" id="official-email">nguyenxuanhieu2903@gmail.com</a>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline copy-btn" id="copy-email-btn" aria-label="Sao chép địa chỉ email vào bộ nhớ tạm" data-i18n="btn_copy_email">
+                  Sao chép
+                </button>
+              </div>
+
+              <!-- GitHub Item -->
+              <div class="contact-method-card">
+                <div class="method-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+                </div>
+                <div class="method-details">
+                  <span class="method-label">GitHub Repository</span>
+                  <a href="https://github.com/nguyenxuanhieu2903" target="_blank" rel="noopener noreferrer" class="method-value">github.com/nguyenxuanhieu2903</a>
+                </div>
+                <a href="https://github.com/nguyenxuanhieu2903" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline" data-i18n="btn_visit">
+                  Truy cập
+                </a>
+              </div>
+
+              <!-- LinkedIn Disabled Placeholder (Honest & Explicit) -->
+              <div class="contact-method-card disabled-card">
+                <div class="method-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </div>
+                <div class="method-details">
+                  <span class="method-label">LinkedIn</span>
+                  <span class="method-value text-muted" data-i18n="linkedin_soon">Chưa liên kết hồ sơ</span>
+                </div>
+                <span class="status-pill-disabled" data-i18n="tag_soon">Sắp có</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Validated Client-Side Contact Form (Strict Mailto Protocol) -->
+          <div class="contact-form-panel">
+            <h3 class="form-title" data-i18n="contact_form_title">Gửi tin nhắn liên hệ</h3>
+            <p class="form-notice" data-i18n="contact_form_notice">
+              * Khi gửi thông tin hợp lệ, ứng dụng email trên máy của bạn sẽ tự động mở qua giao thức <code>mailto</code> với tiêu đề và nội dung được chuẩn bị sẵn để bạn tự gửi.
+            </p>
+
+            <form class="contact-form" id="contact-form" novalidate>
+              <!-- Field: Name -->
+              <div class="form-group" id="group-name">
+                <label for="contact-name" class="form-label" data-i18n="form_name_label">Họ và tên <span class="required-mark" aria-hidden="true">*</span></label>
+                <input type="text" id="contact-name" name="name" class="form-input" required aria-required="true" aria-describedby="error-name" placeholder="Ví dụ: Nguyễn Văn A" data-i18n-placeholder="placeholder_name">
+                <span class="field-error-msg" id="error-name" role="alert" aria-live="polite"></span>
+              </div>
+
+              <!-- Field: Email -->
+              <div class="form-group" id="group-email">
+                <label for="contact-email" class="form-label" data-i18n="form_email_label">Email phản hồi <span class="required-mark" aria-hidden="true">*</span></label>
+                <input type="email" id="contact-email" name="email" class="form-input" required aria-required="true" aria-describedby="error-email" placeholder="email@domain.com" data-i18n-placeholder="placeholder_email">
+                <span class="field-error-msg" id="error-email" role="alert" aria-live="polite"></span>
+              </div>
+
+              <!-- Field: Subject -->
+              <div class="form-group" id="group-subject">
+                <label for="contact-subject" class="form-label" data-i18n="form_subject_label">Chủ đề liên hệ <span class="required-mark" aria-hidden="true">*</span></label>
+                <input type="text" id="contact-subject" name="subject" class="form-input" required aria-required="true" aria-describedby="error-subject" placeholder="Ví dụ: Thảo luận về dự án backend" data-i18n-placeholder="placeholder_subject">
+                <span class="field-error-msg" id="error-subject" role="alert" aria-live="polite"></span>
+              </div>
+
+              <!-- Field: Message -->
+              <div class="form-group" id="group-message">
+                <label for="contact-message" class="form-label" data-i18n="form_message_label">Nội dung tin nhắn <span class="required-mark" aria-hidden="true">*</span></label>
+                <textarea id="contact-message" name="message" class="form-textarea" rows="4" required aria-required="true" aria-describedby="error-message" placeholder="Nhập nội dung cần trao đổi (tối thiểu 10 ký tự)..." data-i18n-placeholder="placeholder_message"></textarea>
+                <span class="field-error-msg" id="error-message" role="alert" aria-live="polite"></span>
+              </div>
+
+              <!-- Submission Feedback Notification Box -->
+              <div class="form-status-box" id="form-status" role="status" aria-live="polite" style="display: none;"></div>
+
+              <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
+                <span data-i18n="btn_submit_form">Mở email để gửi tin nhắn</span>
+                <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <p class="footer-copyright">
+          &copy; 2026 <strong>Nguyễn Xuân Hiếu</strong>. Group Portfolio Project — UTH Campus 2.
+        </p>
+        <p class="footer-subtext" data-i18n="footer_subtext">
+          Thiết kế theo chuẩn Jade Pebble Morning • Responsive • WCAG 2.1 AA Compliant.
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <a href="../../index.html" class="footer-link" data-i18n="footer_group_home">← Về trang chủ nhóm</a>
+        <a href="#hero" class="footer-link" data-i18n="footer_top">Lên đầu trang ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Fixed Scroll-To-Top Button -->
+  <button type="button" class="scroll-top-btn" id="scroll-top-btn" aria-label="Cuộn lên đầu trang" title="Cuộn lên đầu trang">
+    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-notification" id="toast" role="status" aria-live="polite" aria-atomic="true">
+    <span class="toast-icon" aria-hidden="true">✓</span>
+    <span class="toast-message" id="toast-message">Đã sao chép!</span>
+  </div>
+
+  <!-- A11y Accessible Modal Dialog Container -->
+  <dialog class="project-modal" id="project-modal" aria-labelledby="modal-title" aria-modal="true">
+    <div class="modal-dialog-content">
+      <header class="modal-header">
+        <div class="modal-header-text">
+          <span class="modal-tag" id="modal-project-tag">Dự án 01</span>
+          <h3 class="modal-title" id="modal-title">Chi tiết dự án</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Đóng cửa sổ chi tiết">
+          &times;
+        </button>
+      </header>
+
+      <!-- Modal Tabs Navigation -->
+      <nav class="modal-tabs" role="tablist" aria-label="Phân loại nội dung dự án">
+        <button type="button" class="modal-tab-btn active" role="tab" id="tab-overview-btn" aria-selected="true" aria-controls="tab-overview" data-i18n="tab_overview">
+          Tổng quan
+        </button>
+        <button type="button" class="modal-tab-btn" role="tab" id="tab-architecture-btn" aria-selected="false" aria-controls="tab-architecture" data-i18n="tab_architecture">
+          Kiến trúc
+        </button>
+        <button type="button" class="modal-tab-btn" role="tab" id="tab-erd-btn" aria-selected="false" aria-controls="tab-erd" data-i18n="tab_erd">
+          Sơ đồ ERD
+        </button>
+        <button type="button" class="modal-tab-btn" role="tab" id="tab-links-btn" aria-selected="false" aria-controls="tab-links" data-i18n="tab_links">
+          Mã nguồn &amp; Liên kết
+        </button>
+      </nav>
+
+      <!-- Modal Tab Panels -->
+      <div class="modal-body">
+        <!-- Tab 1: Overview -->
+        <div class="tab-panel active" id="tab-overview" role="tabpanel" aria-labelledby="tab-overview-btn">
+          <div id="modal-overview-content">
+            <!-- Dynamically populated or static initial text -->
+          </div>
+        </div>
+
+        <!-- Tab 2: Architecture -->
+        <div class="tab-panel" id="tab-architecture" role="tabpanel" aria-labelledby="tab-architecture-btn">
+          <div id="modal-architecture-content">
+            <div class="coming-soon-box">
+              <span class="coming-soon-icon" aria-hidden="true">📐</span>
+              <h4 data-i18n="architecture_status_title">Sơ đồ Kiến trúc Hệ thống</h4>
+              <p data-i18n="architecture_status_desc">Đang hoàn thiện sơ đồ luồng dữ liệu chuẩn kỹ thuật. Không mô phỏng sơ đồ giả.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: ERD -->
+        <div class="tab-panel" id="tab-erd" role="tabpanel" aria-labelledby="tab-erd-btn">
+          <div id="modal-erd-content">
+            <div class="coming-soon-box">
+              <span class="coming-soon-icon" aria-hidden="true">🗄️</span>
+              <h4 data-i18n="erd_status_title">Mô hình Thực thể Kết hợp (ERD 3NF)</h4>
+              <p data-i18n="erd_status_desc">Sơ đồ quan hệ thực thể đang được trích xuất trực tiếp từ cấu trúc bảng cơ sở dữ liệu thực tế.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Links -->
+        <div class="tab-panel" id="tab-links" role="tabpanel" aria-labelledby="tab-links-btn">
+          <div id="modal-links-content">
+            <!-- Dynamically populated links -->
+          </div>
+        </div>
+      </div>
+
+      <footer class="modal-footer">
+        <button type="button" class="btn btn-outline" id="modal-dismiss-btn" data-i18n="modal_btn_close">Đóng lại (Esc)</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- ES Modules Script Entry Point -->
   <script type="module" src="./script.js"></script>
 </body>
 </html>
