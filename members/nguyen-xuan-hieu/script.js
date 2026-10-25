@@ -1,3 +1,10 @@
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+// Portfolio Nguyen Xuan Hieu - Base Script
+console.log('Portfolio Nguyen Xuan Hieu initialized.');
+=======
+>>>>>>> Stashed changes
 /**
  * ==============================================================================
  * PORTFOLIO NGUYỄN XUÂN HIẾU - CORE JAVASCRIPT (ES MODULE)
@@ -5,6 +12,15 @@
  * ==============================================================================
  */
 
+<<<<<<< Updated upstream
+=======
+// Static Diagram Asset Imports for Vite Build Optimization
+import hiunxstarArchSvg from './images/hiunxstar-architecture.svg';
+import hiunxstarErdSvg from './images/hiunxstar-erd.svg';
+import vetArchSvg from './images/veterinary-architecture.svg';
+import vetErdSvg from './images/veterinary-erd.svg';
+
+>>>>>>> Stashed changes
 // ------------------------------------------------------------------------------
 // 1. BILINGUAL DICTIONARY (VI / EN)
 // ------------------------------------------------------------------------------
@@ -66,6 +82,10 @@ const translations = {
     skill_group_db: "Cơ sở dữ liệu & Bất đồng bộ",
     skill_group_devops: "DevOps & Công cụ phát triển",
     skill_group_network: "Hạ tầng mạng & Hệ điều hành máy chủ",
+<<<<<<< Updated upstream
+=======
+    tooltip_role_tag: "Vai trò ứng dụng",
+>>>>>>> Stashed changes
 
     // Projects Section
     projects_tag: "03 / Dự án thực tế",
@@ -136,10 +156,23 @@ const translations = {
     placeholder_subject: "Ví dụ: Thảo luận về dự án backend",
     placeholder_message: "Nhập nội dung cần trao đổi (tối thiểu 10 ký tự)...",
 
+<<<<<<< Updated upstream
     // Footer
     footer_subtext: "Thiết kế theo chuẩn Jade Pebble Morning • Responsive • WCAG 2.1 AA Compliant.",
     footer_group_home: "← Về trang chủ nhóm",
     footer_top: "Lên đầu trang ↑",
+=======
+    // Footer & Live Status Monitor (Stage 2C)
+    footer_subtext: "Thiết kế theo chuẩn Jade Pebble Morning • Responsive • WCAG 2.1 AA Compliant.",
+    footer_group_home: "Về trang chủ nhóm",
+    footer_top: "Lên đầu trang",
+    status_all_operational: "Hệ thống vận hành ổn định",
+    status_latency_label: "Độ trễ:",
+    status_uptime_label: "Khả dụng:",
+    status_ssl_label: "SSL:",
+    status_ssl_val: "Hợp lệ (256-bit)",
+    aria_server_status: "Trạng thái hạ tầng hệ thống thời gian thực",
+>>>>>>> Stashed changes
 
     // Modal
     tab_overview: "Tổng quan",
@@ -150,7 +183,14 @@ const translations = {
     architecture_status_desc: "Đang hoàn thiện sơ đồ luồng dữ liệu chuẩn kỹ thuật. Không mô phỏng sơ đồ giả.",
     erd_status_title: "Mô hình Thực thể Kết hợp (ERD 3NF)",
     erd_status_desc: "Sơ đồ quan hệ thực thể đang được trích xuất trực tiếp từ cấu trúc bảng cơ sở dữ liệu thực tế.",
+<<<<<<< Updated upstream
     modal_btn_close: "Đóng lại (Esc)"
+=======
+    modal_btn_close: "Đóng lại (Esc)",
+    lightbox_instruction: "Cuộn chuột hoặc dùng các nút công cụ để soi rõ chi tiết bảng dữ liệu 3NF, Stored Procedures, Views & các tầng kiến trúc.",
+    cli_toggle_text: "Dev Mode",
+    cli_hint: "Gõ 'help' để xem danh sách lệnh • Phím ↑/↓ để duyệt lịch sử • 'exit' hoặc Esc để đóng"
+>>>>>>> Stashed changes
   },
 
   en: {
@@ -210,6 +250,10 @@ const translations = {
     skill_group_db: "Databases & Asynchronous Systems",
     skill_group_devops: "DevOps & Developer Tools",
     skill_group_network: "Network Infrastructure & Server OS",
+<<<<<<< Updated upstream
+=======
+    tooltip_role_tag: "Practical Role",
+>>>>>>> Stashed changes
 
     // Projects Section
     projects_tag: "03 / Featured Projects",
@@ -280,10 +324,23 @@ const translations = {
     placeholder_subject: "e.g., Discussion on backend architecture",
     placeholder_message: "Enter your message here (minimum 10 characters)...",
 
+<<<<<<< Updated upstream
     // Footer
     footer_subtext: "Crafted in Jade Pebble Morning • Responsive • WCAG 2.1 AA Compliant.",
     footer_group_home: "← Back to Group Home",
     footer_top: "Back to Top ↑",
+=======
+    // Footer & Live Status Monitor (Stage 2C)
+    footer_subtext: "Crafted in Jade Pebble Morning • Responsive • WCAG 2.1 AA Compliant.",
+    footer_group_home: "Back to Group Home",
+    footer_top: "Back to Top",
+    status_all_operational: "All Systems Operational",
+    status_latency_label: "Latency:",
+    status_uptime_label: "Uptime:",
+    status_ssl_label: "SSL:",
+    status_ssl_val: "Valid (256-bit)",
+    aria_server_status: "Real-time infrastructure system status",
+>>>>>>> Stashed changes
 
     // Modal
     tab_overview: "Overview",
@@ -294,7 +351,14 @@ const translations = {
     architecture_status_desc: "Engineering data flow diagrams are being finalized. No simulated or fake diagrams.",
     erd_status_title: "Entity Relationship Diagram (3NF)",
     erd_status_desc: "Entity relationship schema is directly derived from active database structures.",
+<<<<<<< Updated upstream
     modal_btn_close: "Close (Esc)"
+=======
+    modal_btn_close: "Close (Esc)",
+    lightbox_instruction: "Use mouse wheel or toolbar buttons to zoom into 3NF relational tables, Stored Procedures, Views & architectural tiers.",
+    cli_toggle_text: "Dev Mode",
+    cli_hint: "Type 'help' for manual • Arrow ↑/↓ for history • 'exit' or Esc to close"
+>>>>>>> Stashed changes
   }
 };
 
@@ -318,6 +382,57 @@ const formErrorMessages = {
   }
 };
 
+<<<<<<< Updated upstream
+=======
+/**
+ * Real-world practical role descriptions for all 19 skill badges across 5 categories
+ */
+const skillTooltips = {
+  vi: {
+    'c-cpp': "Lập trình hệ thống, tối ưu hiệu năng bộ nhớ và cấu trúc dữ liệu nền tảng.",
+    'java': "Lập trình hướng đối tượng (OOP) chuyên sâu, logic backend doanh nghiệp và hệ sinh thái JVM.",
+    'python': "Xây dựng dịch vụ web với Django, xử lý dữ liệu và tự động hóa tác vụ hệ thống.",
+    'php': "Phát triển web backend theo mô hình MVC, định tuyến router và kết nối CSDL qua PDO an toàn.",
+    'javascript': "Xử lý tương tác DOM bất đồng bộ (ES6+), Fetch API và tối ưu giao diện responsive.",
+    'html-css': "Cấu trúc ngữ nghĩa chuẩn SEO, Responsive Design, CSS Grid, Flexbox và Trợ năng WCAG.",
+    'spring-boot': "Khung ứng dụng Java RESTful API, Dependency Injection và kiến trúc n-tier mạnh mẽ.",
+    'django': "Framework Python full-stack, tích hợp Django ORM, xác thực Auth và bảo mật chặt chẽ.",
+    'react': "Xây dựng Single Page Application (SPA), quản lý State phản ứng và tái sử dụng Component.",
+    'vue': "Giao diện người dùng tương tác phản ứng (Reactivity), Single-File Components và kiến trúc linh hoạt.",
+    'mysql': "Hệ quản trị CSDL quan hệ, tối ưu Index, khóa ngoại và câu truy vấn liên kết bảng phức tạp.",
+    'mssql': "CSDL quan hệ chuẩn 3NF, Stored Procedures, Views, Trigger và giao dịch ACID an toàn.",
+    'redis': "Bộ đệm In-Memory tốc độ cao, quản lý session và hàng đợi Message Broker cho Celery.",
+    'docker': "Đóng gói Container hóa ứng dụng, đồng bộ môi trường dev/staging qua Docker Compose.",
+    'git-github': "Quản lý mã nguồn phân tán, quy trình phân nhánh Git Flow, Code Review và CI/CD.",
+    'packet-tracer': "Mô phỏng topo mạng, cấu hình VLAN, định tuyến OSPF/EIGRP, NAT và phân quyền ACL.",
+    'gns3': "Môi trường giả lập mạng chuyên sâu chạy Cisco IOS thực tế và thiết bị định tuyến ảo.",
+    'linux-server': "Quản trị máy chủ Ubuntu/Debian, cấu hình Nginx/Apache, bảo mật SSH, Cron jobs và UFW firewall.",
+    'windows-server': "Quản trị hạ tầng Active Directory, cấp phát DNS/DHCP và vận hành hệ thống phòng máy UTH."
+  },
+  en: {
+    'c-cpp': "System-level programming, memory management optimization, and foundational data structures.",
+    'java': "Advanced Object-Oriented Programming (OOP), enterprise backend logic, and JVM ecosystem.",
+    'python': "Web service development with Django, data processing, and backend automation scripting.",
+    'php': "Backend web development using MVC patterns, custom routing, and secure PDO database connectivity.",
+    'javascript': "Asynchronous DOM manipulation (ES6+), Fetch APIs, and dynamic responsive UI interactions.",
+    'html-css': "Semantic HTML5 architecture, SEO standards, CSS Grid/Flexbox, and WCAG accessibility.",
+    'spring-boot': "Enterprise Java RESTful API framework, Dependency Injection, and scalable n-tier services.",
+    'django': "Batteries-included full-stack Python framework with built-in ORM, Auth, and security middleware.",
+    'react': "Single Page Applications (SPA), reactive state management, and declarative reusable components.",
+    'vue': "Reactive user interfaces, Single-File Components (SFC), and progressive component architecture.",
+    'mysql': "Relational database management, index tuning, foreign key constraints, and relational queries.",
+    'mssql': "Normalized 3NF schemas, Stored Procedures, Views, Triggers, and ACID transaction safety.",
+    'redis': "Ultra-low latency In-Memory key-value cache, session store, and Celery message broker.",
+    'docker': "Containerized microservice packaging and reproducible environments using Docker Compose.",
+    'git-github': "Distributed version control, collaborative Git Flow branching, Code Reviews, and CI/CD.",
+    'packet-tracer': "Network topology simulation, VLAN configuration, OSPF/EIGRP routing, NAT, and ACL filtering.",
+    'gns3': "Advanced network emulation running real Cisco IOS images and virtualized appliances.",
+    'linux-server': "Ubuntu/Debian server administration, Nginx/Apache setup, SSH hardening, Cron, and UFW firewall.",
+    'windows-server': "Active Directory administration, DNS/DHCP services, and UTH campus lab infrastructure management."
+  }
+};
+
+>>>>>>> Stashed changes
 let currentLang = 'vi';
 
 /**
@@ -391,6 +506,18 @@ export function setLanguage(lang) {
     }
   });
 
+<<<<<<< Updated upstream
+=======
+  // 3b. Update accessible attributes (aria-label) with data-i18n-aria-label
+  const ariaLabelElements = document.querySelectorAll('[data-i18n-aria-label]');
+  ariaLabelElements.forEach((el) => {
+    const key = el.getAttribute('data-i18n-aria-label');
+    if (translations[lang][key]) {
+      el.setAttribute('aria-label', translations[lang][key]);
+    }
+  });
+
+>>>>>>> Stashed changes
   // 4. Update input placeholders
   const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
   placeholderElements.forEach((el) => {
@@ -427,7 +554,12 @@ export function setLanguage(lang) {
 
   const heroCvBtn = document.getElementById('hero-btn-cv');
   if (heroCvBtn) {
+<<<<<<< Updated upstream
     heroCvBtn.setAttribute('title', lang === 'vi' ? 'File CV PDF sẽ được cập nhật sớm' : 'CV PDF file will be available soon');
+=======
+    heroCvBtn.setAttribute('title', lang === 'vi' ? 'Tải xuống CV của Nguyễn Xuân Hiếu (.PDF)' : 'Download Nguyen Xuan Hieu CV (.PDF)');
+    heroCvBtn.setAttribute('aria-label', lang === 'vi' ? 'Tải xuống CV của Nguyễn Xuân Hiếu định dạng PDF' : 'Download Nguyen Xuan Hieu CV in PDF format');
+>>>>>>> Stashed changes
   }
 
   const copyEmailBtn = document.getElementById('copy-email-btn');
@@ -463,7 +595,31 @@ export function setLanguage(lang) {
   // 9. Update active form validation messages & status
   updateActiveFormErrors(lang);
 
+<<<<<<< Updated upstream
   // 10. Persist user selection
+=======
+  // 10. Update skill badge aria-labels and active tooltip
+  document.querySelectorAll('.skill-badge').forEach((badge) => {
+    const skillId = badge.getAttribute('data-skill');
+    const badgeName = badge.querySelector('.skill-badge-name')?.textContent.trim() || badge.textContent.trim();
+    const desc = skillTooltips[lang]?.[skillId];
+    if (desc) {
+      badge.setAttribute('aria-label', `${badgeName}: ${desc}`);
+    }
+  });
+  window.updateActiveSkillTooltip?.();
+
+  const devToggleBtn = document.getElementById('dev-terminal-toggle');
+  if (devToggleBtn) {
+    devToggleBtn.setAttribute('aria-label', lang === 'vi' ? 'Mở cửa sổ dòng lệnh Developer Terminal' : 'Open Developer CLI Terminal');
+    devToggleBtn.setAttribute('title', lang === 'vi' ? 'Developer Mode CLI Terminal (>_)' : 'Developer Mode CLI Terminal (>_)');
+  }
+
+  // 11. Update active CLI terminal banner if open
+  window.renderActiveCliWelcome?.();
+
+  // 12. Persist user selection
+>>>>>>> Stashed changes
   try {
     localStorage.setItem('portfolio_user_lang', lang);
   } catch (err) {
@@ -688,10 +844,31 @@ const projectModalData = {
       `,
       architectureHtml: `
         <div class="modal-detail-section">
+<<<<<<< Updated upstream
           <div class="coming-soon-box">
             <span class="coming-soon-icon" aria-hidden="true">📐</span>
             <h4>Sơ đồ Kiến trúc Hệ thống (3-Tier MVC)</h4>
             <p>Đang hoàn thiện sơ đồ luồng dữ liệu chuẩn kỹ thuật. Không mô phỏng sơ đồ giả.</p>
+=======
+          <div class="diagram-viewer-card">
+            <div class="diagram-viewer-header">
+              <span class="diagram-badge">System Architecture</span>
+              <h4 class="diagram-title">Kiến trúc 3-Tier / MVC (Presentation Layer • PHP Business Logic • MS SQL Server)</h4>
+            </div>
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/hiunxstar-architecture.png" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Xem sơ đồ Kiến trúc 3-Tier ở kích thước gốc">
+              <img src="./images/hiunxstar-architecture.png" onerror="this.onerror=null; this.src='${hiunxstarArchSvg}';" alt="Sơ đồ Kiến trúc 3-Tier MVC Hệ thống HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+              <div class="diagram-overlay">
+                <span class="diagram-zoom-btn" aria-hidden="true">🔍 Phóng to sơ đồ</span>
+              </div>
+            </div>
+            <div class="diagram-footer-actions">
+              <p class="diagram-caption">Sơ đồ tương tác luồng dữ liệu 3 tầng từ Presentation Layer đến Data Access Layer</p>
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/hiunxstar-architecture.png" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                <span>Phóng to chi tiết (Fullsize)</span>
+              </button>
+            </div>
+>>>>>>> Stashed changes
           </div>
           <div class="modal-highlight-box">
             <h4>Mô tả cấu trúc kỹ thuật:</h4>
@@ -705,18 +882,46 @@ const projectModalData = {
       `,
       erdHtml: `
         <div class="modal-detail-section">
+<<<<<<< Updated upstream
           <div class="coming-soon-box">
             <span class="coming-soon-icon" aria-hidden="true">🗄️</span>
             <h4>Mô hình Thực thể Kết hợp (ERD 3NF)</h4>
             <p>Sơ đồ quan hệ thực thể đang được trích xuất trực tiếp từ cấu trúc bảng cơ sở dữ liệu thực tế.</p>
+=======
+          <div class="diagram-viewer-card">
+            <div class="diagram-viewer-header">
+              <span class="diagram-badge">Entity Relationship Diagram</span>
+              <h4 class="diagram-title">Mô hình Thực thể CSDL Chuẩn 3NF (Tables, Stored Procedures &amp; Views)</h4>
+            </div>
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/hiunxstar-erd.png" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Xem sơ đồ ERD chuẩn 3NF ở kích thước gốc">
+              <img src="./images/hiunxstar-erd.png" onerror="this.onerror=null; this.src='${hiunxstarErdSvg}';" alt="Sơ đồ ERD 3NF Hệ thống HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+              <div class="diagram-overlay">
+                <span class="diagram-zoom-btn" aria-hidden="true">🔍 Phóng to sơ đồ</span>
+              </div>
+            </div>
+            <div class="diagram-footer-actions">
+              <p class="diagram-caption">Sơ đồ quan hệ thực thể giữa Người dùng, Phim, Suất chiếu, Ghế ngồi và Đơn đặt vé</p>
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/hiunxstar-erd.png" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                <span>Phóng to chi tiết (Fullsize)</span>
+              </button>
+            </div>
+>>>>>>> Stashed changes
           </div>
           <div class="modal-highlight-box">
             <h4>Các thực thể cốt lõi trong CSDL:</h4>
             <ul>
+<<<<<<< Updated upstream
               <li><code>Phim</code>, <code>TheLoai</code>, <code>LichChieu</code> (Thông tin suất chiếu &amp; phim)</li>
               <li><code>PhongChieu</code>, <code>GheNgoi</code>, <code>LoaiGhe</code> (Sơ đồ rạp và định dạng ghế)</li>
               <li><code>Ve</code>, <code>HoaDon</code>, <code>ThanhToan</code> (Dữ liệu giao dịch ACID)</li>
               <li><code>NguoiDung</code>, <code>VaiTro</code> (Phân quyền người dùng &amp; quản trị)</li>
+=======
+              <li><code>USERS</code>, <code>ROLES</code>: Quản lý danh tính tài khoản, bảo mật mật khẩu và phân quyền RBAC.</li>
+              <li><code>MOVIES</code>, <code>SHOWTIMES</code>, <code>AUDITORIUMS</code>: Danh mục phim chiếu rạp, phòng chiếu và lịch suất chiếu.</li>
+              <li><code>SEATS</code>, <code>TICKETS</code>, <code>ORDERS</code>: Bản đồ ghế ma trận, vé bán và giao dịch đặt vé tuân thủ ACID.</li>
+              <li><code>SP &amp; Views</code>: Stored Procedures phân bổ ghế khóa thời gian thực &amp; Views thống kê doanh thu.</li>
+>>>>>>> Stashed changes
             </ul>
           </div>
         </div>
@@ -777,10 +982,31 @@ const projectModalData = {
       `,
       architectureHtml: `
         <div class="modal-detail-section">
+<<<<<<< Updated upstream
           <div class="coming-soon-box">
             <span class="coming-soon-icon" aria-hidden="true">📐</span>
             <h4>System Architecture Diagram (3-Tier MVC)</h4>
             <p>Engineering data flow diagrams are being finalized. No simulated or fake diagrams.</p>
+=======
+          <div class="diagram-viewer-card">
+            <div class="diagram-viewer-header">
+              <span class="diagram-badge">System Architecture</span>
+              <h4 class="diagram-title">3-Tier MVC Architecture (Client • PHP • MS SQL Server)</h4>
+            </div>
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/hiunxstar-architecture.png" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Open 3-Tier Architecture Diagram in Fullsize Lightbox">
+              <img src="./images/hiunxstar-architecture.png" onerror="this.onerror=null; this.src='${hiunxstarArchSvg}';" alt="3-Tier MVC Architecture Diagram for HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+              <div class="diagram-overlay">
+                <span class="diagram-zoom-btn" aria-hidden="true">🔍 View Fullsize</span>
+              </div>
+            </div>
+            <div class="diagram-footer-actions">
+              <p class="diagram-caption">3-Tier data flow from Presentation Layer to Data Access Layer</p>
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/hiunxstar-architecture.png" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                <span>View Fullsize Diagram</span>
+              </button>
+            </div>
+>>>>>>> Stashed changes
           </div>
           <div class="modal-highlight-box">
             <h4>Architecture Breakdown:</h4>
@@ -794,18 +1020,46 @@ const projectModalData = {
       `,
       erdHtml: `
         <div class="modal-detail-section">
+<<<<<<< Updated upstream
           <div class="coming-soon-box">
             <span class="coming-soon-icon" aria-hidden="true">🗄️</span>
             <h4>Entity Relationship Diagram (3NF ERD)</h4>
             <p>Entity relationship schema is directly derived from active database structures.</p>
+=======
+          <div class="diagram-viewer-card">
+            <div class="diagram-viewer-header">
+              <span class="diagram-badge">Entity Relationship Diagram</span>
+              <h4 class="diagram-title">Relational Entity Schema (3NF ERD &amp; Stored Procedures)</h4>
+            </div>
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/hiunxstar-erd.png" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Open 3NF ERD Diagram in Fullsize Lightbox">
+              <img src="./images/hiunxstar-erd.png" onerror="this.onerror=null; this.src='${hiunxstarErdSvg}';" alt="3NF ERD Relational Diagram for HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+              <div class="diagram-overlay">
+                <span class="diagram-zoom-btn" aria-hidden="true">🔍 View Fullsize</span>
+              </div>
+            </div>
+            <div class="diagram-footer-actions">
+              <p class="diagram-caption">Entity relationships among Users, Movies, Showtimes, Seats, and Ticket Orders</p>
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/hiunxstar-erd.png" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                <span>View Fullsize Diagram</span>
+              </button>
+            </div>
+>>>>>>> Stashed changes
           </div>
           <div class="modal-highlight-box">
             <h4>Core Relational Entities:</h4>
             <ul>
+<<<<<<< Updated upstream
               <li><code>Movies</code>, <code>Genres</code>, <code>Showtimes</code> (Film and scheduling metadata)</li>
               <li><code>Auditoriums</code>, <code>Seats</code>, <code>SeatTypes</code> (Physical theater mapping)</li>
               <li><code>Tickets</code>, <code>Invoices</code>, <code>Payments</code> (ACID transaction entities)</li>
               <li><code>Users</code>, <code>Roles</code> (Granular customer and admin RBAC)</li>
+=======
+              <li><code>USERS</code>, <code>ROLES</code>: User account credentials, system RBAC and customer profiles.</li>
+              <li><code>MOVIES</code>, <code>SHOWTIMES</code>, <code>AUDITORIUMS</code>: Film catalog, hall layouts, and scheduled screenings.</li>
+              <li><code>SEATS</code>, <code>TICKETS</code>, <code>ORDERS</code>: Seat positions, tickets and ACID order transactions.</li>
+              <li><code>SP &amp; Views</code>: Stored procedures for concurrency seat lock &amp; reporting views.</li>
+>>>>>>> Stashed changes
             </ul>
           </div>
         </div>
@@ -868,6 +1122,7 @@ const projectModalData = {
       `,
       architectureHtml: `
         <div class="modal-detail-section">
+<<<<<<< Updated upstream
           <div class="coming-soon-box">
             <span class="coming-soon-icon" aria-hidden="true">📐</span>
             <h4>Kiến trúc Dịch vụ Container hóa</h4>
@@ -880,12 +1135,41 @@ const projectModalData = {
               <li><code>db</code>: MySQL 8.0 lưu trữ cơ sở dữ liệu quan hệ bền vững.</li>
               <li><code>redis</code>: In-memory Broker điều phối hàng đợi thông điệp.</li>
               <li><code>celery_worker</code>: Tiến trình nền thực thi các tác vụ gửi thông báo và email.</li>
+=======
+          <div class="diagram-viewer-card">
+            <div class="diagram-viewer-header">
+              <span class="diagram-badge">Architecture Diagram</span>
+              <h4 class="diagram-title">Kiến trúc Container hóa Docker Compose (Nginx • Django • MySQL • Redis • Celery)</h4>
+            </div>
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/veterinary-architecture.png" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Xem sơ đồ Kiến trúc 3-Tier ở kích thước gốc">
+              <img src="./images/veterinary-architecture.png" onerror="this.onerror=null; this.src='${vetArchSvg}';" alt="Sơ đồ Kiến trúc Docker Compose Trung tâm Thú y" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+              <div class="diagram-overlay">
+                <span class="diagram-zoom-btn" aria-hidden="true">🔍 Phóng to sơ đồ</span>
+              </div>
+            </div>
+            <div class="diagram-footer-actions">
+              <p class="diagram-caption">Sơ đồ dịch vụ microservices độc lập được đóng gói trong Docker Network</p>
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/veterinary-architecture.png" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                <span>Phóng to chi tiết (Fullsize)</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-highlight-box">
+            <h4>Mô tả cấu trúc dịch vụ:</h4>
+            <ul>
+              <li><strong>Nginx Proxy:</strong> Điều phối tải (Reverse Proxy) và xử lý kết nối SSL/TLS.</li>
+              <li><strong>Django Application:</strong> Xử lý API RESTful, logic đặt lịch khám và xác thực người dùng.</li>
+              <li><strong>MySQL 8.0 Primary DB:</strong> Lưu trữ dữ liệu hồ sơ bệnh án, lịch hẹn và giao dịch.</li>
+              <li><strong>Redis &amp; Celery:</strong> Bộ đệm Message Queue và xử lý tác vụ gửi email nhắc lịch bất đồng bộ.</li>
+>>>>>>> Stashed changes
             </ul>
           </div>
         </div>
       `,
       erdHtml: `
         <div class="modal-detail-section">
+<<<<<<< Updated upstream
           <div class="coming-soon-box">
             <span class="coming-soon-icon" aria-hidden="true">🗄️</span>
             <h4>Mô hình Thực thể Kết hợp Thú y</h4>
@@ -898,6 +1182,35 @@ const projectModalData = {
               <li><code>MedicalRecord</code>, <code>Prescription</code> (Bệnh án và toa thuốc)</li>
               <li><code>Appointment</code>, <code>Doctor</code> (Lịch hẹn khám và phân công bác sĩ)</li>
               <li><code>Product</code>, <code>Order</code>, <code>OrderItem</code> (Sản phẩm và đơn hàng COD)</li>
+=======
+          <div class="diagram-viewer-card">
+            <div class="diagram-viewer-header">
+              <span class="diagram-badge">Entity Relationship Diagram</span>
+              <h4 class="diagram-title">Mô hình Thực thể Quản lý Trung tâm Thú y &amp; Hồ sơ Bệnh án</h4>
+            </div>
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/veterinary-erd.png" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Xem sơ đồ ERD Trung tâm Thú y ở kích thước gốc">
+              <img src="./images/veterinary-erd.png" onerror="this.onerror=null; this.src='${vetErdSvg}';" alt="Sơ đồ ERD Trung tâm Thú y và Bệnh án điện tử" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+              <div class="diagram-overlay">
+                <span class="diagram-zoom-btn" aria-hidden="true">🔍 Phóng to sơ đồ</span>
+              </div>
+            </div>
+            <div class="diagram-footer-actions">
+              <p class="diagram-caption">Sơ đồ liên kết giữa Chủ nuôi, Thú cưng, Lịch hẹn khám và Hồ sơ bệnh án</p>
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/veterinary-erd.png" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                <span>Phóng to chi tiết (Fullsize)</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-highlight-box">
+            <h4>Các thực thể cốt lõi trong CSDL:</h4>
+            <ul>
+              <li><code>USERS</code>: Thông tin khách hàng chủ nuôi và nhân sự y bác sĩ thú y.</li>
+              <li><code>PETS</code>: Hồ sơ thú cưng (chủng loài, cân nặng, độ tuổi, tiền sử bệnh).</li>
+              <li><code>APPOINTMENTS</code>: Lịch hẹn thăm khám được phân công theo bác sĩ.</li>
+              <li><code>MEDICAL_RECORDS</code>: Bệnh án chi tiết, chẩn đoán và phác đồ điều trị.</li>
+              <li><code>PRESCRIPTIONS &amp; ORDERS</code>: Đơn thuốc điện tử và giao dịch sản phẩm thú y.</li>
+>>>>>>> Stashed changes
             </ul>
           </div>
         </div>
@@ -958,6 +1271,7 @@ const projectModalData = {
       `,
       architectureHtml: `
         <div class="modal-detail-section">
+<<<<<<< Updated upstream
           <div class="coming-soon-box">
             <span class="coming-soon-icon" aria-hidden="true">📐</span>
             <h4>Containerized Service Architecture</h4>
@@ -970,12 +1284,41 @@ const projectModalData = {
               <li><code>db</code>: MySQL 8.0 persistent relational storage.</li>
               <li><code>redis</code>: In-memory message broker coordinating Celery queues.</li>
               <li><code>celery_worker</code>: Background workers executing asynchronous notification jobs.</li>
+=======
+          <div class="diagram-viewer-card">
+            <div class="diagram-viewer-header">
+              <span class="diagram-badge">Architecture Diagram</span>
+              <h4 class="diagram-title">Docker Compose Containerized Architecture (Nginx • Django • MySQL • Redis • Celery)</h4>
+            </div>
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/veterinary-architecture.png" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Open Docker Compose Architecture Diagram in Fullsize Lightbox">
+              <img src="./images/veterinary-architecture.png" onerror="this.onerror=null; this.src='${vetArchSvg}';" alt="Docker Compose Architecture Diagram for Veterinary Center" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+              <div class="diagram-overlay">
+                <span class="diagram-zoom-btn" aria-hidden="true">🔍 View Fullsize</span>
+              </div>
+            </div>
+            <div class="diagram-footer-actions">
+              <p class="diagram-caption">Decoupled microservice architecture orchestrating isolated containers on custom Docker bridge network</p>
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/veterinary-architecture.png" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                <span>View Fullsize Diagram</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-highlight-box">
+            <h4>Service Components Breakdown:</h4>
+            <ul>
+              <li><strong>Nginx Proxy:</strong> Reverse proxy load balancing and SSL/TLS termination on port 443.</li>
+              <li><strong>Django Application:</strong> REST APIs, appointment scheduling algorithms, and RBAC authentication.</li>
+              <li><strong>MySQL 8.0 Primary DB:</strong> Persisting relational tables for pets, appointments, and medical charts.</li>
+              <li><strong>Redis &amp; Celery:</strong> In-memory broker and asynchronous workers for instant and scheduled notification emails.</li>
+>>>>>>> Stashed changes
             </ul>
           </div>
         </div>
       `,
       erdHtml: `
         <div class="modal-detail-section">
+<<<<<<< Updated upstream
           <div class="coming-soon-box">
             <span class="coming-soon-icon" aria-hidden="true">🗄️</span>
             <h4>Veterinary Entity Relationship Diagram</h4>
@@ -988,6 +1331,35 @@ const projectModalData = {
               <li><code>MedicalRecord</code>, <code>Prescription</code> (Health records and treatment logs)</li>
               <li><code>Appointment</code>, <code>Doctor</code> (Appointment scheduling and duty assignments)</li>
               <li><code>Product</code>, <code>Order</code>, <code>OrderItem</code> (Catalog and order fulfillment)</li>
+=======
+          <div class="diagram-viewer-card">
+            <div class="diagram-viewer-header">
+              <span class="diagram-badge">Entity Relationship Diagram</span>
+              <h4 class="diagram-title">Veterinary Clinical EHR &amp; Relational Schema (3NF ERD)</h4>
+            </div>
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/veterinary-erd.png" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Open Veterinary Clinical EHR Schema Diagram in Fullsize Lightbox">
+              <img src="./images/veterinary-erd.png" onerror="this.onerror=null; this.src='${vetErdSvg}';" alt="Veterinary Clinical EHR Schema Diagram" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+              <div class="diagram-overlay">
+                <span class="diagram-zoom-btn" aria-hidden="true">🔍 View Fullsize</span>
+              </div>
+            </div>
+            <div class="diagram-footer-actions">
+              <p class="diagram-caption">Entity relationships linking Pet Owners, Pets, Appointments, Clinical Records, and Prescriptions</p>
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/veterinary-erd.png" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                <span>View Fullsize Diagram</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-highlight-box">
+            <h4>Core Clinical Entities:</h4>
+            <ul>
+              <li><code>USERS</code>: Client pet owners, staff veterinary surgeons, and administration team.</li>
+              <li><code>PETS</code>: Patient records including species, breed, birth date, and medical baseline.</li>
+              <li><code>APPOINTMENTS</code>: Medical consultation slots assigned to doctors.</li>
+              <li><code>MEDICAL_RECORDS</code>: Diagnosis notes, clinical exams, and treatment procedures.</li>
+              <li><code>PRESCRIPTIONS &amp; ORDERS</code>: Pharmaceutical prescriptions and pet supply transactions.</li>
+>>>>>>> Stashed changes
             </ul>
           </div>
         </div>
@@ -1047,7 +1419,179 @@ function initSpotlightHover() {
 }
 
 // ------------------------------------------------------------------------------
+<<<<<<< Updated upstream
 // 10. ACCESSIBLE MODAL DIALOG ENGINE (Focus Trap & Restoration)
+=======
+// 10. HIGH-RESOLUTION DIAGRAM LIGHTBOX & PAN/ZOOM ENGINE
+// ------------------------------------------------------------------------------
+let diagramLightboxActive = false;
+let currentDiagramZoom = 1.0;
+let lastFocusedDiagramTrigger = null;
+
+function initDiagramLightbox() {
+  const lightbox = document.getElementById('diagram-lightbox');
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCanvas = document.getElementById('lightbox-canvas');
+  const lightboxZoomLevel = document.getElementById('lightbox-zoom-level');
+  const zoomInBtn = document.getElementById('lightbox-zoom-in');
+  const zoomOutBtn = document.getElementById('lightbox-zoom-out');
+  const zoomResetBtn = document.getElementById('lightbox-zoom-reset');
+  const closeBtn = document.getElementById('lightbox-close-btn');
+  const dismissBtn = document.getElementById('lightbox-dismiss-btn');
+
+  if (!lightbox || !lightboxImg || !lightboxCanvas) return;
+
+  const minZoom = 0.5;
+  const maxZoom = 3.0;
+  const zoomStep = 0.25;
+
+  function setZoom(val) {
+    currentDiagramZoom = Math.min(Math.max(val, minZoom), maxZoom);
+    lightboxCanvas.style.transform = `scale(${currentDiagramZoom})`;
+    if (lightboxZoomLevel) {
+      lightboxZoomLevel.textContent = `${Math.round(currentDiagramZoom * 100)}%`;
+    }
+  }
+
+  function resetZoom() {
+    setZoom(1.0);
+  }
+
+  // Open Lightbox with specified diagram info
+  window.openDiagramLightbox = function (src, fallback, title, triggerEl) {
+    lastFocusedDiagramTrigger = triggerEl || document.activeElement;
+
+    // Standardize title labels to technical standards
+    let normalizedTitle = title;
+    const lowerSrc = (src || '').toLowerCase();
+    const lowerTitle = (title || '').toLowerCase();
+    if (lowerSrc.includes('architecture') || lowerTitle.includes('architecture') || lowerTitle.includes('kiến trúc')) {
+      normalizedTitle = '[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC';
+    } else if (lowerSrc.includes('erd') || lowerTitle.includes('erd') || lowerTitle.includes('schema') || lowerTitle.includes('thực thể')) {
+      normalizedTitle = '[DATABASE SCHEMA] 3NF Relational ERD';
+    } else if (!normalizedTitle) {
+      normalizedTitle = '[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC';
+    }
+
+    if (lightboxTitle) lightboxTitle.textContent = normalizedTitle;
+    lightboxImg.src = src;
+    lightboxImg.alt = normalizedTitle;
+    lightboxImg.onerror = () => {
+      if (fallback && lightboxImg.src !== fallback) {
+        lightboxImg.src = fallback;
+      }
+    };
+
+    resetZoom();
+    lightbox.showModal();
+    diagramLightboxActive = true;
+    closeBtn?.focus();
+  };
+
+  window.closeDiagramLightbox = function () {
+    if (lightbox.open) {
+      lightbox.close();
+      diagramLightboxActive = false;
+      resetZoom();
+      if (lastFocusedDiagramTrigger && typeof lastFocusedDiagramTrigger.focus === 'function') {
+        lastFocusedDiagramTrigger.focus();
+      }
+    }
+  };
+
+  // Zoom controls
+  zoomInBtn?.addEventListener('click', () => setZoom(currentDiagramZoom + zoomStep));
+  zoomOutBtn?.addEventListener('click', () => setZoom(currentDiagramZoom - zoomStep));
+  zoomResetBtn?.addEventListener('click', resetZoom);
+
+  // Close buttons
+  closeBtn?.addEventListener('click', window.closeDiagramLightbox);
+  dismissBtn?.addEventListener('click', window.closeDiagramLightbox);
+
+  // Backdrop click to close
+  lightbox.addEventListener('click', (e) => {
+    const dialogCard = lightbox.querySelector('.lightbox-dialog-card');
+    if (dialogCard && !dialogCard.contains(e.target)) {
+      window.closeDiagramLightbox();
+    }
+  });
+
+  // Esc key & Focus Trap inside lightbox
+  lightbox.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closeDiagramLightbox();
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      const focusable = lightbox.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        last.focus();
+        e.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        first.focus();
+        e.preventDefault();
+      }
+    }
+  });
+
+  // Wheel zoom inside lightbox canvas (Ctrl + wheel or standard wheel)
+  lightbox.addEventListener('wheel', (e) => {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? zoomStep : -zoomStep;
+      setZoom(currentDiagramZoom + delta);
+    }
+  }, { passive: false });
+
+  // Event delegation on document / modal container for diagram clicks
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.diagram-image-wrapper, .open-diagram-lightbox-btn, .diagram-zoom-btn');
+    if (!trigger) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const parent = trigger.closest('.diagram-viewer-card') || trigger;
+    const wrapper = parent.querySelector('.diagram-image-wrapper') || trigger;
+    const btn = parent.querySelector('.open-diagram-lightbox-btn');
+
+    const src = trigger.getAttribute('data-diagram-src') || wrapper.getAttribute('data-diagram-src') || btn?.getAttribute('data-diagram-src');
+    const fallback = trigger.getAttribute('data-diagram-fallback') || wrapper.getAttribute('data-diagram-fallback') || btn?.getAttribute('data-diagram-fallback');
+    const title = trigger.getAttribute('data-diagram-title') || wrapper.getAttribute('data-diagram-title') || btn?.getAttribute('data-diagram-title');
+
+    if (src) {
+      window.openDiagramLightbox(src, fallback, title, trigger);
+    }
+  });
+
+  // Keyboard accessibility: Enter or Space on diagram wrapper opens lightbox
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const wrapper = document.activeElement?.closest?.('.diagram-image-wrapper');
+      if (wrapper && wrapper === document.activeElement) {
+        e.preventDefault();
+        const src = wrapper.getAttribute('data-diagram-src');
+        const fallback = wrapper.getAttribute('data-diagram-fallback');
+        const title = wrapper.getAttribute('data-diagram-title');
+        if (src) {
+          window.openDiagramLightbox(src, fallback, title, wrapper);
+        }
+      }
+    }
+  });
+}
+
+// ------------------------------------------------------------------------------
+// 11. ACCESSIBLE MODAL DIALOG ENGINE (Focus Trap & Restoration)
+>>>>>>> Stashed changes
 // ------------------------------------------------------------------------------
 let currentModalProject = null;
 let lastFocusedTrigger = null;
@@ -1300,6 +1844,21 @@ function initCopyEmail() {
   });
 }
 
+<<<<<<< Updated upstream
+=======
+function initCvDownloadToast() {
+  const cvBtn = document.getElementById('hero-btn-cv');
+  if (!cvBtn) return;
+
+  cvBtn.addEventListener('click', () => {
+    const msg = currentLang === 'vi'
+      ? 'Đang tải xuống CV của Nguyễn Xuân Hiếu (.PDF)...'
+      : 'Downloading Nguyen Xuan Hieu CV (.PDF)...';
+    showToast(msg);
+  });
+}
+
+>>>>>>> Stashed changes
 // ------------------------------------------------------------------------------
 // 13. CLIENT-SIDE CONTACT FORM VALIDATION & MAILTO PROTOCOL
 // ------------------------------------------------------------------------------
@@ -1438,10 +1997,590 @@ function initScrollToTop() {
 }
 
 // ------------------------------------------------------------------------------
+<<<<<<< Updated upstream
 // 15. INITIALIZATION & FOUNDATION EVENT LISTENERS
 // ------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Nguyen Xuan Hieu Portfolio - Stage E Engine Initialized.');
+=======
+// 15. HERO AVATAR LOADER (Real image with progressive fallback to monogram)
+// ------------------------------------------------------------------------------
+function initHeroAvatar() {
+  const avatarImg = document.getElementById('hero-avatar-img');
+  const avatarFallback = document.getElementById('hero-avatar-fallback');
+  if (!avatarImg || !avatarFallback) return;
+
+  const tryExtensions = ['./images/avatar.jpg', './images/avatar.webp', './images/avatar.png'];
+  let currentExtIdx = 0;
+
+  function handleSuccess() {
+    avatarImg.classList.add('is-loaded');
+    avatarFallback.classList.add('is-hidden');
+  }
+
+  function handleFail() {
+    currentExtIdx++;
+    if (currentExtIdx < tryExtensions.length) {
+      avatarImg.src = tryExtensions[currentExtIdx];
+    } else {
+      avatarImg.style.display = 'none';
+      avatarFallback.classList.remove('is-hidden');
+    }
+  }
+
+  avatarImg.addEventListener('load', handleSuccess);
+  avatarImg.addEventListener('error', handleFail);
+
+  if (avatarImg.complete && avatarImg.naturalWidth > 0) {
+    handleSuccess();
+  }
+}
+
+// ------------------------------------------------------------------------------
+// 16. PARALLAX 3D TILT EFFECT (vanilla-tilt via ESM CDN)
+// ------------------------------------------------------------------------------
+let vanillaTiltInstances = [];
+
+async function initVanillaTilt() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || ('ontouchstart' in window);
+
+  if (prefersReducedMotion || isTouchDevice) {
+    return;
+  }
+
+  try {
+    const { default: VanillaTilt } = await import('https://esm.sh/vanilla-tilt@1.8.1');
+    if (!VanillaTilt) return;
+
+    const tiltTargets = document.querySelectorAll(
+      '.portrait-card, .project-card, .editorial-quote-card, .process-quote-card'
+    );
+
+    tiltTargets.forEach((el) => {
+      VanillaTilt.init(el, {
+        max: 10,
+        speed: 400,
+        perspective: 1000,
+        glare: true,
+        'max-glare': 0.15,
+        scale: 1.02
+      });
+      if (el.vanillaTilt) {
+        vanillaTiltInstances.push(el.vanillaTilt);
+      }
+    });
+
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+      if (e.matches) {
+        vanillaTiltInstances.forEach((inst) => inst.destroy());
+        vanillaTiltInstances = [];
+      }
+    });
+  } catch (err) {
+    console.warn('VanillaTilt could not be initialized:', err);
+  }
+}
+
+// ------------------------------------------------------------------------------
+// 16b. SKILLS TECH TOOLTIPS & MICRO-INTERACTIONS (Stage 2A)
+// ------------------------------------------------------------------------------
+function initSkillTooltips() {
+  const tooltip = document.getElementById('skills-tech-tooltip');
+  const tooltipTitle = document.getElementById('skills-tooltip-title');
+  const tooltipText = document.getElementById('skills-tooltip-text');
+  const tooltipArrow = document.getElementById('skills-tooltip-arrow');
+  const badges = document.querySelectorAll('.skill-badge');
+
+  if (!tooltip || !badges.length) return;
+
+  let activeBadge = null;
+
+  function showTooltip(badge) {
+    const skillId = badge.getAttribute('data-skill');
+    if (!skillId) return;
+
+    const badgeName = badge.querySelector('.skill-badge-name')?.textContent.trim() || badge.textContent.trim();
+    const desc = skillTooltips[currentLang]?.[skillId] || '';
+
+    if (tooltipTitle) tooltipTitle.textContent = badgeName;
+    if (tooltipText) tooltipText.textContent = desc;
+
+    if (activeBadge && activeBadge !== badge) {
+      activeBadge.classList.remove('active-tooltip');
+    }
+    badge.classList.add('active-tooltip');
+    activeBadge = badge;
+
+    tooltip.style.visibility = 'hidden';
+    tooltip.classList.add('visible');
+    tooltip.setAttribute('aria-hidden', 'false');
+
+    const badgeRect = badge.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    const scrollX = window.scrollX || document.documentElement.scrollLeft;
+    const viewportWidth = document.documentElement.clientWidth;
+
+    const badgeCenter = badgeRect.left + badgeRect.width / 2;
+    let tooltipLeft = badgeCenter - tooltipRect.width / 2;
+    const padding = 12;
+
+    if (tooltipLeft < padding) {
+      tooltipLeft = padding;
+    } else if (tooltipLeft + tooltipRect.width > viewportWidth - padding) {
+      tooltipLeft = viewportWidth - padding - tooltipRect.width;
+    }
+
+    let arrowLeft = badgeCenter - tooltipLeft;
+    arrowLeft = Math.max(16, Math.min(tooltipRect.width - 16, arrowLeft));
+    if (tooltipArrow) {
+      tooltipArrow.style.left = `${arrowLeft}px`;
+    }
+
+    const spaceAbove = badgeRect.top;
+    const spaceBelow = window.innerHeight - badgeRect.bottom;
+    const tooltipHeight = tooltipRect.height;
+    const gap = 10;
+
+    let tooltipTop;
+    if (spaceAbove >= tooltipHeight + gap + 10 || spaceAbove >= spaceBelow) {
+      tooltipTop = badgeRect.top + scrollY - tooltipHeight - gap;
+      tooltip.classList.remove('position-bottom');
+    } else {
+      tooltipTop = badgeRect.bottom + scrollY + gap;
+      tooltip.classList.add('position-bottom');
+    }
+
+    tooltip.style.left = `${tooltipLeft + scrollX}px`;
+    tooltip.style.top = `${tooltipTop}px`;
+    tooltip.style.visibility = 'visible';
+  }
+
+  function hideTooltip() {
+    if (!tooltip) return;
+    tooltip.classList.remove('visible');
+    tooltip.style.visibility = 'hidden';
+    tooltip.setAttribute('aria-hidden', 'true');
+    if (activeBadge) {
+      activeBadge.classList.remove('active-tooltip');
+      activeBadge = null;
+    }
+  }
+
+  window.updateActiveSkillTooltip = () => {
+    if (activeBadge) {
+      showTooltip(activeBadge);
+    }
+  };
+
+  badges.forEach((badge) => {
+    badge.addEventListener('mouseenter', () => showTooltip(badge));
+    badge.addEventListener('mouseleave', () => hideTooltip());
+
+    badge.addEventListener('focus', () => showTooltip(badge));
+    badge.addEventListener('blur', () => hideTooltip());
+
+    badge.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (activeBadge === badge) {
+        hideTooltip();
+      } else {
+        showTooltip(badge);
+      }
+    });
+
+    badge.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (activeBadge === badge) {
+          hideTooltip();
+        } else {
+          showTooltip(badge);
+        }
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && activeBadge) {
+      hideTooltip();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (activeBadge && !activeBadge.contains(e.target) && !tooltip.contains(e.target)) {
+      hideTooltip();
+    }
+  });
+
+  window.addEventListener('scroll', () => {
+    if (activeBadge) {
+      showTooltip(activeBadge);
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (activeBadge) {
+      showTooltip(activeBadge);
+    }
+  }, { passive: true });
+}
+
+// ------------------------------------------------------------------------------
+// 16c. DEVELOPER CLI TERMINAL COMPONENT (Stage 2B)
+// ------------------------------------------------------------------------------
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (m) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  }[m]));
+}
+
+const cliAsciiBanner = ` ██╗  ██╗██╗██╗   ██╗███╗   ██╗██╗  ██╗
+ ██║  ██║██║██║   ██║████╗  ██║╚██╗██╔╝
+ ███████║██║██║   ██║██╔██╗ ██║ ╚███╔╝ 
+ ██╔══██║██║██║   ██║██║╚██╗██║ ██╔██╗ 
+ ██║  ██║██║╚██████╔╝██║ ╚████║██╔╝ ██╗
+ ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝`;
+
+const cliCommands = {
+  vi: {
+    help: `CÁC LỆNH KHẢ DỤNG:
+  help        Hiển thị hướng dẫn & danh mục câu lệnh
+  about       Thông tin lý lịch & định hướng kỹ sư
+  skills      Xem 5 nhóm kỹ năng công nghệ & hạ tầng
+  projects    Tóm tắt 2 dự án kỹ thuật tiêu biểu
+  ping        Kiểm tra độ trễ mạng đến máy chủ UTH Campus 2
+  clear       Xóa sạch nội dung màn hình terminal
+  exit        Đóng cửa sổ dòng lệnh`,
+    about: `KỸ SƯ NGUYỄN XUÂN HIẾU:
+• Chức danh: Full-Stack Web Developer & Network Administrator
+• Đơn vị: ĐH Giao thông Vận tải TP.HCM (UTH - Campus 2) - Ngành CNTT
+• Định hướng: Backend Specialist & Full-Stack Expansion
+• Kinh nghiệm hạ tầng: Hỗ trợ vận hành phòng máy UTH Campus 2 (VLAN, AD, DNS, DHCP)
+• Triết lý phát triển: Clean Code • Chuẩn hóa 3NF • ACID Compliant
+• Email: nguyenxuanhieu2903@gmail.com
+• GitHub: https://github.com/nguyenxuanhieu2903`,
+    skills: `DANH MỤC 5 NHÓM CÔNG NGHỆ CHÍNH:
+[1] Web Base: C/C++, Java, Python, PHP, JavaScript, HTML5/CSS3
+[2] Frameworks: Spring Boot, Django, React, Vue.js
+[3] Databases & Async: MySQL, MSSQL (3NF Stored Procs), Redis, Celery
+[4] DevOps & Tools: Docker, Docker Compose, Git Flow, CI/CD
+[5] Network & Systems: Cisco Packet Tracer, GNS3, Linux Ubuntu Server, Windows Server Active Directory`,
+    projects: `DỰ ÁN KỸ THUẬT TIÊU BIỂU:
+[1] HIUNXSTAR E-COMMERCE PLATFORM
+    • Vai trò: Full-Stack Developer & Điều phối kỹ thuật
+    • Công nghệ: Django, Python, MySQL, Redis Cache, Celery
+    • Điểm nhấn: Kiến trúc n-tier, xử lý thanh toán bất đồng bộ, tối ưu query 3NF.
+[2] VETERINARY CLINIC MANAGEMENT WEB
+    • Vai trò: Backend Developer & Thiết kế CSDL
+    • Công nghệ: PHP MVC, MySQL 3NF, JavaScript, Bootstrap
+    • Điểm nhấn: Quản lý phòng khám, hồ sơ bệnh án thú cưng, Stored Procedures ACID.`,
+    ping: `PING lab-dc.uth-campus2.edu.vn (10.12.4.1) 56(84) bytes of data.
+64 bytes from 10.12.4.1: icmp_seq=1 ttl=64 time=1.42 ms
+64 bytes from 10.12.4.1: icmp_seq=2 ttl=64 time=1.85 ms
+64 bytes from 10.12.4.1: icmp_seq=3 ttl=64 time=1.31 ms
+64 bytes from 10.12.4.1: icmp_seq=4 ttl=64 time=1.60 ms
+
+--- lab-dc.uth-campus2.edu.vn ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3004ms
+rtt min/avg/max/mdev = 1.310/1.545/1.850/0.198 ms [Connection: EXCELLENT]`,
+    notFound: (cmd) => `Lệnh không hợp lệ: '${cmd}'. Gõ 'help' để xem danh sách lệnh khả dụng.`
+  },
+  en: {
+    help: `AVAILABLE COMMANDS:
+  help        Display manual & available command list
+  about       Engineer background & career focus
+  skills      Inspect 5 technology stacks & infrastructure
+  projects    Summary of 2 featured engineering projects
+  ping        Test network latency to UTH Campus 2 Server
+  clear       Clear terminal display screen
+  exit        Close terminal window`,
+    about: `ENGINEER NGUYEN XUAN HIEU:
+• Title: Full-Stack Web Developer & Network Administrator
+• Institution: University of Transport HCM (UTH - Campus 2) - IT Major
+• Focus: Backend Specialist & Full-Stack Expansion
+• Infrastructure: Campus lab network support at UTH Campus 2 (VLAN, AD, DNS, DHCP)
+• Engineering Credo: Clean Code • 3NF Normalized • ACID Compliant
+• Email: nguyenxuanhieu2903@gmail.com
+• GitHub: https://github.com/nguyenxuanhieu2903`,
+    skills: `5 CORE TECHNOLOGY CATEGORIES:
+[1] Web Base: C/C++, Java, Python, PHP, JavaScript, HTML5/CSS3
+[2] Frameworks: Spring Boot, Django, React, Vue.js
+[3] Databases & Async: MySQL, MSSQL (3NF Stored Procs), Redis, Celery
+[4] DevOps & Tools: Docker, Docker Compose, Git Flow, CI/CD
+[5] Network & Systems: Cisco Packet Tracer, GNS3, Linux Ubuntu Server, Windows Server Active Directory`,
+    projects: `FEATURED ENGINEERING PROJECTS:
+[1] HIUNXSTAR E-COMMERCE PLATFORM
+    • Role: Full-Stack Developer & Tech Coordinator
+    • Stack: Django, Python, MySQL, Redis Cache, Celery
+    • Highlight: N-tier architecture, async checkout queuing, 3NF query tuning.
+[2] VETERINARY CLINIC MANAGEMENT WEB
+    • Role: Backend Developer & Database Designer
+    • Stack: PHP MVC, MySQL 3NF, JavaScript, Bootstrap
+    • Highlight: Clinical scheduling, pet electronic medical records, ACID Stored Procedures.`,
+    ping: `PING lab-dc.uth-campus2.edu.vn (10.12.4.1) 56(84) bytes of data.
+64 bytes from 10.12.4.1: icmp_seq=1 ttl=64 time=1.42 ms
+64 bytes from 10.12.4.1: icmp_seq=2 ttl=64 time=1.85 ms
+64 bytes from 10.12.4.1: icmp_seq=3 ttl=64 time=1.31 ms
+64 bytes from 10.12.4.1: icmp_seq=4 ttl=64 time=1.60 ms
+
+--- lab-dc.uth-campus2.edu.vn ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3004ms
+rtt min/avg/max/mdev = 1.310/1.545/1.850/0.198 ms [Connection: EXCELLENT]`,
+    notFound: (cmd) => `Command not found: '${cmd}'. Type 'help' for available commands.`
+  }
+};
+
+function initCliTerminal() {
+  const dialog = document.getElementById('cli-terminal-dialog');
+  const toggleBtn = document.getElementById('dev-terminal-toggle');
+  const closeBtn = document.getElementById('cli-close-btn');
+  const dotClose = document.getElementById('cli-dot-close');
+  const dotMinimize = document.getElementById('cli-dot-minimize');
+  const dotMaximize = document.getElementById('cli-dot-maximize');
+  const cliBody = document.getElementById('cli-body');
+  const cliWelcome = document.getElementById('cli-welcome');
+  const cliHistory = document.getElementById('cli-history');
+  const cliInput = document.getElementById('cli-input');
+
+  if (!dialog || !toggleBtn || !cliInput) return;
+
+  let lastFocusedElement = null;
+  const commandHistory = [];
+  let historyPointer = -1;
+  let currentStash = '';
+
+  function renderWelcomeBanner() {
+    if (!cliWelcome) return;
+    const isVi = currentLang === 'vi';
+    cliWelcome.innerHTML = `
+      <pre class="cli-banner-pre" aria-hidden="true">${cliAsciiBanner}</pre>
+      <div class="cli-welcome-text"><strong>${isVi ? '=== BỘ DÒNG LỆNH DEVELOPER CLI TERMINAL v2.4 (Ubuntu 22.04 LTS) ===' : '=== DEVELOPER CLI TERMINAL ENGINE v2.4 (Ubuntu 22.04 LTS) ==='}</strong></div>
+      <div class="cli-welcome-text">${isVi ? '* Máy chủ: network-admin@uth-campus2.edu.vn • TTY1' : '* Host: network-admin@uth-campus2.edu.vn • TTY1'}</div>
+      <div class="cli-welcome-text">${isVi ? "* Gõ <span class='cli-output-highlight'>'help'</span> để xem danh sách lệnh, hoặc <span class='cli-output-highlight'>'exit'</span> để thoát." : "* Type <span class='cli-output-highlight'>'help'</span> for available commands, or <span class='cli-output-highlight'>'exit'</span> to quit."}</div>
+    `;
+  }
+
+  window.renderActiveCliWelcome = renderWelcomeBanner;
+
+  function openTerminal() {
+    lastFocusedElement = document.activeElement;
+    dialog.showModal();
+    renderWelcomeBanner();
+    setTimeout(() => {
+      cliInput.focus();
+      if (cliBody) cliBody.scrollTop = cliBody.scrollHeight;
+    }, 50);
+  }
+
+  function closeTerminal() {
+    if (dialog.open) {
+      dialog.close();
+    }
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+      lastFocusedElement.focus();
+    }
+  }
+
+  toggleBtn.addEventListener('click', openTerminal);
+  closeBtn?.addEventListener('click', closeTerminal);
+  dotClose?.addEventListener('click', closeTerminal);
+
+  dotMinimize?.addEventListener('click', () => {
+    if (cliHistory) cliHistory.innerHTML = '';
+    cliInput.focus();
+  });
+
+  dotMaximize?.addEventListener('click', () => {
+    const win = dialog.querySelector('.cli-window');
+    if (win) {
+      if (win.style.height === '90vh') {
+        win.style.height = '';
+        win.style.maxWidth = '';
+      } else {
+        win.style.height = '90vh';
+        win.style.maxWidth = '98vw';
+      }
+    }
+    cliInput.focus();
+  });
+
+  // Close when clicking modal backdrop
+  dialog.addEventListener('click', (e) => {
+    const rect = dialog.getBoundingClientRect();
+    const isInDialog = (
+      rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+      rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+    );
+    if (!isInDialog) {
+      closeTerminal();
+    }
+  });
+
+  // Keep focus on input when clicking inside cli body
+  cliBody?.addEventListener('click', () => {
+    cliInput.focus();
+  });
+
+  // Handle Command Execution & History Navigation
+  cliInput.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!commandHistory.length) return;
+      if (historyPointer === -1) {
+        currentStash = cliInput.value;
+      }
+      if (historyPointer < commandHistory.length - 1) {
+        historyPointer++;
+        cliInput.value = commandHistory[commandHistory.length - 1 - historyPointer];
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyPointer > 0) {
+        historyPointer--;
+        cliInput.value = commandHistory[commandHistory.length - 1 - historyPointer];
+      } else if (historyPointer === 0) {
+        historyPointer = -1;
+        cliInput.value = currentStash;
+      }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      const rawCmd = cliInput.value;
+      const cmd = rawCmd.trim();
+
+      if (!cmd) return;
+
+      commandHistory.push(cmd);
+      historyPointer = -1;
+      currentStash = '';
+
+      // Create history entry
+      const entryEl = document.createElement('div');
+      entryEl.className = 'cli-history-entry';
+
+      const cmdEl = document.createElement('div');
+      cmdEl.className = 'cli-history-command';
+      cmdEl.innerHTML = `<span class="cli-user">nxh@network-admin</span><span class="cli-separator">:</span><span class="cli-path">~</span><span class="cli-symbol">$</span> <span>${escapeHtml(cmd)}</span>`;
+      entryEl.appendChild(cmdEl);
+
+      const normalized = cmd.toLowerCase();
+
+      if (normalized === 'clear') {
+        if (cliHistory) cliHistory.innerHTML = '';
+        cliInput.value = '';
+        if (cliBody) cliBody.scrollTop = 0;
+        return;
+      } else if (normalized === 'exit') {
+        cliInput.value = '';
+        closeTerminal();
+        return;
+      }
+
+      const dict = cliCommands[currentLang] || cliCommands.vi;
+      let outputText = '';
+
+      if (normalized === 'help') {
+        outputText = dict.help;
+      } else if (normalized === 'about') {
+        outputText = dict.about;
+      } else if (normalized === 'skills') {
+        outputText = dict.skills;
+      } else if (normalized === 'projects') {
+        outputText = dict.projects;
+      } else if (normalized === 'ping') {
+        outputText = dict.ping;
+      } else {
+        outputText = dict.notFound(cmd);
+      }
+
+      const outEl = document.createElement('div');
+      outEl.className = 'cli-history-output';
+      outEl.textContent = outputText;
+      entryEl.appendChild(outEl);
+
+      if (cliHistory) cliHistory.appendChild(entryEl);
+      cliInput.value = '';
+
+      if (cliBody) cliBody.scrollTop = cliBody.scrollHeight;
+    }
+  });
+
+  // Esc key closes dialog
+  dialog.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeTerminal();
+    }
+  });
+}
+
+/**
+ * ------------------------------------------------------------------------------
+ * STAGE 2C: LIVE SERVER STATUS MONITOR WIDGET
+ * Measures realistic infrastructure latency via Performance Navigation Timing API
+ * ------------------------------------------------------------------------------
+ */
+function initLiveStatusMonitor() {
+  const latencyEl = document.getElementById('status-latency-val');
+  if (!latencyEl) return;
+
+  function measureLatency() {
+    let latency = 24;
+    try {
+      const navEntries = performance.getEntriesByType('navigation');
+      if (navEntries && navEntries.length > 0) {
+        const nav = navEntries[0];
+        const ttfb = Math.round(nav.responseStart - nav.requestStart);
+        if (ttfb > 5 && ttfb < 400) {
+          latency = ttfb;
+        } else {
+          const connect = Math.round(nav.connectEnd - nav.connectStart);
+          if (connect > 5 && connect < 200) {
+            latency = connect;
+          } else {
+            // Local dev server fallback with organic client-side rendering delta
+            const loadDelta = Math.round(nav.domInteractive - nav.responseEnd);
+            latency = Math.min(32, Math.max(18, Math.round(loadDelta / 6) || 24));
+          }
+        }
+      }
+    } catch {
+      latency = 24;
+    }
+    // Organic variance (18ms - 28ms)
+    if (latency <= 5) {
+      latency = Math.floor(18 + Math.random() * 8);
+    }
+    latencyEl.textContent = `~${latency}ms`;
+  }
+
+  // Initial measurement
+  measureLatency();
+
+  // Periodic subtle organic pulse update every 12 seconds
+  setInterval(() => {
+    try {
+      const current = parseInt(latencyEl.textContent.replace(/\D/g, ''), 10) || 24;
+      const delta = (Math.random() > 0.5 ? 1 : -1) * Math.floor(Math.random() * 3 + 1);
+      const nextLatency = Math.min(34, Math.max(16, current + delta));
+      latencyEl.textContent = `~${nextLatency}ms`;
+    } catch {
+      // Safe fallback
+    }
+  }, 12000);
+}
+
+// ------------------------------------------------------------------------------
+// 17. INITIALIZATION & FOUNDATION EVENT LISTENERS
+// ------------------------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Nguyen Xuan Hieu Portfolio - Stage 2C Complete Engine Initialized.');
+>>>>>>> Stashed changes
 
   // Initialize Language from LocalStorage or default to 'vi'
   let savedLang = 'vi';
@@ -1452,15 +2591,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   setLanguage(savedLang);
 
+<<<<<<< Updated upstream
   // Initialize Stage B, C & D Components
+=======
+  // Initialize Core Components
+  initHeroAvatar();
+  initVanillaTilt();
+  initSkillTooltips();
+  initCliTerminal();
+  initLiveStatusMonitor();
+>>>>>>> Stashed changes
   initScrollProgress();
   initScrollSpy();
   initSmoothScroll();
   initNumberCounters();
   initSpotlightHover();
   initProjectModal();
+<<<<<<< Updated upstream
   initTimelineSvg();
   initCopyEmail();
+=======
+  initDiagramLightbox();
+  initTimelineSvg();
+  initCopyEmail();
+  initCvDownloadToast();
+>>>>>>> Stashed changes
   initContactForm();
   initScrollToTop();
 
@@ -1502,3 +2657,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 });
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes

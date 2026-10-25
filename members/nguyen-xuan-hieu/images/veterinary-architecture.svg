@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" style="background:#F7FAF5;font-family:'Plus Jakarta Sans',sans-serif;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#404E3B" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7B9669"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2496ED"/>
+    </marker>
+  </defs>
+
+  <!-- Title Header -->
+  <rect x="40" y="20" width="1120" height="60" rx="12" fill="#404E3B"/>
+  <text x="600" y="48" fill="#E6E6E6" font-size="20" font-weight="700" text-anchor="middle" dominant-baseline="middle">
+    TRUNG TÂM THÚ Y — KIẾN TRÚC DỊCH VỤ CONTAINER HÓA DOCKER COMPOSE
+  </text>
+  <text x="600" y="66" fill="#BAC8B1" font-size="12" text-anchor="middle" dominant-baseline="middle">
+    Nginx Reverse Proxy • Django REST Core • MySQL 8.0 Primary • Redis Message Broker • Celery Worker
+  </text>
+
+  <!-- Client Layer -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="95" width="1100" height="95" rx="12" fill="#FFFFFF" stroke="#BAC8B1" stroke-width="1.5"/>
+    <rect x="50" y="95" width="200" height="28" rx="8" fill="#BAC8B1"/>
+    <text x="150" y="111" fill="#1A2318" font-size="12" font-weight="700" text-anchor="middle">CLIENT APPS</text>
+    
+    <text x="120" y="152" fill="#404E3B" font-size="14" font-weight="700">📱 Khách hàng (Chủ nuôi)</text>
+    <text x="120" y="172" fill="#3D4A38" font-size="11">Đặt lịch khám, tra cứu bệnh án, mua sản phẩm</text>
+    
+    <text x="560" y="152" fill="#404E3B" font-size="14" font-weight="700">🩺 Bác sĩ &amp; Nhân viên Y tế</text>
+    <text x="560" y="172" fill="#3D4A38" font-size="11">Cập nhật hồ sơ bệnh án, kê đơn thuốc, phân công</text>
+    
+    <text x="960" y="152" fill="#404E3B" font-size="14" font-weight="700">⚙️ Quản trị viên (Admin)</text>
+    <text x="960" y="172" fill="#3D4A38" font-size="11">Thống kê doanh thu, quản lý danh mục &amp; tài khoản</text>
+  </g>
+
+  <!-- Client -> Nginx Proxy (Orthogonal Routing) -->
+  <path d="M 235 190 L 235 270" fill="none" stroke="#7B9669" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="250" y="235" fill="#404E3B" font-size="11" font-weight="700">HTTPS :443</text>
+
+  <!-- DOCKER COMPOSE BOUNDARY (Dashed Line for Virtual Subnet) -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="245" width="1100" height="475" rx="16" fill="#FFFFFF" stroke="#7B9669" stroke-width="2" stroke-dasharray="8,6"/>
+    <rect x="70" y="233" width="360" height="26" rx="6" fill="#404E3B"/>
+    <text x="250" y="248" fill="#FFFFFF" font-size="12" font-weight="700" text-anchor="middle">
+      DOCKER COMPOSE BRIDGE NETWORK (vet-network)
+    </text>
+
+    <!-- Container 1: Nginx Proxy -->
+    <rect x="80" y="280" width="310" height="175" rx="10" fill="#F4F7F2" stroke="#7B9669" stroke-width="1.5"/>
+    <rect x="80" y="280" width="310" height="30" rx="8" fill="#7B9669"/>
+    <text x="235" y="297" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">CONTAINER: nginx_proxy</text>
+    <text x="95" y="328" fill="#404E3B" font-size="12" font-weight="700">• Port Mapping: 80:80, 443:443</text>
+    <text x="95" y="348" fill="#3D4A38" font-size="11">• Reverse Proxy điều hướng tới Django :8000</text>
+    <text x="95" y="368" fill="#3D4A38" font-size="11">• Phục vụ Static &amp; Media files trực tiếp</text>
+    <text x="95" y="388" fill="#3D4A38" font-size="11">• Nén Gzip, Caching header, Rate limiting</text>
+    <text x="95" y="408" fill="#3D4A38" font-size="11">• SSL/TLS Termination an toàn</text>
+
+    <!-- Container 2: Django Core -->
+    <rect x="445" y="280" width="310" height="175" rx="10" fill="#F4F7F2" stroke="#404E3B" stroke-width="1.5"/>
+    <rect x="445" y="280" width="310" height="30" rx="8" fill="#404E3B"/>
+    <text x="600" y="297" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">CONTAINER: django_web (:8000)</text>
+    <text x="460" y="328" fill="#404E3B" font-size="12" font-weight="700">• Django 4.2+ / Python 3.11 Runtime</text>
+    <text x="460" y="348" fill="#3D4A38" font-size="11">• Django REST Framework (RESTful API)</text>
+    <text x="460" y="368" fill="#3D4A38" font-size="11">• Role-Based Permissions (Bác sĩ, Khách, Admin)</text>
+    <text x="460" y="388" fill="#3D4A38" font-size="11">• Gunicorn WSGI Server (4 Workers)</text>
+    <text x="460" y="408" fill="#3D4A38" font-size="11">• Gửi Task bất đồng bộ tới Redis Queue</text>
+
+    <!-- Container 3: Celery Worker -->
+    <rect x="810" y="280" width="310" height="175" rx="10" fill="#F4F7F2" stroke="#6C8480" stroke-width="1.5"/>
+    <rect x="810" y="280" width="310" height="30" rx="8" fill="#6C8480"/>
+    <text x="965" y="297" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">CONTAINER: celery_worker</text>
+    <text x="825" y="328" fill="#404E3B" font-size="12" font-weight="700">• Tiến trình chạy nền (Background Tasks)</text>
+    <text x="825" y="348" fill="#3D4A38" font-size="11">• Gửi email xác nhận đặt lịch tự động</text>
+    <text x="825" y="368" fill="#3D4A38" font-size="11">• Nhắc lịch tái khám định kỳ cho thú cưng</text>
+    <text x="825" y="388" fill="#3D4A38" font-size="11">• Xuất báo cáo doanh thu &amp; bệnh án PDF</text>
+    <text x="825" y="408" fill="#3D4A38" font-size="11">• Đảm bảo API chính phản hồi &lt; 80ms</text>
+
+    <!-- Container 4: MySQL 8.0 -->
+    <rect x="230" y="510" width="340" height="185" rx="10" fill="#EEF2EB" stroke="#404E3B" stroke-width="1.5"/>
+    <rect x="230" y="510" width="340" height="30" rx="8" fill="#404E3B"/>
+    <text x="400" y="527" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">CONTAINER: mysql_db (:3306)</text>
+    <text x="245" y="558" fill="#404E3B" font-size="12" font-weight="700">• MySQL 8.0 Community Server</text>
+    <text x="245" y="578" fill="#3D4A38" font-size="11">• Persistent Volume: mysql_data:/var/lib/mysql</text>
+    <text x="245" y="598" fill="#3D4A38" font-size="11">• Bảng dữ liệu chuẩn hóa 3NF bệnh án &amp; đơn hàng</text>
+    <text x="245" y="618" fill="#3D4A38" font-size="11">• Bộ mã ký tự utf8mb4 hỗ trợ tiếng Việt toàn diện</text>
+    <text x="245" y="638" fill="#3D4A38" font-size="11">• Transaction ACID an toàn giao dịch đơn hàng</text>
+
+    <!-- Container 5: Redis -->
+    <rect x="630" y="510" width="340" height="185" rx="10" fill="#EEF2EB" stroke="#6C8480" stroke-width="1.5"/>
+    <rect x="630" y="510" width="340" height="30" rx="8" fill="#6C8480"/>
+    <text x="800" y="527" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">CONTAINER: redis_broker (:6379)</text>
+    <text x="645" y="558" fill="#404E3B" font-size="12" font-weight="700">• Redis 7.0 In-Memory Data Store</text>
+    <text x="645" y="578" fill="#3D4A38" font-size="11">• Message Broker cho Celery Worker Tasks</text>
+    <text x="645" y="598" fill="#3D4A38" font-size="11">• Session Cache &amp; Rate-Limiting Counter</text>
+    <text x="645" y="618" fill="#3D4A38" font-size="11">• AOF Persistence: redis_data volume</text>
+    <text x="645" y="638" fill="#3D4A38" font-size="11">• Thời gian xử lý hàng đợi microsecond</text>
+
+    <!-- ========================================================================= -->
+    <!-- 100% ORTHOGONAL 90-DEGREE CONNECTORS (NO DIAGONAL, ZERO PIERCING)        -->
+    <!-- ========================================================================= -->
+
+    <!-- Nginx -> Django (Horizontal straight) -->
+    <line x1="390" y1="365" x2="445" y2="365" stroke="#7B9669" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="417" y="358" fill="#404E3B" font-size="10" font-weight="700" text-anchor="middle">WSGI</text>
+
+    <!-- Django -> MySQL (Orthogonal 90-degree step in Gutter y=485) -->
+    <path d="M 500 455 L 500 485 L 400 485 L 400 502" fill="none" stroke="#7B9669" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="450" y="480" fill="#404E3B" font-size="10" font-weight="700" text-anchor="middle">SQL Query / ORM</text>
+
+    <!-- Django -> Redis (Orthogonal 90-degree step in Gutter y=485) -->
+    <path d="M 700 455 L 700 485 L 730 485 L 730 502" fill="none" stroke="#7B9669" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="735" y="480" fill="#404E3B" font-size="10" font-weight="700" text-anchor="middle">Publish Task</text>
+
+    <!-- Redis -> Celery (Orthogonal 90-degree step in Gutter y=485) -->
+    <path d="M 880 510 L 880 485 L 965 485 L 965 463" fill="none" stroke="#7B9669" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="925" y="480" fill="#404E3B" font-size="10" font-weight="700" text-anchor="middle">Consume Task</text>
+  </g>
+</svg>
