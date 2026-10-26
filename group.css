@@ -56,16 +56,16 @@ html, body {
   inset: 0;
   pointer-events: none;
   z-index: 5;
-  opacity: 0.14;
+  opacity: 0.04;
   background: linear-gradient(
     to bottom,
     transparent 0%,
     transparent 48%,
-    rgba(142, 156, 255, 0.75) 50%,
+    rgba(142, 156, 255, 0.5) 50%,
     transparent 52%,
     transparent 100%
   );
-  animation: radarSweep 6s linear infinite;
+  animation: radarSweep 8s linear infinite;
   mix-blend-mode: screen;
 }
 
@@ -810,7 +810,7 @@ html, body {
   box-shadow: 0 0 15px var(--accent-gold-glow);
 }
 
-/* Nhãn hành tinh trên AR viewport */
+/* Nhãn hành tinh trên AR viewport — Tinh gọn, Micro-refined, Không che khuất thiên thể */
 .spatial-ar-label {
   position: absolute;
   transform: translate(-50%, -100%);
@@ -819,40 +819,99 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  gap: 2px;
+  transition: opacity 0.25s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 
 .spatial-ar-label:hover {
-  transform: translate(-50%, -105%) scale(1.08);
+  transform: translate(-50%, -108%) scale(1.1);
+}
+
+.ar-label-marker {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  background: rgba(8, 11, 22, 0.82);
+  border: 1px solid rgba(142, 156, 255, 0.4);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .ar-label-symbol {
-  font-size: 1.1rem;
+  font-size: 0.78rem;
   line-height: 1;
   color: var(--accent-gold);
-  text-shadow: 0 0 10px rgba(240, 200, 121, 0.7);
 }
 
-.ar-label-pill {
-  padding: 3px 8px;
-  background: rgba(16, 23, 42, 0.88);
-  border: 1px solid rgba(142, 156, 255, 0.45);
-  border-radius: 4px;
+.ar-label-name {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  color: #FFFFFF;
-  letter-spacing: 0.05em;
+  color: var(--ink-primary);
+  letter-spacing: 0.04em;
   white-space: nowrap;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-.spatial-ar-label:hover .ar-label-pill {
+.spatial-ar-label:hover .ar-label-marker {
+  border-color: var(--accent-gold);
+  background: rgba(16, 23, 42, 0.95);
+  box-shadow: 0 0 14px var(--accent-gold-glow);
+}
+
+/* ---------------------------------------------------------
+   BỘ ĐIỀU KHIỂN THU PHÓNG VŨ TRỤ (SPATIAL ZOOM HUD CLUSTER)
+   --------------------------------------------------------- */
+.hud-zoom-controls {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 25;
+  pointer-events: auto;
+}
+
+.btn-hud-zoom {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--bg-hud-surface);
+  border: 1px solid var(--border-chart);
+  color: var(--ink-primary);
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.btn-hud-zoom:hover {
+  background: rgba(22, 32, 58, 0.95);
   border-color: var(--accent-gold);
   color: var(--accent-gold);
+  transform: scale(1.08);
+  box-shadow: 0 0 16px var(--accent-gold-glow);
+}
+
+.btn-hud-zoom:active {
+  transform: scale(0.94);
+}
+
+.btn-hud-zoom .zoom-icon {
+  line-height: 1;
 }
 
 /* Responsive */
