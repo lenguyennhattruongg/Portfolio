@@ -1,423 +1,563 @@
 /**
- * ============================================================================
- * PORTFOLIO LÊ NGUYỄN NHẬT TRƯỜNG — JAVASCRIPT THUẦN (VANILLA JS)
- * Khối dữ liệu cấu hình độc lập + Logic tương tác Metro, Form mailto & Modal
- * Chạy được cả khi mở trực tiếp bằng file:/// (không lỗi CORS) và khi build Vite
- * ============================================================================
+ * =========================================================
+ * JAVASCRIPT ĐIỀU HÀNH — LÊ NGUYỄN NHẬT TRƯỜNG PORTFOLIO
+ * Concept: TUYẾN METRO SÀI GÒN (Saigon Metro Transit System)
+ * Tiêu chuẩn: Vanilla JavaScript ES6+, Không phụ thuộc thư viện ngoài
+ * Tương thích: Chạy mượt mà 100% trên giao thức file:/// và HTTP
+ * =========================================================
  */
 
-/* ==========================================================================
-   KHỐI DỮ LIỆU CẤU HÌNH (DỄ DÀNG CHỈNH SỬA)
-   ========================================================================== */
-const PORTFOLIO_DATA = {
-  // Thông tin chủ nhân portfolio
-  profile: {
-    fullName: "Lê Nguyễn Nhật Trường",
-    role: "Software Engineer Trainee (Backend)",
-    email: "truonglnn0882@ut.edu.vn",
-    githubUrl: "https://github.com/lenguyennhattruongg",
-    university: "Đại học Giao thông Vận tải TP.HCM (UTH)",
-    cohort: "Khóa K24 (2024 — Hiện tại)"
+'use strict';
+
+/* =========================================================
+   1. KHỐI DỮ LIỆU CẤU HÌNH TRUNG TÂM (DỄ SỬA ĐỔI)
+   ========================================================= */
+const METRO_CONFIG = {
+  // Thông tin kỹ sư vận hành
+  operator: {
+    fullName: 'Lê Nguyễn Nhật Trường',
+    university: 'Đại học Giao thông Vận tải TP.HCM (UTH)',
+    faculty: 'Khoa Công nghệ Thông tin',
+    cohort: 'K24 (2024 — Hiện tại)',
+    targetRole: 'Software Engineer Trainee (Backend Focus)',
+    internshipGoal: 'Thực tập SE Intern 2026',
+    email: 'truonglnn0882@ut.edu.vn',
+    githubUrl: 'https://github.com/lenguyennhattruongg'
   },
 
-  // Dữ liệu chi tiết 3 Đồ án cho Modal
+  // Danh mục 3 đồ án chính xác theo concept Vé Tàu Metro
   projects: {
     'remote-desktop': {
+      id: 'remote-desktop',
+      serial: 'TICKET № NET-01',
+      routeCode: 'TCP/IP',
+      course: 'Môn: Lập trình Mạng',
+      category: 'network',
       title: 'Remote Desktop Application',
-      category: 'Môn Lập trình Mạng // Kiến trúc Client-Server TCP',
-      techStack: 'Java Core (SE 21), C++, Socket TCP, Screen Capture Buffer, Network Protocol',
-      githubLink: 'https://github.com/duypham26/prj_UDM_06',
-      details: [
-        {
-          label: 'Mô tả bài toán',
-          text: 'Xây dựng phần mềm điều khiển màn hình máy tính từ xa qua mạng LAN/Internet mà không cần cài đặt phần mềm bên thứ ba.'
-        },
-        {
-          label: 'Kiến trúc kỹ thuật',
-          text: 'Mô hình Client-Server độc lập: ServerSocket lắng nghe cổng chỉ định, tạo luồng xử lý riêng cho Client kết nối. Phía Client định kỳ chụp màn hình, nén byte stream và gửi qua Socket TCP. Server nhận byte buffer, giải nén và vẽ lại trên panel; đồng thời bắt sự kiện chuột/phím gửi ngược về Server để điều khiển bằng Robot class.'
-        },
-        {
-          label: 'Vai trò của tôi',
-          text: 'Thiết kế luồng ServerSocket, tối ưu hóa bộ đệm truyền nhận byte stream và cơ chế bắt sự kiện ngoại vi.'
-        },
-        {
-          label: 'Bài học rút ra',
-          text: 'Hiểu sâu về kiểm soát tắc nghẽn buffer mạng, độ trễ truyền dữ liệu và xử lý ngoại lệ đa luồng thời gian thực.'
-        }
-      ]
+      summary: 'Ứng dụng điều khiển máy tính từ xa hoạt động theo mô hình Client - Server qua TCP/IP Socket. Hệ thống truyền phát luồng ảnh chụp màn hình và đồng bộ các sự kiện điều khiển chuột, bàn phím theo thời gian thực.',
+      myRole: '[CẦN SỬA: Ví dụ: Phụ trách lập trình ServerSocket nhận stream ảnh màn hình và xử lý các sự kiện chuột / bàn phím]',
+      whatILearned: '[CẦN SỬA: Ví dụ: Hiểu sâu cơ chế bắt tay 3 bước TCP, cách phân mảnh byte buffer để hình ảnh không bị giật lag và cách tách luồng tránh đơ UI]',
+      technologies: ['Java Core', 'Socket TCP', 'Screen Capture Buffer', 'Network Protocol', 'Multithreading'],
+      githubUrl: 'https://github.com/duypham26/prj_UDM_06',
+      status: 'Đã hoàn thành nghiệm thu'
     },
+
     'freshvend': {
+      id: 'freshvend',
+      serial: 'TICKET № OOP-02',
+      routeCode: 'JAVA-SE',
+      course: 'Môn: Lập trình Hướng đối tượng',
+      category: 'java',
       title: 'FreshVend Management System',
-      category: 'Môn Lập trình Java // Hướng Đối Tượng OOP',
-      techStack: 'Java Core, 4 Tính chất OOP (Đóng gói, Kế thừa, Đa hình, Trừu tượng), Quản lý Tồn kho, Xử lý Giao dịch',
-      githubLink: 'https://github.com/nguyenxuanhieu2903/freshvend-java',
-      details: [
-        {
-          label: 'Mô tả bài toán',
-          text: 'Mô hình hóa và quản lý vận hành chuỗi máy bán hàng tự động với đa dạng mặt hàng đồ uống và đồ ăn nhẹ.'
-        },
-        {
-          label: 'Kiến trúc kỹ thuật',
-          text: 'Ứng dụng triệt để 4 tính chất OOP để thiết kế các lớp Domain. Xây dựng module quản lý số lượng tồn, cập nhật giá linh hoạt và thuật toán tính tiền thừa (hoàn lại số lượng tờ tiền tối ưu nhất cho khách).'
-        },
-        {
-          label: 'Vai trò của tôi',
-          text: 'Thiết kế class diagram, phụ trách module quản lý danh mục và logic thanh toán, viết unit test kiểm thử lỗi giao dịch.'
-        },
-        {
-          label: 'Bài học rút ra',
-          text: 'Kỹ năng trừu tượng hóa bài toán thực tế thành các đối tượng phần mềm độc lập, viết code dễ bảo trì và mở rộng.'
-        }
-      ]
+      summary: 'Phần mềm quản lý và vận hành máy bán hàng tự động bằng Java Core. Triển khai các nguyên lý kiến trúc OOP, quản lý danh mục tồn kho sản phẩm, mô phỏng quy trình xử lý giao dịch và kiểm soát dòng tiền mua hàng.',
+      myRole: '[CẦN SỬA: Ví dụ: Thiết kế các class mô hình hóa sản phẩm, khay chứa và xử lý logic trừ tiền trong giao dịch]',
+      whatILearned: '[CẦN SỬA: Ví dụ: Cách áp dụng 4 tính chất OOP để code không bị rối khi mở rộng thêm loại hàng hóa mới]',
+      technologies: ['Java Core (SE 21)', 'OOP Architecture', 'Inventory System', 'Transaction Handler', 'Exception Handling'],
+      githubUrl: 'https://github.com/nguyenxuanhieu2903/freshvend-java',
+      status: 'Đã hoàn thành nghiệm thu'
     },
-    'portfolio-hub': {
+
+    'portfolio-group': {
+      id: 'portfolio-group',
+      serial: 'TICKET № WEB-03',
+      routeCode: 'MPA-UTH',
+      course: 'Môn: Lập trình Web',
+      category: 'web',
       title: 'Group Portfolio Website Hub',
-      category: 'Môn Lập trình Web // Đa trang Vite MPA',
-      techStack: 'HTML5 Semantic, CSS3 Thuần, JavaScript ES6+, Vite MPA, GitHub Actions CI',
-      githubLink: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
-      details: [
-        {
-          label: 'Mô tả bài toán',
-          text: 'Xây dựng website trung tâm cho nhóm 6 sinh viên UTH kết nối 6 trang portfolio độc lập với hiệu năng cao.'
-        },
-        {
-          label: 'Kiến trúc kỹ thuật',
-          text: 'Cấu hình Vite đa trang (MPA) biên dịch đồng thời 7 file HTML. Tích hợp thanh tìm kiếm lọc realtime và pipeline GitHub Actions xác minh toàn vẹn artifact đầu ra trước khi merge code.'
-        },
-        {
-          label: 'Vai trò của tôi',
-          text: 'Phát triển portfolio cá nhân Tuyến Metro Sài Gòn độc lập và thiết lập CI workflow kiểm thử build trên nhánh develop.'
-        },
-        {
-          label: 'Bài học rút ra',
-          text: 'Nắm vững quy trình làm việc nhóm chuyên nghiệp bằng Git Flow, CI automation và tối ưu hóa tài nguyên tĩnh.'
-        }
-      ]
+      summary: 'Nền tảng website nhóm 6 sinh viên UTH kiến trúc đa trang (Multi-Page Application) tối ưu bằng Vite. Tích hợp thanh tìm kiếm thành viên theo thời gian thực, responsive đa thiết bị và không gian portfolio cá nhân độc lập.',
+      myRole: '[CẦN SỬA: Ví dụ: Thiết kế và hoàn thiện toàn bộ không gian portfolio cá nhân độc lập, tích hợp form liên hệ và tối ưu responsive]',
+      whatILearned: '[CẦN SỬA: Ví dụ: Tư duy cấu trúc đa trang MPA, cách viết CSS thuần kiểm soát bố cục và kỹ thuật bắt sự kiện DOM không phụ thuộc framework]',
+      technologies: ['HTML5 Semantic', 'CSS3 Vanilla', 'JavaScript ES6+', 'Vite MPA', 'Bootstrap 5'],
+      githubUrl: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
+      status: 'Đang vận hành chính thức'
     }
   }
 };
 
-/* ==========================================================================
-   LOGIC TƯƠNG TÁC GIAO DIỆN
-   ========================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
+/* =========================================================
+   2. KHỞI CHẠY HỆ THỐNG KHI DOM SẴN SÀNG
+   ========================================================= */
+function bootMetroSystem() {
+  initRailStationTracker();
+  initTicketFilter();
+  initProjectInspectionModal();
+  initContactFormValidation();
+  initCopyEmailFallback();
 
-  // --- 1. Tương tác chữ ký: Ray tàu Metro cuộn theo trang ---
-  const trackFill = document.getElementById('metroTrackFill');
-  const trainIndicator = document.getElementById('metroTrainIndicator');
+  console.log(
+    `%c[UTH-METRO] Hệ thống portfolio Lê Nguyễn Nhật Trường (K24) sẵn sàng vận hành!`,
+    'background: #FF4D00; color: #FFFFFF; font-weight: bold; padding: 4px 8px; border: 1px solid #121316;'
+  );
+}
 
-  function handleScrollProgress() {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootMetroSystem);
+} else {
+  bootMetroSystem();
+}
+
+/* =========================================================
+   3. MICRO-INTERACTION CHỮ KÝ: THEO DÕI VẠCH RAY VÀ GA TÀU
+   Cập nhật thanh tiến trình ray và con trỏ tàu theo cuộn trang
+   ========================================================= */
+function initRailStationTracker() {
+  const stationSections = document.querySelectorAll('.station-section');
+  const stationStops = document.querySelectorAll('.station-stop');
+  const railLineBg = document.querySelector('.rail-line-bg');
+  const railProgress = document.getElementById('railProgress');
+  const trainIndicator = document.getElementById('trainIndicator');
+  const railNav = document.getElementById('railNav');
+
+  if (!stationSections.length || !stationStops.length || !railNav) return;
+
+  // Lấy tọa độ Y chính xác tâm của nốt dừng ga so với khung railNav
+  const getNodeCenterY = (stopEl) => {
+    const node = stopEl.querySelector('.station-node');
+    if (!node) return 0;
+    const navRect = railNav.getBoundingClientRect();
+    const nodeRect = node.getBoundingClientRect();
+    return (nodeRect.top + nodeRect.height / 2) - navRect.top;
+  };
+
+  // Căn chỉnh đường ray nối chính xác từ tâm Ga 01 đến tâm Ga 06
+  const setupRailTrackDimensions = () => {
+    if (window.innerWidth <= 900) return; // Trên mobile chuyển sang giao diện thanh trạm ngang
+
+    const firstY = getNodeCenterY(stationStops[0]);
+    const lastY = getNodeCenterY(stationStops[stationStops.length - 1]);
+    const trackSpan = Math.max(0, lastY - firstY);
+
+    if (railLineBg) {
+      railLineBg.style.top = `${firstY}px`;
+      railLineBg.style.height = `${trackSpan}px`;
+    }
+
+    if (railProgress) {
+      railProgress.style.top = `${firstY}px`;
+    }
+
+    return { firstY, lastY, trackSpan };
+  };
+
+  // Cập nhật vị trí của toa tàu và thanh ray tiến trình
+  const updateRailPosition = () => {
+    if (window.innerWidth <= 900) return;
+
+    const dimensions = setupRailTrackDimensions();
+    if (!dimensions) return;
+    const { firstY, lastY, trackSpan } = dimensions;
+
+    // Xác định ga đang ở trong tầm đọc của người dùng
     const scrollY = window.scrollY;
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = maxScroll > 0 ? (scrollY / maxScroll) * 100 : 0;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const isAtBottom = scrollY + window.innerHeight >= document.documentElement.scrollHeight - 30;
 
-    if (trackFill) {
-      trackFill.style.width = `${progress}%`;
+    let activeIndex = 0;
+
+    if (isAtBottom) {
+      // Khi cuộn hết trang, chắc chắn Ga 06 (Điều hành) là ga kích hoạt
+      activeIndex = stationStops.length - 1;
+    } else if (scrollY <= 80) {
+      // Khi ở đầu trang, Ga 01 (Xuất phát)
+      activeIndex = 0;
+    } else {
+      const triggerY = scrollY + window.innerHeight * 0.36;
+      stationSections.forEach((section, index) => {
+        if (triggerY >= section.offsetTop) {
+          activeIndex = index;
+        }
+      });
     }
 
-    if (trainIndicator) {
-      // Cập nhật tên ga gần nhất
-      if (progress < 20) {
-        trainIndicator.textContent = 'GA 01 // BẾN THÀNH';
-      } else if (progress < 45) {
-        trainIndicator.textContent = 'GA 02 // NĂNG LỰC';
-      } else if (progress < 75) {
-        trainIndicator.textContent = 'GA 03 // 3 ĐỒ ÁN';
-      } else if (progress < 90) {
-        trainIndicator.textContent = 'GA 04 // BẢN LĨNH';
+    // Cập nhật trạng thái active cho danh sách ga
+    stationStops.forEach((stop, index) => {
+      if (index === activeIndex) {
+        stop.classList.add('active');
       } else {
-        trainIndicator.textContent = 'GA 05 // TRẠM UTH';
+        stop.classList.remove('active');
       }
+    });
+
+    // Tính toán tọa độ tâm của ga kích hoạt
+    const activeStop = stationStops[activeIndex];
+    const targetY = getNodeCenterY(activeStop);
+
+    // Di chuyển con trỏ toa tàu đến đúng tâm nốt ga (cùng trục X = 16px)
+    if (trainIndicator) {
+      trainIndicator.style.top = `${targetY}px`;
     }
-  }
 
-  window.addEventListener('scroll', handleScrollProgress, { passive: true });
-  handleScrollProgress();
+    // Cập nhật chiều dài vạch tiến trình màu cam khớp với ga đang dừng
+    if (railProgress) {
+      const progressHeight = Math.max(0, targetY - firstY);
+      railProgress.style.height = `${progressHeight}px`;
+    }
+  };
 
-  // --- 2. Bộ lọc Thẻ Vé Đồ Án (Ticket Filters) ---
-  const filterTabs = document.querySelectorAll('.metro-filter-tab');
-  const passItems = document.querySelectorAll('.metro-pass-item');
+  // Lắng nghe sự kiện scroll và resize với passive optimization
+  window.addEventListener('scroll', updateRailPosition, { passive: true });
+  window.addEventListener('resize', () => {
+    setupRailTrackDimensions();
+    updateRailPosition();
+  }, { passive: true });
 
-  filterTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Đổi trạng thái tab
-      filterTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+  // Khởi chạy khi DOM và font chữ đã render xong
+  setTimeout(() => {
+    setupRailTrackDimensions();
+    updateRailPosition();
+  }, 120);
+}
 
-      const selectedCategory = tab.getAttribute('data-category');
+/* =========================================================
+   4. BỘ LỌC VÉ ĐỒ ÁN (TICKET FILTER)
+   Lọc vé theo tuyến công nghệ: Tất cả, Mạng, Java, Web
+   ========================================================= */
+function initTicketFilter() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const ticketCards = document.querySelectorAll('.metro-ticket-card');
 
-      passItems.forEach(item => {
-        const itemType = item.getAttribute('data-type');
-        if (selectedCategory === 'all' || itemType === selectedCategory) {
-          item.style.display = 'block';
+  if (!filterButtons.length || !ticketCards.length) return;
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filterValue = button.getAttribute('data-filter');
+
+      // Cập nhật trạng thái active của nút
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      button.classList.add('active');
+      button.setAttribute('aria-selected', 'true');
+
+      // Lọc các thẻ vé đồ án
+      ticketCards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+
+        if (filterValue === 'all' || cardCategory === filterValue) {
+          card.style.display = 'grid';
+          // Hiệu ứng xuất hiện cơ học
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
         } else {
-          item.style.display = 'none';
+          card.style.display = 'none';
+          card.style.opacity = '0';
         }
       });
     });
   });
+}
 
-  // --- 3. Modal Xem Chi Tiết Đồ Án (Hỗ trợ phím ESC và quản lý focus) ---
-  const modal = document.getElementById('ticketModal');
-  const modalOverlay = document.getElementById('modalDimOverlay');
-  const modalCloseBtn = document.getElementById('modalCloseTrigger');
-  const modalBody = document.getElementById('modalBodyContent');
-  const detailButtons = document.querySelectorAll('.btn-pass-detail');
-  let lastFocusedElement = null;
+/* =========================================================
+   5. CỬA SỔ SOÁT VÉ ĐỒ ÁN (PROJECT INSPECTION MODAL)
+   Xem chi tiết đồ án, quản lý focus, đóng bằng phím ESC
+   ========================================================= */
+function initProjectInspectionModal() {
+  const modal = document.getElementById('projectModal');
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const modalBodyContent = document.getElementById('modalBodyContent');
+  const modalSeries = document.getElementById('modalProjectSeries');
+  const inspectButtons = document.querySelectorAll('.open-modal-btn');
 
-  function openProjectModal(projectId) {
-    const data = PORTFOLIO_DATA.projects[projectId];
-    if (!data || !modal || !modalBody) return;
+  if (!modal || !modalBodyContent) return;
 
-    lastFocusedElement = document.activeElement;
+  let lastActiveElement = null;
 
-    // Render nội dung modal từ dữ liệu cấu hình
-    let detailsHtml = '';
-    data.details.forEach(item => {
-      detailsHtml += `
-        <div style="margin-bottom: 16px;">
-          <h4 style="font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 700; color: var(--metro-orange); text-transform: uppercase; margin-bottom: 4px;">
-            ${item.label}
-          </h4>
-          <p style="font-size: 0.9375rem; color: var(--text-main); line-height: 1.6;">
-            ${item.text}
-          </p>
+  // Hàm mở modal và đổ dữ liệu
+  const openModal = (projectId) => {
+    const project = METRO_CONFIG.projects[projectId];
+    if (!project) return;
+
+    lastActiveElement = document.activeElement;
+
+    if (modalSeries) {
+      modalSeries.textContent = `BẢN KIỂM SOÁT • ${project.serial}`;
+    }
+
+    // Đổ nội dung chi tiết vào modal
+    const techBadgesHtml = project.technologies
+      .map(tech => `<span class="modal-tech-badge">${tech}</span>`)
+      .join('');
+
+    modalBodyContent.innerHTML = `
+      <div class="modal-project-header">
+        <span class="modal-project-cat">${project.course.toUpperCase()} • TUYẾN ${project.routeCode}</span>
+        <h3 class="modal-project-title" id="modalProjectTitle">${project.title}</h3>
+        <span class="notice-status">&#9679; ${project.status}</span>
+      </div>
+
+      <div class="modal-desc-box">
+        <div class="modal-section-title">MÔ TẢ CHI TIẾT ĐỒ ÁN</div>
+        <p>${project.summary}</p>
+      </div>
+
+      <div class="modal-duties-grid">
+        <div class="modal-duty-item">
+          <span class="modal-duty-label">VAI TRÒ TRONG ĐỒ ÁN</span>
+          <p class="modal-duty-content">${project.myRole}</p>
         </div>
-      `;
-    });
 
-    modalBody.innerHTML = `
-      <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">
-        ${data.category}
+        <div class="modal-duty-item">
+          <span class="modal-duty-label">ĐIỀU TÔI ĐÃ HỌC ĐƯỢC</span>
+          <p class="modal-duty-content">${project.whatILearned}</p>
+        </div>
       </div>
-      <h2 style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 14px;">
-        ${data.title}
-      </h2>
-      <div style="background: #FFFFFF; border: 1px solid var(--border-line); padding: 10px 14px; margin-bottom: 24px; font-size: 0.8125rem;">
-        <span style="font-family: var(--font-mono); font-weight: 700; color: var(--text-muted);">CÔNG NGHỆ: </span>
-        <span style="font-weight: 600;">${data.techStack}</span>
+
+      <div>
+        <div class="modal-section-title">CÔNG NGHỆ ÁP DỤNG TRÊN TOA TÀU</div>
+        <div class="modal-tech-list">
+          ${techBadgesHtml}
+        </div>
       </div>
-      <div style="border-top: 1px dashed var(--border-line); padding-top: 20px;">
-        ${detailsHtml}
-      </div>
-      <div style="margin-top: 24px; border-top: 2px solid var(--border-ink); padding-top: 20px; display: flex; gap: 12px;">
-        <a href="${data.githubLink}" target="_blank" rel="noopener noreferrer" class="btn-pass-github" style="flex: 1; text-align: center; text-decoration: none;">
-          TRUY CẬP REPOSITORY TRÊN GITHUB &rarr;
+
+      <div class="modal-actions-bar">
+        <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn-transit btn-transit-primary">
+          <span>Xem Kho Lưu Trữ GitHub</span>
+          <span aria-hidden="true">&#8599;</span>
         </a>
+        <button type="button" class="btn-transit btn-transit-ghost" id="modalCloseAction">
+          <span>Đóng Cửa Sổ</span>
+        </button>
       </div>
     `;
 
-    modal.classList.add('active');
+    // Hiển thị modal
+    modal.classList.add('is-active');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    // Focus vào nút đóng modal
-    if (modalCloseBtn) modalCloseBtn.focus();
-  }
+    // Bắt sự kiện cho nút đóng bên trong nội dung vừa tạo
+    const innerCloseBtn = document.getElementById('modalCloseAction');
+    if (innerCloseBtn) {
+      innerCloseBtn.addEventListener('click', closeModal);
+    }
 
-  function closeProjectModal() {
-    if (!modal) return;
-    modal.classList.remove('active');
+    // Đưa tiêu điểm focus vào nút đóng
+    if (modalCloseBtn) {
+      modalCloseBtn.focus();
+    }
+  };
+
+  // Hàm đóng modal
+  const closeModal = () => {
+    modal.classList.remove('is-active');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
 
-    // Trả lại focus cho nút đã bấm trước đó
-    if (lastFocusedElement) {
-      lastFocusedElement.focus();
+    // Trả lại focus cho phần tử vừa kích hoạt
+    if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+      lastActiveElement.focus();
     }
-  }
+  };
 
-  detailButtons.forEach(btn => {
+  // Lắng nghe sự kiện mở modal
+  inspectButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      const pId = btn.getAttribute('data-project-id');
-      openProjectModal(pId);
+      const projectId = btn.getAttribute('data-project');
+      openModal(projectId);
     });
   });
 
-  if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeProjectModal);
-  if (modalOverlay) modalOverlay.addEventListener('click', closeProjectModal);
+  // Đóng bằng nút X
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', closeModal);
+  }
 
-  // Đóng bằng phím Escape
+  // Đóng khi click backdrop
+  if (modalBackdrop) {
+    modalBackdrop.addEventListener('click', closeModal);
+  }
+
+  // Đóng khi bấm phím Escape
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-      closeProjectModal();
+    if (e.key === 'Escape' && modal.classList.contains('is-active')) {
+      closeModal();
     }
-  });
-
-  // --- 4. Nút Sao Chép Email Dự Phòng (1-Click Copy) ---
-  const copyMailBtn = document.getElementById('copyMailBtn');
-  const copyAlert = document.getElementById('copyAlert');
-
-  if (copyMailBtn && copyAlert) {
-    copyMailBtn.addEventListener('click', async () => {
-      const email = PORTFOLIO_DATA.profile.email;
-      try {
-        await navigator.clipboard.writeText(email);
-        copyAlert.classList.add('visible');
-        setTimeout(() => {
-          copyAlert.classList.remove('visible');
-        }, 2000);
-      } catch (err) {
-        prompt('Vui lòng sao chép email:', email);
-      }
-    });
-  }
-
-  // --- 5. Form Liên Hệ Gửi Mail Thật (Kiểm tra lỗi 4 trường & mở mailto) ---
-  const contactForm = document.getElementById('contactForm');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const nameInput = document.getElementById('senderName');
-      const emailInput = document.getElementById('senderEmail');
-      const subjectInput = document.getElementById('senderSubject');
-      const messageInput = document.getElementById('senderMessage');
-
-      const errName = document.getElementById('errName');
-      const errEmail = document.getElementById('errEmail');
-      const errSubject = document.getElementById('errSubject');
-      const errMessage = document.getElementById('errMessage');
-
-      // Reset thông báo lỗi
-      errName.textContent = '';
-      errEmail.textContent = '';
-      errSubject.textContent = '';
-      errMessage.textContent = '';
-
-      let isValid = true;
-
-      // 1. Kiểm tra Họ tên
-      const nameVal = nameInput.value.trim();
-      if (!nameVal) {
-        errName.textContent = 'Vui lòng nhập họ và tên của bạn.';
-        isValid = false;
-      } else if (nameVal.length < 2) {
-        errName.textContent = 'Họ tên phải có ít nhất 2 ký tự.';
-        isValid = false;
-      }
-
-      // 2. Kiểm tra Email
-      const emailVal = emailInput.value.trim();
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailVal) {
-        errEmail.textContent = 'Vui lòng nhập địa chỉ email.';
-        isValid = false;
-      } else if (!emailRegex.test(emailVal)) {
-        errEmail.textContent = 'Địa chỉ email không đúng định dạng.';
-        isValid = false;
-      }
-
-      // 3. Kiểm tra Tiêu đề
-      const subjectVal = subjectInput.value.trim();
-      if (!subjectVal) {
-        errSubject.textContent = 'Vui lòng nhập tiêu đề thư liên hệ.';
-        isValid = false;
-      }
-
-      // 4. Kiểm tra Nội dung
-      const messageVal = messageInput.value.trim();
-      if (!messageVal) {
-        errMessage.textContent = 'Vui lòng nhập nội dung tin nhắn.';
-        isValid = false;
-      } else if (messageVal.length < 10) {
-        errMessage.textContent = 'Nội dung tin nhắn cần ít nhất 10 ký tự.';
-        isValid = false;
-      }
-
-      // Nếu tất cả hợp lệ -> Mã hóa encodeURIComponent và mở mailto
-      if (isValid) {
-        const targetEmail = PORTFOLIO_DATA.profile.email;
-        const encodedSubject = encodeURIComponent(`[Portfolio UTH Contact] ${subjectVal}`);
-        const encodedBody = encodeURIComponent(
-          `Kính gửi Lê Nguyễn Nhật Trường,\n\n` +
-          `Tôi là: ${nameVal}\n` +
-          `Email phản hồi: ${emailVal}\n\n` +
-          `Nội dung trao đổi:\n${messageVal}\n\n` +
-          `---\nThư được gửi từ trang cá nhân Portfolio K24 UTH.`
-        );
-
-        const mailtoUrl = `mailto:${targetEmail}?subject=${encodedSubject}&body=${encodedBody}`;
-        
-        // Mở mailto
-        window.location.href = mailtoUrl;
-      }
-    });
-  }
-
-  // --- 6. Tương tác 3D có chọn lọc: Nghiêng thẻ vé vật lý & ánh sáng phản quang (Master Prompt 3D) ---
-  initTicket3DTilt();
-});
-
-/**
- * Hiệu ứng nghiêng 3D có chọn lọc (Selective 3D Ticket Tilt) cho các thẻ vé Metro
- * Tương thích 60 FPS với RAF, tôn trọng prefers-reduced-motion và thiết bị cảm ứng
- */
-function initTicket3DTilt() {
-  const tickets = document.querySelectorAll('.metro-pass-item');
-  if (!tickets.length) return;
-
-  // Kiểm tra trợ năng và thiết bị con trỏ chuẩn xác
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-
-  if (reducedMotion.matches || !finePointer.matches) return;
-
-  tickets.forEach(ticket => {
-    let frameId = null;
-    let rotateX = 0;
-    let rotateY = 0;
-    let sheenX = 50;
-    let sheenY = 50;
-
-    const render = () => {
-      ticket.style.setProperty('--ticket-rotate-x', `${rotateX.toFixed(2)}deg`);
-      ticket.style.setProperty('--ticket-rotate-y', `${rotateY.toFixed(2)}deg`);
-      ticket.style.setProperty('--sheen-x', `${sheenX.toFixed(1)}%`);
-      ticket.style.setProperty('--sheen-y', `${sheenY.toFixed(1)}%`);
-      frameId = null;
-    };
-
-    const requestRender = () => {
-      if (frameId === null) {
-        frameId = requestAnimationFrame(render);
-      }
-    };
-
-    const onPointerMove = (event) => {
-      const rect = ticket.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = (event.clientY - rect.top) / rect.height;
-
-      // Giới hạn góc nghiêng tối đa +-8 độ để giữ phong cách công nghiệp vững chãi
-      rotateX = (y * 2 - 1) * -8;
-      rotateY = (x * 2 - 1) * 8;
-
-      sheenX = x * 100;
-      sheenY = y * 100;
-
-      ticket.classList.add('is-tilting');
-      ticket.style.setProperty('--sheen-opacity', '1');
-
-      requestRender();
-    };
-
-    const onPointerLeave = () => {
-      rotateX = 0;
-      rotateY = 0;
-      sheenX = 50;
-      sheenY = 50;
-
-      ticket.classList.remove('is-tilting');
-      ticket.style.setProperty('--sheen-opacity', '0');
-
-      requestRender();
-    };
-
-    ticket.addEventListener('pointermove', onPointerMove, { passive: true });
-    ticket.addEventListener('pointerleave', onPointerLeave);
-    ticket.addEventListener('pointercancel', onPointerLeave);
   });
 }
 
+/* =========================================================
+   6. KIỂM SOÁT FORM LIÊN HỆ & GỌI GIAO THỨC MAILTO THẬT
+   Kiểm tra 4 trường và kích hoạt mở ứng dụng thư điện tử
+   ========================================================= */
+function initContactFormValidation() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const fullNameInput = document.getElementById('fullName');
+  const emailInput = document.getElementById('email');
+  const subjectInput = document.getElementById('subject');
+  const messageInput = document.getElementById('message');
+  const alertBox = document.getElementById('formAlertBox');
+
+  const fullNameError = document.getElementById('fullNameError');
+  const emailError = document.getElementById('emailError');
+  const subjectError = document.getElementById('subjectError');
+  const messageError = document.getElementById('messageError');
+
+  // Regex kiểm tra địa chỉ email tiêu chuẩn
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Xóa cảnh báo lỗi khi người dùng đang nhập
+  const clearError = (inputEl, errorEl) => {
+    if (!inputEl) return;
+    inputEl.classList.remove('is-invalid');
+    if (errorEl) errorEl.textContent = '';
+  };
+
+  const setError = (inputEl, errorEl, message) => {
+    if (!inputEl) return;
+    inputEl.classList.add('is-invalid');
+    if (errorEl) errorEl.textContent = message;
+  };
+
+  // Lắng nghe input để xóa lỗi theo thời gian thực
+  if (fullNameInput) fullNameInput.addEventListener('input', () => clearError(fullNameInput, fullNameError));
+  if (emailInput) emailInput.addEventListener('input', () => clearError(emailInput, emailError));
+  if (subjectInput) subjectInput.addEventListener('input', () => clearError(subjectInput, subjectError));
+  if (messageInput) messageInput.addEventListener('input', () => clearError(messageInput, messageError));
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    let isValid = true;
+
+    // 1. Kiểm tra Họ và tên (tối thiểu 2 ký tự)
+    const nameVal = fullNameInput ? fullNameInput.value.trim() : '';
+    if (!nameVal || nameVal.length < 2) {
+      setError(fullNameInput, fullNameError, 'Vui lòng nhập họ và tên của bạn (ít nhất 2 ký tự).');
+      isValid = false;
+    } else {
+      clearError(fullNameInput, fullNameError);
+    }
+
+    // 2. Kiểm tra Địa chỉ Email
+    const emailVal = emailInput ? emailInput.value.trim() : '';
+    if (!emailVal || !emailRegex.test(emailVal)) {
+      setError(emailInput, emailError, 'Vui lòng nhập địa chỉ email hợp lệ để nhận phản hồi.');
+      isValid = false;
+    } else {
+      clearError(emailInput, emailError);
+    }
+
+    // 3. Kiểm tra Tiêu đề
+    const subjectVal = subjectInput ? subjectInput.value.trim() : '';
+    if (!subjectVal || subjectVal.length < 3) {
+      setError(subjectInput, subjectError, 'Vui lòng nhập tiêu đề tin nhắn (ít nhất 3 ký tự).');
+      isValid = false;
+    } else {
+      clearError(subjectInput, subjectError);
+    }
+
+    // 4. Kiểm tra Nội dung (tối thiểu 10 ký tự)
+    const messageVal = messageInput ? messageInput.value.trim() : '';
+    if (!messageVal || messageVal.length < 10) {
+      setError(messageInput, messageError, 'Nội dung trao đổi cần ít nhất 10 ký tự.');
+      isValid = false;
+    } else {
+      clearError(messageInput, messageError);
+    }
+
+    // Nếu có lỗi, dừng và tập trung vào ô lỗi đầu tiên
+    if (!isValid) {
+      if (alertBox) {
+        alertBox.className = 'form-alert is-error';
+        alertBox.textContent = 'Vui lòng kiểm tra và hoàn thành các trường bắt buộc màu đỏ phía dưới.';
+      }
+      const firstInvalid = form.querySelector('.is-invalid');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    // Đóng gói nội dung thư điện tử
+    const recipient = METRO_CONFIG.operator.email;
+    const formattedSubject = `[PORTFOLIO UTH] ${subjectVal} — từ ${nameVal}`;
+    const formattedBody = [
+      `Kính gửi Lê Nguyễn Nhật Trường (Sinh viên K24 UTH),`,
+      ``,
+      `Thông tin người liên hệ:`,
+      `- Họ và tên: ${nameVal}`,
+      `- Địa chỉ email: ${emailVal}`,
+      `- Tiêu đề: ${subjectVal}`,
+      ``,
+      `Nội dung tin nhắn:`,
+      messageVal,
+      ``,
+      `---`,
+      `[Tín hiệu được gửi từ Tuyến Portfolio Metro UTH]`
+    ].join('\n');
+
+    // Tạo liên kết mailto an toàn bằng encodeURIComponent
+    const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(formattedSubject)}&body=${encodeURIComponent(formattedBody)}`;
+
+    // Thông báo trạng thái tích cực
+    if (alertBox) {
+      alertBox.className = 'form-alert is-success';
+      alertBox.textContent = `Tín hiệu hợp lệ! Đang mở ứng dụng thư điện tử trên máy để gửi đến ${recipient}...`;
+    }
+
+    // Kích hoạt giao thức mailto
+    window.location.href = mailtoUrl;
+  });
+}
+
+/* =========================================================
+   7. SAO CHÉP EMAIL DỰ PHÒNG (COPY EMAIL FALLBACK)
+   Sao chép vào clipboard khi thiết bị không mở được ứng dụng mail
+   ========================================================= */
+function initCopyEmailFallback() {
+  const copyBtn = document.getElementById('copyEmailBtn');
+  const copyBtnText = document.getElementById('copyBtnText');
+  const toast = document.getElementById('copyAlertToast');
+  const targetEmail = METRO_CONFIG.operator.email;
+
+  if (!copyBtn) return;
+
+  copyBtn.addEventListener('click', async () => {
+    let success = false;
+
+    // Cách 1: Sử dụng Clipboard API hiện đại
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(targetEmail);
+        success = true;
+      } catch (err) {
+        console.warn('[UTH-METRO] Không thể dùng navigator.clipboard, thử phương thức dự phòng:', err);
+      }
+    }
+
+    // Cách 2: Phương thức dự phòng qua thẻ input tạm thời
+    if (!success) {
+      try {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = targetEmail;
+        tempInput.style.position = 'fixed';
+        tempInput.style.opacity = '0';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        success = document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      } catch (err) {
+        console.error('[UTH-METRO] Sao chép email thất bại:', err);
+      }
+    }
+
+    // Cập nhật giao diện thông báo
+    if (success) {
+      if (copyBtnText) copyBtnText.textContent = 'ĐÃ SAO CHÉP EMAIL VÀO BỘ NHỚ TẠM!';
+      if (toast) {
+        toast.classList.remove('d-none');
+        toast.textContent = `Đã sao chép thành công: ${targetEmail}`;
+      }
+
+      // Trở lại trạng thái ban đầu sau 3 giây
+      setTimeout(() => {
+        if (copyBtnText) copyBtnText.textContent = 'Sao chép địa chỉ email vào bộ nhớ tạm';
+        if (toast) toast.classList.add('d-none');
+      }, 3200);
+    } else {
+      alert(`Địa chỉ email của tôi là: ${targetEmail}`);
+    }
+  });
+}
