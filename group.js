@@ -595,8 +595,23 @@ function buildVolumetricNebulaDust() {
   universeGroup.add(nebulaDustGroup);
 }
 
+function createStarTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 32;
+  canvas.height = 32;
+  const ctx = canvas.getContext('2d');
+  const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+  gradient.addColorStop(0, 'rgba(255,255,255,1)');
+  gradient.addColorStop(0.25, 'rgba(235,245,255,0.85)');
+  gradient.addColorStop(0.65, 'rgba(142,156,255,0.25)');
+  gradient.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 32, 32);
+  return new THREE.CanvasTexture(canvas);
+}
+
 // ----------------------------------------------------------------------------
-// 5.3. BIỂN 8.000 HẠT BỤI SAO 3D ĐA TẦNG ĐỘ SÂU
+// 5.3. BIỂN 8.000 HẠT BỤI SAO 3D ĐA TẦNG ĐỘ SÂU (CIRCULAR GLOW ORBS)
 // ----------------------------------------------------------------------------
 function build3DStarfield() {
   const count = 8000;
@@ -633,11 +648,15 @@ function build3DStarfield() {
   geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
+  const starTexture = createStarTexture();
   const mat = new THREE.PointsMaterial({
     size: 0.85,
+    map: starTexture,
     vertexColors: true,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.9,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
     sizeAttenuation: true
   });
 
@@ -689,6 +708,8 @@ function buildHyperspaceWarpStreaks() {
       varying float vDepth;
 
       void main() {
+        vec2 uv = gl_PointCoord - 0.5;
+        if (length(uv) > 0.5) discard;
         gl_FragColor = vec4(uColor, uActive * (0.2 + vDepth * 0.8));
       }
     `
