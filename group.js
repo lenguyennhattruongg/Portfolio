@@ -1,9 +1,18 @@
 /**
- * group.js — PRODUCTION-GRADE 3D WEBGL SPATIAL UNIVERSE
+ * group.js — AWWWARDS-GRADE 3D WEBGL SPATIAL UNIVERSE & COSMIC AUDIO ENGINE
  * Nhóm 06 — Đại học Giao thông Vận tải TP.HCM (UTH)
- * Kiến trúc: Three.js WebGL + OrbitControls + Procedural Noise Shaders +
- *            Fresnel Atmosphere + Relativistic Accretion Disk +
- *            Zero-Allocation Keplerian Orbit Trails + AR Spatial HUD
+ *
+ * Tính năng đồ họa & âm thanh:
+ * 1. Cosmic Sound Engine: Thuần Web Audio API, Dual Sub-bass drone (48Hz/52Hz),
+ *    Sonar chirp, Warp whoosh, Celestial chord, mute/unmute visualizer.
+ * 2. Planetary Rings 3D: Vành đai sao Thổ với khe hở Cassini Division cho Node 02 & 05.
+ * 3. 3D Cloud Layers: Lớp mây khí quyển chuyển động độc lập trên bề mặt hành tinh.
+ * 4. Singularity & Gravitational Lensing: Lõi hố đen + Đĩa bồi tụ Doppler Beaming +
+ *    Vòng cung bẻ cong ánh sáng Gravitational Lensing (Interstellar look).
+ * 5. Volumetric Nebula Dust: Đám mây tinh vân 7.500 hạt đa sắc (Tím, Xanh neon, Vàng kim).
+ * 6. Hyperspace Warp Streaks: Hiệu ứng kéo dãn vệt sao siêu tốc khi chuyển góc nhìn.
+ * 7. OrbitControls 360°: Xoay tự do, cuộn chuột zoom có Damping mượt mà.
+ * 8. Zero-Allocation Render Loop: Đảm bảo 60 FPS ổn định trên mọi thiết bị.
  */
 
 import * as THREE from 'three';
@@ -11,7 +20,203 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { MEMBERS, TAGS, normalizeText, getMemberHaystack } from './members.data.js';
 
 // ============================================================================
-// 1. GLSL SHADER CHUNKS: FAST ANALYTIC SIMPLEX NOISE
+// 1. COSMIC AUDIO ENGINE (THUẦN WEB AUDIO API — ZERO EXTERNAL MP3 DEPENDENCY)
+// ============================================================================
+class CosmicAudioEngine {
+  constructor() {
+    this.ctx = null;
+    this.masterGain = null;
+    this.isMuted = localStorage.getItem('cosmic-audio-muted') === 'true';
+    this.isAmbienceStarted = false;
+    this.ambienceNodes = null;
+  }
+
+  async init() {
+    if (this.ctx) {
+      if (this.ctx.state === 'suspended') {
+        await this.ctx.resume();
+      }
+      return;
+    }
+
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+
+    this.ctx = new AudioContextClass();
+    this.masterGain = this.ctx.createGain();
+    this.masterGain.gain.value = this.isMuted ? 0.0 : 0.28;
+    this.masterGain.connect(this.ctx.destination);
+
+    if (this.ctx.state === 'suspended') {
+      await this.ctx.resume();
+    }
+  }
+
+  async startAmbience() {
+    await this.init();
+    if (!this.ctx || this.isAmbienceStarted) return;
+    this.isAmbienceStarted = true;
+
+    const ctx = this.ctx;
+
+    // Dual Sub-Bass Drone (48Hz & 52Hz) + Lowpass sweeping filter
+    const oscA = ctx.createOscillator();
+    const oscB = ctx.createOscillator();
+    const gainA = ctx.createGain();
+    const gainB = ctx.createGain();
+
+    oscA.type = 'sine';
+    oscB.type = 'sine';
+    oscA.frequency.value = 48.0;
+    oscB.frequency.value = 52.0;
+
+    gainA.gain.value = 0.24;
+    gainB.gain.value = 0.18;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 160.0;
+    filter.Q.value = 1.2;
+
+    // LFO dao động nhẹ tần số cắt của filter (0.04Hz = 25 giây một chu kỳ)
+    const lfo = ctx.createOscillator();
+    const lfoGain = ctx.createGain();
+    lfo.type = 'sine';
+    lfo.frequency.value = 0.04;
+    lfoGain.gain.value = 55.0;
+
+    lfo.connect(lfoGain);
+    lfoGain.connect(filter.frequency);
+
+    oscA.connect(gainA);
+    oscB.connect(gainB);
+    gainA.connect(filter);
+    gainB.connect(filter);
+
+    const outGain = ctx.createGain();
+    outGain.gain.value = 0.65;
+    filter.connect(outGain);
+    outGain.connect(this.masterGain);
+
+    oscA.start();
+    oscB.start();
+    lfo.start();
+
+    this.ambienceNodes = { oscA, oscB, lfo, outGain };
+  }
+
+  playSonarBlip(pitch = 1.0) {
+    if (!this.ctx || this.isMuted) return;
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(950 * pitch, now);
+    osc.frequency.exponentialRampToValueAtTime(1750 * pitch, now + 0.08);
+
+    filter.type = 'highpass';
+    filter.frequency.value = 650;
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.12, now + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.masterGain);
+
+    osc.start(now);
+    osc.stop(now + 0.09);
+  }
+
+  playWarpWhoosh() {
+    if (!this.ctx || this.isMuted) return;
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    const duration = 0.9;
+
+    // Pink / White Noise buffer
+    const bufferSize = Math.floor(ctx.sampleRate * duration);
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+      const fade = 1.0 - i / bufferSize;
+      data[i] = (Math.random() * 2.0 - 1.0) * fade;
+    }
+
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+
+    const bandpass = ctx.createBiquadFilter();
+    bandpass.type = 'bandpass';
+    bandpass.Q.value = 3.5;
+    bandpass.frequency.setValueAtTime(180, now);
+    bandpass.frequency.exponentialRampToValueAtTime(2200, now + 0.38);
+    bandpass.frequency.exponentialRampToValueAtTime(240, now + duration);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.35, now + 0.09);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+    source.connect(bandpass);
+    bandpass.connect(gain);
+    gain.connect(this.masterGain);
+
+    source.start(now);
+  }
+
+  playSelectChord() {
+    if (!this.ctx || this.isMuted) return;
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    // Hợp âm Celestial [A3, C#4, E4, A4]
+    const notes = [220.0, 277.18, 329.63, 440.0];
+
+    notes.forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = idx === 0 ? 'sine' : 'triangle';
+      osc.frequency.value = freq;
+
+      const startTime = now + idx * 0.045;
+      gain.gain.setValueAtTime(0.0001, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.09, startTime + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 1.4);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      osc.start(startTime);
+      osc.stop(startTime + 1.5);
+    });
+  }
+
+  toggleMute() {
+    this.isMuted = !this.isMuted;
+    localStorage.setItem('cosmic-audio-muted', this.isMuted.toString());
+
+    if (this.masterGain && this.ctx) {
+      this.masterGain.gain.setTargetAtTime(
+        this.isMuted ? 0.0 : 0.28,
+        this.ctx.currentTime,
+        0.04
+      );
+    }
+    return this.isMuted;
+  }
+}
+
+const audio = new CosmicAudioEngine();
+
+// ============================================================================
+// 2. GLSL SHADER CHUNKS: FAST ANALYTIC SIMPLEX NOISE
 // ============================================================================
 const GLSL_COMMON_NOISE = `
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -64,19 +269,19 @@ float snoise(vec3 v) {
 `;
 
 // ============================================================================
-// 2. CẤU HÌNH 6 THIÊN THỂ KEPLER
+// 3. CẤU HÌNH 6 THIÊN THỂ KEPLER & ĐẶC TÍNH 3D RIÊNG BIỆT
 // ============================================================================
 const PLANET_CONFIGS = [
-  { id: 'hieu',   order: 1, name: 'Nguyễn Xuân Hiệu',     symbol: 'NXH-01', a: 11.5, e: 0.05, inc: 0.06,  speed: 0.38, size: 1.15, base: 0x2563EB, ocean: 0x0A1838, atmo: 0x60A5FA, title: 'Lead / System Architecture' },
-  { id: 'truong', order: 2, name: 'Lê Nguyễn Nhật Trường', symbol: 'LNT-02', a: 16.0, e: 0.03, inc: -0.05, speed: 0.30, size: 1.30, base: 0xF59E0B, ocean: 0x3D1B04, atmo: 0xFBBF24, title: 'Backend / Systems Engineer' },
-  { id: 'nhu',    order: 3, name: 'Nguyễn Thị Thảo Như',   symbol: 'NTN-03', a: 21.0, e: 0.06, inc: 0.08,  speed: 0.24, size: 1.10, base: 0x8B5CF6, ocean: 0x1F0B3D, atmo: 0xC084FC, title: 'UI/UX & Micro-interactions' },
-  { id: 'huynh',  order: 4, name: 'Nguyễn Phạm Ý Huỳnh',   symbol: 'NPY-04', a: 26.0, e: 0.02, inc: 0.03,  speed: 0.19, size: 1.12, base: 0x10B981, ocean: 0x032418, atmo: 0x34D399, title: 'Data Analytics & Pipelines' },
-  { id: 'chau',   order: 5, name: 'Lê Hữu Châu',          symbol: 'LHC-05', a: 31.0, e: 0.07, inc: -0.07, speed: 0.15, size: 1.20, base: 0xEF4444, ocean: 0x3D0B0B, atmo: 0xF87171, title: 'DevOps & Cloud Security' },
-  { id: 'thu',    order: 6, name: 'Nguyễn Anh Thư',        symbol: 'NAT-06', a: 36.5, e: 0.04, inc: 0.05,  speed: 0.12, size: 1.10, base: 0x06B6D4, ocean: 0x04252E, atmo: 0x22D3EE, title: 'Quality Assurance & Automated QA' }
+  { id: 'hieu',   order: 1, name: 'Nguyễn Xuân Hiệu',     symbol: 'NXH-01', a: 11.5, e: 0.05, inc: 0.06,  speed: 0.38, size: 1.15, base: 0x2563EB, ocean: 0x0A1838, atmo: 0x60A5FA, title: 'Lead / System Architecture', hasRings: false, hasClouds: true },
+  { id: 'truong', order: 2, name: 'Lê Nguyễn Nhật Trường', symbol: 'LNT-02', a: 16.0, e: 0.03, inc: -0.05, speed: 0.30, size: 1.30, base: 0xF59E0B, ocean: 0x3D1B04, atmo: 0xFBBF24, title: 'Backend / Systems Engineer',  hasRings: true,  hasClouds: true, ringColor: 0xF59E0B },
+  { id: 'nhu',    order: 3, name: 'Nguyễn Thị Thảo Như',   symbol: 'NTN-03', a: 21.0, e: 0.06, inc: 0.08,  speed: 0.24, size: 1.10, base: 0x8B5CF6, ocean: 0x1F0B3D, atmo: 0xC084FC, title: 'UI/UX & Micro-interactions', hasRings: false, hasClouds: true },
+  { id: 'huynh',  order: 4, name: 'Nguyễn Phạm Ý Huỳnh',   symbol: 'NPY-04', a: 26.0, e: 0.02, inc: 0.03,  speed: 0.19, size: 1.12, base: 0x10B981, ocean: 0x032418, atmo: 0x34D399, title: 'Data Analytics & Pipelines',  hasRings: false, hasClouds: true },
+  { id: 'chau',   order: 5, name: 'Lê Hữu Châu',          symbol: 'LHC-05', a: 31.0, e: 0.07, inc: -0.07, speed: 0.15, size: 1.25, base: 0xEF4444, ocean: 0x3D0B0B, atmo: 0xF87171, title: 'DevOps & Cloud Security',     hasRings: true,  hasClouds: true, ringColor: 0xF87171 },
+  { id: 'thu',    order: 6, name: 'Nguyễn Anh Thư',        symbol: 'NAT-06', a: 36.5, e: 0.04, inc: 0.05,  speed: 0.12, size: 1.10, base: 0x06B6D4, ocean: 0x04252E, atmo: 0x22D3EE, title: 'Quality Assurance & Automated QA', hasRings: false, hasClouds: true }
 ];
 
 // ============================================================================
-// 3. DOM ELEMENTS CACHED
+// 4. DOM ELEMENTS CACHED
 // ============================================================================
 const dom = {
   canvas: document.getElementById('webglCanvas'),
@@ -100,14 +305,17 @@ const dom = {
   searchStatus: document.getElementById('spatialSearchStatus'),
   searchEmpty: document.getElementById('spatialSearchEmpty'),
   btnResetOrbit: document.getElementById('btnResetOrbit'),
-  currentFocusReadout: document.getElementById('currentFocusReadout')
+  currentFocusReadout: document.getElementById('currentFocusReadout'),
+  btnAudioToggle: document.getElementById('btnAudioToggle'),
+  audioStatusText: document.getElementById('audioStatusText')
 };
 
 // ============================================================================
-// 4. MAIN THREE.JS SPATIAL UNIVERSE ENGINE
+// 5. MAIN THREE.JS SPATIAL UNIVERSE ENGINE
 // ============================================================================
 let scene, camera, renderer, controls, clock;
 let universeGroup, singularityGroup, accretionDisk, reticleGroup;
+let nebulaDustGroup, warpStreaksGroup, reticleLine;
 const planets = [];
 const planetMeshes = [];
 let hoveredPlanet = null;
@@ -123,6 +331,7 @@ const _vRayOrigin = new THREE.Vector3();
 const _vRayDir = new THREE.Vector3();
 const _vDiff = new THREE.Vector3();
 const _vTemp = new THREE.Vector3();
+const _vTemp2 = new THREE.Vector3();
 const pointer = new THREE.Vector2(-999, -999);
 
 function initUniverseEngine() {
@@ -131,15 +340,15 @@ function initUniverseEngine() {
 
   clock = new THREE.Clock();
 
-  // 1. Scene
+  // 1. Scene & Deep Space Fog
   scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x080B16, 0.009);
+  scene.fog = new THREE.FogExp2(0x080B16, 0.0075);
 
   // 2. Camera 3D Perspective
   camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
   camera.position.copy(defaultCamPos);
 
-  // 3. WebGL Renderer
+  // 3. WebGL Renderer with High-DPI clamping & ACES ToneMapping
   renderer = new THREE.WebGLRenderer({
     canvas: dom.canvas,
     antialias: true,
@@ -152,12 +361,12 @@ function initUniverseEngine() {
   renderer.toneMappingExposure = 1.35;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-  // 4. OrbitControls: Xoay tự do 360 độ quanh vũ trụ & Scroll Zoom mượt mà có Damping!
+  // 4. OrbitControls: Xoay tự do 360 độ & Scroll Zoom mượt mà có Damping
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.055;
   controls.minDistance = 4.5;
-  controls.maxDistance = 120;
+  controls.maxDistance = 130;
   controls.rotateSpeed = 0.65;
   controls.zoomSpeed = 0.85;
   controls.target.copy(defaultLookTarget);
@@ -166,45 +375,53 @@ function initUniverseEngine() {
   universeGroup = new THREE.Group();
   scene.add(universeGroup);
 
-  // 6. Lights
+  // 6. Lighting Layer
   const ambientLight = new THREE.AmbientLight(0x1E293B, 1.4);
   scene.add(ambientLight);
 
-  const singularityLight = new THREE.PointLight(0xF0C879, 4.0, 110, 1.1);
+  const singularityLight = new THREE.PointLight(0xF0C879, 4.5, 120, 1.1);
   singularityLight.position.set(0, 0, 0);
   scene.add(singularityLight);
 
-  // Build universe components
+  // 7. Xây dựng các lớp thiên văn 3D
   buildSingularity();
   build3DStarfield();
+  buildVolumetricNebulaDust();
+  buildHyperspaceWarpStreaks();
   buildPlanetarySystem();
-  buildReticle();
+  buildReticleWithRadarLine();
   createSpatialLabels();
   createNavPills();
+  initAudioControls();
 
   // Event Listeners
   window.addEventListener('resize', onResize);
   window.addEventListener('pointermove', onPointerMove);
   window.addEventListener('click', onPointerClick);
 
-  // Start Animation Loop
+  // Bắt sự kiện tương tác đầu tiên để kích hoạt âm thanh không gian (Web Audio API policy)
+  window.addEventListener('pointerdown', () => {
+    audio.startAmbience();
+  }, { once: true });
+
+  // Start 60 FPS Render Loop
   animate();
 }
 
 // ----------------------------------------------------------------------------
-// 4.1. HẠT NHÂN NĂNG LƯỢNG TRUNG TÂM VỚI ĐĨA BỒI TỤ DOPPLER BEAMING
+// 5.1. LÕI HỐ ĐEN SINGULARITY + ĐĨA BỒI TỤ DOPPLER + GRAVITATIONAL LENSING ARC
 // ----------------------------------------------------------------------------
 function buildSingularity() {
   singularityGroup = new THREE.Group();
 
-  // Lõi đen hố đen (Event Horizon)
-  const coreGeo = new THREE.SphereGeometry(2.0, 32, 32);
+  // 1. Lõi đen hố đen (Event Horizon Core)
+  const coreGeo = new THREE.SphereGeometry(2.1, 36, 36);
   const coreMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
   const core = new THREE.Mesh(coreGeo, coreMat);
   singularityGroup.add(core);
 
-  // Vành đĩa bồi tụ quang học (Relativistic Accretion Disk Shader)
-  const diskGeo = new THREE.RingGeometry(2.4, 8.2, 128, 1);
+  // 2. Vành đĩa bồi tụ quang học (Relativistic Accretion Disk Shader)
+  const diskGeo = new THREE.RingGeometry(2.5, 8.8, 128, 1);
   const diskMat = new THREE.ShaderMaterial({
     vertexShader: `
       varying vec2 vUv;
@@ -225,7 +442,7 @@ function buildSingularity() {
         if (r < 0.28 || r > 1.0) discard;
 
         float theta = atan(centered.y, centered.x);
-        float spiral = theta * 4.0 - uTime * 2.4 - log(r) * 9.0;
+        float spiral = theta * 4.0 - uTime * 2.5 - log(r) * 9.0;
         float n = snoise(vec3(cos(spiral) * 1.6, sin(spiral) * 1.6, r * 4.0));
 
         // Relativistic Doppler Beaming
@@ -256,22 +473,41 @@ function buildSingularity() {
   accretionDisk.rotation.x = Math.PI * 0.42;
   singularityGroup.add(accretionDisk);
 
-  // Vầng sáng nhật hoa đa tầng (Volumetric Corona Spheres)
-  const coronaGeo1 = new THREE.SphereGeometry(2.8, 32, 32);
+  // 3. Gravitational Lensing Arcs (Bẻ cong ánh sáng trên và dưới chân trời sự kiện)
+  function createLensingArc(radius, yOffset, colorHex) {
+    const curve = new THREE.EllipseCurve(0, 0, radius, radius * 0.42, 0, Math.PI, false, 0);
+    const pts = curve.getPoints(96).map(p => new THREE.Vector3(p.x, yOffset, p.y));
+    const geo = new THREE.BufferGeometry().setFromPoints(pts);
+    const mat = new THREE.LineBasicMaterial({
+      color: colorHex,
+      transparent: true,
+      opacity: 0.75,
+      blending: THREE.AdditiveBlending
+    });
+    return new THREE.Line(geo, mat);
+  }
+
+  const upperArc = createLensingArc(3.4, 1.4, 0xF0C879);
+  const lowerArc = createLensingArc(3.4, -1.4, 0x8E9CFF);
+  singularityGroup.add(upperArc);
+  singularityGroup.add(lowerArc);
+
+  // 4. Vầng sáng nhật hoa đa tầng (Volumetric Corona Spheres)
+  const coronaGeo1 = new THREE.SphereGeometry(2.9, 32, 32);
   const coronaMat1 = new THREE.MeshBasicMaterial({
     color: 0xF0C879,
     transparent: true,
-    opacity: 0.14,
+    opacity: 0.15,
     blending: THREE.AdditiveBlending,
     depthWrite: false
   });
   singularityGroup.add(new THREE.Mesh(coronaGeo1, coronaMat1));
 
-  const coronaGeo2 = new THREE.SphereGeometry(3.8, 32, 32);
+  const coronaGeo2 = new THREE.SphereGeometry(4.0, 32, 32);
   const coronaMat2 = new THREE.MeshBasicMaterial({
     color: 0x8E9CFF,
     transparent: true,
-    opacity: 0.06,
+    opacity: 0.07,
     blending: THREE.AdditiveBlending,
     depthWrite: false
   });
@@ -281,7 +517,86 @@ function buildSingularity() {
 }
 
 // ----------------------------------------------------------------------------
-// 4.2. BIỂN 8.000 HẠT BỤI SAO 3D ĐA TẦNG ĐỘ SÂU
+// 5.2. MÂY BỤI TINH VÂN VŨ TRỤ 3D (VOLUMETRIC NEBULA DUST CLOUDS)
+// ----------------------------------------------------------------------------
+function buildVolumetricNebulaDust() {
+  nebulaDustGroup = new THREE.Group();
+  const count = 7500;
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const sizes = new Float32Array(count);
+
+  const palette = [
+    new THREE.Color(0x923CFF), // Tím Cosmic
+    new THREE.Color(0x24C8FF), // Xanh Cyan Electric
+    new THREE.Color(0xFFCA54), // Vàng Kim Celestial
+    new THREE.Color(0x4F46E5)  // Indigo Deep
+  ];
+
+  for (let i = 0; i < count; i++) {
+    const i3 = i * 3;
+    const radius = Math.pow(Math.random(), 0.55) * 48;
+    const theta = Math.random() * Math.PI * 2;
+    const height = (Math.random() - 0.5) * 18;
+    const turb = Math.sin(theta * 3.0) * 2.5;
+
+    positions[i3]     = Math.cos(theta) * (radius + turb);
+    positions[i3 + 1] = height + Math.sin(radius * 0.35) * 2.2;
+    positions[i3 + 2] = Math.sin(theta) * (radius + turb);
+
+    const c = palette[i % palette.length];
+    colors[i3]     = c.r;
+    colors[i3 + 1] = c.g;
+    colors[i3 + 2] = c.b;
+
+    sizes[i] = 1.8 + Math.random() * 4.2;
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geo.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+
+  const mat = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexColors: true,
+    uniforms: {
+      uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) }
+    },
+    vertexShader: `
+      attribute float aSize;
+      varying vec3 vColor;
+      uniform float uPixelRatio;
+
+      void main() {
+        vColor = color;
+        vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+        gl_PointSize = aSize * uPixelRatio * (160.0 / -mvPos.z);
+        gl_Position = projectionMatrix * mvPos;
+      }
+    `,
+    fragmentShader: `
+      varying vec3 vColor;
+
+      void main() {
+        vec2 uv = gl_PointCoord - 0.5;
+        float d = length(uv);
+        if (d > 0.5) discard;
+        float glow = pow(1.0 - d * 2.0, 2.6);
+        gl_FragColor = vec4(vColor, glow * 0.45);
+      }
+    `
+  });
+
+  const nebulaPoints = new THREE.Points(geo, mat);
+  nebulaDustGroup.add(nebulaPoints);
+  universeGroup.add(nebulaDustGroup);
+}
+
+// ----------------------------------------------------------------------------
+// 5.3. BIỂN 8.000 HẠT BỤI SAO 3D ĐA TẦNG ĐỘ SÂU
 // ----------------------------------------------------------------------------
 function build3DStarfield() {
   const count = 8000;
@@ -294,7 +609,7 @@ function build3DStarfield() {
 
   for (let i = 0; i < count; i++) {
     const i3 = i * 3;
-    const radius = 35 + Math.random() * 140;
+    const radius = 35 + Math.random() * 150;
     const u = Math.random();
     const v = Math.random();
     const theta = u * 2.0 * Math.PI;
@@ -319,7 +634,7 @@ function build3DStarfield() {
   geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   const mat = new THREE.PointsMaterial({
-    size: 0.8,
+    size: 0.85,
     vertexColors: true,
     transparent: true,
     opacity: 0.85,
@@ -330,7 +645,180 @@ function build3DStarfield() {
 }
 
 // ----------------------------------------------------------------------------
-// 4.3. SÁU THIÊN THỂ PROCEDURAL NOISE SHADER + FRESNEL KHÍ QUYỂN + ORBIT TRAILS
+// 5.4. VỆT SAO HYPERSPACE WARP STREAKS KHI DU HÀNH
+// ----------------------------------------------------------------------------
+function buildHyperspaceWarpStreaks() {
+  warpStreaksGroup = new THREE.Group();
+  const count = 1600;
+  const positions = new Float32Array(count * 3);
+
+  for (let i = 0; i < count; i++) {
+    const i3 = i * 3;
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 4 + Math.random() * 45;
+    const z = -Math.random() * 90;
+
+    positions[i3]     = Math.cos(angle) * radius;
+    positions[i3 + 1] = Math.sin(angle) * radius;
+    positions[i3 + 2] = z;
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const mat = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    uniforms: {
+      uActive: { value: 0.0 },
+      uColor: { value: new THREE.Color(0x8E9CFF) }
+    },
+    vertexShader: `
+      varying float vDepth;
+      void main() {
+        vec4 p = modelViewMatrix * vec4(position, 1.0);
+        vDepth = clamp(1.0 - (-p.z / 90.0), 0.0, 1.0);
+        gl_PointSize = (1.5 + vDepth * 3.5);
+        gl_Position = projectionMatrix * p;
+      }
+    `,
+    fragmentShader: `
+      uniform float uActive;
+      uniform vec3 uColor;
+      varying float vDepth;
+
+      void main() {
+        gl_FragColor = vec4(uColor, uActive * (0.2 + vDepth * 0.8));
+      }
+    `
+  });
+
+  const streaks = new THREE.Points(geo, mat);
+  streaks.frustumCulled = false;
+  warpStreaksGroup.add(streaks);
+  camera.add(warpStreaksGroup);
+  scene.add(camera);
+
+  warpStreaksGroup.userData = {
+    mat,
+    streaks,
+    speed: 0,
+    targetSpeed: 0,
+    triggerWarp: (durationMs = 900) => {
+      mat.uniforms.uActive.value = 1.0;
+      warpStreaksGroup.userData.targetSpeed = 4.2;
+      setTimeout(() => {
+        warpStreaksGroup.userData.targetSpeed = 0.0;
+        mat.uniforms.uActive.value = 0.0;
+      }, durationMs);
+    }
+  };
+}
+
+// ----------------------------------------------------------------------------
+// 5.5. VÀNH ĐAI 3D PLANETARY RINGS (KASINI DIVISION)
+// ----------------------------------------------------------------------------
+function createPlanetaryRings(innerR, outerR, colorHex) {
+  const geo = new THREE.RingGeometry(innerR, outerR, 128, 2);
+  const mat = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+    blending: THREE.NormalBlending,
+    uniforms: {
+      uColor: { value: new THREE.Color(colorHex) },
+      uTime: { value: 0 }
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform vec3 uColor;
+      varying vec2 vUv;
+
+      void main() {
+        vec2 p = vUv - 0.5;
+        float radius = length(p) * 2.0;
+
+        // Khe hở Cassini Division ở bán kính 0.60
+        float cassini = smoothstep(0.04, 0.012, abs(radius - 0.60));
+        float innerGap = smoothstep(0.02, 0.007, abs(radius - 0.35));
+
+        float striations = sin(radius * 110.0) * 0.09;
+        float alpha = (0.55 + striations) * cassini * innerGap;
+
+        // Fade viền trong và ngoài
+        alpha *= smoothstep(1.0, 0.85, radius);
+        alpha *= smoothstep(0.06, 0.16, radius);
+
+        if (alpha < 0.02) discard;
+        gl_FragColor = vec4(uColor, alpha * 0.85);
+      }
+    `
+  });
+
+  const ringsMesh = new THREE.Mesh(geo, mat);
+  ringsMesh.rotation.x = Math.PI * 0.46;
+  ringsMesh.rotation.z = -0.22;
+  return ringsMesh;
+}
+
+// ----------------------------------------------------------------------------
+// 5.6. LỚP MÂY 3D KHÍ QUYỂN (ATMOSPHERIC CLOUD LAYER)
+// ----------------------------------------------------------------------------
+function createCloudLayerSphere(radius) {
+  const geo = new THREE.SphereGeometry(radius * 1.025, 36, 36);
+  const mat = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending,
+    uniforms: {
+      uTime: { value: 0 },
+      uColor: { value: new THREE.Color(0xE2F1FF) }
+    },
+    vertexShader: `
+      varying vec3 vNormal;
+      varying vec3 vWorld;
+      void main() {
+        vNormal = normalize(normalMatrix * normal);
+        vec4 world = modelMatrix * vec4(position, 1.0);
+        vWorld = world.xyz;
+        gl_Position = projectionMatrix * viewMatrix * world;
+      }
+    `,
+    fragmentShader: `
+      uniform float uTime;
+      uniform vec3 uColor;
+      varying vec3 vNormal;
+      varying vec3 vWorld;
+      ${GLSL_COMMON_NOISE}
+
+      void main() {
+        vec3 p = vWorld * 2.5;
+        float n = snoise(p + vec3(uTime * 0.04, uTime * 0.02, 0.0));
+        float fresnel = pow(1.0 - abs(dot(vNormal, vec3(0.0, 0.0, 1.0))), 2.2);
+
+        float alpha = smoothstep(0.12, 0.45, n) * (0.22 + fresnel * 0.55);
+        if (alpha < 0.02) discard;
+
+        gl_FragColor = vec4(uColor, alpha);
+      }
+    `
+  });
+
+  const cloudsMesh = new THREE.Mesh(geo, mat);
+  cloudsMesh.rotation.z = 0.28;
+  return cloudsMesh;
+}
+
+// ----------------------------------------------------------------------------
+// 5.7. SÁU THIÊN THỂ PROCEDURAL NOISE SHADER + FRESNEL KHÍ QUYỂN + RINGS + CLOUDS
 // ----------------------------------------------------------------------------
 function buildPlanetarySystem() {
   const sharedGeo = new THREE.SphereGeometry(1, 48, 48);
@@ -445,7 +933,21 @@ function buildPlanetarySystem() {
     atmoMesh.scale.setScalar(cfg.size * 1.1);
     anchor.add(atmoMesh);
 
-    // 4. Vệt bụi sao quỹ đạo Circular Ring Buffer (Zero Allocation 60 FPS)
+    // 4. Lớp mây 3D khí quyển quay độc lập (3D Cloud Layer)
+    let cloudsMesh = null;
+    if (cfg.hasClouds) {
+      cloudsMesh = createCloudLayerSphere(cfg.size);
+      anchor.add(cloudsMesh);
+    }
+
+    // 5. Vành đai 3D Planetary Rings (dành riêng cho Node 02 & 05)
+    let ringsMesh = null;
+    if (cfg.hasRings) {
+      ringsMesh = createPlanetaryRings(cfg.size * 1.35, cfg.size * 2.45, cfg.ringColor || cfg.base);
+      anchor.add(ringsMesh);
+    }
+
+    // 6. Vệt bụi sao quỹ đạo Circular Ring Buffer (Zero Allocation 60 FPS)
     const TRAIL_POINTS = 54;
     const trailPositions = new Float32Array(TRAIL_POINTS * 3);
     const trailGeo = new THREE.BufferGeometry();
@@ -469,6 +971,8 @@ function buildPlanetarySystem() {
       anchor,
       mesh,
       atmoMesh,
+      cloudsMesh,
+      ringsMesh,
       orbitLine,
       trailLine,
       trailPositions,
@@ -482,9 +986,9 @@ function buildPlanetarySystem() {
 }
 
 // ----------------------------------------------------------------------------
-// 4.4. VÒNG TÂM NGẮM THIÊN VĂN AR (TARGETING RETICLE)
+// 5.8. VÒNG TÂM NGẮM THIÊN VĂN AR & ĐƯỜNG LINE RADAR KẾT NỐI
 // ----------------------------------------------------------------------------
-function buildReticle() {
+function buildReticleWithRadarLine() {
   reticleGroup = new THREE.Group();
 
   // Vòng ngắm chính
@@ -512,10 +1016,25 @@ function buildReticle() {
 
   reticleGroup.visible = false;
   scene.add(reticleGroup);
+
+  // Đường line vector radar nối từ tâm thiên thể đến Reticle
+  const lineGeo = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, 0)
+  ]);
+  const lineMat = new THREE.LineBasicMaterial({
+    color: 0xF0C879,
+    transparent: true,
+    opacity: 0.75,
+    blending: THREE.AdditiveBlending
+  });
+  reticleLine = new THREE.Line(lineGeo, lineMat);
+  reticleLine.visible = false;
+  scene.add(reticleLine);
 }
 
 // ----------------------------------------------------------------------------
-// 4.5. NHÃN AR CHIẾU TỪ TỌA ĐỘ 3D SANG 2D SCREEN SPACE
+// 5.9. NHÃN AR CHIẾU TỪ TỌA ĐỘ 3D SANG 2D SCREEN SPACE
 // ----------------------------------------------------------------------------
 function createSpatialLabels() {
   if (!dom.labelsContainer) return;
@@ -543,7 +1062,6 @@ function createSpatialLabels() {
 function updateSpatialLabels() {
   if (!dom.labelsContainer) return;
 
-  // Khi đang zoom vào một hành tinh thì ẩn nhãn toàn cảnh
   if (selectedPlanet) {
     dom.labelsContainer.style.opacity = '0';
     return;
@@ -573,7 +1091,7 @@ function updateSpatialLabels() {
 }
 
 // ----------------------------------------------------------------------------
-// 4.6. QUICK NAVIGATION PILLS Ở DƯỚI CÙNG
+// 5.10. QUICK NAVIGATION PILLS Ở DƯỚI CÙNG
 // ----------------------------------------------------------------------------
 function createNavPills() {
   if (!dom.navPills) return;
@@ -604,7 +1122,7 @@ function updateNavPills() {
 }
 
 // ----------------------------------------------------------------------------
-// 5. CAMERA FLIGHT (HYPER-ZOOM SLERP) VÀ QUAN SÁT THIÊN THỂ
+// 6. CAMERA FLIGHT (HYPERSPACE JUMP & SLERP) VÀ QUAN SÁT THIÊN THỂ
 // ----------------------------------------------------------------------------
 function flyToPlanet(memberId) {
   const target = planets.find(p => p.cfg.id === memberId);
@@ -613,6 +1131,13 @@ function flyToPlanet(memberId) {
   if (!target || !member) {
     resetToOrbit();
     return;
+  }
+
+  // Âm thanh Warp Speed và hiệu ứng kéo dãn vệt sao
+  audio.playWarpWhoosh();
+  audio.playSelectChord();
+  if (warpStreaksGroup && warpStreaksGroup.userData.triggerWarp) {
+    warpStreaksGroup.userData.triggerWarp(1100);
   }
 
   selectedPlanet = target.mesh;
@@ -635,6 +1160,9 @@ function flyToPlanet(memberId) {
 }
 
 function resetToOrbit() {
+  if (selectedPlanet) {
+    audio.playWarpWhoosh();
+  }
   selectedPlanet = null;
   isCameraTransitioning = true;
 
@@ -656,7 +1184,7 @@ function resetToOrbit() {
 }
 
 // ----------------------------------------------------------------------------
-// 5.1. MỞ PANEL CHI TIẾT AR HOLOGRAPHIC
+// 6.1. MỞ PANEL CHI TIẾT AR HOLOGRAPHIC
 // ----------------------------------------------------------------------------
 function openSpatialDetailDrawer(member, cfg) {
   if (!dom.detailPanel) return;
@@ -737,7 +1265,7 @@ function openSpatialDetailDrawer(member, cfg) {
 }
 
 // ----------------------------------------------------------------------------
-// 6. THUẬT TOÁN RAY-SPHERE GIẢI TÍCH (O(1) CPU RAYCASTING)
+// 7. THUẬT TOÁN RAY-SPHERE GIẢI TÍCH (O(1) CPU RAYCASTING) & RETICLE RADAR
 // ----------------------------------------------------------------------------
 function testAnalyticIntersection(pCoord) {
   _vRayOrigin.copy(camera.position);
@@ -770,13 +1298,29 @@ function testAnalyticIntersection(pCoord) {
   if (hit !== hoveredPlanet) {
     hoveredPlanet = hit;
     if (hit) {
+      audio.playSonarBlip(hit.userData.radius > 1.2 ? 0.92 : 1.15);
       reticleGroup.visible = true;
       hit.getWorldPosition(reticleGroup.position);
       const scale = hit.userData.radius * 2.2;
       reticleGroup.scale.set(scale, scale, scale);
+
+      if (reticleLine) {
+        reticleLine.visible = true;
+        const linePos = reticleLine.geometry.attributes.position.array;
+        hit.getWorldPosition(_vTemp);
+        linePos[0] = _vTemp.x;
+        linePos[1] = _vTemp.y;
+        linePos[2] = _vTemp.z;
+        linePos[3] = _vTemp.x + 1.2;
+        linePos[4] = _vTemp.y + 1.5;
+        linePos[5] = _vTemp.z;
+        reticleLine.geometry.attributes.position.needsUpdate = true;
+      }
+
       document.body.style.cursor = 'pointer';
     } else {
       reticleGroup.visible = false;
+      if (reticleLine) reticleLine.visible = false;
       document.body.style.cursor = 'default';
     }
   }
@@ -810,7 +1354,7 @@ function onResize() {
 }
 
 // ----------------------------------------------------------------------------
-// 7. VÒNG LẶP ĐỒ HỌA CHÍNH (60 FPS HOT LOOP)
+// 8. VÒNG LẶP ĐỒ HỌA CHÍNH (60 FPS HOT LOOP)
 // ----------------------------------------------------------------------------
 function animate() {
   requestAnimationFrame(animate);
@@ -824,14 +1368,34 @@ function animate() {
     accretionDisk.rotation.z += delta * 0.18;
   }
 
-  // B. Quỹ đạo Kepler và cập nhật Circular Trail Buffer
+  // B. Xoay nhẹ mây bụi tinh vân đa sắc
+  if (nebulaDustGroup) {
+    nebulaDustGroup.rotation.y += delta * 0.012;
+    nebulaDustGroup.rotation.z += delta * 0.005;
+  }
+
+  // C. Cập nhật Hyperspace Warp Streaks
+  if (warpStreaksGroup && warpStreaksGroup.userData.targetSpeed > 0) {
+    const ud = warpStreaksGroup.userData;
+    ud.speed = THREE.MathUtils.lerp(ud.speed, ud.targetSpeed, 0.1);
+    const pos = ud.streaks.geometry.attributes.position.array;
+    for (let i = 0; i < pos.length; i += 3) {
+      pos[i + 2] += ud.speed;
+      if (pos[i + 2] > 5) {
+        pos[i + 2] = -90 - Math.random() * 20;
+      }
+    }
+    ud.streaks.geometry.attributes.position.needsUpdate = true;
+  }
+
+  // D. Quỹ đạo Kepler và cập nhật Circular Trail Buffer
   for (let i = 0; i < planets.length; i++) {
     const p = planets[i];
 
-    // Cập nhật shader thời gian
+    // Cập nhật shader thời gian cho bề mặt hành tinh
     p.mesh.material.uniforms.uTime.value = time;
 
-    // Vận tốc quỹ đạo (ngừng xoay hành tinh khi đang zoom xem chi tiết)
+    // Vận tốc quỹ đạo (ngừng dịch chuyển hành tinh khi đang zoom xem chi tiết)
     if (!selectedPlanet || selectedPlanet.userData.id !== p.cfg.id) {
       p.theta += delta * p.cfg.speed * 0.35;
       const r = (p.cfg.a * (1.0 - p.cfg.e * p.cfg.e)) / (1.0 + p.cfg.e * Math.cos(p.theta));
@@ -853,11 +1417,24 @@ function animate() {
       p.trailLine.geometry.attributes.position.needsUpdate = true;
     }
 
-    // Tự xoay trục
+    // Tự xoay trục bề mặt hành tinh
     p.mesh.rotation.y += delta * 0.55;
+
+    // Cập nhật lớp mây quay độc lập
+    if (p.cloudsMesh) {
+      p.cloudsMesh.material.uniforms.uTime.value = time;
+      p.cloudsMesh.rotation.y += delta * 0.75;
+      p.cloudsMesh.rotation.x += delta * 0.08;
+    }
+
+    // Cập nhật vành đai sao Thổ
+    if (p.ringsMesh) {
+      p.ringsMesh.material.uniforms.uTime.value = time;
+      p.ringsMesh.rotation.z += delta * 0.12;
+    }
   }
 
-  // C. Camera Transition Lerp
+  // E. Camera Transition Lerp
   if (isCameraTransitioning) {
     camera.position.lerp(cameraTargetPos, 0.065);
     controls.target.lerp(cameraLookTarget, 0.065);
@@ -867,24 +1444,36 @@ function animate() {
     }
   }
 
-  // D. Cập nhật OrbitControls
+  // F. Cập nhật OrbitControls
   controls.update();
 
-  // E. Cập nhật Reticle Ring
+  // G. Cập nhật Reticle Ring & Radar vector line
   if (reticleGroup.visible) {
     reticleGroup.quaternion.copy(camera.quaternion);
     reticleGroup.rotation.z += delta * 1.5;
+
+    if (hoveredPlanet && reticleLine) {
+      hoveredPlanet.getWorldPosition(_vTemp);
+      const linePos = reticleLine.geometry.attributes.position.array;
+      linePos[0] = _vTemp.x;
+      linePos[1] = _vTemp.y;
+      linePos[2] = _vTemp.z;
+      linePos[3] = _vTemp.x + Math.cos(time * 3.0) * 0.8;
+      linePos[4] = _vTemp.y + Math.sin(time * 3.0) * 0.8 + 1.2;
+      linePos[5] = _vTemp.z;
+      reticleLine.geometry.attributes.position.needsUpdate = true;
+    }
   }
 
-  // F. Cập nhật nhãn AR chiếu lên màn hình
+  // H. Cập nhật nhãn AR chiếu lên màn hình
   updateSpatialLabels();
 
-  // G. Render WebGL
+  // I. Render WebGL
   renderer.render(scene, camera);
 }
 
 // ----------------------------------------------------------------------------
-// 8. TÌM KIẾM THIÊN VĂN & KHỞI CHẠY HỆ THỐNG
+// 9. TÌM KIẾM THIÊN VĂN & ĐIỀU KHIỂN ÂM THANH
 // ----------------------------------------------------------------------------
 function filterUniverse(rawQuery) {
   const q = rawQuery.trim();
@@ -900,6 +1489,8 @@ function filterUniverse(rawQuery) {
 
     p.mesh.visible = isMatch;
     p.atmoMesh.visible = isMatch;
+    if (p.cloudsMesh) p.cloudsMesh.visible = isMatch;
+    if (p.ringsMesh) p.ringsMesh.visible = isMatch;
     p.orbitLine.visible = isMatch;
 
     const tag = document.getElementById(`spatial-tag-${p.cfg.id}`);
@@ -930,6 +1521,33 @@ function filterUniverse(rawQuery) {
   }
 }
 
+function initAudioControls() {
+  if (!dom.btnAudioToggle) return;
+
+  const updateAudioUI = () => {
+    const muted = audio.isMuted;
+    dom.btnAudioToggle.classList.toggle('audio-muted', muted);
+    if (dom.audioStatusText) {
+      dom.audioStatusText.textContent = muted ? 'AUDIO: OFF' : 'AUDIO: ON';
+    }
+    dom.btnAudioToggle.title = muted ? 'Bật âm thanh vũ trụ' : 'Tắt âm thanh vũ trụ';
+  };
+
+  updateAudioUI();
+
+  dom.btnAudioToggle.addEventListener('click', async () => {
+    await audio.init();
+    if (!audio.isAmbienceStarted && !audio.isMuted) {
+      await audio.startAmbience();
+    }
+    audio.toggleMute();
+    updateAudioUI();
+  });
+}
+
+// ----------------------------------------------------------------------------
+// 10. KHỞI CHẠY DOM READY
+// ----------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Khởi động WebGL Scene
   initUniverseEngine();
