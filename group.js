@@ -317,7 +317,9 @@ const dom = {
   btnResetOrbit: document.getElementById('btnResetOrbit'),
   currentFocusReadout: document.getElementById('currentFocusReadout'),
   btnAudioToggle: document.getElementById('btnAudioToggle'),
-  audioStatusText: document.getElementById('audioStatusText')
+  audioStatusText: document.getElementById('audioStatusText'),
+  btnModeOrbit: document.getElementById('btnModeOrbit'),
+  btnModeWarp: document.getElementById('btnModeWarp')
 };
 
 // ============================================================================
@@ -326,7 +328,7 @@ const dom = {
 let scene, camera, renderer, controls, clock, composer;
 let universeGroup, singularityGroup, accretionDisk, reticleGroup;
 let spiralGalaxyGroup, nebulaDustGroup, warpStreaksGroup, reticleLine;
-let asteroidBeltMesh, diffractionSpikes;
+let asteroidBeltMesh, diffractionSpikes, coronalFlareMesh;
 const planets = [];
 const planetMeshes = [];
 let hoveredPlanet = null;
@@ -336,6 +338,11 @@ const cameraTargetPos = new THREE.Vector3();
 const cameraLookTarget = new THREE.Vector3();
 const defaultCamPos = new THREE.Vector3(0, 24, 48);
 const defaultLookTarget = new THREE.Vector3(0, 0, 0);
+
+// GEMINI 4 ARGON REMAKE: DUAL-PERSPECTIVE KINEMATICS & WARP SPLINE
+let cameraMode = 'ORBIT'; // 'ORBIT' | 'HYPER_WARP'
+let warpProgress = 0.0;
+let warpSpline = null;
 
 // Mouse Parallax Dynamic Gyroscope variables (Lerp Easing)
 let targetTiltX = 0;
@@ -348,6 +355,8 @@ const _vRayOrigin = new THREE.Vector3();
 const _vRayDir = new THREE.Vector3();
 const _vDiff = new THREE.Vector3();
 const _vTemp = new THREE.Vector3();
+const _vSplinePos = new THREE.Vector3();
+const _vSplineLook = new THREE.Vector3();
 const pointer = new THREE.Vector2(-999, -999);
 
 function initUniverseEngine() {
@@ -424,6 +433,8 @@ function initUniverseEngine() {
   createSpatialLabels();
   createNavPills();
   initAudioControls();
+  initWarpSpline();
+  initPerspectiveControls();
 
   // Event Listeners
   window.addEventListener('resize', onResize);
@@ -668,6 +679,71 @@ function buildSingularity() {
   diffractionSpikes.add(sp2);
   singularityGroup.add(diffractionSpikes);
 
+  // 6. GEMINI 4 ARGON REMAKE: DYNAMIC CORONAL FLARES (GLSL 3D SIMPLEX DISPLACEMENT + FRESNEL CME)
+  const flareGeo = new THREE.IcosahedronGeometry(2.35, 32);
+  const flareMat = new THREE.ShaderMaterial({
+    vertexShader: `
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      varying vec3 vPosition;
+      varying float vDisplacement;
+      uniform float uTime;
+      ${GLSL_COMMON_NOISE}
+
+      void main() {
+        vUv = uv;
+        vNormal = normalize(normalMatrix * normal);
+        
+        float time = uTime * 0.85;
+        vec3 coords = position * 0.55 + vec3(0.0, 0.0, time * 0.35);
+        float n = snoise(coords);
+        n += 0.5 * snoise(coords * 2.2 - vec3(time * 0.6));
+        
+        float pulse = pow(sin(uTime * 1.5 + position.y * 1.3) * 0.5 + 0.5, 3.5);
+        float displacement = (n * 0.38 + pulse * 0.72);
+        
+        vDisplacement = displacement;
+        vec3 newPos = position + normal * displacement;
+        vPosition = (modelViewMatrix * vec4(newPos, 1.0)).xyz;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1.0);
+      }
+    `,
+    fragmentShader: `
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      varying vec3 vPosition;
+      varying float vDisplacement;
+      uniform float uIntensity;
+
+      void main() {
+        vec3 viewDir = normalize(-vPosition);
+        float fresnel = pow(1.0 - abs(dot(viewDir, vNormal)), 2.2);
+        
+        vec3 cOuter = vec3(0.35, 0.08, 0.01);
+        vec3 cMid = vec3(1.0, 0.45, 0.05);
+        vec3 cCore = vec3(1.0, 0.92, 0.75);
+        
+        float factor = clamp(vDisplacement * 0.9, 0.0, 1.0);
+        vec3 plasma = mix(cOuter, cMid, factor);
+        plasma = mix(plasma, cCore, pow(factor, 2.5));
+        
+        vec3 finalColor = plasma * (fresnel * 2.0 + factor * 3.2);
+        float alpha = smoothstep(0.0, 0.55, factor + fresnel * 0.45);
+        gl_FragColor = vec4(finalColor, alpha * 0.88);
+      }
+    `,
+    uniforms: {
+      uTime: { value: 0 },
+      uIntensity: { value: 3.2 }
+    },
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide,
+    depthWrite: false
+  });
+  coronalFlareMesh = new THREE.Mesh(flareGeo, flareMat);
+  singularityGroup.add(coronalFlareMesh);
+
   universeGroup.add(singularityGroup);
 }
 
@@ -897,8 +973,8 @@ function buildHyperspaceWarpStreaks() {
 // Nằm giữa quỹ đạo Node 03 (Thảo Như, a=21) và Node 04 (Ý Huỳnh, a=26)
 // ----------------------------------------------------------------------------
 function buildAsteroidBelt() {
-  const count = 1200;
-  const baseGeo = new THREE.DodecahedronGeometry(0.13, 1);
+  const count = 2200;
+  const baseGeo = new THREE.DodecahedronGeometry(0.12, 1);
 
   // Làm méo các đỉnh để tạo hình khối đá thiên thạch gồ ghề ngẫu nhiên
   const posAttr = baseGeo.attributes.position;
@@ -955,7 +1031,7 @@ function buildAsteroidBelt() {
   const asteroidData = [];
 
   for (let i = 0; i < count; i++) {
-    const r = 22.8 + Math.random() * 2.2;
+    const r = 22.2 + Math.random() * 3.2;
     const theta = Math.random() * Math.PI * 2;
     const speed = 0.20 + Math.random() * 0.06;
     const yAmp = (Math.random() - 0.5) * 1.2;
@@ -1451,6 +1527,9 @@ function updateNavPills() {
 // 6. CAMERA FLIGHT (HYPERSPACE JUMP & SLERP) VÀ QUAN SÁT THIÊN THỂ
 // ----------------------------------------------------------------------------
 function flyToPlanet(memberId) {
+  if (cameraMode === 'HYPER_WARP') {
+    setCameraMode('ORBIT');
+  }
   const target = planets.find(p => p.cfg.id === memberId);
   const member = MEMBERS.find(m => m.id === memberId);
 
@@ -1486,6 +1565,9 @@ function flyToPlanet(memberId) {
 }
 
 function resetToOrbit() {
+  if (cameraMode === 'HYPER_WARP') {
+    setCameraMode('ORBIT');
+  }
   if (selectedPlanet) {
     audio.playWarpWhoosh();
   }
@@ -1728,6 +1810,11 @@ function animate() {
     diffractionSpikes.quaternion.copy(camera.quaternion);
     diffractionSpikes.rotation.z += delta * 0.06;
   }
+  if (coronalFlareMesh) {
+    coronalFlareMesh.material.uniforms.uTime.value = time;
+    coronalFlareMesh.rotation.y += delta * 0.12;
+    coronalFlareMesh.rotation.z = Math.sin(time * 0.25) * 0.08;
+  }
 
   // B. Xoay dải ngân hà 3D xoắn ốc (Spiral Galaxy)
   if (spiralGalaxyGroup) {
@@ -1844,10 +1931,29 @@ function animate() {
     }
   }
 
-  // H. Camera Transition Lerp & Orbit Lock Tracking
-  if (isCameraTransitioning) {
+  // H. Camera Kinematics: Orbit View vs Gemini Argon Hyper-Warp
+  if (cameraMode === 'HYPER_WARP' && warpSpline) {
+    warpProgress = (warpProgress + delta * 0.045) % 1.0;
+    warpSpline.getPointAt(warpProgress, _vSplinePos);
+    warpSpline.getPointAt((warpProgress + 0.024) % 1.0, _vSplineLook);
+
+    camera.position.lerp(_vSplinePos, 0.09);
+    controls.target.lerp(_vSplineLook, 0.09);
+    camera.lookAt(_vSplineLook);
+
+    // Dynamic FOV Dolly-Warp expansion (45° -> 78°)
+    if (Math.abs(camera.fov - 78) > 0.1) {
+      camera.fov = THREE.MathUtils.lerp(camera.fov, 78, delta * 2.5);
+      camera.updateProjectionMatrix();
+    }
+  } else if (isCameraTransitioning) {
     camera.position.lerp(cameraTargetPos, 0.065);
     controls.target.lerp(cameraLookTarget, 0.065);
+
+    if (Math.abs(camera.fov - 45) > 0.1) {
+      camera.fov = THREE.MathUtils.lerp(camera.fov, 45, delta * 3.0);
+      camera.updateProjectionMatrix();
+    }
 
     if (camera.position.distanceTo(cameraTargetPos) < 0.2) {
       isCameraTransitioning = false;
@@ -1859,10 +1965,21 @@ function animate() {
       selP.anchor.getWorldPosition(_vTemp);
       controls.target.lerp(_vTemp, 0.1);
     }
+    if (Math.abs(camera.fov - 45) > 0.1) {
+      camera.fov = THREE.MathUtils.lerp(camera.fov, 45, delta * 3.0);
+      camera.updateProjectionMatrix();
+    }
+  } else {
+    if (Math.abs(camera.fov - 45) > 0.1) {
+      camera.fov = THREE.MathUtils.lerp(camera.fov, 45, delta * 3.0);
+      camera.updateProjectionMatrix();
+    }
   }
 
   // I. Cập nhật OrbitControls
-  controls.update();
+  if (cameraMode === 'ORBIT') {
+    controls.update();
+  }
 
   // J. Cập nhật Reticle Ring & Radar vector line
   if (reticleGroup.visible) {
@@ -1964,6 +2081,78 @@ function initAudioControls() {
     audio.toggleMute();
     updateAudioUI();
   });
+}
+
+// ----------------------------------------------------------------------------
+// 9.2. GEMINI 4 ARGON REMAKE: DUAL-PERSPECTIVE KINEMATIC CAMERA SYSTEM
+// ----------------------------------------------------------------------------
+function initWarpSpline() {
+  warpSpline = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 32, 65),       // Góc nhìn toàn cảnh từ trên cao
+    new THREE.Vector3(26, 7, 36),       // Lướt qua cận cảnh Node 02 (Trường) & Cassini Rings
+    new THREE.Vector3(-16, 4, 23.5),    // Skimming qua vành đai tiểu hành tinh 3D (Asteroid Belt)
+    new THREE.Vector3(7.5, -1.8, 6.2),  // Sát rìa chân trời sự kiện Singularity & Coronal Flares
+    new THREE.Vector3(-25, -5, -28),    // Bay qua hành tinh Node 05 (Châu) & Moon LHC-5γ
+    new THREE.Vector3(0, 42, -55)       // Phóng vút lên cực quang vũ trụ
+  ]);
+  warpSpline.closed = true;
+}
+
+function initPerspectiveControls() {
+  if (dom.btnModeOrbit) {
+    dom.btnModeOrbit.addEventListener('click', () => {
+      setCameraMode('ORBIT');
+    });
+  }
+  if (dom.btnModeWarp) {
+    dom.btnModeWarp.addEventListener('click', () => {
+      setCameraMode('HYPER_WARP');
+    });
+  }
+
+  // Phím tắt bàn phím: [1] Orbit mode, [2] Hyper-Warp mode
+  window.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === '1') {
+      setCameraMode('ORBIT');
+    } else if (e.key === '2') {
+      setCameraMode('HYPER_WARP');
+    }
+  });
+}
+
+function setCameraMode(mode) {
+  if (mode === cameraMode) return;
+  cameraMode = mode;
+
+  if (dom.btnModeOrbit && dom.btnModeWarp) {
+    dom.btnModeOrbit.classList.toggle('active', mode === 'ORBIT');
+    dom.btnModeWarp.classList.toggle('active', mode === 'HYPER_WARP');
+  }
+
+  if (mode === 'HYPER_WARP') {
+    controls.enabled = false;
+    audio.playWarpWhoosh();
+    if (warpStreaksGroup && warpStreaksGroup.userData) {
+      warpStreaksGroup.userData.targetSpeed = 4.0;
+      warpStreaksGroup.userData.mat.uniforms.uActive.value = 1.0;
+    }
+    if (dom.currentFocusReadout) {
+      dom.currentFocusReadout.textContent = 'MODE: HYPER-WARP DEEP CRUISE // 0.88c';
+    }
+    if (selectedPlanet) {
+      resetToOrbit();
+    }
+  } else {
+    controls.enabled = true;
+    controls.target.copy(defaultLookTarget);
+    if (warpStreaksGroup && warpStreaksGroup.userData) {
+      warpStreaksGroup.userData.targetSpeed = 0.0;
+    }
+    if (dom.currentFocusReadout) {
+      dom.currentFocusReadout.textContent = 'SECTOR: TECHGROUP 06 // ORBIT PANORAMA';
+    }
+  }
 }
 
 // ----------------------------------------------------------------------------
