@@ -42,3 +42,7 @@ dist-ssr/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# README local
+PRODUCT_SPEC.md
+IMPLEMENTATION_PLAN.md
