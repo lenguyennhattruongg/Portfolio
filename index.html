@@ -3,686 +3,328 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Group Portfolio Hub — Nhóm 6 thành viên, học phần Lập trình Web, Trường Đại học Giao thông Vận tải TP.HCM (UTH).">
-  <title>Group Portfolio | Nhóm 6 Thành Viên — UTH</title>
-  
-  <!-- Google Fonts: Manrope (Sans) & Newsreader (Editorial Serif) -->
+  <meta name="description" content="Trang chủ giới thiệu sáu thành viên Nhóm 06 thuộc Trường Đại học Giao thông Vận tải TP.HCM (UTH), phục vụ học phần Lập trình Web. Bố cục bảng nguyên tố kỹ thuật.">
+  <meta name="author" content="Nhóm 06 — UTH">
+
+  <title>Nhóm 06 | Đồ Án Lập Trình Web — UTH</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Nhóm 06 | Đồ Án Lập Trình Web — UTH">
+  <meta property="og:description" content="Bảng thành viên Nhóm 06, học phần Lập trình Web, Trường ĐH Giao thông Vận tải TP.HCM.">
+  <meta property="og:type" content="website">
+
+  <!-- Phông chữ Google Fonts hỗ trợ tiếng Việt đầy đủ (Outfit, Plus Jakarta Sans, JetBrains Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
-  
-  <!-- Custom Group Stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="./group.css">
 </head>
-<body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="100" tabindex="0">
+<body class="theme-periodic">
+
+  <!-- Hỗ trợ bàn phím WCAG AA: Chuyển nhanh đến nội dung chính -->
+  <a href="#main-content" class="skip-link">Chuyển đến nội dung chính</a>
 
   <!-- =========================================================
-       MASTHEAD / NAVIGATION
+       THANH ĐIỀU HƯỚNG ĐẦU TRANG (HEADER)
+       Tối đa 4 liên kết có ý nghĩa thật, không số thứ tự, không âm thanh
        ========================================================= -->
-  <header>
-    <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top editorial-navbar" aria-label="Điều hướng chính">
-      <div class="container-xl">
-        <a class="navbar-brand d-flex align-items-baseline gap-2" href="#hero">
-          <span class="brand-monogram">06</span>
-          <span class="brand-title">TECHGROUP<span class="brand-sub">.UTH</span></span>
+  <header class="site-header" id="siteHeader" role="banner">
+    <div class="container header-inner">
+
+      <a href="#tableSection" class="brand-link" aria-label="Về đầu trang — Nhóm 06 UTH">
+        <span class="brand-symbol font-mono">06</span>
+        <span class="brand-name font-heading">Nhóm 06 · UTH</span>
+      </a>
+
+      <!-- Menu chính tối đa 4 mục -->
+      <nav class="site-nav" aria-label="Điều hướng chính">
+        <a href="#tableSection" class="nav-item font-body">Bảng thành viên</a>
+        <a href="#searchSection" class="nav-item font-body">Tìm kiếm</a>
+        <a href="#resourcesSection" class="nav-item font-body">Tài nguyên</a>
+        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="nav-item nav-item-repo font-body" target="_blank" rel="noopener noreferrer">
+          Mã nguồn GitHub ↗
         </a>
+      </nav>
 
-        <button class="navbar-toggler border-0 shadow-none px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Mở menu điều hướng">
-          <i class="bi bi-list fs-2 text-ink"></i>
-        </button>
+      <!-- Nút mở menu di động -->
+      <button type="button" class="mobile-toggle" id="mobileMenuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Mở menu điều hướng">
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarContent">
-          <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1">
-            <li class="nav-item">
-              <a class="nav-link px-3 active" href="#hero">Trang chủ</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link px-3" href="#about">Về dự án</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link px-3" href="#members">6 Thành viên</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link px-3" href="#tech">Công nghệ</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link px-3" href="#course">Học phần</a>
-            </li>
-          </ul>
+    </div>
 
-          <div class="d-flex align-items-center gap-2">
-            <a href="#members" class="btn btn-crimson-outline btn-sm px-3 py-2 fw-semibold cta-button">
-              <span>Xem 6 Portfolio</span>
-              <i class="bi bi-arrow-right ms-1"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <!-- Bảng điều hướng di động -->
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+      <nav class="mobile-nav" aria-label="Điều hướng di động">
+        <a href="#tableSection" class="mobile-nav-link font-body">Bảng thành viên</a>
+        <a href="#searchSection" class="mobile-nav-link font-body">Tìm kiếm</a>
+        <a href="#resourcesSection" class="mobile-nav-link font-body">Tài nguyên</a>
+        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="mobile-nav-link font-body" target="_blank" rel="noopener noreferrer">Mã nguồn GitHub ↗</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <!-- =========================================================
-         HERO SECTION — EDITORIAL SPREAD
-         ========================================================= -->
-    <section id="hero" class="hero-editorial position-relative">
-      <div class="container-xl">
-        
-        <!-- Context Meta Line -->
-        <div class="hero-meta-bar d-flex flex-wrap align-items-center justify-content-between gap-2 pb-3 mb-4 border-bottom-hairline">
-          <div class="d-flex align-items-center gap-2">
-            <span class="editorial-tag">Đồ Án Giữa Kỳ</span>
-            <span class="text-ink-muted small">Học phần Lập trình Web — HK1 2026</span>
-          </div>
-          <div class="text-ink-muted small font-monospace">
-            <span>Đại học Giao thông Vận tải TP.HCM (UTH)</span>
-          </div>
-        </div>
+  <!-- =========================================================
+       NỘI DUNG CHÍNH (MAIN)
+       ========================================================= -->
+  <main id="main-content">
 
-        <!-- Headline & Manifesto Row -->
-        <div class="row align-items-start gy-4 pt-2 pb-4">
-          <div class="col-lg-8">
-            <h1 class="hero-headline display-3 fw-bold text-ink mb-4">
-              Không Gian Hội Tụ <br>
-              <span class="font-serif italic-accent">06 Dấu Ấn Kỹ Thuật</span> &amp; Sáng Tạo
+    <!-- =========================================================
+         KHU VỰC CHÍNH: HỆ THỐNG LÕI DỮ LIỆU KHÔNG GIAN 3D (CYBER CORE)
+         Hợp nhất Đấu trường 6 Node dữ liệu và Trạm điều khiển chi tiết
+         ========================================================= -->
+    <section class="table-section" id="tableSection" aria-labelledby="tableHeadline">
+      <div class="container">
+        
+        <!-- Khung đấu trường tương tác chính -->
+        <div class="table-arena" id="tableArena">
+
+          <!-- Khối giới thiệu bên trái khi chưa chọn / co lại thành tiêu đề khi mở hồ sơ -->
+          <div class="arena-intro" id="arenaIntro">
+            <p class="section-tag font-mono">HỆ THỐNG DỮ LIỆU KHÔNG GIAN 3D // UTH</p>
+            <h1 class="section-headline font-heading" id="tableHeadline">
+              Nhóm 06 — Lõi Dữ Liệu Thành Viên
             </h1>
-            <p class="hero-lead text-ink-muted col-xl-10 mb-4">
-              Cổng kết nối thống nhất dẫn đến 06 không gian Portfolio cá nhân độc lập. Mỗi thành viên tự chủ định hình ngôn ngữ giao diện, cấu trúc nội dung và phong cách kỹ thuật; cùng hội tụ trên nền tảng tích hợp chuẩn mực HTML5, CSS3, JavaScript thuần và kiến trúc đa trang Vite.
+            <p class="section-desc font-body">
+              Không gian lưu trữ và liên kết thông tin kỹ thuật của sáu thành viên sinh viên thuộc Trường Đại học Giao thông Vận tải TP.HCM (UTH).
             </p>
-
-            <div class="d-flex flex-wrap align-items-center gap-3 pt-2">
-              <a href="#members" class="btn btn-crimson px-4 py-3 fw-semibold d-inline-flex align-items-center gap-2">
-                <span>Khám phá 6 Portfolio</span>
-                <i class="bi bi-arrow-down-right"></i>
-              </a>
-              <a href="#about" class="btn btn-editorial-text px-3 py-3 fw-semibold text-ink d-inline-flex align-items-center gap-2">
-                <span>Đọc tôn chỉ dự án</span>
-                <i class="bi bi-arrow-right"></i>
+            <p class="section-instruction font-body" id="tableInstruction">
+              Chọn một module dữ liệu để kết nối trạm điều khiển thông tin chi tiết.
+            </p>
+            <div class="arena-cta-wrap">
+              <a href="#periodicGrid" class="btn-action btn-action-primary font-body arena-cta font-mono">
+                Xem 6 Node dữ liệu ↓
               </a>
             </div>
           </div>
 
-          <!-- Studio Spec Card -->
-          <div class="col-lg-4">
-            <aside class="editorial-spec-card p-4 rounded-1">
-              <div class="spec-card-header d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom-hairline">
-                <span class="spec-title small text-uppercase fw-bold text-ink-muted">Dữ Liệu Đồ Án</span>
-                <span class="badge-editorial-crimson">Phase 2.1</span>
-              </div>
-              <ul class="list-unstyled spec-list mb-0 small">
-                <li class="d-flex justify-content-between py-2 border-bottom-hairline">
-                  <span class="text-ink-muted">Đơn vị:</span>
-                  <strong class="text-ink">UTH Campus 2</strong>
-                </li>
-                <li class="d-flex justify-content-between py-2 border-bottom-hairline">
-                  <span class="text-ink-muted">Quy mô nhóm:</span>
-                  <strong class="text-ink">06 Thành viên</strong>
-                </li>
-                <li class="d-flex justify-content-between py-2 border-bottom-hairline">
-                  <span class="text-ink-muted">Cấu trúc:</span>
-                  <strong class="text-ink">1 Trang chủ + 6 Trang riêng</strong>
-                </li>
-                <li class="d-flex justify-content-between py-2 border-bottom-hairline">
-                  <span class="text-ink-muted">Công nghệ:</span>
-                  <strong class="text-ink">HTML5, CSS3, Vanilla JS, Vite</strong>
-                </li>
-                <li class="d-flex justify-content-between py-2 border-bottom-hairline">
-                  <span class="text-ink-muted">Hạn nội bộ:</span>
-                  <strong class="text-crimson font-monospace">25/10/2026</strong>
-                </li>
-                <li class="d-flex justify-content-between pt-2">
-                  <span class="text-ink-muted">Hạn giảng viên:</span>
-                  <strong class="text-ink font-monospace">28/10/2026</strong>
-                </li>
-              </ul>
-            </aside>
-          </div>
-        </div>
+          <!-- Lưới 6 Module Dữ Liệu Không Gian Thành Viên (Spatial Cyber Nodes) -->
+          <div class="periodic-grid" id="periodicGrid" role="region" aria-label="Lưới các module dữ liệu thành viên">
 
-        <!-- Metric Editorial Strip -->
-        <div class="hero-metric-strip row g-0 mt-4 border-top-hairline border-bottom-hairline">
-          <div class="col-6 col-md-3 metric-col p-3 p-md-4 border-end-hairline">
-            <span class="metric-num font-serif text-crimson">06</span>
-            <span class="metric-caption d-block text-ink-muted small">Thành viên sáng lập nhóm</span>
-          </div>
-          <div class="col-6 col-md-3 metric-col p-3 p-md-4 border-end-hairline">
-            <span class="metric-num font-serif text-ink">06</span>
-            <span class="metric-caption d-block text-ink-muted small">Không gian Portfolio riêng biệt</span>
-          </div>
-          <div class="col-6 col-md-3 metric-col p-3 p-md-4 border-end-hairline">
-            <span class="metric-num font-serif text-ink">100%</span>
-            <span class="metric-caption d-block text-ink-muted small">Tự chủ nội dung &amp; thẩm mỹ</span>
-          </div>
-          <div class="col-6 col-md-3 metric-col p-3 p-md-4">
-            <span class="metric-num font-serif text-ink">01</span>
-            <span class="metric-caption d-block text-ink-muted small">Kiến trúc đa trang Vite đồng bộ</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================
-         ABOUT / MANIFESTO SECTION
-         ========================================================= -->
-    <section id="about" class="editorial-section py-5">
-      <div class="container-xl py-4">
-        <div class="row gy-4">
-          <div class="col-lg-4">
-            <div class="section-label-group mb-3">
-              <span class="section-num font-serif text-crimson">§ 01</span>
-              <span class="section-tag text-uppercase fw-bold text-ink-muted ms-2">Tôn Chỉ Dự Án</span>
-            </div>
-            <h2 class="section-heading display-6 fw-bold text-ink mb-3">
-              Độc Lập Sáng Tạo, <br>
-              <span class="font-serif italic-accent">Đồng Bộ Kỹ Thuật</span>
-            </h2>
-            <p class="text-ink-muted small">
-              Website phản ánh tinh thần học tập thực chất của nhóm sinh viên Công nghệ Thông tin: tôn trọng cá tính riêng của từng cá nhân nhưng tuân thủ nghiêm ngặt chuẩn mực chất lượng mã nguồn và khả năng truy cập.
-            </p>
-          </div>
-
-          <div class="col-lg-8 ps-lg-5">
-            <div class="editorial-manifesto-list">
-              <article class="manifesto-item pb-4 mb-4 border-bottom-hairline">
-                <div class="d-flex align-items-baseline gap-3 mb-2">
-                  <span class="manifesto-index font-monospace text-crimson">01.1</span>
-                  <h3 class="h5 fw-bold text-ink mb-0">Quyền tự chủ thiết kế của từng thành viên</h3>
-                </div>
-                <p class="text-ink-muted mb-0 ps-md-4">
-                  Nhóm không áp đặt một khuôn mẫu giao diện đơn điệu. Mỗi thành viên tự do lựa chọn bảng màu, typography và bố cục phản ánh đúng cá tính nghề nghiệp: từ phong cách Dark Cyber Tech của Nguyễn Xuân Hiếu đến các không gian sáng tạo của năm thành viên còn lại.
-                </p>
-              </article>
-
-              <article class="manifesto-item pb-4 mb-4 border-bottom-hairline">
-                <div class="d-flex align-items-baseline gap-3 mb-2">
-                  <span class="manifesto-index font-monospace text-crimson">01.2</span>
-                  <h3 class="h5 fw-bold text-ink mb-0">Tương tác thực chất bằng Vanilla JavaScript</h3>
-                </div>
-                <p class="text-ink-muted mb-0 ps-md-4">
-                  Loại bỏ các hiệu ứng trang trí thừa thãi. Mọi tương tác trên website đều xuất phát từ nhu cầu thực tế: tìm kiếm thành viên theo thời gian thực, chuyển đổi song ngữ không reload, modal chi tiết dự án và kiểm tra form liên hệ an toàn.
-                </p>
-              </article>
-
-              <article class="manifesto-item">
-                <div class="d-flex align-items-baseline gap-3 mb-2">
-                  <span class="manifesto-index font-monospace text-crimson">01.3</span>
-                  <h3 class="h5 fw-bold text-ink mb-0">Kiến trúc đa trang Vite &amp; Sẵn sàng cho GitHub Pages</h3>
-                </div>
-                <p class="text-ink-muted mb-0 ps-md-4">
-                  Cấu hình bundler đa trang cho phép đóng gói độc lập cả 7 trang HTML với đường dẫn tương đối chuẩn mực (`base: './'`), bảo đảm vận hành mượt mà ở môi trường phát triển cục bộ và trên nền tảng GitHub Pages tĩnh.
-                </p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         MEMBERS SHOWCASE — EDITORIAL LIST SPREAD
-         ========================================================= -->
-    <section id="members" class="editorial-section py-5 bg-paper-light">
-      <div class="container-xl py-4">
-        
-        <!-- Section Header with Search Bar -->
-        <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between pb-4 mb-4 border-bottom-hairline gap-3">
-          <div>
-            <div class="section-label-group mb-2">
-              <span class="section-num font-serif text-crimson">§ 02</span>
-              <span class="section-tag text-uppercase fw-bold text-ink-muted ms-2">Danh Sách Thành Viên</span>
-            </div>
-            <h2 class="display-6 fw-bold text-ink mb-1">Cổng Kết Nối 06 Portfolio</h2>
-            <p class="text-ink-muted small mb-0">Truy cập trực tiếp không gian portfolio riêng của từng thành viên trong nhóm.</p>
-          </div>
-
-          <!-- Minimalist Search / Filter Component -->
-          <div class="editorial-search-wrap">
-            <div class="input-group editorial-input-group">
-              <span class="input-group-text bg-transparent border-0 text-ink-muted ps-3">
-                <i class="bi bi-search"></i>
+            <!-- NODE 01: NGUYỄN XUÂN HIẾU (Trưởng nhóm) -->
+            <button type="button" class="element-box cyber-node" data-member-id="hieu" id="elem-hieu" aria-pressed="false" aria-controls="profilePanel">
+              <span class="elem-top">
+                <span class="elem-seq font-mono">NODE // 01</span>
+                <span class="elem-status-dot" aria-hidden="true"></span>
               </span>
-              <input type="text" id="memberSearchInput" class="form-control bg-transparent border-0 text-ink shadow-none" placeholder="Tìm kiếm theo tên hoặc slug..." aria-label="Tìm kiếm thành viên">
+              <span class="elem-symbol font-mono">[NXH-01]</span>
+              <span class="elem-name font-heading">Nguyễn Xuân Hiếu</span>
+              <span class="elem-role font-mono">Trưởng nhóm</span>
+            </button>
+
+            <!-- NODE 02: LÊ NGUYỄN NHẬT TRƯỜNG -->
+            <button type="button" class="element-box cyber-node" data-member-id="truong" id="elem-truong" aria-pressed="false" aria-controls="profilePanel">
+              <span class="elem-top">
+                <span class="elem-seq font-mono">NODE // 02</span>
+                <span class="elem-status-dot" aria-hidden="true"></span>
+              </span>
+              <span class="elem-symbol font-mono">[LNT-02]</span>
+              <span class="elem-name font-heading">Lê Nguyễn Nhật Trường</span>
+              <span class="elem-role font-mono">Thành viên</span>
+            </button>
+
+            <!-- NODE 03: NGUYỄN THỊ THẢO NHƯ -->
+            <button type="button" class="element-box cyber-node" data-member-id="nhu" id="elem-nhu" aria-pressed="false" aria-controls="profilePanel">
+              <span class="elem-top">
+                <span class="elem-seq font-mono">NODE // 03</span>
+                <span class="elem-status-dot" aria-hidden="true"></span>
+              </span>
+              <span class="elem-symbol font-mono">[NTN-03]</span>
+              <span class="elem-name font-heading">Nguyễn Thị Thảo Như</span>
+              <span class="elem-role font-mono">Thành viên</span>
+            </button>
+
+            <!-- NODE 04: NGUYỄN PHẠM Y HUỲNH -->
+            <button type="button" class="element-box cyber-node" data-member-id="huynh" id="elem-huynh" aria-pressed="false" aria-controls="profilePanel">
+              <span class="elem-top">
+                <span class="elem-seq font-mono">NODE // 04</span>
+                <span class="elem-status-dot" aria-hidden="true"></span>
+              </span>
+              <span class="elem-symbol font-mono">[NPY-04]</span>
+              <span class="elem-name font-heading">Nguyễn Phạm Y Huỳnh</span>
+              <span class="elem-role font-mono">Thành viên</span>
+            </button>
+
+            <!-- NODE 05: LÊ HỮU CHÂU -->
+            <button type="button" class="element-box cyber-node" data-member-id="chau" id="elem-chau" aria-pressed="false" aria-controls="profilePanel">
+              <span class="elem-top">
+                <span class="elem-seq font-mono">NODE // 05</span>
+                <span class="elem-status-dot" aria-hidden="true"></span>
+              </span>
+              <span class="elem-symbol font-mono">[LHC-05]</span>
+              <span class="elem-name font-heading">Lê Hữu Châu</span>
+              <span class="elem-role font-mono">Thành viên</span>
+            </button>
+
+            <!-- NODE 06: NGUYỄN ANH THƯ -->
+            <button type="button" class="element-box cyber-node" data-member-id="thu" id="elem-thu" aria-pressed="false" aria-controls="profilePanel">
+              <span class="elem-top">
+                <span class="elem-seq font-mono">NODE // 06</span>
+                <span class="elem-status-dot" aria-hidden="true"></span>
+              </span>
+              <span class="elem-symbol font-mono">[NAT-06]</span>
+              <span class="elem-name font-heading">Nguyễn Anh Thư</span>
+              <span class="elem-role font-mono">Thành viên</span>
+            </button>
+
+          </div>
+
+          <!-- Panel hồ sơ chi tiết (Mở rộng 2/3 diện tích khi chọn ô, ban đầu ẩn) -->
+          <article class="detail-panel" id="profilePanel" role="region" aria-labelledby="panelMemberName" aria-live="polite" hidden>
+
+            <div class="panel-header">
+              <div class="panel-badge-row">
+                <span class="panel-seq font-mono" id="panelMemberSeq">01 // STT 01</span>
+                <button type="button" class="panel-close-btn font-mono" id="panelCloseBtn" aria-label="Đóng hồ sơ chi tiết (Phím Esc)">
+                  <span>ĐÓNG [ESC] &times;</span>
+                </button>
+              </div>
+
+              <div class="panel-hero-row">
+                <!-- Avatar hoặc Monogram đại diện thành viên -->
+                <div class="panel-avatar-slot" id="panelAvatarSlot">
+                  <img src="" alt="" class="panel-avatar-img" id="panelAvatarImg" width="110" height="110" loading="lazy" hidden>
+                  <div class="panel-monogram font-heading" id="panelMonogram">--</div>
+                </div>
+
+                <div class="panel-title-col">
+                  <h2 class="panel-name font-heading" id="panelMemberName">--</h2>
+                  <p class="panel-role font-mono" id="panelMemberRole" hidden>--</p>
+                  <p class="panel-headline font-body" id="panelMemberHeadline" hidden>--</p>
+                </div>
+              </div>
             </div>
-            <div class="d-flex justify-content-between align-items-center mt-2 px-1">
-              <span id="searchResultCount" class="text-ink-muted small font-monospace">Hiển thị 6 / 6 thành viên</span>
-              <span class="text-ink-muted very-small">Nhấn <kbd class="editorial-kbd">Esc</kbd> để đặt lại</span>
+
+            <!-- Khối thế mạnh chuyên môn (Chỉ hiển thị khi có dữ liệu đã xác minh) -->
+            <div class="panel-skills-block" id="panelSkillsBlock" hidden>
+              <h3 class="panel-section-title font-mono">Thế mạnh chuyên môn đã xác minh:</h3>
+              <div class="panel-tags-list" id="panelTagsList">
+                <!-- Render các tag -->
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Editorial Member Rows -->
-        <div class="editorial-member-list" id="memberCardsGrid">
-          
-          <!-- MEMBER 1: Nguyễn Xuân Hiếu -->
-          <div class="member-col" data-name="Nguyễn Xuân Hiếu" data-slug="nguyen-xuan-hieu" data-role="Full-Stack Web Developer & Network Administrator">
-            <article class="member-row p-3 p-md-4 border-bottom-hairline d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-              <div class="d-flex align-items-center gap-3 col-md-6 col-lg-5">
-                <span class="member-index font-serif text-crimson">01</span>
-                <div class="avatar-editorial avatar-frame-crimson">
-                  <span>NXH</span>
-                </div>
-                <div>
-                  <div class="d-flex align-items-center gap-2 mb-1">
-                    <h3 class="h5 fw-bold text-ink mb-0 member-name">Nguyễn Xuân Hiếu</h3>
-                    <span class="badge-role-lead">Trưởng nhóm</span>
-                  </div>
-                  <p class="text-crimson small fw-medium mb-0 member-role">Full-Stack Web Developer &amp; Network Admin</p>
-                </div>
-              </div>
+            <!-- Khối liên kết hành động -->
+            <div class="panel-actions-row">
+              <a href="#" class="btn-action btn-action-primary font-body" id="panelPortfolioLink">
+                Mở portfolio &rarr;
+              </a>
+              <a href="#" class="btn-action btn-action-secondary font-body" id="panelGithubLink" target="_blank" rel="noopener noreferrer" hidden>
+                Trang GitHub cá nhân ↗
+              </a>
+            </div>
 
-              <div class="col-md-4 col-lg-4">
-                <p class="member-statement text-ink-muted small mb-1">
-                  Xây dựng ứng dụng toàn diện từ giao diện người dùng, logic hệ thống cho đến hạ tầng mạng vững chắc.
-                </p>
-                <span class="text-ink-light very-small font-monospace">members/nguyen-xuan-hieu/</span>
-              </div>
-
-              <div class="col-md-2 col-lg-3 text-md-end">
-                <a href="./members/nguyen-xuan-hieu/index.html" class="btn btn-editorial-link text-crimson fw-semibold small d-inline-flex align-items-center gap-2" aria-label="Mở portfolio của Nguyễn Xuân Hiếu">
-                  <span>Mở Portfolio</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </article>
-          </div>
-
-          <!-- MEMBER 2: Lê Nguyễn Nhật Trường -->
-          <div class="member-col" data-name="Lê Nguyễn Nhật Trường" data-slug="le-nguyen-nhat-truong" data-role="Thành viên nhóm">
-            <article class="member-row p-3 p-md-4 border-bottom-hairline d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-              <div class="d-flex align-items-center gap-3 col-md-6 col-lg-5">
-                <span class="member-index font-serif text-ink-light">02</span>
-                <div class="avatar-editorial">
-                  <span>LNT</span>
-                </div>
-                <div>
-                  <div class="d-flex align-items-center gap-2 mb-1">
-                    <h3 class="h5 fw-bold text-ink mb-0 member-name">Lê Nguyễn Nhật Trường</h3>
-                    <span class="badge-role-neutral">Thành viên</span>
-                  </div>
-                  <p class="text-ink-muted small fw-medium mb-0 member-role">Thành viên nhóm</p>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-lg-4">
-                <p class="member-statement text-ink-muted small mb-1">
-                  Không gian portfolio độc lập đang được thành viên phát triển và hoàn thiện nội dung theo rubric học phần.
-                </p>
-                <span class="text-ink-light very-small font-monospace">members/le-nguyen-nhat-truong/</span>
-              </div>
-
-              <div class="col-md-2 col-lg-3 text-md-end">
-                <a href="./members/le-nguyen-nhat-truong/index.html" class="btn btn-editorial-link text-ink fw-semibold small d-inline-flex align-items-center gap-2" aria-label="Mở portfolio của Lê Nguyễn Nhật Trường">
-                  <span>Mở Portfolio</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </article>
-          </div>
-
-          <!-- MEMBER 3: Nguyễn Thị Thảo Như -->
-          <div class="member-col" data-name="Nguyễn Thị Thảo Như" data-slug="nguyen-thi-thao-nhu" data-role="Thành viên nhóm">
-            <article class="member-row p-3 p-md-4 border-bottom-hairline d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-              <div class="d-flex align-items-center gap-3 col-md-6 col-lg-5">
-                <span class="member-index font-serif text-ink-light">03</span>
-                <div class="avatar-editorial">
-                  <span>NTN</span>
-                </div>
-                <div>
-                  <div class="d-flex align-items-center gap-2 mb-1">
-                    <h3 class="h5 fw-bold text-ink mb-0 member-name">Nguyễn Thị Thảo Như</h3>
-                    <span class="badge-role-neutral">Thành viên</span>
-                  </div>
-                  <p class="text-ink-muted small fw-medium mb-0 member-role">Thành viên nhóm</p>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-lg-4">
-                <p class="member-statement text-ink-muted small mb-1">
-                  Không gian portfolio độc lập đang được thành viên phát triển và hoàn thiện nội dung theo rubric học phần.
-                </p>
-                <span class="text-ink-light very-small font-monospace">members/nguyen-thi-thao-nhu/</span>
-              </div>
-
-              <div class="col-md-2 col-lg-3 text-md-end">
-                <a href="./members/nguyen-thi-thao-nhu/index.html" class="btn btn-editorial-link text-ink fw-semibold small d-inline-flex align-items-center gap-2" aria-label="Mở portfolio của Nguyễn Thị Thảo Như">
-                  <span>Mở Portfolio</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </article>
-          </div>
-
-          <!-- MEMBER 4: Nguyễn Phạm Y Huỳnh -->
-          <div class="member-col" data-name="Nguyễn Phạm Y Huỳnh" data-slug="nguyen-pham-y-huynh" data-role="Thành viên nhóm">
-            <article class="member-row p-3 p-md-4 border-bottom-hairline d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-              <div class="d-flex align-items-center gap-3 col-md-6 col-lg-5">
-                <span class="member-index font-serif text-ink-light">04</span>
-                <div class="avatar-editorial">
-                  <span>NPH</span>
-                </div>
-                <div>
-                  <div class="d-flex align-items-center gap-2 mb-1">
-                    <h3 class="h5 fw-bold text-ink mb-0 member-name">Nguyễn Phạm Y Huỳnh</h3>
-                    <span class="badge-role-neutral">Thành viên</span>
-                  </div>
-                  <p class="text-ink-muted small fw-medium mb-0 member-role">Thành viên nhóm</p>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-lg-4">
-                <p class="member-statement text-ink-muted small mb-1">
-                  Không gian portfolio độc lập đang được thành viên phát triển và hoàn thiện nội dung theo rubric học phần.
-                </p>
-                <span class="text-ink-light very-small font-monospace">members/nguyen-pham-y-huynh/</span>
-              </div>
-
-              <div class="col-md-2 col-lg-3 text-md-end">
-                <a href="./members/nguyen-pham-y-huynh/index.html" class="btn btn-editorial-link text-ink fw-semibold small d-inline-flex align-items-center gap-2" aria-label="Mở portfolio của Nguyễn Phạm Y Huỳnh">
-                  <span>Mở Portfolio</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </article>
-          </div>
-
-          <!-- MEMBER 5: Lê Hữu Châu -->
-          <div class="member-col" data-name="Lê Hữu Châu" data-slug="le-huu-chau" data-role="Thành viên nhóm">
-            <article class="member-row p-3 p-md-4 border-bottom-hairline d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-              <div class="d-flex align-items-center gap-3 col-md-6 col-lg-5">
-                <span class="member-index font-serif text-ink-light">05</span>
-                <div class="avatar-editorial">
-                  <span>LHC</span>
-                </div>
-                <div>
-                  <div class="d-flex align-items-center gap-2 mb-1">
-                    <h3 class="h5 fw-bold text-ink mb-0 member-name">Lê Hữu Châu</h3>
-                    <span class="badge-role-neutral">Thành viên</span>
-                  </div>
-                  <p class="text-ink-muted small fw-medium mb-0 member-role">Thành viên nhóm</p>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-lg-4">
-                <p class="member-statement text-ink-muted small mb-1">
-                  Không gian portfolio độc lập đang được thành viên phát triển và hoàn thiện nội dung theo rubric học phần.
-                </p>
-                <span class="text-ink-light very-small font-monospace">members/le-huu-chau/</span>
-              </div>
-
-              <div class="col-md-2 col-lg-3 text-md-end">
-                <a href="./members/le-huu-chau/index.html" class="btn btn-editorial-link text-ink fw-semibold small d-inline-flex align-items-center gap-2" aria-label="Mở portfolio của Lê Hữu Châu">
-                  <span>Mở Portfolio</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </article>
-          </div>
-
-          <!-- MEMBER 6: Nguyễn Anh Thư -->
-          <div class="member-col" data-name="Nguyễn Anh Thư" data-slug="nguyen-anh-thu" data-role="Thành viên nhóm">
-            <article class="member-row p-3 p-md-4 border-bottom-hairline d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-              <div class="d-flex align-items-center gap-3 col-md-6 col-lg-5">
-                <span class="member-index font-serif text-ink-light">06</span>
-                <div class="avatar-editorial">
-                  <span>NAT</span>
-                </div>
-                <div>
-                  <div class="d-flex align-items-center gap-2 mb-1">
-                    <h3 class="h5 fw-bold text-ink mb-0 member-name">Nguyễn Anh Thư</h3>
-                    <span class="badge-role-neutral">Thành viên</span>
-                  </div>
-                  <p class="text-ink-muted small fw-medium mb-0 member-role">Thành viên nhóm</p>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-lg-4">
-                <p class="member-statement text-ink-muted small mb-1">
-                  Không gian portfolio độc lập đang được thành viên phát triển và hoàn thiện nội dung theo rubric học phần.
-                </p>
-                <span class="text-ink-light very-small font-monospace">members/nguyen-anh-thu/</span>
-              </div>
-
-              <div class="col-md-2 col-lg-3 text-md-end">
-                <a href="./members/nguyen-anh-thu/index.html" class="btn btn-editorial-link text-ink fw-semibold small d-inline-flex align-items-center gap-2" aria-label="Mở portfolio của Nguyễn Anh Thư">
-                  <span>Mở Portfolio</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </article>
-          </div>
+          </article>
 
         </div>
 
-        <div id="noMemberFoundAlert" class="alert alert-editorial text-center py-5 d-none mt-4">
-          <i class="bi bi-search fs-3 d-block mb-2 text-crimson"></i>
-          <p class="mb-1 fw-bold text-ink">Không tìm thấy thành viên phù hợp</p>
-          <span class="text-ink-muted small">Vui lòng thử lại với tên khác hoặc nhấn Esc để xóa từ khóa.</span>
-        </div>
       </div>
     </section>
 
     <!-- =========================================================
-         TECH STACK SECTION — TYPOGRAPHIC MATRIX
+         MỤC 02: TÌM KIẾM THÀNH VIÊN
+         Tìm kiếm chuẩn hóa tiếng Việt, AND giữa các từ, aria-live
          ========================================================= -->
-    <section id="tech" class="editorial-section py-5">
-      <div class="container-xl py-4">
-        <div class="row gy-4 mb-4">
-          <div class="col-lg-4">
-            <div class="section-label-group mb-2">
-              <span class="section-num font-serif text-crimson">§ 03</span>
-              <span class="section-tag text-uppercase fw-bold text-ink-muted ms-2">Nền Tảng Kỹ Thuật</span>
-            </div>
-            <h2 class="display-6 fw-bold text-ink mb-2">Công Nghệ Đã Chốt</h2>
-            <p class="text-ink-muted small">
-              Toàn bộ website tuân thủ stack kỹ thuật được quy định trong tài liệu `PRODUCT_SPEC.md`, tránh các thư viện nặng không cần thiết.
-            </p>
+    <section class="search-section" id="searchSection" aria-labelledby="searchHeading">
+      <div class="container">
+
+        <div class="search-header">
+          <h2 class="search-heading font-heading" id="searchHeading">Tìm kiếm thành viên</h2>
+          <p class="search-desc font-body">
+            Nhập tên thành viên để tìm kiếm trong bảng bên trên (hỗ trợ tiếng Việt có dấu và không dấu).
+          </p>
+        </div>
+
+        <div class="search-wrapper">
+          <label for="searchInput" class="visually-hidden">Tìm kiếm thành viên</label>
+          <div class="search-input-box">
+            <input type="text" id="searchInput" class="search-field font-body" placeholder="Nhập tên thành viên (ví dụ: Trường, Hiếu, Châu...)" autocomplete="off">
+            <button type="button" class="search-reset-cross" id="searchClearBtn" aria-label="Xóa nội dung tìm kiếm" hidden>&times;</button>
           </div>
 
-          <div class="col-lg-8">
-            <div class="row g-3">
-              <div class="col-sm-6 col-md-4">
-                <div class="tech-editorial-box p-3 border-hairline h-100">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-monospace text-crimson small fw-bold">01</span>
-                    <i class="bi bi-filetype-html text-ink fs-5"></i>
-                  </div>
-                  <h3 class="h6 fw-bold text-ink mb-1">HTML5</h3>
-                  <p class="text-ink-muted very-small mb-0">Cấu trúc ngữ nghĩa (Semantic), tối ưu SEO và Accessibility.</p>
-                </div>
-              </div>
+          <!-- Thông báo kết quả aria-live cho bộ đọc màn hình -->
+          <p class="search-live-status font-mono" id="searchStatus" role="status" aria-live="polite">
+            Hiển thị 6/6 thành viên
+          </p>
 
-              <div class="col-sm-6 col-md-4">
-                <div class="tech-editorial-box p-3 border-hairline h-100">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-monospace text-crimson small fw-bold">02</span>
-                    <i class="bi bi-filetype-css text-ink fs-5"></i>
-                  </div>
-                  <h3 class="h6 fw-bold text-ink mb-1">CSS3</h3>
-                  <p class="text-ink-muted very-small mb-0">Bố cục Grid, Flexbox và Custom Properties nhất quán.</p>
-                </div>
-              </div>
-
-              <div class="col-sm-6 col-md-4">
-                <div class="tech-editorial-box p-3 border-hairline h-100">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-monospace text-crimson small fw-bold">03</span>
-                    <i class="bi bi-filetype-js text-ink fs-5"></i>
-                  </div>
-                  <h3 class="h6 fw-bold text-ink mb-1">Vanilla JS</h3>
-                  <p class="text-ink-muted very-small mb-0">Tương tác DOM/Event ES6+, không dùng framework nặng.</p>
-                </div>
-              </div>
-
-              <div class="col-sm-6 col-md-4">
-                <div class="tech-editorial-box p-3 border-hairline h-100">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-monospace text-crimson small fw-bold">04</span>
-                    <i class="bi bi-bootstrap text-ink fs-5"></i>
-                  </div>
-                  <h3 class="h6 fw-bold text-ink mb-1">Bootstrap 5</h3>
-                  <p class="text-ink-muted very-small mb-0">Hệ thống Grid và tiện ích responsive trên mọi thiết bị.</p>
-                </div>
-              </div>
-
-              <div class="col-sm-6 col-md-4">
-                <div class="tech-editorial-box p-3 border-hairline h-100">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-monospace text-crimson small fw-bold">05</span>
-                    <i class="bi bi-lightning-charge text-ink fs-5"></i>
-                  </div>
-                  <h3 class="h6 fw-bold text-ink mb-1">Vite</h3>
-                  <p class="text-ink-muted very-small mb-0">Hệ thống build đa trang tĩnh (Multi-Page Bundler) tốc độ cao.</p>
-                </div>
-              </div>
-
-              <div class="col-sm-6 col-md-4">
-                <div class="tech-editorial-box p-3 border-hairline h-100">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-monospace text-crimson small fw-bold">06</span>
-                    <i class="bi bi-github text-ink fs-5"></i>
-                  </div>
-                  <h3 class="h6 fw-bold text-ink mb-1">GitHub Pages</h3>
-                  <p class="text-ink-muted very-small mb-0">Triển khai tự động (CI/CD) với đường dẫn tương đối ổn định.</p>
-                </div>
-              </div>
-            </div>
+          <!-- Trạng thái trống khi không có kết quả -->
+          <div class="search-empty-box" id="searchEmptyState" hidden>
+            <p class="font-body">Không tìm thấy thành viên phù hợp với từ khóa.</p>
+            <button type="button" class="btn-action btn-action-secondary font-body" id="resetSearchBtn">
+              Xóa bộ lọc tìm kiếm
+            </button>
           </div>
         </div>
+
       </div>
     </section>
 
     <!-- =========================================================
-         COURSE / RUBRIC SECTION — CONTRAST SPREAD
+         MỤC 03: LIÊN KẾT TÀI NGUYÊN (RESOURCES)
+         Thay thế form giả và các mục không có nguồn xác minh
          ========================================================= -->
-    <section id="course" class="editorial-section py-5 bg-dark-paper text-dark-paper">
-      <div class="container-xl py-4">
-        <div class="row align-items-center gy-4">
-          <div class="col-lg-5">
-            <div class="section-label-group mb-2">
-              <span class="section-num font-serif text-crimson">§ 04</span>
-              <span class="section-tag text-uppercase fw-bold text-dark-muted ms-2">Quy Chuẩn Học Phần</span>
-            </div>
-            <h2 class="display-6 fw-bold text-dark-paper mb-3">
-              Đồ Án Giữa Kỳ &amp; <br>
-              <span class="font-serif italic-accent">Tiêu Chí Đánh Giá</span>
-            </h2>
-            <p class="text-dark-muted small mb-4">
-              Dự án phục vụ kiểm tra đánh giá giữa kỳ học phần Lập trình Web tại Trường Đại học Giao thông Vận tải TP.HCM (UTH). Mục tiêu đạt chuẩn 100% các tiêu chí P0 theo đặc tả kỹ thuật.
-            </p>
+    <section class="resources-section" id="resourcesSection" aria-labelledby="resourcesHeading">
+      <div class="container">
 
-            <div class="spec-note-dark p-3 rounded-1 mb-0 border-dark-hairline">
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <i class="bi bi-info-circle text-crimson"></i>
-                <strong class="text-dark-paper small">Ghi chú đối chiếu:</strong>
-              </div>
-              <p class="text-dark-muted very-small mb-0">
-                Bảng điểm bên dưới là mức tham chiếu nội bộ trong tài liệu `PRODUCT_SPEC.md v1.2`. Nhóm sẽ tiến hành đối chiếu và cập nhật khi nhận file đề bài / rubric chính thức từ Giảng viên.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-lg-7 ps-lg-4">
-            <div class="rubric-table-card p-4 rounded-1 border-dark-hairline">
-              <div class="table-responsive">
-                <table class="table table-dark-editorial align-middle mb-0">
-                  <thead>
-                    <tr>
-                      <th scope="col" class="text-dark-muted very-small text-uppercase">Tiêu chí rubric</th>
-                      <th scope="col" class="text-dark-muted very-small text-uppercase text-center">Trọng số</th>
-                      <th scope="col" class="text-dark-muted very-small text-uppercase">Bằng chứng kỹ thuật</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="fw-semibold text-dark-paper">Nội dung Portfolio</td>
-                      <td class="text-center font-monospace text-crimson fw-bold">3.5 đ</td>
-                      <td class="text-dark-muted very-small">Đầy đủ các phần P0, tối thiểu 2 dự án thật</td>
-                    </tr>
-                    <tr>
-                      <td class="fw-semibold text-dark-paper">HTML5 &amp; CSS3 Layout</td>
-                      <td class="text-center font-monospace text-crimson fw-bold">2.5 đ</td>
-                      <td class="text-dark-muted very-small">HTML ngữ nghĩa, Grid/Flexbox, 100% responsive</td>
-                    </tr>
-                    <tr>
-                      <td class="fw-semibold text-dark-paper">JavaScript &amp; Tương tác</td>
-                      <td class="text-center font-monospace text-crimson fw-bold">2.0 đ</td>
-                      <td class="text-dark-muted very-small">Tối thiểu 2 tương tác thật, DOM/Event, kiểm tra form</td>
-                    </tr>
-                    <tr>
-                      <td class="fw-semibold text-dark-paper">Chất lượng mã nguồn</td>
-                      <td class="text-center font-monospace text-crimson fw-bold">1.0 đ</td>
-                      <td class="text-dark-muted very-small">Cấu trúc rõ, tên chuẩn, không lỗi console</td>
-                    </tr>
-                    <tr>
-                      <td class="fw-semibold text-dark-paper">Dấu ấn sáng tạo</td>
-                      <td class="text-center font-monospace text-crimson fw-bold">1.0 đ</td>
-                      <td class="text-dark-muted very-small">Thiết kế có bản sắc, trải nghiệm dễ dùng</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+        <div class="resources-header">
+          <h2 class="resources-heading font-heading" id="resourcesHeading">Tài nguyên &amp; Mã nguồn</h2>
+          <p class="resources-desc font-body">
+            Kho lưu trữ mã nguồn chính thức của đồ án đã được xác minh trên GitHub.
+          </p>
         </div>
+
+        <div class="resources-container">
+
+          <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="resource-item" target="_blank" rel="noopener noreferrer">
+            <span class="resource-badge font-mono">KHO LƯU TRỮ NHÓM</span>
+            <h3 class="resource-name font-heading">nguyenxuanhieu2903/portfolio-group</h3>
+            <p class="resource-info font-body">Mã nguồn chính thức đồ án môn Lập trình Web của Nhóm 06.</p>
+            <span class="resource-link-text font-mono">Xem trên GitHub ↗</span>
+          </a>
+
+        </div>
+
       </div>
     </section>
+
   </main>
 
   <!-- =========================================================
-       FOOTER — EDITORIAL MASTHEAD
+       CHÂN TRANG (FOOTER)
+       Một dòng thông tin thực tế, không nhãn debug, không số liệu giả (F5, F17)
        ========================================================= -->
-  <footer id="footer" class="editorial-footer py-5 border-top-hairline">
-    <div class="container-xl">
-      <div class="row gy-4 mb-4 pb-2">
-        <div class="col-lg-5">
-          <div class="d-flex align-items-baseline gap-2 mb-2">
-            <span class="brand-monogram">06</span>
-            <span class="brand-title">TECHGROUP<span class="brand-sub">.UTH</span></span>
-          </div>
-          <p class="text-ink-muted small col-lg-10 mb-3">
-            Website Portfolio nhóm học phần Lập trình Web — Trường Đại học Giao thông Vận tải TP.HCM (UTH).
-          </p>
-          <div class="text-ink-light very-small font-monospace">
-            Phiên bản: 1.2.0 • Editorial Studio Edition • Vite Multi-Page
-          </div>
-        </div>
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-content">
 
-        <div class="col-6 col-lg-3">
-          <h4 class="footer-heading small fw-bold text-uppercase text-ink mb-3">Liên kết trang</h4>
-          <ul class="list-unstyled footer-nav-links small mb-0">
-            <li><a href="#hero">Trang chủ</a></li>
-            <li><a href="#about">Tôn chỉ dự án</a></li>
-            <li><a href="#members">6 Thành viên</a></li>
-            <li><a href="#tech">Nền tảng công nghệ</a></li>
-            <li><a href="#course">Thông tin học phần</a></li>
-          </ul>
-        </div>
-
-        <div class="col-6 col-lg-4">
-          <h4 class="footer-heading small fw-bold text-uppercase text-ink mb-3">Danh sách 6 Portfolio</h4>
-          <ul class="list-unstyled footer-nav-links small mb-0">
-            <li><a href="./members/nguyen-xuan-hieu/index.html">Nguyễn Xuân Hiếu (Trưởng nhóm)</a></li>
-            <li><a href="./members/le-nguyen-nhat-truong/index.html">Lê Nguyễn Nhật Trường</a></li>
-            <li><a href="./members/nguyen-thi-thao-nhu/index.html">Nguyễn Thị Thảo Như</a></li>
-            <li><a href="./members/nguyen-pham-y-huynh/index.html">Nguyễn Phạm Y Huỳnh</a></li>
-            <li><a href="./members/le-huu-chau/index.html">Lê Hữu Châu</a></li>
-            <li><a href="./members/nguyen-anh-thu/index.html">Nguyễn Anh Thư</a></li>
-          </ul>
-        </div>
+      <div class="footer-meta-block">
+        <p class="footer-brand font-heading">Nhóm 06 · Lập trình Web</p>
+        <p class="footer-desc font-body">
+          Trường Đại học Giao thông Vận tải TP.HCM (UTH).
+        </p>
       </div>
 
-      <div class="pt-4 border-top-hairline d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 text-ink-muted very-small">
-        <p class="mb-0">&copy; 2026 Nhóm 6 Thành Viên — Học phần Lập trình Web. Bảo lưu mọi quyền.</p>
-        <button id="scrollToTopBtn" class="btn btn-editorial-text p-0 very-small text-ink fw-bold d-inline-flex align-items-center gap-1" aria-label="Cuộn về đầu trang">
-          <span>Lên đầu trang</span>
-          <i class="bi bi-arrow-up"></i>
-        </button>
+      <div class="footer-members-block">
+        <span class="footer-list-title font-mono">Liên kết nhanh thành viên:</span>
+        <ul class="footer-index-list font-body">
+          <li><a href="#elem-hieu">01. Nguyễn Xuân Hiếu</a></li>
+          <li><a href="#elem-truong">02. Lê Nguyễn Nhật Trường</a></li>
+          <li><a href="#elem-nhu">03. Nguyễn Thị Thảo Như</a></li>
+          <li><a href="#elem-huynh">04. Nguyễn Phạm Y Huỳnh</a></li>
+          <li><a href="#elem-chau">05. Lê Hữu Châu</a></li>
+          <li><a href="#elem-thu">06. Nguyễn Anh Thư</a></li>
+        </ul>
       </div>
+
+      <div class="footer-copy-line font-mono">
+        <p>&copy; 2026 Nhóm 06. Mã nguồn lưu trữ công khai phục vụ học tập.</p>
+      </div>
+
     </div>
   </footer>
 
-  <!-- Script Module -->
+  <!-- Tệp mã JavaScript dạng ES Module -->
   <script type="module" src="./group.js"></script>
 </body>
 </html>

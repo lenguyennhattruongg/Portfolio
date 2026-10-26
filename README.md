@@ -14,29 +14,28 @@ Dự án website portfolio nhóm phục vụ học phần **Lập trình Web** t
 
 ## 2. Trạng thái dự án hiện tại
 
-Ghi nhận tại thời điểm hoàn tất Phase 2.1:
+Ghi nhận tại nhánh `feature/group-homepage-redesign`:
 
 | Thành phần | Trạng thái hiện tại | Ghi chú kỹ thuật |
 |---|:---:|---|
-| **Group Landing Page (`index.html`)** | **Hoàn thành (PASS)** | Giao diện theo định hướng *Editorial / Digital Studio*, đáp ứng đầy đủ tiêu chí thẩm mỹ, ngữ nghĩa HTML5, hỗ trợ tìm kiếm thành viên theo thời gian thực và đạt chuẩn responsive trên cả 5 viewports (từ 360px đến 1440px). |
-| **06 Thư mục Portfolio cá nhân (`members/`)** | **Khung cơ sở (Base Template)** | Đã khởi tạo đầy đủ 6 cấu trúc thư mục gồm `index.html`, `style.css`, `script.js` và `images/`. Nội dung chi tiết đang chờ từng thành viên triển khai. |
-| **Hệ thống Build đa trang (Vite)** | **Hoạt động ổn định (PASS)** | `npm.cmd run build` đóng gói sạch 100% cả 7 HTML entrypoints trong ~500ms với đường dẫn tương đối (`base: './'`). |
-| **Portfolio Nguyễn Xuân Hiếu** | **Chờ triển khai (Phase 3)** | Đã chốt đặc tả chi tiết trong tài liệu yêu cầu; chuẩn bị bắt đầu ở Phase 3. |
-| **Triển khai Production (GitHub Pages)** | **Chưa triển khai** | Chưa cấu hình remote GitHub và chưa deploy chính thức. |
+| **Trang chủ nhóm (`index.html`)** | **Sẵn sàng nghiệm thu** | Giao diện theo định hướng **Hệ thống Lõi Dữ Liệu Không Gian 3D (Spatial Cyber Core)**. Tương tác 3D có chọn lọc (Selective 3D Tilt), độ tương phản WCAG AA cao (≥ 4.5:1), touch target ≥ 44px, hỗ trợ phím Esc và focus restoration. Bố cục co giãn 1/3 - 2/3 linh hoạt. Tìm kiếm thời gian thực chuẩn hóa tiếng Việt. |
+| **Dữ liệu thành viên (`members.data.js`)** | **Xác minh 100% (PASS)** | Xóa bỏ toàn bộ dữ liệu suy đoán: không thanh phần trăm kỹ năng ảo, không trạng thái giả lập, không form liên hệ giả, không audio engine. |
+| **06 Thư mục Portfolio cá nhân (`members/`)** | **Bảo toàn nguyên vẹn** | 06 Thư mục Portfolio khung cơ sở (`hieu`, `truong`, `nhu`, `huynh`, `chau`, `thu`). Không chỉnh sửa hay đổi tên bất kỳ file/thư mục nào trong `members/`. |
+| **Kiến trúc phân trang tĩnh** | **Hoạt động ổn định (PASS)** | Hỗ trợ mở trực tiếp tĩnh trên trình duyệt / GitHub Pages (ES Module) và cấu hình sẵn sàng cho đóng gói Vite đa trang (7 HTML entrypoints). |
+| **Tương thích thiết bị di động** | **Đạt chuẩn (PASS)** | Kiểm thử bố cục trên các dải màn hình từ 375px đến 1440px desktop, không tràn thanh cuộn ngang (`overflow-x: hidden`). |
+| **Hệ thống build đa trang (`npm run build`)** | **Xác minh 100% (PASS)** | Đã kiểm thử thực tế trên Vite v5.4.21: Biên dịch 23 modules thành công trong 220ms, xuất đủ 7 file HTML đầu ra và toàn vẹn liên kết tài nguyên hashed assets. |
 
 ---
 
 ## 3. Công nghệ sử dụng
 
-Dự án tuân thủ nghiêm ngặt stack công nghệ cốt lõi đã chốt, không cài đặt các framework nặng ngoài phạm vi:
+Dự án tuân thủ nghiêm ngặt stack công nghệ cốt lõi đã chốt, không cài đặt các framework ngoài phạm vi:
 
-- **HTML5:** Xây dựng cấu trúc ngữ nghĩa (Semantic HTML), hỗ trợ SEO và khả năng tiếp cận (Accessibility).
-- **CSS3:** Bố cục bằng CSS Grid, Flexbox, Custom Properties (CSS Variables) và xử lý responsive đa màn hình.
-- **Vanilla JavaScript (ES6+):** Xử lý thao tác DOM, sự kiện, lọc dữ liệu tìm kiếm và tương tác giao diện thực tế.
-- **Bootstrap 5 & Bootstrap Icons:** Cung cấp hệ thống lưới tiện ích (Grid System), icon vector đồng bộ và hỗ trợ menu mobile.
-- **Vite:** Công cụ máy chủ phát triển (Dev Server) tốc độ cao và đóng gói tĩnh đa trang (Multi-Page Bundler).
-- **npm:** Trình quản lý thư viện và thực thi các script tự động hóa.
-- **Git & GitHub:** Hệ thống quản lý phiên bản mã nguồn phân tán và nền tảng cộng tác nhóm.
+- **HTML5 Ngữ nghĩa:** Thẻ `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<button>`, `<footer>` chuẩn SEO và ARIA (`aria-live="polite"`, `aria-controls`, `aria-pressed`).
+- **Vanilla CSS3 hiện đại:** Hệ biến CSS Tokens (`--bg-canvas`, `--ink-primary`, `--accent-orange`), bố cục CSS Grid linh hoạt (3×2 co lại 2×3), Flexbox, hỗ trợ `prefers-reduced-motion`.
+- **Vanilla JavaScript ES6+ (Native Modules):** Tách `members.data.js` và `group.js`, quản lý trạng thái tập trung, tìm kiếm debounce 250ms chuẩn hóa bỏ dấu tiếng Việt và chữ `đ`/`Đ`.
+- **Phông chữ:** `Outfit` (Tiêu đề), `Plus Jakarta Sans` (Nội dung), `JetBrains Mono` (Thông số kỹ thuật) hỗ trợ tiếng Việt đầy đủ.
+- **Git & GitHub:** Phân nhánh chuẩn `feature/group-homepage-redesign` sẵn sàng mở Pull Request vào `develop`.
 
 ---
 

@@ -345,4 +345,79 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // --- 6. Tương tác 3D có chọn lọc: Nghiêng thẻ vé vật lý & ánh sáng phản quang (Master Prompt 3D) ---
+  initTicket3DTilt();
 });
+
+/**
+ * Hiệu ứng nghiêng 3D có chọn lọc (Selective 3D Ticket Tilt) cho các thẻ vé Metro
+ * Tương thích 60 FPS với RAF, tôn trọng prefers-reduced-motion và thiết bị cảm ứng
+ */
+function initTicket3DTilt() {
+  const tickets = document.querySelectorAll('.metro-pass-item');
+  if (!tickets.length) return;
+
+  // Kiểm tra trợ năng và thiết bị con trỏ chuẩn xác
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  if (reducedMotion.matches || !finePointer.matches) return;
+
+  tickets.forEach(ticket => {
+    let frameId = null;
+    let rotateX = 0;
+    let rotateY = 0;
+    let sheenX = 50;
+    let sheenY = 50;
+
+    const render = () => {
+      ticket.style.setProperty('--ticket-rotate-x', `${rotateX.toFixed(2)}deg`);
+      ticket.style.setProperty('--ticket-rotate-y', `${rotateY.toFixed(2)}deg`);
+      ticket.style.setProperty('--sheen-x', `${sheenX.toFixed(1)}%`);
+      ticket.style.setProperty('--sheen-y', `${sheenY.toFixed(1)}%`);
+      frameId = null;
+    };
+
+    const requestRender = () => {
+      if (frameId === null) {
+        frameId = requestAnimationFrame(render);
+      }
+    };
+
+    const onPointerMove = (event) => {
+      const rect = ticket.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+
+      // Giới hạn góc nghiêng tối đa +-8 độ để giữ phong cách công nghiệp vững chãi
+      rotateX = (y * 2 - 1) * -8;
+      rotateY = (x * 2 - 1) * 8;
+
+      sheenX = x * 100;
+      sheenY = y * 100;
+
+      ticket.classList.add('is-tilting');
+      ticket.style.setProperty('--sheen-opacity', '1');
+
+      requestRender();
+    };
+
+    const onPointerLeave = () => {
+      rotateX = 0;
+      rotateY = 0;
+      sheenX = 50;
+      sheenY = 50;
+
+      ticket.classList.remove('is-tilting');
+      ticket.style.setProperty('--sheen-opacity', '0');
+
+      requestRender();
+    };
+
+    ticket.addEventListener('pointermove', onPointerMove, { passive: true });
+    ticket.addEventListener('pointerleave', onPointerLeave);
+    ticket.addEventListener('pointercancel', onPointerLeave);
+  });
+}
+

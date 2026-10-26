@@ -170,24 +170,36 @@ body {
 }
 
 .station-stamp {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 12px;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 700;
   margin-bottom: 28px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-ink);
+  padding: 4px 12px 4px 4px;
+  box-shadow: 3px 3px 0 var(--border-ink);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.station-stamp:hover {
+  transform: translateY(-2px);
+  box-shadow: 5px 5px 0 var(--border-ink);
 }
 
 .stamp-id {
   background: var(--text-main);
   color: #FFFFFF;
   padding: 4px 8px;
+  letter-spacing: 0.05em;
 }
 
 .stamp-title {
   color: var(--metro-orange);
   text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 /* Section Headers */
@@ -289,12 +301,14 @@ body {
   box-shadow: 6px 6px 0 var(--border-ink);
   max-width: 290px;
   width: 100%;
-  transform: rotate(-2deg);
-  transition: transform 0.2s ease;
+  transform: perspective(800px) rotate(-2deg);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
 }
 
 .polaroid-frame:hover {
-  transform: rotate(0deg) scale(1.02);
+  transform: perspective(800px) rotateY(4deg) rotateX(2deg) translateY(-4px);
+  box-shadow: 10px 14px 0 var(--border-ink);
 }
 
 .polaroid-photo {
@@ -478,11 +492,62 @@ body {
 }
 
 .metro-pass-item {
+  --ticket-rotate-x: 0deg;
+  --ticket-rotate-y: 0deg;
+  --sheen-x: 50%;
+  --sheen-y: 50%;
+  --sheen-opacity: 0;
+
   background: var(--bg-card);
   border: 2px solid var(--border-ink);
   position: relative;
   overflow: hidden;
   box-shadow: 4px 4px 0 var(--border-ink);
+  transform-origin: center;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(var(--ticket-rotate-x)) rotateY(var(--ticket-rotate-y)) scale3d(1, 1, 1);
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.metro-pass-item.is-tilting {
+  will-change: transform;
+  box-shadow: 8px 12px 0 var(--border-ink);
+}
+
+.ticket-sheen {
+  position: absolute;
+  inset: -35%;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--sheen-opacity);
+  background: radial-gradient(
+    circle at var(--sheen-x) var(--sheen-y),
+    rgba(255, 255, 255, 0.45),
+    transparent 36%
+  );
+  mix-blend-mode: screen;
+  transform: translateZ(1px);
+  transition: opacity 220ms ease;
+}
+
+.metro-pass-item > *:not(.ticket-sheen) {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metro-pass-item {
+    transform: none !important;
+    transition: none !important;
+  }
+  .ticket-sheen {
+    display: none !important;
+  }
+  .polaroid-frame {
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* Đục lỗ thẻ vé tàu (Notches) */
