@@ -1,58 +1,32 @@
 /* =========================================================
-   ANTIGRAVITY MASTER PROMPT — COSMIC TEAM PORTFOLIO
-   Mysterious Universe × Cosmic Cartography × 3D Celestial Constellation
-   Bản đồ Thiên văn Số Nhóm 06 — Đại học Giao thông Vận tải TP.HCM (UTH)
-   Bản sắc: "Six Minds. One Constellation. Infinite Possibilities."
-   Tuân thủ WCAG AA Contrast (≥ 4.5:1), 60 FPS RAF Parallax, Phím Tab/ESC
+   TRUE 3D WEBGL SPATIAL UNIVERSE — SCI-FI BRUTALISM HUD
+   Nhóm 06 — Đại học Giao thông Vận tải TP.HCM (UTH)
+   Thiết kế: Fullscreen WebGL Viewport + Floating AR Projected HUD
+   Chuẩn mực Awwwards: Chiều sâu không gian 3D, tối ưu 60 FPS, không dùng card 2D
    ========================================================= */
 
-/* ---------------------------------------------------------
-   1. DESIGN TOKENS (HỆ THỐNG MÀU SẮC THIÊN VĂN CÓ KIỂM SOÁT)
-   --------------------------------------------------------- */
 :root {
-  /* Bảng màu Vũ trụ Huyền bí chuẩn Master Prompt */
-  --bg-canvas: #080B16;                   /* Khoảng không vũ trụ sâu thẳm */
-  --bg-surface: #10172A;                  /* Bề mặt Trạm thiên văn / Card chính */
-  --bg-surface-subtle: #162038;           /* Bề mặt trung gian / Card phụ */
-  --bg-card: rgba(16, 23, 42, 0.88);       /* Thẻ bán trong suốt kính thiên văn */
-  --bg-card-hover: rgba(22, 32, 56, 0.95);
+  /* Bảng màu Không gian sâu (Deep Cosmic Space) */
+  --bg-deep-space: #080B16;
+  --bg-hud-surface: rgba(16, 23, 42, 0.82);
+  --bg-hud-surface-hover: rgba(22, 32, 58, 0.94);
   
-  --ink-primary: #F3F5FA;                 /* Ánh sáng sao trắng tinh khôi (Contrast ~16:1) */
-  --ink-secondary: #A6B0C3;               /* Bụi tinh vân xám bạc (Contrast ~7.5:1) */
-  --ink-muted: #64748B;                   /* Chú thích tọa độ thiên thể (Contrast ~4.8:1) */
+  --ink-primary: #F3F5FA;
+  --ink-secondary: #A6B0C3;
+  --ink-muted: #64748B;
   
-  --border-line: #29344D;                 /* Đường lưới tọa độ thiên văn */
-  --border-active: #F0C879;               /* Ánh kim hoàng kim khi sao được chọn */
-  
-  --accent-cosmic: #8E9CFF;               /* Năng lượng xanh lam tím vũ trụ */
-  --accent-cosmic-glow: rgba(142, 156, 255, 0.35);
-  --accent-gold: #F0C879;                 /* Điểm nhấn Hoàng kim thiên thể */
+  --border-chart: rgba(41, 52, 77, 0.85);
+  --border-highlight: rgba(142, 156, 255, 0.5);
+  --accent-gold: #F0C879;
   --accent-gold-glow: rgba(240, 200, 121, 0.45);
-  --accent-tint: rgba(142, 156, 255, 0.08);
+  --accent-cosmic: #8E9CFF;
+  --accent-cosmic-glow: rgba(142, 156, 255, 0.35);
 
-  /* Phông chữ hỗ trợ đầy đủ tiếng Việt */
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', Consolas, monospace;
-
-  /* Thang cỡ chữ */
-  --text-display: clamp(2.2rem, 4.5vw, 3.4rem);
-  --text-h2: clamp(1.4rem, 2.5vw, 2rem);
-  --text-h3: 1.15rem;
-  --text-body: 1rem;
-  --text-meta: 0.8125rem;
-
-  /* Kích thước & Khung */
-  --max-width: 1240px;
-  --header-height: 72px;
-  --min-touch-target: 44px;
-  --motion-fast: 150ms;
-  --motion-normal: 240ms;
 }
 
-/* ---------------------------------------------------------
-   2. RESET & BASE RULES
-   --------------------------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -63,650 +37,285 @@
   display: none !important;
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + 24px);
-  overflow-x: hidden;
-  background-color: var(--bg-canvas);
-}
-
-body.theme-periodic {
-  background-color: var(--bg-canvas);
-  background-image: 
-    radial-gradient(circle at 50% 15%, rgba(30, 27, 75, 0.4) 0%, rgba(8, 11, 22, 0.85) 65%, #080B16 100%),
-    radial-gradient(circle at 85% 60%, rgba(14, 30, 60, 0.25) 0%, transparent 60%);
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-deep-space);
   color: var(--ink-primary);
   font-family: var(--font-body);
-  font-size: var(--text-body);
-  line-height: 1.6;
-  overflow-x: hidden;
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative;
 }
 
-/* Canvas vũ trụ 3D sao & chòm sao kết nối */
-.cosmic-canvas {
+/* ---------------------------------------------------------
+   1. CANVAS WEBGL TOÀN MÀN HÌNH
+   --------------------------------------------------------- */
+.spatial-webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  display: block;
+}
+
+/* ---------------------------------------------------------
+   2. LỚP NHÃN KHÔNG GIAN AR (PROJECTED SPATIAL LABELS)
+   Neo theo tọa độ vector 3D của từng thiên thể
+   --------------------------------------------------------- */
+.spatial-labels-layer {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 0;
+  z-index: 10;
+  transition: opacity 0.3s ease;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font-family: inherit;
-  font-size: inherit;
+.spatial-node-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
   cursor: pointer;
-  border: none;
-  background: none;
-}
-
-/* Focus ring dễ nhận biết cho WCAG AA */
-:focus-visible {
-  outline: 2px solid var(--accent-gold);
-  outline-offset: 3px;
-}
-
-.skip-link {
-  position: absolute;
-  top: -100px;
-  left: 20px;
-  background-color: var(--accent-gold);
-  color: var(--bg-canvas);
-  padding: 10px 18px;
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  font-weight: 700;
-  z-index: 9999;
-  transition: top var(--motion-fast) ease;
-}
-
-.skip-link:focus {
-  top: 16px;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(8, 11, 22, 0.88);
+  border: 1px solid var(--border-chart);
+  border-left: 3px solid var(--accent-gold);
+  border-radius: 4px;
+  color: var(--ink-primary);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
   white-space: nowrap;
-  border: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  transform: translate3d(-9999px, -9999px, 0);
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
 }
 
-.container {
-  width: 100%;
-  max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
-  position: relative;
-  z-index: 1;
+.spatial-node-tag:hover,
+.spatial-node-tag.tag-hovered {
+  border-color: var(--accent-gold);
+  background: rgba(22, 32, 58, 0.95);
+  box-shadow: 0 0 20px var(--accent-gold-glow);
+}
+
+.tag-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.tag-title {
+  font-weight: 700;
 }
 
 /* ---------------------------------------------------------
-   3. THANH ĐIỀU HƯỚNG THIÊN VĂN (CELESTIAL HEADER)
+   3. GIAO DIỆN ĐIỀU KHIỂN KHÔNG GIAN (SPATIAL HUD OVERLAY)
    --------------------------------------------------------- */
-.site-header {
-  position: sticky;
-  top: 0;
-  height: var(--header-height);
-  background-color: rgba(8, 11, 22, 0.88);
-  border-bottom: 1px solid var(--border-line);
-  z-index: 1000;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+.spatial-hud-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
 }
 
-.header-inner {
-  height: 100%;
+.spatial-hud-element {
+  pointer-events: auto;
+}
+
+/* ---------------------------------------------------------
+   3.1. THANH HUD TRÊN CÙNG (TOP TELEMETRY BAR)
+   --------------------------------------------------------- */
+.hud-top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  background: var(--bg-hud-surface);
+  border: 1px solid var(--border-chart);
+  border-radius: 6px;
+  padding: 12px 20px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
-.brand-link {
+.hud-brand {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.brand-symbol {
-  display: inline-flex;
+.hud-brand-symbol {
+  width: 34px;
+  height: 34px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, rgba(142, 156, 255, 0.25), rgba(240, 200, 121, 0.25));
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(142, 156, 255, 0.2), rgba(240, 200, 121, 0.2));
   border: 1px solid var(--accent-cosmic);
   color: var(--accent-gold);
-  font-weight: 700;
-  font-size: 0.9rem;
-  border-radius: 4px;
+  font-size: 1rem;
   box-shadow: 0 0 12px var(--accent-cosmic-glow);
 }
 
-.brand-name {
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--ink-primary);
-}
-
-.brand-badge {
-  font-size: 0.72rem;
-  padding: 2px 7px;
-  background-color: rgba(142, 156, 255, 0.12);
-  border: 1px solid rgba(142, 156, 255, 0.35);
-  color: var(--accent-cosmic);
-  border-radius: 2px;
-  margin-left: 4px;
-}
-
-.site-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-item {
-  padding: 8px 14px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--ink-secondary);
-  border-radius: 4px;
-  transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease;
-}
-
-.nav-item:hover {
-  color: var(--ink-primary);
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.nav-item-repo {
-  border: 1px solid var(--border-line);
-  background-color: rgba(16, 23, 42, 0.6);
-  color: var(--accent-cosmic);
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-}
-
-.nav-item-repo:hover {
-  border-color: var(--accent-cosmic);
-  color: #FFFFFF;
-  background-color: rgba(142, 156, 255, 0.15);
-  box-shadow: 0 0 10px var(--accent-cosmic-glow);
-}
-
-/* Mobile Toggle */
-.mobile-toggle {
-  display: none;
-  width: 44px;
-  height: 44px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border: 1px solid var(--border-line);
-  background-color: rgba(16, 23, 42, 0.6);
-  border-radius: 4px;
-}
-
-.toggle-bar {
-  width: 20px;
-  height: 2px;
-  background-color: var(--ink-primary);
-  transition: transform var(--motion-fast) ease;
-}
-
-.mobile-drawer {
-  display: none;
-  position: absolute;
-  top: var(--header-height);
-  left: 0;
-  width: 100%;
-  background-color: var(--bg-canvas);
-  border-bottom: 1px solid var(--border-line);
-  padding: 16px 24px;
-  z-index: 999;
-}
-
-.mobile-drawer[aria-hidden="false"] {
-  display: block;
-}
-
-.mobile-nav {
+.hud-brand-text {
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
-.mobile-nav-link {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--ink-secondary);
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* ---------------------------------------------------------
-   4. KHU VỰC ĐẤU TRƯỜNG CHÒM SAO (CELESTIAL ARENA)
-   --------------------------------------------------------- */
-.table-section {
-  padding-top: clamp(36px, 6vw, 64px);
-  padding-bottom: clamp(48px, 8vw, 84px);
-  position: relative;
-}
-
-/* Bố cục Đấu trường chuyển đổi 1/3 và 2/3 */
-.table-arena {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 36px;
-  align-items: start;
-  transition: grid-template-columns var(--motion-normal) cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Khi một sao được chọn: Cột lưới co lại còn 1 phần, Panel chiếm 2 phần */
-.table-arena.has-selection {
-  grid-template-columns: 1fr 2fr;
-}
-
-/* Khối giới thiệu bên trái */
-.arena-intro {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.section-tag {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--accent-gold);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.section-tag::before {
-  content: '';
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--accent-gold);
-  box-shadow: 0 0 10px var(--accent-gold);
-  animation: pulse-star 2s infinite ease-in-out;
-}
-
-@keyframes pulse-star {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.4); opacity: 1; box-shadow: 0 0 16px var(--accent-gold); }
-}
-
-.section-headline {
-  font-size: var(--text-display);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: var(--ink-primary);
-  background: linear-gradient(180deg, #FFFFFF 0%, #CCD6EA 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.section-desc {
+.hud-brand-title {
   font-size: 1.05rem;
-  line-height: 1.65;
-  color: var(--ink-secondary);
-  max-width: 520px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--ink-primary);
 }
 
-/* Telemetry Box: Bảng thông số đo lường thiên văn góc */
-.celestial-telemetry-card {
-  margin-top: 8px;
-  padding: 16px;
-  background-color: rgba(16, 23, 42, 0.6);
-  border: 1px solid var(--border-line);
-  border-left: 3px solid var(--accent-cosmic);
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.telemetry-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.78rem;
-  color: var(--ink-muted);
-}
-
-.telemetry-val {
-  color: var(--accent-cosmic);
+.hud-brand-sub {
+  font-size: 0.7rem;
   font-weight: 600;
+  color: var(--accent-cosmic);
+  letter-spacing: 0.1em;
 }
 
-.section-instruction {
-  font-size: 0.88rem;
-  color: var(--ink-muted);
-  font-style: italic;
-}
-
-.arena-cta-wrap {
-  margin-top: 8px;
-}
-
-/* ---------------------------------------------------------
-   5. LƯỚI 6 THỰC THỂ THIÊN HÀ (CELESTIAL STAR NODES)
-   Bố cục 3x2 khi chưa chọn, chuyển thành 2x3 khi có panel chi tiết
-   --------------------------------------------------------- */
-.periodic-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  perspective: 1000px;
-}
-
-/* Khi panel chi tiết mở, lưới chuyển thành 2 cột x 3 dòng */
-.table-arena.has-selection .periodic-grid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-/* Ô thực thể thiên hà (Celestial Star Box) */
-.element-box {
-  position: relative;
-  min-height: 148px;
-  padding: 18px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-line);
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: left;
-  transition: 
-    border-color var(--motion-fast) ease,
-    background-color var(--motion-fast) ease,
-    box-shadow var(--motion-fast) ease,
-    transform 80ms ease-out;
-  transform-style: preserve-3d;
-  will-change: transform;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  overflow: hidden;
-}
-
-/* Góc ngắm viễn thám đo lường (Telemetry Corner Brackets) */
-.element-box::before,
-.element-box::after {
-  content: '';
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  pointer-events: none;
-  opacity: 0.45;
-  transition: opacity var(--motion-fast) ease, border-color var(--motion-fast) ease;
-}
-
-.element-box::before {
-  top: 4px;
-  left: 4px;
-  border-top: 2px solid var(--accent-cosmic);
-  border-left: 2px solid var(--accent-cosmic);
-}
-
-.element-box::after {
-  bottom: 4px;
-  right: 4px;
-  border-bottom: 2px solid var(--accent-cosmic);
-  border-right: 2px solid var(--accent-cosmic);
-}
-
-/* Vệt phản quang ánh sao lướt qua khi hover (Stellar Sheen) */
-.element-box .stellar-sheen {
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 80%;
-  height: 100%;
-  background: linear-gradient(
-    90deg, 
-    transparent 0%, 
-    rgba(142, 156, 255, 0.12) 50%, 
-    transparent 100%
-  );
-  transform: skewX(-25deg);
-  pointer-events: none;
-  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.element-box:hover .stellar-sheen {
-  left: 180%;
-}
-
-/* Hover State */
-.element-box:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--accent-cosmic);
-  box-shadow: 
-    0 10px 25px -5px rgba(0, 0, 0, 0.5),
-    0 0 15px rgba(142, 156, 255, 0.2);
-}
-
-.element-box:hover::before,
-.element-box:hover::after {
-  opacity: 1;
-  border-color: var(--accent-gold);
-}
-
-/* Active State: Khi sao được người dùng chọn */
-.element-box.active-element {
-  background: rgba(22, 32, 58, 0.98);
-  border-color: var(--accent-gold);
-  box-shadow: 
-    0 0 25px var(--accent-gold-glow),
-    inset 0 0 15px rgba(240, 200, 121, 0.15);
-}
-
-.element-box.active-element::before,
-.element-box.active-element::after {
-  opacity: 1;
-  border-color: var(--accent-gold);
-  width: 12px;
-  height: 12px;
-}
-
-/* Dòng trên cùng: STT và Tâm sao nhấp nháy */
-.elem-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.elem-seq {
-  font-size: 0.72rem;
+.hud-telemetry-pill {
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--ink-muted);
-}
-
-.element-box.active-element .elem-seq {
   color: var(--accent-gold);
+  padding: 6px 14px;
+  background: rgba(8, 11, 22, 0.65);
+  border: 1px solid rgba(240, 200, 121, 0.35);
+  border-radius: 4px;
+  box-shadow: inset 0 0 10px rgba(240, 200, 121, 0.1);
 }
 
-/* Tâm sao nhấp nháy (.stellar-core) */
-.stellar-core {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--border-line);
-  transition: background-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
+.hud-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.element-box:hover .stellar-core {
-  background-color: var(--accent-cosmic);
-  box-shadow: 0 0 8px var(--accent-cosmic);
-}
-
-.element-box.active-element .stellar-core {
-  background-color: var(--accent-gold);
-  box-shadow: 0 0 12px var(--accent-gold);
-  animation: pulse-star 1.5s infinite ease-in-out;
-}
-
-/* Tọa độ/Mã hiệu thiên văn chính giữa */
-.elem-symbol {
-  font-size: 1.45rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--accent-cosmic);
-  margin-top: 4px;
-  margin-bottom: 2px;
-  display: block;
-  transition: color var(--motion-fast) ease, transform var(--motion-fast) ease;
-}
-
-.element-box:hover .elem-symbol {
-  transform: translateZ(10px);
-}
-
-.element-box.active-element .elem-symbol {
-  color: var(--accent-gold);
-  transform: translateZ(14px);
-  text-shadow: 0 0 12px var(--accent-gold-glow);
-}
-
-/* Tên thành viên */
-.elem-name {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--ink-primary);
-  line-height: 1.3;
-  margin-bottom: 2px;
-}
-
-/* Vai trò / Lĩnh vực */
-.elem-role {
-  font-size: 0.72rem;
+.hud-action-btn {
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid var(--border-chart);
+  border-radius: 4px;
+  background: rgba(8, 11, 22, 0.65);
   color: var(--ink-secondary);
-  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.element-box.active-element .elem-role {
-  color: var(--ink-primary);
+.hud-action-btn:hover {
+  border-color: var(--accent-gold);
+  color: #FFFFFF;
+  background: rgba(240, 200, 121, 0.12);
+  box-shadow: 0 0 12px var(--accent-gold-glow);
 }
 
 /* ---------------------------------------------------------
-   6. TRẠM QUAN SÁT THIÊN VĂN CHI TIẾT (CELESTIAL OBSERVER PANEL)
-   Mở ra với góc nghiêng không gian 3D khi chọn sao
+   3.2. TRẠM QUAN SÁT THIÊN THỂ CHI TIẾT (AR SPATIAL DRAWER)
    --------------------------------------------------------- */
-.detail-panel {
+.spatial-detail-panel {
+  position: fixed;
+  top: 96px;
+  right: 24px;
+  width: min(440px, calc(100vw - 48px));
+  max-height: calc(100vh - 190px);
+  overflow-y: auto;
   background: rgba(16, 23, 42, 0.95);
-  border: 1px solid var(--border-line);
+  border: 1px solid var(--border-chart);
   border-top: 3px solid var(--accent-gold);
   border-radius: 8px;
-  padding: clamp(24px, 4vw, 36px);
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  padding: 24px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: 
-    0 20px 40px -10px rgba(0, 0, 0, 0.7),
-    0 0 30px rgba(142, 156, 255, 0.15);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  animation: panel-unfold 260ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transform-origin: left center;
-  position: relative;
+    0 25px 50px -12px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(240, 200, 121, 0.15);
+  transform: translateX(30px);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
 
-@keyframes panel-unfold {
-  0% {
-    opacity: 0;
-    transform: perspective(1200px) rotateY(-8deg) translateX(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: perspective(1200px) rotateY(0deg) translateX(0);
-  }
+.spatial-detail-panel.panel-open {
+  transform: translateX(0);
+  opacity: 1;
 }
 
-.panel-header {
+.panel-inner {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border-bottom: 1px solid var(--border-line);
-  padding-bottom: 20px;
+  gap: 18px;
 }
 
-.panel-badge-row {
+.panel-header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid var(--border-chart);
+  padding-bottom: 12px;
 }
 
 .panel-seq {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--accent-gold);
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
-.panel-close-btn {
-  font-size: 0.8rem;
-  font-weight: 600;
+.panel-close-cross {
+  font-size: 1.4rem;
+  line-height: 1;
   color: var(--ink-secondary);
-  padding: 6px 12px;
-  border: 1px solid var(--border-line);
-  border-radius: 4px;
-  background: rgba(8, 11, 22, 0.6);
-  transition: color var(--motion-fast) ease, border-color var(--motion-fast) ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
 }
 
-.panel-close-btn:hover {
-  color: #FFFFFF;
-  border-color: var(--accent-gold);
-  background: rgba(240, 200, 121, 0.1);
+.panel-close-cross:hover {
+  color: var(--accent-gold);
 }
 
-.panel-hero-row {
+.panel-identity-block {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
-.panel-avatar-slot {
-  width: 90px;
-  height: 90px;
+.panel-avatar-wrap {
+  width: 74px;
+  height: 74px;
   flex-shrink: 0;
   border-radius: 6px;
-  border: 1px solid var(--border-line);
-  background: rgba(8, 11, 22, 0.8);
+  border: 1px solid var(--accent-gold);
+  background: rgba(8, 11, 22, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 0 15px rgba(142, 156, 255, 0.2);
+  box-shadow: 0 0 15px var(--accent-gold-glow);
 }
 
 .panel-avatar-img {
@@ -716,372 +325,257 @@ button {
 }
 
 .panel-monogram {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 800;
   color: var(--accent-gold);
-  text-shadow: 0 0 15px var(--accent-gold-glow);
 }
 
-.panel-title-col {
+.panel-name-col {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
 .panel-name {
-  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-size: 1.35rem;
   font-weight: 800;
-  color: var(--ink-primary);
   line-height: 1.2;
+  color: var(--ink-primary);
 }
 
 .panel-role {
-  font-size: 0.88rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--accent-cosmic);
 }
 
 .panel-headline {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
   color: var(--ink-secondary);
-  line-height: 1.5;
-  margin-top: 4px;
 }
 
-/* Khối thế mạnh chuyên môn */
-.panel-skills-block {
+.panel-skills-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  border-top: 1px solid var(--border-chart);
+  padding-top: 14px;
 }
 
-.panel-section-title {
-  font-size: 0.8rem;
+.panel-skills-title {
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--ink-muted);
-  text-transform: uppercase;
 }
 
-.panel-tags-list {
+.panel-tags-box {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .skill-tag {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  padding: 6px 12px;
+  padding: 4px 10px;
   background: rgba(142, 156, 255, 0.1);
-  border: 1px solid rgba(142, 156, 255, 0.3);
+  border: 1px solid rgba(142, 156, 255, 0.35);
   color: var(--ink-primary);
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  border-radius: 3px;
 }
 
-.skill-tag::before {
-  content: '✦';
-  font-size: 0.65rem;
-  color: var(--accent-gold);
-}
-
-/* Các nút hành động */
-.panel-actions-row {
+.panel-actions-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 8px;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
 }
 
-.btn-action {
-  display: inline-flex;
+.btn-portal-primary {
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 22px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border-radius: 4px;
-  transition: all var(--motion-fast) ease;
-  min-height: var(--min-touch-target);
-}
-
-.btn-action-primary {
+  padding: 12px 20px;
   background: linear-gradient(135deg, #F0C879, #D4A853);
   color: #080B16;
-  font-weight: 700;
-  box-shadow: 0 4px 15px rgba(240, 200, 121, 0.35);
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(240, 200, 121, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-action-primary:hover {
-  background: linear-gradient(135deg, #FADB92, #E2B660);
-  box-shadow: 0 6px 20px rgba(240, 200, 121, 0.5);
-  transform: translateY(-1px);
+.btn-portal-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(240, 200, 121, 0.6);
 }
 
-.btn-action-secondary {
-  background: rgba(16, 23, 42, 0.8);
-  border: 1px solid var(--border-line);
+.btn-portal-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background: rgba(8, 11, 22, 0.7);
+  border: 1px solid var(--border-chart);
+  color: var(--ink-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-portal-secondary:hover {
+  border-color: var(--accent-cosmic);
+  color: #FFFFFF;
+}
+
+/* ---------------------------------------------------------
+   3.3. THANH HUD DƯỚI CÙNG (BOTTOM NAVIGATION & SEARCH)
+   --------------------------------------------------------- */
+.hud-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: var(--bg-hud-surface);
+  border: 1px solid var(--border-chart);
+  border-radius: 6px;
+  padding: 12px 20px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.hud-search-cluster {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 520px;
+}
+
+.hud-search-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-icon-symbol {
+  position: absolute;
+  left: 12px;
+  color: var(--ink-muted);
+  font-size: 1rem;
+}
+
+.hud-search-input {
+  width: 100%;
+  height: 38px;
+  padding: 0 32px 0 36px;
+  background: rgba(8, 11, 22, 0.85);
+  border: 1px solid var(--border-chart);
+  border-radius: 4px;
+  color: var(--ink-primary);
+  font-size: 0.82rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hud-search-input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 15px rgba(240, 200, 121, 0.3);
+}
+
+.hud-search-clear {
+  position: absolute;
+  right: 10px;
+  color: var(--ink-muted);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.hud-search-clear:hover {
   color: var(--ink-primary);
 }
 
-.btn-action-secondary:hover {
+.hud-search-status {
+  font-size: 0.75rem;
+  color: var(--accent-cosmic);
+  white-space: nowrap;
+}
+
+.hud-search-empty-box {
+  position: absolute;
+  bottom: 54px;
+  left: 0;
+  padding: 8px 14px;
+  background: rgba(16, 23, 42, 0.95);
+  border: 1px solid var(--accent-gold);
+  border-radius: 4px;
+  font-size: 0.78rem;
+  color: var(--accent-gold);
+}
+
+/* 6 Nút thiên thể chuyển nhanh quỹ đạo */
+.hud-orbit-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.orbit-pill {
+  padding: 7px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid var(--border-chart);
+  border-radius: 4px;
+  background: rgba(8, 11, 22, 0.75);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.orbit-pill:hover {
   border-color: var(--accent-cosmic);
   color: #FFFFFF;
   background: rgba(142, 156, 255, 0.15);
 }
 
-/* ---------------------------------------------------------
-   7. MỤC TÌM KIẾM TỌA ĐỘ THIÊN VĂN (CELESTIAL DISCOVERY)
-   --------------------------------------------------------- */
-.search-section {
-  padding: clamp(36px, 5vw, 56px) 0;
-  border-top: 1px solid var(--border-line);
-  background: rgba(16, 23, 42, 0.35);
-}
-
-.search-header {
-  margin-bottom: 20px;
-}
-
-.search-heading {
-  font-size: var(--text-h2);
-  font-weight: 700;
-  color: var(--ink-primary);
-}
-
-.search-desc {
-  font-size: 0.95rem;
-  color: var(--ink-secondary);
-  margin-top: 4px;
-}
-
-.search-wrapper {
-  max-width: 600px;
-}
-
-.search-input-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.search-field {
-  width: 100%;
-  height: 48px;
-  padding: 0 40px 0 16px;
-  background: rgba(8, 11, 22, 0.8);
-  border: 1px solid var(--border-line);
-  border-radius: 4px;
-  color: var(--ink-primary);
-  font-size: 0.95rem;
-  transition: border-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
-}
-
-.search-field:focus {
+.orbit-pill.active-pill {
   border-color: var(--accent-gold);
-  box-shadow: 0 0 15px rgba(240, 200, 121, 0.3);
-  outline: none;
+  color: #080B16;
+  background: var(--accent-gold);
+  box-shadow: 0 0 15px var(--accent-gold-glow);
 }
 
-.search-reset-cross {
-  position: absolute;
-  right: 12px;
-  font-size: 1.4rem;
-  color: var(--ink-muted);
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.search-reset-cross:hover {
-  color: var(--ink-primary);
-}
-
-.search-live-status {
-  font-size: 0.8rem;
-  color: var(--accent-cosmic);
-  margin-top: 8px;
-}
-
-.search-empty-state {
-  margin-top: 16px;
-  padding: 20px;
-  background: rgba(16, 23, 42, 0.7);
-  border: 1px dashed var(--border-line);
-  border-radius: 4px;
-}
-
-.empty-headline {
-  font-size: 1rem;
-  color: var(--accent-gold);
-}
-
-.empty-guide {
-  font-size: 0.88rem;
-  color: var(--ink-secondary);
-  margin-top: 4px;
-}
-
-/* ---------------------------------------------------------
-   8. MỤC TÀI NGUYÊN & SỨ MỆNH (MISSION LOG & RESOURCES)
-   --------------------------------------------------------- */
-.resources-section {
-  padding: clamp(48px, 6vw, 72px) 0;
-  border-top: 1px solid var(--border-line);
-}
-
-.resources-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 28px;
-}
-
-.resource-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-line);
-  border-radius: 6px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  backdrop-filter: blur(8px);
-}
-
-.resource-card:hover {
-  border-color: var(--accent-cosmic);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-.resource-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--ink-primary);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.resource-title::before {
-  content: '◈';
-  color: var(--accent-cosmic);
-}
-
-.resource-text {
-  font-size: 0.9rem;
-  color: var(--ink-secondary);
-  line-height: 1.6;
-}
-
-/* ---------------------------------------------------------
-   9. CHÂN TRANG THIÊN VĂN (CELESTIAL FOOTER)
-   --------------------------------------------------------- */
-.site-footer {
-  border-top: 1px solid var(--border-line);
-  background-color: rgba(8, 11, 22, 0.95);
-  padding: 36px 0;
-  margin-top: 40px;
-}
-
-.footer-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.footer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.footer-brand {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--ink-primary);
-}
-
-.footer-coords {
-  font-size: 0.8rem;
-  color: var(--accent-cosmic);
-}
-
-.footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 0.8rem;
-  color: var(--ink-muted);
-}
-
-/* ---------------------------------------------------------
-   10. RESPONSIVE BREAKPOINTS (ĐIỆN THOẠI 375PX ĐẾN DESKTOP)
-   --------------------------------------------------------- */
-@media (max-width: 992px) {
-  .table-arena,
-  .table-arena.has-selection {
-    grid-template-columns: 1fr;
-    gap: 24px;
+/* Responsive */
+@media (max-width: 900px) {
+  .spatial-hud-overlay {
+    padding: 14px;
   }
-
-  .periodic-grid,
-  .table-arena.has-selection .periodic-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .hud-top-bar {
+    padding: 10px 14px;
   }
-
-  .site-nav {
+  .hud-telemetry-pill {
     display: none;
   }
-
-  .mobile-toggle {
-    display: flex;
-  }
-}
-
-@media (max-width: 640px) {
-  .periodic-grid,
-  .table-arena.has-selection .periodic-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .panel-hero-row {
+  .hud-bottom-bar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    padding: 12px;
+    gap: 12px;
   }
-
-  .footer-top, .footer-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-/* Hỗ trợ cài đặt giảm chuyển động prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .cosmic-canvas {
-    display: none !important;
-  }
-
-  .element-box {
-    transform: none !important;
+  .hud-orbit-pills-row {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }

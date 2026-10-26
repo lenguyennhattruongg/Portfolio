@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Trang chủ Nhóm 06 — Mysterious Universe × Cosmic Cartography. Hệ thống bản đồ thiên văn số kết nối sáu thực thể kỹ thuật sinh viên ĐH Giao thông Vận tải TP.HCM (UTH).">
+  <meta name="description" content="Nhóm 06 — True 3D WebGL Spatial Universe. Hệ thống bản đồ thiên văn số kết nối 6 thiên thể kỹ thuật sinh viên ĐH Giao thông Vận tải TP.HCM (UTH).">
   <meta name="author" content="Nhóm 06 — UTH">
 
-  <title>Nhóm 06 | Six Minds. One Constellation. — UTH</title>
+  <title>Nhóm 06 | Six Minds. One Constellation. — True 3D WebGL Universe</title>
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Nhóm 06 | Six Minds. One Constellation. — UTH">
-  <meta property="og:description" content="Bản đồ thiên văn số kết nối 6 thực thể kỹ thuật sinh viên ĐH Giao thông Vận tải TP.HCM (UTH).">
+  <meta property="og:title" content="Nhóm 06 | Six Minds. One Constellation. — True 3D WebGL Universe">
+  <meta property="og:description" content="Không gian WebGL 3D tương tác kết nối 6 thực thể thiên văn sinh viên ĐH Giao thông Vận tải TP.HCM.">
   <meta property="og:type" content="website">
 
-  <!-- Phông chữ Google Fonts hỗ trợ tiếng Việt đầy đủ (Outfit, Plus Jakarta Sans, JetBrains Mono) -->
+  <!-- Phông chữ Google Fonts (Outfit, Plus Jakarta Sans, JetBrains Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -21,350 +21,113 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="./group.css">
 </head>
-<body class="theme-periodic">
+<body class="spatial-viewport-body">
 
-  <!-- Canvas Không gian Vũ trụ 3D Chòm sao -->
-  <canvas id="cosmicCanvas" class="cosmic-canvas" aria-hidden="true"></canvas>
+  <!-- CANVAS 3D WEBGL TOÀN MÀN HÌNH -->
+  <canvas id="webglCanvas" class="spatial-webgl-canvas"></canvas>
 
-  <!-- Hỗ trợ bàn phím WCAG AA: Chuyển nhanh đến nội dung chính -->
-  <a href="#main-content" class="skip-link">Chuyển đến nội dung chính</a>
+  <!-- LỚP NHÃN THIÊN VĂN AR ĐƯỢC CHIẾU TỪ TỌA ĐỘ 3D LÊN MÀN HÌNH (PROJECTED LABELS) -->
+  <div id="spatialLabels" class="spatial-labels-layer" aria-hidden="true"></div>
 
-  <!-- =========================================================
-       THANH ĐIỀU HƯỚNG THIÊN VĂN (CELESTIAL NAV)
-       ========================================================= -->
-  <header class="site-header" id="siteHeader" role="banner">
-    <div class="container header-inner">
+  <!-- GIAO DIỆN ĐIỀU KHIỂN KHÔNG GIAN (SPATIAL HUD OVERLAY) -->
+  <div class="spatial-hud-overlay" id="hudOverlay">
 
-      <a href="#tableSection" class="brand-link" aria-label="Về đầu trang — Nhóm 06 UTH">
-        <span class="brand-symbol font-mono">✦</span>
-        <span class="brand-name font-heading">TECHGROUP<span class="brand-badge font-mono">06 · UTH</span></span>
-      </a>
+    <!-- THANH HUD TRÊN CÙNG (TOP TELEMETRY BAR) -->
+    <header class="hud-top-bar spatial-hud-element">
+      <div class="hud-brand">
+        <span class="hud-brand-symbol">✦</span>
+        <div class="hud-brand-text">
+          <span class="hud-brand-title font-heading">TECHGROUP.06</span>
+          <span class="hud-brand-sub font-mono">SPATIAL UNIVERSE // UTH</span>
+        </div>
+      </div>
 
-      <!-- Menu chính tối đa 4 mục -->
-      <nav class="site-nav" aria-label="Điều hướng chính">
-        <a href="#tableSection" class="nav-item font-body">Chòm sao thành viên</a>
-        <a href="#searchSection" class="nav-item font-body">Tìm kiếm tọa độ</a>
-        <a href="#resourcesSection" class="nav-item font-body">Nhật ký sứ mệnh</a>
-        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="nav-item nav-item-repo font-body" target="_blank" rel="noopener noreferrer">
-          Mã nguồn GitHub ↗
+      <!-- Trạng thái định vị mục tiêu hiện tại -->
+      <div class="hud-telemetry-pill font-mono" id="currentFocusReadout">
+        SECTOR: TECHGROUP 06 // ORBIT PANORAMA
+      </div>
+
+      <!-- Điều hướng góc phải -->
+      <div class="hud-top-actions">
+        <button type="button" class="hud-action-btn font-mono" id="btnResetOrbit" title="Trở về góc nhìn toàn cảnh hệ sao">
+          QUỸ ĐẠO TOÀN CẢNH [ESC]
+        </button>
+        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="hud-action-btn font-mono" target="_blank" rel="noopener noreferrer">
+          GitHub ↗
         </a>
-      </nav>
+      </div>
+    </header>
 
-      <!-- Nút mở menu di động -->
-      <button type="button" class="mobile-toggle" id="mobileMenuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Mở menu điều hướng">
-        <span class="toggle-bar"></span>
-        <span class="toggle-bar"></span>
-      </button>
-
-    </div>
-
-    <!-- Bảng điều hướng di động -->
-    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
-      <nav class="mobile-nav" aria-label="Điều hướng di động">
-        <a href="#tableSection" class="mobile-nav-link font-body">Chòm sao thành viên</a>
-        <a href="#searchSection" class="mobile-nav-link font-body">Tìm kiếm tọa độ</a>
-        <a href="#resourcesSection" class="mobile-nav-link font-body">Nhật ký sứ mệnh</a>
-        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="mobile-nav-link font-body" target="_blank" rel="noopener noreferrer">Mã nguồn GitHub ↗</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- =========================================================
-       NỘI DUNG CHÍNH (MAIN)
-       ========================================================= -->
-  <main id="main-content">
-
-    <!-- =========================================================
-         KHU VỰC CHÍNH: BẢN ĐỒ THIÊN VĂN CHÒM SAO (TEAM CONSTELLATION)
-         Hợp nhất 6 Thực thể thiên thể và Trạm quan sát chi tiết
-         ========================================================= -->
-    <section class="table-section" id="tableSection" aria-labelledby="tableHeadline">
-      <div class="container">
+    <!-- TRẠM QUAN SÁT THIÊN THỂ CHI TIẾT (AR SPATIAL DETAIL DRAWER) -->
+    <aside class="spatial-detail-panel spatial-hud-element" id="spatialDetailPanel" role="region" aria-labelledby="panelMemberName" aria-live="polite" hidden>
+      <div class="panel-inner">
         
-        <!-- Khung đấu trường tương tác chính -->
-        <div class="table-arena" id="tableArena">
-
-          <!-- Khối giới thiệu bên trái khi chưa chọn -->
-          <div class="arena-intro" id="arenaIntro">
-            <p class="section-tag font-mono">GROUP 06 // CELESTIAL ARCHIVE</p>
-            <h1 class="section-headline font-heading" id="tableHeadline">
-              Six Minds.<br>One Constellation.
-            </h1>
-            <p class="section-desc font-body">
-              Hệ thống bản đồ thiên văn số kết nối sáu thực thể kỹ thuật của Nhóm 06 — UTH. Mỗi thành viên đại diện cho một tọa độ chuyên môn độc lập, cùng liên kết tạo nên chòm sao công nghệ thống nhất.
-            </p>
-
-            <!-- Bảng thông số đo lường thiên văn góc (Telemetry Readout) -->
-            <div class="celestial-telemetry-card font-mono">
-              <div class="telemetry-row">
-                <span>SECTOR:</span>
-                <span class="telemetry-val">UTH / WEB ENGINEERING</span>
-              </div>
-              <div class="telemetry-row">
-                <span>COORDINATES:</span>
-                <span class="telemetry-val">RA 14h 29m · DEC -62°40'</span>
-              </div>
-              <div class="telemetry-row">
-                <span>STELLAR CORES:</span>
-                <span class="telemetry-val">06 ACTIVE NODES</span>
-              </div>
-              <div class="telemetry-row">
-                <span>EPOCH:</span>
-                <span class="telemetry-val">J2026.5 / VITE 3D MULTI-PAGE</span>
-              </div>
-            </div>
-
-            <p class="section-instruction font-body" id="tableInstruction">
-              ✦ Chọn một thực thể sao trong chòm sao bên phải để kết nối Trạm quan sát thiên văn.
-            </p>
-            <div class="arena-cta-wrap">
-              <a href="#periodicGrid" class="btn-action btn-action-primary font-body arena-cta font-mono">
-                Khám phá 6 Thực thể sao ↓
-              </a>
-            </div>
-          </div>
-
-          <!-- Lưới 6 Thực Thể Thiên Hà Thành Viên (Celestial Star Nodes) -->
-          <div class="periodic-grid" id="periodicGrid" role="region" aria-label="Bản đồ 6 thực thể sao thành viên">
-
-            <!-- NODE 01: NGUYỄN XUÂN HIẾU (Trưởng nhóm) -->
-            <button type="button" class="element-box celestial-star" data-member-id="hieu" id="elem-hieu" aria-pressed="false" aria-controls="profilePanel">
-              <span class="stellar-sheen" aria-hidden="true"></span>
-              <span class="elem-top">
-                <span class="elem-seq font-mono">ALPHA // 01</span>
-                <span class="stellar-core" aria-hidden="true"></span>
-              </span>
-              <span class="elem-symbol font-mono">[NXH-01]</span>
-              <span class="elem-name font-heading">Nguyễn Xuân Hiếu</span>
-              <span class="elem-role font-mono">Trưởng nhóm · Architecture</span>
-            </button>
-
-            <!-- NODE 02: LÊ NGUYỄN NHẬT TRƯỜNG -->
-            <button type="button" class="element-box celestial-star" data-member-id="truong" id="elem-truong" aria-pressed="false" aria-controls="profilePanel">
-              <span class="stellar-sheen" aria-hidden="true"></span>
-              <span class="elem-top">
-                <span class="elem-seq font-mono">BETA // 02</span>
-                <span class="stellar-core" aria-hidden="true"></span>
-              </span>
-              <span class="elem-symbol font-mono">[LNT-02]</span>
-              <span class="elem-name font-heading">Lê Nguyễn Nhật Trường</span>
-              <span class="elem-role font-mono">Thành viên · Systems</span>
-            </button>
-
-            <!-- NODE 03: NGUYỄN THỊ THẢO NHƯ -->
-            <button type="button" class="element-box celestial-star" data-member-id="nhu" id="elem-nhu" aria-pressed="false" aria-controls="profilePanel">
-              <span class="stellar-sheen" aria-hidden="true"></span>
-              <span class="elem-top">
-                <span class="elem-seq font-mono">GAMMA // 03</span>
-                <span class="stellar-core" aria-hidden="true"></span>
-              </span>
-              <span class="elem-symbol font-mono">[NTN-03]</span>
-              <span class="elem-name font-heading">Nguyễn Thị Thảo Như</span>
-              <span class="elem-role font-mono">Thành viên · UI/UX Design</span>
-            </button>
-
-            <!-- NODE 04: NGUYỄN PHẠM Y HUỲNH -->
-            <button type="button" class="element-box celestial-star" data-member-id="huynh" id="elem-huynh" aria-pressed="false" aria-controls="profilePanel">
-              <span class="stellar-sheen" aria-hidden="true"></span>
-              <span class="elem-top">
-                <span class="elem-seq font-mono">DELTA // 04</span>
-                <span class="stellar-core" aria-hidden="true"></span>
-              </span>
-              <span class="elem-symbol font-mono">[NPY-04]</span>
-              <span class="elem-name font-heading">Nguyễn Phạm Ý Huỳnh</span>
-              <span class="elem-role font-mono">Thành viên · Data Analytics</span>
-            </button>
-
-            <!-- NODE 05: LÊ HỮU CHÂU -->
-            <button type="button" class="element-box celestial-star" data-member-id="chau" id="elem-chau" aria-pressed="false" aria-controls="profilePanel">
-              <span class="stellar-sheen" aria-hidden="true"></span>
-              <span class="elem-top">
-                <span class="elem-seq font-mono">EPSILON // 05</span>
-                <span class="stellar-core" aria-hidden="true"></span>
-              </span>
-              <span class="elem-symbol font-mono">[LHC-05]</span>
-              <span class="elem-name font-heading">Lê Hữu Châu</span>
-              <span class="elem-role font-mono">Thành viên · DevOps Infra</span>
-            </button>
-
-            <!-- NODE 06: NGUYỄN ANH THƯ -->
-            <button type="button" class="element-box celestial-star" data-member-id="thu" id="elem-thu" aria-pressed="false" aria-controls="profilePanel">
-              <span class="stellar-sheen" aria-hidden="true"></span>
-              <span class="elem-top">
-                <span class="elem-seq font-mono">ZETA // 06</span>
-                <span class="stellar-core" aria-hidden="true"></span>
-              </span>
-              <span class="elem-symbol font-mono">[NAT-06]</span>
-              <span class="elem-name font-heading">Nguyễn Anh Thư</span>
-              <span class="elem-role font-mono">Thành viên · QA & Test</span>
-            </button>
-
-          </div>
-
-          <!-- Panel hồ sơ chi tiết: TRẠM QUAN SÁT THIÊN VĂN (Mở rộng 2/3 diện tích khi chọn ô) -->
-          <article class="detail-panel" id="profilePanel" role="region" aria-labelledby="panelMemberName" aria-live="polite" hidden>
-
-            <div class="panel-header">
-              <div class="panel-badge-row">
-                <span class="panel-seq font-mono" id="panelMemberSeq">STAR NODE // 01</span>
-                <button type="button" class="panel-close-btn font-mono" id="panelCloseBtn" aria-label="Đóng hồ sơ chi tiết (Phím Esc)">
-                  <span>ĐÓNG [ESC] &times;</span>
-                </button>
-              </div>
-
-              <div class="panel-hero-row">
-                <!-- Avatar hoặc Monogram đại diện thành viên -->
-                <div class="panel-avatar-slot" id="panelAvatarSlot">
-                  <img src="" alt="" class="panel-avatar-img" id="panelAvatarImg" width="110" height="110" loading="lazy" hidden>
-                  <div class="panel-monogram font-heading" id="panelMonogram">✦</div>
-                </div>
-
-                <div class="panel-title-col">
-                  <h2 class="panel-name font-heading" id="panelMemberName">--</h2>
-                  <p class="panel-role font-mono" id="panelMemberRole" hidden>--</p>
-                  <p class="panel-headline font-body" id="panelMemberHeadline" hidden>--</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Khối thế mạnh chuyên môn (Chỉ hiển thị khi có dữ liệu đã xác minh) -->
-            <div class="panel-skills-block" id="panelSkillsBlock" hidden>
-              <h3 class="panel-section-title font-mono">✦ Năng lực kỹ thuật đã xác minh:</h3>
-              <div class="panel-tags-list" id="panelTagsList">
-                <!-- Render các tag -->
-              </div>
-            </div>
-
-            <!-- Khối liên kết hành động -->
-            <div class="panel-actions-row">
-              <a href="#" class="btn-action btn-action-primary font-body" id="panelPortfolioLink">
-                TIẾN VÀO HỆ QUY CHIẾU 3D ↗
-              </a>
-              <a href="#" class="btn-action btn-action-secondary font-body" id="panelGithubLink" target="_blank" rel="noopener noreferrer" hidden>
-                Trang GitHub cá nhân ↗
-              </a>
-            </div>
-
-          </article>
-
+        <div class="panel-header-row">
+          <span class="panel-seq font-mono" id="panelMemberSeq">CELESTIAL BODY // 01</span>
+          <button type="button" class="panel-close-cross font-mono" id="panelCloseBtn" aria-label="Trở về quỹ đạo toàn cảnh (Esc)">
+            &times;
+          </button>
         </div>
 
-      </div>
-    </section>
-
-    <!-- =========================================================
-         MỤC 02: TÌM KIẾM TỌA ĐỘ THIÊN VĂN (CELESTIAL DISCOVERY)
-         ========================================================= -->
-    <section class="search-section" id="searchSection" aria-labelledby="searchHeading">
-      <div class="container">
-
-        <div class="search-header">
-          <h2 class="search-heading font-heading" id="searchHeading">Tìm kiếm Tọa độ Thành viên</h2>
-          <p class="search-desc font-body">
-            Nhập tên hoặc mã hiệu thiên thể để tra cứu trong chòm sao (hỗ trợ tiếng Việt có dấu và không dấu).
-          </p>
-        </div>
-
-        <div class="search-wrapper">
-          <label for="searchInput" class="visually-hidden">Tìm kiếm thành viên</label>
-          <div class="search-input-box">
-            <input type="text" id="searchInput" class="search-field font-body" placeholder="Nhập tên (ví dụ: Trường, Hiếu, Châu, Như...)" autocomplete="off">
-            <button type="button" class="search-reset-cross" id="searchClearBtn" aria-label="Xóa nội dung tìm kiếm" hidden>&times;</button>
+        <div class="panel-identity-block">
+          <div class="panel-avatar-wrap">
+            <img src="" alt="" class="panel-avatar-img" id="panelAvatarImg" hidden>
+            <div class="panel-monogram font-heading" id="panelMonogram">✦</div>
           </div>
-
-          <!-- Thông báo kết quả aria-live cho bộ đọc màn hình -->
-          <p class="search-live-status font-mono" id="searchStatus" role="status" aria-live="polite">
-            ✦ Hiển thị 6/6 thực thể sao trong chòm sao
-          </p>
-
-          <!-- Trạng thái trống (Empty State) -->
-          <div class="search-empty-state" id="searchEmptyState" hidden>
-            <p class="empty-headline font-heading">Không tìm thấy tọa độ phù hợp</p>
-            <p class="empty-guide font-body">
-              Không có thực thể nào khớp với từ khóa vừa nhập. Hãy thử tìm theo tên gọi hoặc bấm nút đặt lại.
-            </p>
-            <button type="button" class="btn-action btn-action-secondary font-body btn-sm mt-3" id="resetSearchBtn">
-              Đặt lại tìm kiếm
-            </button>
+          <div class="panel-name-col">
+            <h2 class="panel-name font-heading" id="panelMemberName">--</h2>
+            <p class="panel-role font-mono" id="panelMemberRole">--</p>
           </div>
         </div>
 
-      </div>
-    </section>
+        <p class="panel-headline font-body" id="panelMemberHeadline">--</p>
 
-    <!-- =========================================================
-         MỤC 03: NHẬT KÝ SỨ MỆNH & KIẾN TRÚC (MISSION LOG)
-         ========================================================= -->
-    <section class="resources-section" id="resourcesSection" aria-labelledby="resourcesHeading">
-      <div class="container">
-
-        <div class="section-title-wrap">
-          <p class="section-tag font-mono">ARCHIVE // MISSION LOG</p>
-          <h2 class="section-headline font-heading" id="resourcesHeading">
-            Nhật Ký Sứ Mệnh &amp; Nền Tảng Kỹ Thuật
-          </h2>
+        <!-- Kỹ năng chuyên môn -->
+        <div class="panel-skills-group" id="panelSkillsBlock">
+          <h3 class="panel-skills-title font-mono">NĂNG LỰC KỸ THUẬT ĐÃ XÁC MINH</h3>
+          <div class="panel-tags-box" id="panelTagsList"></div>
         </div>
 
-        <div class="resources-grid">
-          
-          <div class="resource-card">
-            <h3 class="resource-title font-heading">Kiến Trúc Đa Trang Vite</h3>
-            <p class="resource-text font-body">
-              Hệ thống xây dựng theo mô hình Multi-page Application (MPA) chuẩn hóa với Vite, đảm bảo mỗi thành viên sở hữu không gian portfolio 3D độc lập, tách biệt tài nguyên và tải trang với tốc độ dưới 300ms.
-            </p>
-          </div>
-
-          <div class="resource-card">
-            <h3 class="resource-title font-heading">Tương Tác 3D Không Gian Tự Nhiên</h3>
-            <p class="resource-text font-body">
-              Hiệu ứng nghiêng vật lý 3D thời gian thực (60 FPS qua RequestAnimationFrame), vệt phản quang ánh kim và bản đồ chòm sao vũ trụ kết nối thông minh, tự động tắt trên màn hình cảm ứng để tiết kiệm pin.
-            </p>
-          </div>
-
-          <div class="resource-card">
-            <h3 class="resource-title font-heading">Chuẩn Trợ Năng WCAG AA</h3>
-            <p class="resource-text font-body">
-              Tương phản màu sắc tối ưu (≥ 4.5:1), điều hướng bàn phím hoàn chỉnh với phím Tab, bẫy tiêu điểm thông minh và phím Esc đóng modal nhanh chóng, hỗ trợ bộ đọc màn hình chuyên nghiệp.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- =========================================================
-       CHÂN TRANG THIÊN VĂN (CELESTIAL FOOTER)
-       ========================================================= -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container footer-inner">
-
-      <div class="footer-top">
-        <div class="footer-brand font-heading">
-          TECHGROUP 06 · ĐẠI HỌC GIAO THÔNG VẬN TẢI TP.HCM (UTH)
-        </div>
-        <div class="footer-coords font-mono">
-          SECTOR: HK1-2026 // RA 14h 29m DEC -62°40'
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p class="footer-copyright font-body">
-          &copy; 2026 Nhóm 06 — Học phần Lập trình Web. Phát triển trên nền tảng HTML5, CSS3, ES6+ Modules và Vite.
-        </p>
-        <div class="footer-links">
-          <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="footer-link font-mono" target="_blank" rel="noopener noreferrer">
-            GitHub Repository ↗
+        <!-- Các nút liên kết -->
+        <div class="panel-actions-group">
+          <a href="#" class="btn-portal-primary font-body" id="panelPortfolioLink">
+            TIẾN VÀO HỆ QUY CHIẾU 3D ↗
+          </a>
+          <a href="#" class="btn-portal-secondary font-body" id="panelGithubLink" target="_blank" rel="noopener noreferrer" hidden>
+            Trang GitHub Cá Nhân ↗
           </a>
         </div>
+
+      </div>
+    </aside>
+
+    <!-- THANH HUD DƯỚI CÙNG: THANH ĐIỀU HƯỚNG QUỸ ĐẠO & TÌM KIẾM TỌA ĐỘ -->
+    <footer class="hud-bottom-bar spatial-hud-element">
+      
+      <!-- Cụm tìm kiếm tọa độ nhanh -->
+      <div class="hud-search-cluster">
+        <label for="spatialSearchInput" class="visually-hidden">Tìm kiếm tọa độ thành viên</label>
+        <div class="hud-search-input-box">
+          <span class="search-icon-symbol">⌕</span>
+          <input type="text" id="spatialSearchInput" class="hud-search-input font-mono" placeholder="Tìm kiếm thiên thể (Trường, Hiếu, Châu, Như...)" autocomplete="off">
+          <button type="button" class="hud-search-clear" id="spatialSearchClearBtn" hidden>&times;</button>
+        </div>
+        <span class="hud-search-status font-mono" id="spatialSearchStatus">✦ Khám phá 6/6 thực thể thiên văn</span>
+        <div class="hud-search-empty-box font-mono" id="spatialSearchEmpty" hidden>
+          Không tìm thấy tọa độ thiên thể.
+        </div>
       </div>
 
-    </div>
-  </footer>
+      <!-- 6 Nút Chuyển Nhanh Quỹ Đạo Thiên Thể (Orbit Navigation Pills) -->
+      <div class="hud-orbit-pills-row" id="spatialNavPills">
+        <!-- Render 6 nút thiên thể từ JS -->
+      </div>
 
-  <!-- Tệp logic điều khiển chính (ES6 Module) -->
+    </footer>
+
+  </div>
+
+  <!-- Tệp logic WebGL 3D (ES6 Module) -->
   <script type="module" src="./group.js"></script>
 </body>
 </html>
