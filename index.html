@@ -23,6 +23,9 @@
 </head>
 <body class="spatial-viewport-body">
 
+  <!-- VẠCH QUÉT RADAR KHÔNG GIAN (RADAR SCANLINE) -->
+  <div class="radar-scanline-layer" aria-hidden="true"></div>
+
   <!-- CANVAS 3D WEBGL TOÀN MÀN HÌNH -->
   <canvas id="webglCanvas" class="spatial-webgl-canvas"></canvas>
 
@@ -43,8 +46,13 @@
       </div>
 
       <!-- Trạng thái định vị mục tiêu hiện tại -->
-      <div class="hud-telemetry-pill font-mono" id="currentFocusReadout">
-        SECTOR: TECHGROUP 06 // ORBIT PANORAMA
+      <div class="hud-telemetry-cluster">
+        <div class="hud-telemetry-pill font-mono" id="currentFocusReadout">
+          SECTOR: TECHGROUP 06 // ORBIT PANORAMA
+        </div>
+        <div class="hud-guide-pill font-mono">
+          ✦ KÉO CHUỘT: XOAY 360° · CUỘN: ZOOM · CLICK: TIẾP CẬN HÀNH TINH
+        </div>
       </div>
 
       <!-- Điều hướng góc phải -->
