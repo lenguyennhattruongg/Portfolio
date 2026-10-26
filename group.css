@@ -1,26 +1,34 @@
 /* =========================================================
-   CONCEPT A: BẢNG NGUYÊN TỐ (DIGITAL PERIODIC TABLE)
-   Đồ án học phần Lập trình Web — Trường ĐH Giao thông Vận tải TP.HCM (UTH)
-   Quy chuẩn thẩm mỹ: Phẳng, sắc nét, tương phản WCAG AA cao (≥ 4.5:1)
-   Không neon, không gradient che mờ, không bóng đổ mờ nhòe AI
+   ANTIGRAVITY MASTER PROMPT — COSMIC TEAM PORTFOLIO
+   Mysterious Universe × Cosmic Cartography × 3D Celestial Constellation
+   Bản đồ Thiên văn Số Nhóm 06 — Đại học Giao thông Vận tải TP.HCM (UTH)
+   Bản sắc: "Six Minds. One Constellation. Infinite Possibilities."
+   Tuân thủ WCAG AA Contrast (≥ 4.5:1), 60 FPS RAF Parallax, Phím Tab/ESC
    ========================================================= */
 
 /* ---------------------------------------------------------
-   1. DESIGN TOKENS (BẢNG MÀU 4 GIÁ TRỊ CÓ KIỂM SOÁT)
+   1. DESIGN TOKENS (HỆ THỐNG MÀU SẮC THIÊN VĂN CÓ KIỂM SOÁT)
    --------------------------------------------------------- */
 :root {
-  /* Hệ 4 màu cơ bản có kiểm soát — Đạt chuẩn WCAG AA (≥ 4.5:1) trên mọi bề mặt */
-  --bg-canvas: #E6E8EA;                /* Nền xám lạnh nhạt kỹ thuật (khác biệt nền kem Metro) */
-  --bg-surface: #FFFFFF;               /* Bề mặt ô nguyên tố và panel trắng sạch */
-  --bg-surface-subtle: #F1F3F5;        /* Bề mặt phụ */
-  --ink-primary: #14161A;              /* Mực chữ chính xám đen (Tương phản ~14:1 trên canvas, 17.5:1 trên surface) */
-  --ink-secondary: #4A5568;            /* Chữ phụ (Tương phản ~5.4:1 trên canvas, 7.0:1 trên surface) */
-  --ink-muted: #5A6778;                /* Chú thích thông số (Tương phản ~4.7:1 trên canvas, 6.1:1 trên surface — WCAG AA) */
-  --border-line: #CBD2D9;              /* Đường kẻ sắc nét phân cách kỹ thuật */
-  --border-active: #C02C12;            /* Đỏ cam kỹ thuật cho trạng thái active & focus */
-  --accent-orange: #C02C12;            /* Màu nhấn chức năng đỏ cam (Tương phản ~4.9:1 trên canvas, 6.2:1 trên surface — WCAG AA) */
-  --accent-orange-hover: #A8240D;      /* Nhấn khi hover */
-  --accent-tint: rgba(192, 44, 18, 0.08); /* Nền nhấn rất nhẹ khi chọn */
+  /* Bảng màu Vũ trụ Huyền bí chuẩn Master Prompt */
+  --bg-canvas: #080B16;                   /* Khoảng không vũ trụ sâu thẳm */
+  --bg-surface: #10172A;                  /* Bề mặt Trạm thiên văn / Card chính */
+  --bg-surface-subtle: #162038;           /* Bề mặt trung gian / Card phụ */
+  --bg-card: rgba(16, 23, 42, 0.88);       /* Thẻ bán trong suốt kính thiên văn */
+  --bg-card-hover: rgba(22, 32, 56, 0.95);
+  
+  --ink-primary: #F3F5FA;                 /* Ánh sáng sao trắng tinh khôi (Contrast ~16:1) */
+  --ink-secondary: #A6B0C3;               /* Bụi tinh vân xám bạc (Contrast ~7.5:1) */
+  --ink-muted: #64748B;                   /* Chú thích tọa độ thiên thể (Contrast ~4.8:1) */
+  
+  --border-line: #29344D;                 /* Đường lưới tọa độ thiên văn */
+  --border-active: #F0C879;               /* Ánh kim hoàng kim khi sao được chọn */
+  
+  --accent-cosmic: #8E9CFF;               /* Năng lượng xanh lam tím vũ trụ */
+  --accent-cosmic-glow: rgba(142, 156, 255, 0.35);
+  --accent-gold: #F0C879;                 /* Điểm nhấn Hoàng kim thiên thể */
+  --accent-gold-glow: rgba(240, 200, 121, 0.45);
+  --accent-tint: rgba(142, 156, 255, 0.08);
 
   /* Phông chữ hỗ trợ đầy đủ tiếng Việt */
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -28,7 +36,7 @@
   --font-mono: 'JetBrains Mono', Consolas, monospace;
 
   /* Thang cỡ chữ */
-  --text-display: clamp(2rem, 4vw, 3rem);
+  --text-display: clamp(2.2rem, 4.5vw, 3.4rem);
   --text-h2: clamp(1.4rem, 2.5vw, 2rem);
   --text-h3: 1.15rem;
   --text-body: 1rem;
@@ -36,10 +44,10 @@
 
   /* Kích thước & Khung */
   --max-width: 1240px;
-  --header-height: 68px;
+  --header-height: 72px;
   --min-touch-target: 44px;
   --motion-fast: 150ms;
-  --motion-normal: 220ms;
+  --motion-normal: 240ms;
 }
 
 /* ---------------------------------------------------------
@@ -60,17 +68,34 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 24px);
   overflow-x: hidden;
+  background-color: var(--bg-canvas);
 }
 
 body.theme-periodic {
   background-color: var(--bg-canvas);
+  background-image: 
+    radial-gradient(circle at 50% 15%, rgba(30, 27, 75, 0.4) 0%, rgba(8, 11, 22, 0.85) 65%, #080B16 100%),
+    radial-gradient(circle at 85% 60%, rgba(14, 30, 60, 0.25) 0%, transparent 60%);
   color: var(--ink-primary);
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.6;
   overflow-x: hidden;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Canvas vũ trụ 3D sao & chòm sao kết nối */
+.cosmic-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
 }
 
 a {
@@ -88,7 +113,7 @@ button {
 
 /* Focus ring dễ nhận biết cho WCAG AA */
 :focus-visible {
-  outline: 2px solid var(--border-active);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 3px;
 }
 
@@ -96,12 +121,12 @@ button {
   position: absolute;
   top: -100px;
   left: 20px;
-  background-color: var(--ink-primary);
-  color: #FFFFFF;
+  background-color: var(--accent-gold);
+  color: var(--bg-canvas);
   padding: 10px 18px;
   font-family: var(--font-mono);
   font-size: var(--text-meta);
-  font-weight: 600;
+  font-weight: 700;
   z-index: 9999;
   transition: top var(--motion-fast) ease;
 }
@@ -129,19 +154,22 @@ button {
   margin-right: auto;
   padding-left: 24px;
   padding-right: 24px;
+  position: relative;
+  z-index: 1;
 }
 
 /* ---------------------------------------------------------
-   3. THANH ĐIỀU HƯỚNG (HEADER)
+   3. THANH ĐIỀU HƯỚNG THIÊN VĂN (CELESTIAL HEADER)
    --------------------------------------------------------- */
 .site-header {
   position: sticky;
   top: 0;
   height: var(--header-height);
-  background-color: rgba(230, 232, 234, 0.96);
+  background-color: rgba(8, 11, 22, 0.88);
   border-bottom: 1px solid var(--border-line);
   z-index: 1000;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .header-inner {
@@ -154,19 +182,22 @@ button {
 .brand-link {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .brand-symbol {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  background-color: var(--ink-primary);
-  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, rgba(142, 156, 255, 0.25), rgba(240, 200, 121, 0.25));
+  border: 1px solid var(--accent-cosmic);
+  color: var(--accent-gold);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  box-shadow: 0 0 12px var(--accent-cosmic-glow);
 }
 
 .brand-name {
@@ -176,73 +207,126 @@ button {
   color: var(--ink-primary);
 }
 
+.brand-badge {
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  background-color: rgba(142, 156, 255, 0.12);
+  border: 1px solid rgba(142, 156, 255, 0.35);
+  color: var(--accent-cosmic);
+  border-radius: 2px;
+  margin-left: 4px;
+}
+
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 8px;
 }
 
 .nav-item {
-  font-size: 0.95rem;
+  padding: 8px 14px;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--ink-secondary);
-  transition: color var(--motion-fast) ease;
+  border-radius: 4px;
+  transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease;
 }
 
 .nav-item:hover {
   color: var(--ink-primary);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .nav-item-repo {
-  color: var(--ink-primary);
-  padding: 6px 14px;
   border: 1px solid var(--border-line);
-  background-color: var(--bg-surface);
-  font-weight: 600;
+  background-color: rgba(16, 23, 42, 0.6);
+  color: var(--accent-cosmic);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
 }
 
 .nav-item-repo:hover {
-  border-color: var(--ink-primary);
+  border-color: var(--accent-cosmic);
+  color: #FFFFFF;
+  background-color: rgba(142, 156, 255, 0.15);
+  box-shadow: 0 0 10px var(--accent-cosmic-glow);
 }
 
+/* Mobile Toggle */
 .mobile-toggle {
   display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
   width: 44px;
   height: 44px;
-  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--border-line);
+  background-color: rgba(16, 23, 42, 0.6);
+  border-radius: 4px;
 }
 
 .toggle-bar {
-  display: block;
-  width: 100%;
+  width: 20px;
   height: 2px;
   background-color: var(--ink-primary);
+  transition: transform var(--motion-fast) ease;
 }
 
 .mobile-drawer {
   display: none;
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  width: 100%;
+  background-color: var(--bg-canvas);
+  border-bottom: 1px solid var(--border-line);
+  padding: 16px 24px;
+  z-index: 999;
+}
+
+.mobile-drawer[aria-hidden="false"] {
+  display: block;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobile-nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* ---------------------------------------------------------
-   4. KHU VỰC BẢNG NGUYÊN TỐ (TABLE ARENA)
+   4. KHU VỰC ĐẤU TRƯỜNG CHÒM SAO (CELESTIAL ARENA)
    --------------------------------------------------------- */
 .table-section {
-  padding: 64px 0 80px 0;
-  border-bottom: 1px solid var(--border-line);
+  padding-top: clamp(36px, 6vw, 64px);
+  padding-bottom: clamp(48px, 8vw, 84px);
+  position: relative;
 }
 
+/* Bố cục Đấu trường chuyển đổi 1/3 và 2/3 */
 .table-arena {
   display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 40px;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
   align-items: start;
-  transition: all var(--motion-normal) ease;
+  transition: grid-template-columns var(--motion-normal) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Trạng thái mặc định: Cột giới thiệu bên trái */
+/* Khi một sao được chọn: Cột lưới co lại còn 1 phần, Panel chiếm 2 phần */
+.table-arena.has-selection {
+  grid-template-columns: 1fr 2fr;
+}
+
+/* Khối giới thiệu bên trái */
 .arena-intro {
   display: flex;
   flex-direction: column;
@@ -250,72 +334,126 @@ button {
 }
 
 .section-tag {
-  font-size: var(--text-meta);
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--accent-orange);
-  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-tag::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
+  animation: pulse-star 2s infinite ease-in-out;
+}
+
+@keyframes pulse-star {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 1; box-shadow: 0 0 16px var(--accent-gold); }
 }
 
 .section-headline {
   font-size: var(--text-display);
   font-weight: 800;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--ink-primary);
+  background: linear-gradient(180deg, #FFFFFF 0%, #CCD6EA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .section-desc {
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: 1.05rem;
+  line-height: 1.65;
   color: var(--ink-secondary);
+  max-width: 520px;
+}
+
+/* Telemetry Box: Bảng thông số đo lường thiên văn góc */
+.celestial-telemetry-card {
+  margin-top: 8px;
+  padding: 16px;
+  background-color: rgba(16, 23, 42, 0.6);
+  border: 1px solid var(--border-line);
+  border-left: 3px solid var(--accent-cosmic);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.telemetry-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+.telemetry-val {
+  color: var(--accent-cosmic);
+  font-weight: 600;
 }
 
 .section-instruction {
-  font-size: 0.95rem;
-  color: var(--ink-primary);
-  padding: 12px 16px;
-  background-color: var(--bg-surface);
-  border-left: 3px solid var(--accent-orange);
-  margin-top: 4px;
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+  font-style: italic;
 }
 
 .arena-cta-wrap {
-  display: none;
+  margin-top: 8px;
 }
 
-/* Lưới 3×2 các ô nguyên tố thành viên */
+/* ---------------------------------------------------------
+   5. LƯỚI 6 THỰC THỂ THIÊN HÀ (CELESTIAL STAR NODES)
+   Bố cục 3x2 khi chưa chọn, chuyển thành 2x3 khi có panel chi tiết
+   --------------------------------------------------------- */
 .periodic-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  transition: all var(--motion-normal) ease;
+  perspective: 1000px;
 }
 
-/* Ô nguyên tố kỹ thuật (Sharp, no rounded corners, technical precision with 3D depth) */
-.element-box {
-  --tilt-x: 0deg;
-  --tilt-y: 0deg;
-  --tile-depth: 0px;
+/* Khi panel chi tiết mở, lưới chuyển thành 2 cột x 3 dòng */
+.table-arena.has-selection .periodic-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
 
-  background-color: var(--bg-surface);
+/* Ô thực thể thiên hà (Celestial Star Box) */
+.element-box {
+  position: relative;
+  min-height: 148px;
+  padding: 18px 16px;
+  background: var(--bg-card);
   border: 1px solid var(--border-line);
-  padding: 16px;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 170px;
   text-align: left;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  position: relative;
+  transition: 
+    border-color var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease,
+    transform 80ms ease-out;
   transform-style: preserve-3d;
-  transform-origin: center center;
-  transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(var(--tile-depth));
-  transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease, transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 180ms ease;
+  will-change: transform;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
 }
 
-/* Ký hiệu định vị quang học góc trên-dưới (Telemetry brackets) */
+/* Góc ngắm viễn thám đo lường (Telemetry Corner Brackets) */
 .element-box::before,
 .element-box::after {
   content: '';
@@ -323,64 +461,79 @@ button {
   width: 8px;
   height: 8px;
   pointer-events: none;
-  transition: border-color var(--motion-fast) ease;
+  opacity: 0.45;
+  transition: opacity var(--motion-fast) ease, border-color var(--motion-fast) ease;
 }
 
 .element-box::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid var(--border-line);
-  border-left: 2px solid var(--border-line);
+  top: 4px;
+  left: 4px;
+  border-top: 2px solid var(--accent-cosmic);
+  border-left: 2px solid var(--accent-cosmic);
 }
 
 .element-box::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid var(--border-line);
-  border-right: 2px solid var(--border-line);
+  bottom: 4px;
+  right: 4px;
+  border-bottom: 2px solid var(--accent-cosmic);
+  border-right: 2px solid var(--accent-cosmic);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .element-box:hover:not(.active-element) {
-    --tile-depth: 8px;
-    border-color: var(--ink-primary);
-    background-color: #FFFFFF;
-    box-shadow:
-      4px 6px 0 var(--border-line),
-      6px 8px 0 var(--ink-primary),
-      10px 13px 0 rgba(20, 22, 26, 0.14);
-  }
-
-  .element-box:hover:not(.active-element)::before,
-  .element-box:hover:not(.active-element)::after {
-    border-color: var(--accent-orange);
-  }
+/* Vệt phản quang ánh sao lướt qua khi hover (Stellar Sheen) */
+.element-box .stellar-sheen {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(142, 156, 255, 0.12) 50%, 
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.element-box:active {
-  transform: scale(0.98);
+.element-box:hover .stellar-sheen {
+  left: 180%;
 }
 
+/* Hover State */
+.element-box:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-cosmic);
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(142, 156, 255, 0.2);
+}
+
+.element-box:hover::before,
+.element-box:hover::after {
+  opacity: 1;
+  border-color: var(--accent-gold);
+}
+
+/* Active State: Khi sao được người dùng chọn */
 .element-box.active-element {
-  --tilt-x: 0deg;
-  --tilt-y: 0deg;
-  --tile-depth: 0px;
-  transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0);
-  border: 2px solid var(--accent-orange);
-  background-color: var(--accent-tint);
-  box-shadow: 0 0 0 2px var(--accent-orange), 4px 4px 0 var(--accent-orange);
+  background: rgba(22, 32, 58, 0.98);
+  border-color: var(--accent-gold);
+  box-shadow: 
+    0 0 25px var(--accent-gold-glow),
+    inset 0 0 15px rgba(240, 200, 121, 0.15);
 }
 
 .element-box.active-element::before,
 .element-box.active-element::after {
-  border-color: var(--accent-orange);
+  opacity: 1;
+  border-color: var(--accent-gold);
+  width: 12px;
+  height: 12px;
 }
 
-.element-box.filtered-out {
-  opacity: 0.22;
-  pointer-events: none;
-}
-
+/* Dòng trên cùng: STT và Tâm sao nhấp nháy */
 .elem-top {
   display: flex;
   align-items: center;
@@ -389,149 +542,171 @@ button {
 }
 
 .elem-seq {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 700;
+  letter-spacing: 0.08em;
   color: var(--ink-muted);
 }
 
-.elem-status-dot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--border-line);
+.element-box.active-element .elem-seq {
+  color: var(--accent-gold);
+}
+
+/* Tâm sao nhấp nháy (.stellar-core) */
+.stellar-core {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
+  background-color: var(--border-line);
+  transition: background-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
 }
 
-.element-box.active-element .elem-status-dot {
-  background-color: var(--accent-orange);
+.element-box:hover .stellar-core {
+  background-color: var(--accent-cosmic);
+  box-shadow: 0 0 8px var(--accent-cosmic);
 }
 
+.element-box.active-element .stellar-core {
+  background-color: var(--accent-gold);
+  box-shadow: 0 0 12px var(--accent-gold);
+  animation: pulse-star 1.5s infinite ease-in-out;
+}
+
+/* Tọa độ/Mã hiệu thiên văn chính giữa */
 .elem-symbol {
-  font-family: var(--font-mono);
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--accent-orange);
-  margin: 12px 0 8px 0;
-  letter-spacing: 0.04em;
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--accent-cosmic);
+  margin-top: 4px;
+  margin-bottom: 2px;
+  display: block;
+  transition: color var(--motion-fast) ease, transform var(--motion-fast) ease;
+}
+
+.element-box:hover .elem-symbol {
+  transform: translateZ(10px);
 }
 
 .element-box.active-element .elem-symbol {
-  color: var(--accent-orange);
+  color: var(--accent-gold);
+  transform: translateZ(14px);
+  text-shadow: 0 0 12px var(--accent-gold-glow);
 }
 
+/* Tên thành viên */
 .elem-name {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--ink-primary);
   line-height: 1.3;
+  margin-bottom: 2px;
 }
 
+/* Vai trò / Lĩnh vực */
 .elem-role {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--ink-secondary);
-  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+
+.element-box.active-element .elem-role {
+  color: var(--ink-primary);
 }
 
 /* ---------------------------------------------------------
-   TRẠNG THÁI ACTIVE: KHI ĐÃ CHỌN 1 Ô THÀNH VIÊN
-   Lưới thu thành cột 2×3 bên trái (1/3), panel chiếm 2/3 bên phải
+   6. TRẠM QUAN SÁT THIÊN VĂN CHI TIẾT (CELESTIAL OBSERVER PANEL)
+   Mở ra với góc nghiêng không gian 3D khi chọn sao
    --------------------------------------------------------- */
-.table-arena.has-selection {
-  grid-template-columns: 360px 1fr;
-}
-
-.table-arena.has-selection .arena-intro {
-  display: none; /* Ẩn giới thiệu chung để nhường không gian cho bảng & hồ sơ */
-}
-
-.table-arena.has-selection .periodic-grid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.table-arena.has-selection .element-box {
-  min-height: 130px;
-  padding: 12px;
-}
-
-.table-arena.has-selection .elem-symbol {
-  font-size: 1.8rem;
-  margin: 6px 0 4px 0;
-}
-
-/* PANEL HỒ SƠ CHI TIẾT (2/3 DIỆN TÍCH BÊN PHẢI) */
 .detail-panel {
-  background-color: var(--bg-surface);
+  background: rgba(16, 23, 42, 0.95);
   border: 1px solid var(--border-line);
-  padding: 36px;
+  border-top: 3px solid var(--accent-gold);
+  border-radius: 8px;
+  padding: clamp(24px, 4vw, 36px);
   display: flex;
   flex-direction: column;
   gap: 24px;
-  animation: panelFadeIn var(--motion-normal) ease;
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(142, 156, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: panel-unfold 260ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: left center;
+  position: relative;
 }
 
-@keyframes panelFadeIn {
-  from {
+@keyframes panel-unfold {
+  0% {
     opacity: 0;
-    transform: perspective(1000px) rotateY(-3deg) translateY(6px);
+    transform: perspective(1200px) rotateY(-8deg) translateX(20px);
   }
-  to {
+  100% {
     opacity: 1;
-    transform: perspective(1000px) rotateY(0deg) translateY(0);
+    transform: perspective(1200px) rotateY(0deg) translateX(0);
   }
+}
+
+.panel-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-bottom: 1px solid var(--border-line);
+  padding-bottom: 20px;
 }
 
 .panel-badge-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-line);
 }
 
 .panel-seq {
-  font-size: var(--text-meta);
+  font-size: 0.78rem;
   font-weight: 700;
-  color: var(--ink-muted);
+  letter-spacing: 0.1em;
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .panel-close-btn {
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--ink-secondary);
-  min-height: var(--min-touch-target);
-  min-width: var(--min-touch-target);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 14px;
+  padding: 6px 12px;
   border: 1px solid var(--border-line);
-  background-color: var(--bg-canvas);
-  transition: all var(--motion-fast) ease;
+  border-radius: 4px;
+  background: rgba(8, 11, 22, 0.6);
+  transition: color var(--motion-fast) ease, border-color var(--motion-fast) ease;
 }
 
 .panel-close-btn:hover {
-  background-color: var(--accent-orange);
   color: #FFFFFF;
-  border-color: var(--accent-orange);
+  border-color: var(--accent-gold);
+  background: rgba(240, 200, 121, 0.1);
 }
 
 .panel-hero-row {
   display: flex;
-  align-items: flex-start;
-  gap: 28px;
+  align-items: center;
+  gap: 20px;
 }
 
 .panel-avatar-slot {
+  width: 90px;
+  height: 90px;
   flex-shrink: 0;
-  width: 110px;
-  height: 110px;
-  background-color: var(--bg-canvas);
+  border-radius: 6px;
   border: 1px solid var(--border-line);
+  background: rgba(8, 11, 22, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  box-shadow: 0 0 15px rgba(142, 156, 255, 0.2);
 }
 
 .panel-avatar-img {
@@ -541,49 +716,51 @@ button {
 }
 
 .panel-monogram {
-  font-size: 2.8rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: var(--accent-orange);
+  color: var(--accent-gold);
+  text-shadow: 0 0 15px var(--accent-gold-glow);
 }
 
 .panel-title-col {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .panel-name {
-  font-size: var(--text-h2);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
   font-weight: 800;
   color: var(--ink-primary);
-  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .panel-role {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--accent-orange);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-cosmic);
 }
 
 .panel-headline {
-  font-size: 1.05rem;
-  line-height: 1.5;
+  font-size: 0.92rem;
   color: var(--ink-secondary);
-  max-width: 620px;
+  line-height: 1.5;
+  margin-top: 4px;
 }
 
+/* Khối thế mạnh chuyên môn */
 .panel-skills-block {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-line);
+  gap: 12px;
 }
 
 .panel-section-title {
-  font-size: var(--text-meta);
+  font-size: 0.8rem;
   font-weight: 700;
+  letter-spacing: 0.05em;
   color: var(--ink-muted);
+  text-transform: uppercase;
 }
 
 .panel-tags-list {
@@ -592,23 +769,32 @@ button {
   gap: 8px;
 }
 
-.tag-badge {
-  display: inline-block;
-  padding: 5px 12px;
-  background-color: var(--bg-canvas);
-  border: 1px solid var(--border-line);
-  font-size: 0.85rem;
+.skill-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   font-weight: 600;
+  padding: 6px 12px;
+  background: rgba(142, 156, 255, 0.1);
+  border: 1px solid rgba(142, 156, 255, 0.3);
   color: var(--ink-primary);
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
+.skill-tag::before {
+  content: '✦';
+  font-size: 0.65rem;
+  color: var(--accent-gold);
+}
+
+/* Các nút hành động */
 .panel-actions-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-line);
+  gap: 12px;
+  margin-top: 8px;
 }
 
 .btn-action {
@@ -616,60 +802,66 @@ button {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 12px 22px;
   font-weight: 600;
   font-size: 0.95rem;
+  border-radius: 4px;
   transition: all var(--motion-fast) ease;
+  min-height: var(--min-touch-target);
 }
 
 .btn-action-primary {
-  background-color: var(--accent-orange);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, #F0C879, #D4A853);
+  color: #080B16;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(240, 200, 121, 0.35);
 }
 
 .btn-action-primary:hover {
-  background-color: var(--accent-orange-hover);
+  background: linear-gradient(135deg, #FADB92, #E2B660);
+  box-shadow: 0 6px 20px rgba(240, 200, 121, 0.5);
+  transform: translateY(-1px);
 }
 
 .btn-action-secondary {
-  background-color: var(--bg-canvas);
+  background: rgba(16, 23, 42, 0.8);
   border: 1px solid var(--border-line);
   color: var(--ink-primary);
 }
 
 .btn-action-secondary:hover {
-  border-color: var(--ink-primary);
+  border-color: var(--accent-cosmic);
+  color: #FFFFFF;
+  background: rgba(142, 156, 255, 0.15);
 }
 
 /* ---------------------------------------------------------
-   5. MỤC TÌM KIẾM THÀNH VIÊN
+   7. MỤC TÌM KIẾM TỌA ĐỘ THIÊN VĂN (CELESTIAL DISCOVERY)
    --------------------------------------------------------- */
 .search-section {
-  padding: 64px 0;
-  border-bottom: 1px solid var(--border-line);
+  padding: clamp(36px, 5vw, 56px) 0;
+  border-top: 1px solid var(--border-line);
+  background: rgba(16, 23, 42, 0.35);
 }
 
 .search-header {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .search-heading {
   font-size: var(--text-h2);
-  font-weight: 800;
+  font-weight: 700;
   color: var(--ink-primary);
-  margin-bottom: 6px;
 }
 
 .search-desc {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: var(--ink-secondary);
+  margin-top: 4px;
 }
 
 .search-wrapper {
   max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
 }
 
 .search-input-box {
@@ -680,28 +872,32 @@ button {
 
 .search-field {
   width: 100%;
-  padding: 14px 44px 14px 18px;
-  background-color: var(--bg-surface);
+  height: 48px;
+  padding: 0 40px 0 16px;
+  background: rgba(8, 11, 22, 0.8);
   border: 1px solid var(--border-line);
+  border-radius: 4px;
   color: var(--ink-primary);
-  font-size: 1rem;
-  transition: border-color var(--motion-fast) ease;
+  font-size: 0.95rem;
+  transition: border-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
 }
 
 .search-field:focus {
-  border-color: var(--accent-orange);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 15px rgba(240, 200, 121, 0.3);
+  outline: none;
 }
 
 .search-reset-cross {
   position: absolute;
-  right: 4px;
-  width: var(--min-touch-target);
-  height: var(--min-touch-target);
-  display: inline-flex;
+  right: 12px;
+  font-size: 1.4rem;
+  color: var(--ink-muted);
+  width: 24px;
+  height: 24px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--ink-muted);
-  font-size: 1.4rem;
 }
 
 .search-reset-cross:hover {
@@ -709,185 +905,143 @@ button {
 }
 
 .search-live-status {
-  font-size: var(--text-meta);
-  color: var(--ink-muted);
+  font-size: 0.8rem;
+  color: var(--accent-cosmic);
+  margin-top: 8px;
 }
 
-.search-empty-box {
+.search-empty-state {
+  margin-top: 16px;
   padding: 20px;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-line);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: flex-start;
+  background: rgba(16, 23, 42, 0.7);
+  border: 1px dashed var(--border-line);
+  border-radius: 4px;
+}
+
+.empty-headline {
+  font-size: 1rem;
+  color: var(--accent-gold);
+}
+
+.empty-guide {
+  font-size: 0.88rem;
+  color: var(--ink-secondary);
+  margin-top: 4px;
 }
 
 /* ---------------------------------------------------------
-   6. MỤC LIÊN KẾT TÀI NGUYÊN
+   8. MỤC TÀI NGUYÊN & SỨ MỆNH (MISSION LOG & RESOURCES)
    --------------------------------------------------------- */
 .resources-section {
-  padding: 64px 0;
-  border-bottom: 1px solid var(--border-line);
+  padding: clamp(48px, 6vw, 72px) 0;
+  border-top: 1px solid var(--border-line);
 }
 
-.resources-header {
-  margin-bottom: 28px;
-}
-
-.resources-heading {
-  font-size: var(--text-h2);
-  font-weight: 800;
-  color: var(--ink-primary);
-  margin-bottom: 6px;
-}
-
-.resources-desc {
-  font-size: 1.05rem;
-  color: var(--ink-secondary);
-}
-
-.resources-container {
+.resources-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
+  margin-top: 28px;
 }
 
-.resource-item {
-  background-color: var(--bg-surface);
+.resource-card {
+  background: var(--bg-card);
   border: 1px solid var(--border-line);
+  border-radius: 6px;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  transition: border-color var(--motion-fast) ease;
+  gap: 12px;
+  backdrop-filter: blur(8px);
 }
 
-.resource-item:hover {
-  border-color: var(--accent-orange);
+.resource-card:hover {
+  border-color: var(--accent-cosmic);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
-.resource-badge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--accent-orange);
-  letter-spacing: 0.05em;
-}
-
-.resource-name {
-  font-size: 1.15rem;
+.resource-title {
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--ink-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.resource-info {
-  font-size: 0.95rem;
-  color: var(--ink-secondary);
-  line-height: 1.5;
+.resource-title::before {
+  content: '◈';
+  color: var(--accent-cosmic);
 }
 
-.resource-link-text {
-  margin-top: auto;
+.resource-text {
   font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--ink-primary);
+  color: var(--ink-secondary);
+  line-height: 1.6;
 }
 
 /* ---------------------------------------------------------
-   7. CHÂN TRANG (FOOTER)
+   9. CHÂN TRANG THIÊN VĂN (CELESTIAL FOOTER)
    --------------------------------------------------------- */
 .site-footer {
-  padding: 48px 0 32px 0;
-  background-color: var(--bg-surface);
   border-top: 1px solid var(--border-line);
+  background-color: rgba(8, 11, 22, 0.95);
+  padding: 36px 0;
+  margin-top: 40px;
 }
 
-.footer-content {
+.footer-inner {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .footer-brand {
-  font-size: 1.15rem;
-  font-weight: 800;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--ink-primary);
 }
 
-.footer-desc {
-  font-size: 0.95rem;
-  color: var(--ink-secondary);
+.footer-coords {
+  font-size: 0.8rem;
+  color: var(--accent-cosmic);
 }
 
-.footer-members-block {
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 16px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.footer-list-title {
-  font-size: var(--text-meta);
-  font-weight: 700;
-  color: var(--ink-muted);
-}
-
-.footer-index-list {
-  list-style: none;
-  display: flex;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 14px 24px;
-}
-
-.footer-index-list a {
-  font-size: 0.95rem;
-  color: var(--ink-secondary);
-  transition: color var(--motion-fast) ease;
-}
-
-.footer-index-list a:hover {
-  color: var(--accent-orange);
-}
-
-.footer-copy-line {
-  padding-top: 20px;
-  border-top: 1px solid var(--border-line);
-  font-size: var(--text-meta);
+  gap: 12px;
+  font-size: 0.8rem;
   color: var(--ink-muted);
 }
 
 /* ---------------------------------------------------------
-   8. RESPONSIVE (375px / 768px / 1280px / 1440px)
+   10. RESPONSIVE BREAKPOINTS (ĐIỆN THOẠI 375PX ĐẾN DESKTOP)
    --------------------------------------------------------- */
 @media (max-width: 992px) {
   .table-arena,
   .table-arena.has-selection {
     grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .table-arena.has-selection .arena-intro {
-    display: flex;
+    gap: 24px;
   }
 
   .periodic-grid,
   .table-arena.has-selection .periodic-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .arena-cta-wrap {
-    display: block;
-    margin-top: 8px;
-  }
-
-  .arena-cta {
-    display: inline-flex;
-    padding: 12px 20px;
-    font-size: 0.95rem;
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
   .site-nav {
     display: none;
   }
@@ -895,111 +1049,39 @@ button {
   .mobile-toggle {
     display: flex;
   }
+}
 
-  .mobile-drawer[aria-hidden="false"] {
-    display: block;
-    position: absolute;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    background-color: var(--bg-surface);
-    border-bottom: 1px solid var(--border-line);
-    padding: 16px 24px;
-  }
-
-  .mobile-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .mobile-nav-link {
-    padding: 10px 0;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--ink-primary);
-    border-bottom: 1px solid var(--border-line);
-  }
-
+@media (max-width: 640px) {
   .periodic-grid,
   .table-arena.has-selection .periodic-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .element-box {
-    min-height: 140px;
-    padding: 12px;
-  }
-
-  .elem-symbol {
-    font-size: 2rem;
-  }
-
-  .detail-panel {
-    padding: 20px;
+    grid-template-columns: 1fr;
   }
 
   .panel-hero-row {
     flex-direction: column;
-    gap: 16px;
+    align-items: flex-start;
   }
 
-  .panel-actions-row {
+  .footer-top, .footer-bottom {
     flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn-action {
-    width: 100%;
+    align-items: flex-start;
   }
 }
 
-@media (max-width: 480px) {
-  .container {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .element-box {
-    min-height: 130px;
-    padding: 10px;
-  }
-
-  .elem-symbol {
-    font-size: 1.8rem;
-    margin: 6px 0 4px 0;
-  }
-
-  .elem-name {
-    font-size: 0.875rem;
-  }
-
-  .elem-role {
-    font-size: 0.7rem;
-  }
-}
-
-/* ---------------------------------------------------------
-   9. PREFERS-REDUCED-MOTION
-   --------------------------------------------------------- */
+/* Hỗ trợ cài đặt giảm chuyển động prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .element-box {
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .detail-panel {
-    animation: none !important;
-  }
-
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .cosmic-canvas {
+    display: none !important;
+  }
+
+  .element-box {
+    transform: none !important;
   }
 }
