@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nhóm 06 — True 3D WebGL Spatial Universe. Hệ thống bản đồ thiên văn số kết nối 6 thiên thể kỹ thuật sinh viên ĐH Giao thông Vận tải TP.HCM (UTH).">
+  <meta name="author" content="Nhóm 06 — UTH">
+
+  <title>Nhóm 06 | Six Minds. One Constellation. — True 3D WebGL Universe</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Nhóm 06 | Six Minds. One Constellation. — True 3D WebGL Universe">
+  <meta property="og:description" content="Không gian WebGL 3D tương tác kết nối 6 thực thể thiên văn sinh viên ĐH Giao thông Vận tải TP.HCM.">
+  <meta property="og:type" content="website">
+
+  <!-- Phông chữ Google Fonts (Outfit, Plus Jakarta Sans, JetBrains Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+
+  <!-- Importmap cho trình duyệt trực tiếp (GitHub Pages Standalone Support) -->
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" crossorigin src="./assets/main-q17QZghu.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="stylesheet" crossorigin href="./assets/main-Dt56blmu.css">
+</head>
+<body class="spatial-viewport-body">
+
+  <!-- VẠCH QUÉT RADAR KHÔNG GIAN (RADAR SCANLINE) -->
+  <div class="radar-scanline-layer" aria-hidden="true"></div>
+
+  <!-- CANVAS 3D WEBGL TOÀN MÀN HÌNH -->
+  <canvas id="webglCanvas" class="spatial-webgl-canvas"></canvas>
+
+  <!-- LỚP NHÃN THIÊN VĂN AR ĐƯỢC CHIẾU TỪ TỌA ĐỘ 3D LÊN MÀN HÌNH (PROJECTED LABELS) -->
+  <div id="spatialLabels" class="spatial-labels-layer" aria-hidden="true"></div>
+
+  <!-- GIAO DIỆN ĐIỀU KHIỂN KHÔNG GIAN (SPATIAL HUD OVERLAY) -->
+  <div class="spatial-hud-overlay" id="hudOverlay">
+
+    <!-- THANH HUD TRÊN CÙNG (TOP TELEMETRY BAR) -->
+    <header class="hud-top-bar spatial-hud-element">
+      <div class="hud-brand">
+        <span class="hud-brand-symbol">✦</span>
+        <div class="hud-brand-text">
+          <span class="hud-brand-title font-heading">TECHGROUP.06</span>
+          <span class="hud-brand-sub font-mono">SPATIAL UNIVERSE // UTH</span>
+        </div>
+      </div>
+
+      <!-- Trạng thái định vị mục tiêu hiện tại -->
+      <div class="hud-telemetry-cluster">
+        <div class="hud-telemetry-pill font-mono" id="currentFocusReadout">
+          SECTOR: TECHGROUP 06 // ORBIT PANORAMA
+        </div>
+        <div class="hud-guide-pill font-mono">
+          ✦ KÉO CHUỘT: XOAY 360° · CUỘN: ZOOM · CLICK: TIẾP CẬN HÀNH TINH
+        </div>
+      </div>
+
+      <!-- GEMINI 4 ARGON REMAKE: DUAL-PERSPECTIVE KINEMATIC SWITCH -->
+      <div class="hud-perspective-switch font-mono" id="hudPerspectiveSwitch">
+        <button type="button" class="btn-perspective active" id="btnModeOrbit" title="Góc nhìn quỹ đạo 360° tự do bao quát hệ sao">
+          <span class="perspective-dot orbit-dot"></span> [1] 360° ORBIT
+        </button>
+        <button type="button" class="btn-perspective" id="btnModeWarp" title="Chế độ du hành siêu tốc Hyper-Warp xuyên vũ trụ">
+          <span class="perspective-dot warp-dot"></span> [2] HYPER-WARP
+        </button>
+      </div>
+
+      <!-- Điều hướng góc phải -->
+      <div class="hud-top-actions">
+        <!-- NÚT BẬT / TẮT ÂM THANH KHÔNG GIAN (SPATIAL AUDIO TOGGLE) -->
+        <button type="button" class="hud-action-btn hud-audio-btn font-mono" id="btnAudioToggle" title="Bật / tắt âm thanh vũ trụ (Web Audio API)">
+          <span class="audio-bars-icon" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
+          </span>
+          <span id="audioStatusText">AUDIO: ON</span>
+        </button>
+        <button type="button" class="hud-action-btn font-mono" id="btnResetOrbit" title="Trở về góc nhìn toàn cảnh hệ sao">
+          QUỸ ĐẠO TOÀN CẢNH [ESC]
+        </button>
+        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="hud-action-btn font-mono" target="_blank" rel="noopener noreferrer">
+          GitHub ↗
+        </a>
+      </div>
+    </header>
+
+    <!-- TRẠM QUAN SÁT THIÊN THỂ CHI TIẾT (AR SPATIAL DETAIL DRAWER) -->
+    <aside class="spatial-detail-panel spatial-hud-element" id="spatialDetailPanel" role="region" aria-labelledby="panelMemberName" aria-live="polite" hidden>
+      <div class="panel-inner">
+        
+        <div class="panel-header-row">
+          <span class="panel-seq font-mono" id="panelMemberSeq">CELESTIAL BODY // 01</span>
+          <button type="button" class="panel-close-cross font-mono" id="panelCloseBtn" aria-label="Trở về quỹ đạo toàn cảnh (Esc)">
+            &times;
+          </button>
+        </div>
+
+        <div class="panel-identity-block">
+          <div class="panel-avatar-wrap">
+            <img src="" alt="" class="panel-avatar-img" id="panelAvatarImg" hidden>
+            <div class="panel-monogram font-heading" id="panelMonogram">✦</div>
+          </div>
+          <div class="panel-name-col">
+            <h2 class="panel-name font-heading" id="panelMemberName">--</h2>
+            <p class="panel-role font-mono" id="panelMemberRole">--</p>
+          </div>
+        </div>
+
+        <p class="panel-headline font-body" id="panelMemberHeadline">--</p>
+
+        <!-- THÔNG SỐ VẬT LÝ THIÊN VĂN (LIVE CELESTIAL TELEMETRY — INSPIRED BY TYCHO & SOLAR-WANDERER) -->
+        <div class="panel-telemetry-grid font-mono" id="panelTelemetryGrid">
+          <div class="telemetry-cell">
+            <span class="telemetry-label">SEMI-MAJOR (a)</span>
+            <span class="telemetry-val" id="telemetryA">-- AU</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">ORBIT VELOCITY (v)</span>
+            <span class="telemetry-val" id="telemetryV">-- km/s</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">PERIOD (T)</span>
+            <span class="telemetry-val" id="telemetryT">-- Days</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">ECCENTRICITY (e)</span>
+            <span class="telemetry-val" id="telemetryE">--</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">SATELLITES</span>
+            <span class="telemetry-val" id="telemetryMoons">--</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">INCLINATION (i)</span>
+            <span class="telemetry-val" id="telemetryInc">--°</span>
+          </div>
+        </div>
+
+        <!-- Kỹ năng chuyên môn -->
+        <div class="panel-skills-group" id="panelSkillsBlock">
+          <h3 class="panel-skills-title font-mono">NĂNG LỰC KỸ THUẬT ĐÃ XÁC MINH</h3>
+          <div class="panel-tags-box" id="panelTagsList"></div>
+        </div>
+
+        <!-- Các nút liên kết -->
+        <div class="panel-actions-group">
+          <a href="#" class="btn-portal-primary font-body" id="panelPortfolioLink">
+            TIẾN VÀO HỆ QUY CHIẾU 3D ↗
+          </a>
+          <a href="#" class="btn-portal-secondary font-body" id="panelGithubLink" target="_blank" rel="noopener noreferrer" hidden>
+            Trang GitHub Cá Nhân ↗
+          </a>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- THANH HUD DƯỚI CÙNG: THANH ĐIỀU HƯỚNG QUỸ ĐẠO & TÌM KIẾM TỌA ĐỘ -->
+    <footer class="hud-bottom-bar spatial-hud-element">
+      
+      <!-- Cụm tìm kiếm tọa độ nhanh -->
+      <div class="hud-search-cluster">
+        <label for="spatialSearchInput" class="visually-hidden">Tìm kiếm tọa độ thành viên</label>
+        <div class="hud-search-input-box">
+          <span class="search-icon-symbol">⌕</span>
+          <input type="text" id="spatialSearchInput" class="hud-search-input font-mono" placeholder="Tìm kiếm thiên thể (Trường, Hiếu, Châu, Như...)" autocomplete="off">
+          <button type="button" class="hud-search-clear" id="spatialSearchClearBtn" hidden>&times;</button>
+        </div>
+        <span class="hud-search-status font-mono" id="spatialSearchStatus">✦ Khám phá 6/6 thực thể thiên văn</span>
+        <div class="hud-search-empty-box font-mono" id="spatialSearchEmpty" hidden>
+          Không tìm thấy tọa độ thiên thể.
+        </div>
+      </div>
+
+      <!-- 6 Nút Chuyển Nhanh Quỹ Đạo Thiên Thể (Orbit Navigation Pills) -->
+      <div class="hud-orbit-pills-row" id="spatialNavPills">
+        <!-- Render 6 nút thiên thể từ JS -->
+      </div>
+
+    </footer>
+
+  </div>
+
+  <!-- Tệp logic WebGL 3D (ES6 Module) -->
+</body>
+</html>
