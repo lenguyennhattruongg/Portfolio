@@ -11,6 +11,12 @@ import hiunxstarErdSvg from './images/hiunxstar-erd.svg';
 import vetArchSvg from './images/veterinary-architecture.svg';
 import vetErdSvg from './images/veterinary-erd.svg';
 
+// HIUNXSTAR UI Showcase Screenshots
+import hiunxHeroJpg from './images/hiunxstar-hero.jpg';
+import hiunxSeatsJpg from './images/hiunxstar-seats.jpg';
+import hiunxCheckoutJpg from './images/hiunxstar-checkout.jpg';
+import hiunxAdminJpg from './images/hiunxstar-admin.jpg';
+
 // ------------------------------------------------------------------------------
 // 1. BILINGUAL DICTIONARY (VI / EN)
 // ------------------------------------------------------------------------------
@@ -413,6 +419,8 @@ const skillTooltips = {
 };
 
 let currentLang = 'vi';
+let updateActiveSkillTooltipFn = null;
+let renderActiveCliWelcomeFn = null;
 
 /**
  * Synchronize active form validation errors when switching language
@@ -475,8 +483,8 @@ export function setLanguage(lang) {
   // 3. Update text content for elements with data-i18n
   const translatableElements = document.querySelectorAll('[data-i18n]');
   translatableElements.forEach((el) => {
-    // If element is typewriter target and Typed is active, let Typed handle it
-    if (el.id === 'hero-typewriter' && typedInstance) {
+    // If element is typewriter target, let the typewriter engine manage its text
+    if (el.id === 'hero-typewriter') {
       return;
     }
     const key = el.getAttribute('data-i18n');
@@ -555,8 +563,8 @@ export function setLanguage(lang) {
     groupBackBtn.setAttribute('title', lang === 'vi' ? 'Quay lại trang chủ nhóm' : 'Back to group home portal');
   }
 
-  // 7. Update Typed.js with new language strings
-  initTyped(lang);
+  // 7. Update Typewriter with new language strings
+  initTypewriter(lang);
 
   // 8. Update active modal content if open (preserves active tab)
   const modal = document.getElementById('project-modal');
@@ -576,7 +584,7 @@ export function setLanguage(lang) {
       badge.setAttribute('aria-label', `${badgeName}: ${desc}`);
     }
   });
-  window.updateActiveSkillTooltip?.();
+  updateActiveSkillTooltipFn?.();
 
   const devToggleBtn = document.getElementById('dev-terminal-toggle');
   if (devToggleBtn) {
@@ -585,13 +593,13 @@ export function setLanguage(lang) {
   }
 
   // 11. Update active CLI terminal banner if open
-  window.renderActiveCliWelcome?.();
+  renderActiveCliWelcomeFn?.();
 
   // 12. Persist user selection
   try {
     localStorage.setItem('portfolio_user_lang', lang);
-  } catch (err) {
-    console.warn('LocalStorage unavailable for language persistence:', err);
+  } catch {
+    /* Silent catch for storage quota or restricted environments */
   }
 }
 
@@ -748,9 +756,9 @@ function initNumberCounters() {
 }
 
 // ------------------------------------------------------------------------------
-// 7. TYPED.JS TAGLINE MICRO-INTERACTION
+// 7. TYPEWRITER TAGLINE MICRO-INTERACTION (Vanilla Zero-Dependency Engine)
 // ------------------------------------------------------------------------------
-let typedInstance = null;
+let typewriterTimer = null;
 
 const taglinePhrases = {
   vi: [
@@ -765,42 +773,56 @@ const taglinePhrases = {
   ]
 };
 
-async function initTyped(lang = 'vi') {
+function initTypewriter(lang = 'vi') {
   const typewriterEl = document.getElementById('hero-typewriter');
   if (!typewriterEl) return;
 
+  if (typewriterTimer) {
+    clearTimeout(typewriterTimer);
+    typewriterTimer = null;
+  }
+
+  const phrases = taglinePhrases[lang] || taglinePhrases.vi;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   if (prefersReducedMotion) {
-    if (typedInstance) {
-      typedInstance.destroy();
-      typedInstance = null;
-    }
-    typewriterEl.textContent = taglinePhrases[lang][0];
+    typewriterEl.textContent = phrases[0];
     return;
   }
 
-  if (typedInstance) {
-    typedInstance.destroy();
-    typedInstance = null;
+  let phraseIdx = 0;
+  let charIdx = 0;
+  let isDeleting = false;
+
+  function typeStep() {
+    const currentPhrase = phrases[phraseIdx];
+
+    if (!isDeleting) {
+      charIdx++;
+      typewriterEl.textContent = currentPhrase.slice(0, charIdx);
+
+      if (charIdx === currentPhrase.length) {
+        isDeleting = true;
+        typewriterTimer = setTimeout(typeStep, 2400);
+        return;
+      }
+      typewriterTimer = setTimeout(typeStep, 32);
+    } else {
+      charIdx--;
+      typewriterEl.textContent = currentPhrase.slice(0, charIdx);
+
+      if (charIdx === 0) {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        typewriterTimer = setTimeout(typeStep, 350);
+        return;
+      }
+      typewriterTimer = setTimeout(typeStep, 16);
+    }
   }
 
-  try {
-    const { default: Typed } = await import('https://esm.sh/typed.js@2.1.0');
-    typewriterEl.textContent = '';
-    typedInstance = new Typed('#hero-typewriter', {
-      strings: taglinePhrases[lang],
-      typeSpeed: 30,
-      backSpeed: 16,
-      backDelay: 2400,
-      startDelay: 350,
-      loop: true,
-      showCursor: true,
-      cursorChar: '|'
-    });
-  } catch (err) {
-    console.warn('Typed.js ESM load failed, falling back to static tagline:', err);
-    typewriterEl.textContent = taglinePhrases[lang][0];
-  }
+  typewriterEl.textContent = '';
+  typewriterTimer = setTimeout(typeStep, 350);
 }
 
 // ------------------------------------------------------------------------------
@@ -843,6 +865,76 @@ const projectModalData = {
               <li><strong>Realtime Seat Locking:</strong> Cập nhật trạng thái ghế theo thời gian thực giúp khách hàng nắm bắt tình trạng rạp tức thì.</li>
             </ul>
           </div>
+
+          <!-- HIUNXSTAR UI Showcase Gallery -->
+          <div class="modal-gallery-block">
+            <h4 class="modal-gallery-title">
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+              <span>Bộ sưu tập Giao diện thực tế (UI / UX Showcase)</span>
+            </h4>
+            <p class="modal-gallery-subtitle">4 màn hình chức năng cốt lõi trích xuất trực tiếp từ hệ thống HIUNXSTAR (Nhấp vào ảnh để phóng to chi tiết):</p>
+            <div class="modal-gallery-grid">
+              <!-- Gallery Item 1: Hero Banner -->
+              <div class="gallery-card" role="button" tabindex="0" data-diagram-src="${hiunxHeroJpg}" data-diagram-fallback="${hiunxHeroJpg}" data-diagram-title="[UI SHOWCASE] HIUNXSTAR — Giao diện Trang chủ &amp; Hero Banner" aria-label="Phóng to ảnh Giao diện Trang chủ và Hero Banner">
+                <div class="gallery-thumb-wrapper">
+                  <img src="${hiunxHeroJpg}" alt="Giao diện Trang chủ và Hero Banner hệ thống rạp phim HIUNXSTAR" class="gallery-thumb-img" loading="lazy" width="600" height="375">
+                  <span class="gallery-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    <span>Phóng to</span>
+                  </span>
+                </div>
+                <div class="gallery-caption">
+                  <strong class="gallery-caption-title">01. Trang chủ &amp; Banner rạp phim</strong>
+                  <span class="gallery-caption-desc">Hiển thị danh mục phim chiếu rạp, poster trailer nổi bật và thanh chọn suất chiếu nhanh.</span>
+                </div>
+              </div>
+
+              <!-- Gallery Item 2: Seat Map -->
+              <div class="gallery-card" role="button" tabindex="0" data-diagram-src="${hiunxSeatsJpg}" data-diagram-fallback="${hiunxSeatsJpg}" data-diagram-title="[UI SHOWCASE] HIUNXSTAR — Sơ đồ chọn ghế Realtime" aria-label="Phóng to ảnh Sơ đồ chọn ghế thời gian thực">
+                <div class="gallery-thumb-wrapper">
+                  <img src="${hiunxSeatsJpg}" alt="Giao diện sơ đồ bố trí ghế và chọn chỗ ngồi thời gian thực dự án HIUNXSTAR" class="gallery-thumb-img" loading="lazy" width="600" height="375">
+                  <span class="gallery-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    <span>Phóng to</span>
+                  </span>
+                </div>
+                <div class="gallery-caption">
+                  <strong class="gallery-caption-title">02. Sơ đồ chọn ghế thời gian thực</strong>
+                  <span class="gallery-caption-desc">Phân loại hàng ghế Thường, VIP, Sweetbox; kiểm soát tranh chấp đồng thời và khóa ghế realtime.</span>
+                </div>
+              </div>
+
+              <!-- Gallery Item 3: Checkout -->
+              <div class="gallery-card" role="button" tabindex="0" data-diagram-src="${hiunxCheckoutJpg}" data-diagram-fallback="${hiunxCheckoutJpg}" data-diagram-title="[UI SHOWCASE] HIUNXSTAR — Xác nhận Đặt vé &amp; Thanh toán" aria-label="Phóng to ảnh Xác nhận đặt vé và thanh toán">
+                <div class="gallery-thumb-wrapper">
+                  <img src="${hiunxCheckoutJpg}" alt="Giao diện xác nhận đơn hàng và quy trình thanh toán vé phim HIUNXSTAR" class="gallery-thumb-img" loading="lazy" width="600" height="375">
+                  <span class="gallery-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    <span>Phóng to</span>
+                  </span>
+                </div>
+                <div class="gallery-caption">
+                  <strong class="gallery-caption-title">03. Xác nhận đặt vé &amp; Thanh toán</strong>
+                  <span class="gallery-caption-desc">Hóa đơn chi tiết vé + combo bắp nước; đảm bảo giao dịch ACID và xuất vé điện tử an toàn.</span>
+                </div>
+              </div>
+
+              <!-- Gallery Item 4: Admin Dashboard -->
+              <div class="gallery-card" role="button" tabindex="0" data-diagram-src="${hiunxAdminJpg}" data-diagram-fallback="${hiunxAdminJpg}" data-diagram-title="[UI SHOWCASE] HIUNXSTAR — Bảng điều khiển Quản trị (Admin Dashboard)" aria-label="Phóng to ảnh Bảng điều khiển quản trị">
+                <div class="gallery-thumb-wrapper">
+                  <img src="${hiunxAdminJpg}" alt="Bảng điều khiển Admin Dashboard quản lý suất chiếu và doanh thu hệ thống HIUNXSTAR" class="gallery-thumb-img" loading="lazy" width="600" height="375">
+                  <span class="gallery-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    <span>Phóng to</span>
+                  </span>
+                </div>
+                <div class="gallery-caption">
+                  <strong class="gallery-caption-title">04. Bảng điều khiển Admin Dashboard</strong>
+                  <span class="gallery-caption-desc">Theo dõi doanh thu phòng vé, xếp lịch chiếu theo cụm rạp và phân quyền tài khoản RBAC.</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       `,
       architectureHtml: `
@@ -852,15 +944,15 @@ const projectModalData = {
               <span class="diagram-badge">System Architecture</span>
               <h4 class="diagram-title">Kiến trúc 3-Tier / MVC (Presentation Layer • PHP Business Logic • MS SQL Server)</h4>
             </div>
-            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/hiunxstar-architecture.png" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Xem sơ đồ Kiến trúc 3-Tier ở kích thước gốc">
-              <img src="./images/hiunxstar-architecture.png" onerror="this.onerror=null; this.src='${hiunxstarArchSvg}';" alt="Sơ đồ Kiến trúc 3-Tier MVC Hệ thống HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="${hiunxstarArchSvg}" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Xem sơ đồ Kiến trúc 3-Tier ở kích thước gốc">
+              <img src="${hiunxstarArchSvg}" onerror="this.onerror=null; this.src='${hiunxstarArchSvg}';" alt="Sơ đồ Kiến trúc 3-Tier MVC Hệ thống HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
               <div class="diagram-overlay">
                 <span class="diagram-zoom-btn" aria-hidden="true">🔍 Phóng to sơ đồ</span>
               </div>
             </div>
             <div class="diagram-footer-actions">
               <p class="diagram-caption">Sơ đồ tương tác luồng dữ liệu 3 tầng từ Presentation Layer đến Data Access Layer</p>
-              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/hiunxstar-architecture.png" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="${hiunxstarArchSvg}" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                 <span>Phóng to chi tiết (Fullsize)</span>
               </button>
@@ -883,15 +975,15 @@ const projectModalData = {
               <span class="diagram-badge">Entity Relationship Diagram</span>
               <h4 class="diagram-title">Mô hình Thực thể CSDL Chuẩn 3NF (Tables, Stored Procedures &amp; Views)</h4>
             </div>
-            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/hiunxstar-erd.png" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Xem sơ đồ ERD chuẩn 3NF ở kích thước gốc">
-              <img src="./images/hiunxstar-erd.png" onerror="this.onerror=null; this.src='${hiunxstarErdSvg}';" alt="Sơ đồ ERD 3NF Hệ thống HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="${hiunxstarErdSvg}" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Xem sơ đồ ERD chuẩn 3NF ở kích thước gốc">
+              <img src="${hiunxstarErdSvg}" onerror="this.onerror=null; this.src='${hiunxstarErdSvg}';" alt="Sơ đồ ERD 3NF Hệ thống HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
               <div class="diagram-overlay">
                 <span class="diagram-zoom-btn" aria-hidden="true">🔍 Phóng to sơ đồ</span>
               </div>
             </div>
             <div class="diagram-footer-actions">
               <p class="diagram-caption">Sơ đồ quan hệ thực thể giữa Người dùng, Phim, Suất chiếu, Ghế ngồi và Đơn đặt vé</p>
-              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/hiunxstar-erd.png" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="${hiunxstarErdSvg}" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                 <span>Phóng to chi tiết (Fullsize)</span>
               </button>
@@ -960,6 +1052,76 @@ const projectModalData = {
               <li><strong>Realtime Seat Locking:</strong> Live seat reservation updates reflecting real-time auditorium capacity.</li>
             </ul>
           </div>
+
+          <!-- HIUNXSTAR UI Showcase Gallery -->
+          <div class="modal-gallery-block">
+            <h4 class="modal-gallery-title">
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+              <span>Application Screenshots (UI / UX Showcase)</span>
+            </h4>
+            <p class="modal-gallery-subtitle">4 core functional screens extracted directly from the running HIUNXSTAR platform (Click to open fullsize preview):</p>
+            <div class="modal-gallery-grid">
+              <!-- Gallery Item 1: Hero Banner -->
+              <div class="gallery-card" role="button" tabindex="0" data-diagram-src="${hiunxHeroJpg}" data-diagram-fallback="${hiunxHeroJpg}" data-diagram-title="[UI SHOWCASE] HIUNXSTAR — Hero Banner &amp; Landing Page" aria-label="Zoom Hero Banner and Landing Page screenshot">
+                <div class="gallery-thumb-wrapper">
+                  <img src="${hiunxHeroJpg}" alt="HIUNXSTAR Cinema Hero Banner and Landing Page Interface" class="gallery-thumb-img" loading="lazy" width="600" height="375">
+                  <span class="gallery-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    <span>Zoom</span>
+                  </span>
+                </div>
+                <div class="gallery-caption">
+                  <strong class="gallery-caption-title">01. Cinema Landing Page &amp; Hero Banner</strong>
+                  <span class="gallery-caption-desc">Curated movie catalog carousel, highlight trailers, and rapid ticket booking bar.</span>
+                </div>
+              </div>
+
+              <!-- Gallery Item 2: Seat Map -->
+              <div class="gallery-card" role="button" tabindex="0" data-diagram-src="${hiunxSeatsJpg}" data-diagram-fallback="${hiunxSeatsJpg}" data-diagram-title="[UI SHOWCASE] HIUNXSTAR — Realtime Seat Selection Map" aria-label="Zoom Realtime Seat Selection Map screenshot">
+                <div class="gallery-thumb-wrapper">
+                  <img src="${hiunxSeatsJpg}" alt="HIUNXSTAR Realtime Auditorium Seat Map Layout Interface" class="gallery-thumb-img" loading="lazy" width="600" height="375">
+                  <span class="gallery-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    <span>Zoom</span>
+                  </span>
+                </div>
+                <div class="gallery-caption">
+                  <strong class="gallery-caption-title">02. Realtime Seat Selection Map</strong>
+                  <span class="gallery-caption-desc">Standard, VIP, and Sweetbox seat tiers; real-time lock status and concurrency resolution.</span>
+                </div>
+              </div>
+
+              <!-- Gallery Item 3: Checkout -->
+              <div class="gallery-card" role="button" tabindex="0" data-diagram-src="${hiunxCheckoutJpg}" data-diagram-fallback="${hiunxCheckoutJpg}" data-diagram-title="[UI SHOWCASE] HIUNXSTAR — Booking Confirmation &amp; ACID Checkout" aria-label="Zoom Booking Confirmation and Checkout screenshot">
+                <div class="gallery-thumb-wrapper">
+                  <img src="${hiunxCheckoutJpg}" alt="HIUNXSTAR Order Checkout Confirmation and Electronic Ticket Interface" class="gallery-thumb-img" loading="lazy" width="600" height="375">
+                  <span class="gallery-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    <span>Zoom</span>
+                  </span>
+                </div>
+                <div class="gallery-caption">
+                  <strong class="gallery-caption-title">03. Booking Confirmation &amp; Checkout</strong>
+                  <span class="gallery-caption-desc">Granular ticket breakdown + snack combos; ACID transaction guarantees and digital tickets.</span>
+                </div>
+              </div>
+
+              <!-- Gallery Item 4: Admin Dashboard -->
+              <div class="gallery-card" role="button" tabindex="0" data-diagram-src="${hiunxAdminJpg}" data-diagram-fallback="${hiunxAdminJpg}" data-diagram-title="[UI SHOWCASE] HIUNXSTAR — Administrator Dashboard" aria-label="Zoom Administrator Dashboard screenshot">
+                <div class="gallery-thumb-wrapper">
+                  <img src="${hiunxAdminJpg}" alt="HIUNXSTAR Administrator Dashboard for Revenue and Showtime Operations" class="gallery-thumb-img" loading="lazy" width="600" height="375">
+                  <span class="gallery-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    <span>Zoom</span>
+                  </span>
+                </div>
+                <div class="gallery-caption">
+                  <strong class="gallery-caption-title">04. Administrator Dashboard</strong>
+                  <span class="gallery-caption-desc">Real-time box office analytics, multi-hall screening scheduler, and RBAC user access control.</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       `,
       architectureHtml: `
@@ -969,15 +1131,15 @@ const projectModalData = {
               <span class="diagram-badge">System Architecture</span>
               <h4 class="diagram-title">3-Tier MVC Architecture (Client • PHP • MS SQL Server)</h4>
             </div>
-            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/hiunxstar-architecture.png" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Open 3-Tier Architecture Diagram in Fullsize Lightbox">
-              <img src="./images/hiunxstar-architecture.png" onerror="this.onerror=null; this.src='${hiunxstarArchSvg}';" alt="3-Tier MVC Architecture Diagram for HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="${hiunxstarArchSvg}" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Open 3-Tier Architecture Diagram in Fullsize Lightbox">
+              <img src="${hiunxstarArchSvg}" onerror="this.onerror=null; this.src='${hiunxstarArchSvg}';" alt="3-Tier MVC Architecture Diagram for HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
               <div class="diagram-overlay">
                 <span class="diagram-zoom-btn" aria-hidden="true">🔍 View Fullsize</span>
               </div>
             </div>
             <div class="diagram-footer-actions">
               <p class="diagram-caption">3-Tier data flow from Presentation Layer to Data Access Layer</p>
-              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/hiunxstar-architecture.png" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="${hiunxstarArchSvg}" data-diagram-fallback="${hiunxstarArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                 <span>View Fullsize Diagram</span>
               </button>
@@ -1000,15 +1162,15 @@ const projectModalData = {
               <span class="diagram-badge">Entity Relationship Diagram</span>
               <h4 class="diagram-title">Relational Entity Schema (3NF ERD &amp; Stored Procedures)</h4>
             </div>
-            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/hiunxstar-erd.png" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Open 3NF ERD Diagram in Fullsize Lightbox">
-              <img src="./images/hiunxstar-erd.png" onerror="this.onerror=null; this.src='${hiunxstarErdSvg}';" alt="3NF ERD Relational Diagram for HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="${hiunxstarErdSvg}" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Open 3NF ERD Diagram in Fullsize Lightbox">
+              <img src="${hiunxstarErdSvg}" onerror="this.onerror=null; this.src='${hiunxstarErdSvg}';" alt="3NF ERD Relational Diagram for HIUNXSTAR" class="diagram-preview-img" loading="lazy" width="1200" height="700">
               <div class="diagram-overlay">
                 <span class="diagram-zoom-btn" aria-hidden="true">🔍 View Fullsize</span>
               </div>
             </div>
             <div class="diagram-footer-actions">
               <p class="diagram-caption">Entity relationships among Users, Movies, Showtimes, Seats, and Ticket Orders</p>
-              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/hiunxstar-erd.png" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="${hiunxstarErdSvg}" data-diagram-fallback="${hiunxstarErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                 <span>View Fullsize Diagram</span>
               </button>
@@ -1088,15 +1250,15 @@ const projectModalData = {
               <span class="diagram-badge">Architecture Diagram</span>
               <h4 class="diagram-title">Kiến trúc Container hóa Docker Compose (Nginx • Django • MySQL • Redis • Celery)</h4>
             </div>
-            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/veterinary-architecture.png" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Xem sơ đồ Kiến trúc 3-Tier ở kích thước gốc">
-              <img src="./images/veterinary-architecture.png" onerror="this.onerror=null; this.src='${vetArchSvg}';" alt="Sơ đồ Kiến trúc Docker Compose Trung tâm Thú y" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="${vetArchSvg}" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Xem sơ đồ Kiến trúc 3-Tier ở kích thước gốc">
+              <img src="${vetArchSvg}" onerror="this.onerror=null; this.src='${vetArchSvg}';" alt="Sơ đồ Kiến trúc Docker Compose Trung tâm Thú y" class="diagram-preview-img" loading="lazy" width="1200" height="700">
               <div class="diagram-overlay">
                 <span class="diagram-zoom-btn" aria-hidden="true">🔍 Phóng to sơ đồ</span>
               </div>
             </div>
             <div class="diagram-footer-actions">
               <p class="diagram-caption">Sơ đồ dịch vụ microservices độc lập được đóng gói trong Docker Network</p>
-              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/veterinary-architecture.png" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="${vetArchSvg}" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                 <span>Phóng to chi tiết (Fullsize)</span>
               </button>
@@ -1120,15 +1282,15 @@ const projectModalData = {
               <span class="diagram-badge">Entity Relationship Diagram</span>
               <h4 class="diagram-title">Mô hình Thực thể Quản lý Trung tâm Thú y &amp; Hồ sơ Bệnh án</h4>
             </div>
-            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/veterinary-erd.png" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Xem sơ đồ ERD Trung tâm Thú y ở kích thước gốc">
-              <img src="./images/veterinary-erd.png" onerror="this.onerror=null; this.src='${vetErdSvg}';" alt="Sơ đồ ERD Trung tâm Thú y và Bệnh án điện tử" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="${vetErdSvg}" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Xem sơ đồ ERD Trung tâm Thú y ở kích thước gốc">
+              <img src="${vetErdSvg}" onerror="this.onerror=null; this.src='${vetErdSvg}';" alt="Sơ đồ ERD Trung tâm Thú y và Bệnh án điện tử" class="diagram-preview-img" loading="lazy" width="1200" height="700">
               <div class="diagram-overlay">
                 <span class="diagram-zoom-btn" aria-hidden="true">🔍 Phóng to sơ đồ</span>
               </div>
             </div>
             <div class="diagram-footer-actions">
               <p class="diagram-caption">Sơ đồ liên kết giữa Chủ nuôi, Thú cưng, Lịch hẹn khám và Hồ sơ bệnh án</p>
-              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/veterinary-erd.png" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="${vetErdSvg}" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                 <span>Phóng to chi tiết (Fullsize)</span>
               </button>
@@ -1207,15 +1369,15 @@ const projectModalData = {
               <span class="diagram-badge">Architecture Diagram</span>
               <h4 class="diagram-title">Docker Compose Containerized Architecture (Nginx • Django • MySQL • Redis • Celery)</h4>
             </div>
-            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/veterinary-architecture.png" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Open Docker Compose Architecture Diagram in Fullsize Lightbox">
-              <img src="./images/veterinary-architecture.png" onerror="this.onerror=null; this.src='${vetArchSvg}';" alt="Docker Compose Architecture Diagram for Veterinary Center" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="${vetArchSvg}" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC" aria-label="Open Docker Compose Architecture Diagram in Fullsize Lightbox">
+              <img src="${vetArchSvg}" onerror="this.onerror=null; this.src='${vetArchSvg}';" alt="Docker Compose Architecture Diagram for Veterinary Center" class="diagram-preview-img" loading="lazy" width="1200" height="700">
               <div class="diagram-overlay">
                 <span class="diagram-zoom-btn" aria-hidden="true">🔍 View Fullsize</span>
               </div>
             </div>
             <div class="diagram-footer-actions">
               <p class="diagram-caption">Decoupled microservice architecture orchestrating isolated containers on custom Docker bridge network</p>
-              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/veterinary-architecture.png" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="${vetArchSvg}" data-diagram-fallback="${vetArchSvg}" data-diagram-title="[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                 <span>View Fullsize Diagram</span>
               </button>
@@ -1239,15 +1401,15 @@ const projectModalData = {
               <span class="diagram-badge">Entity Relationship Diagram</span>
               <h4 class="diagram-title">Veterinary Clinical EHR &amp; Relational Schema (3NF ERD)</h4>
             </div>
-            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="./images/veterinary-erd.png" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Open Veterinary Clinical EHR Schema Diagram in Fullsize Lightbox">
-              <img src="./images/veterinary-erd.png" onerror="this.onerror=null; this.src='${vetErdSvg}';" alt="Veterinary Clinical EHR Schema Diagram" class="diagram-preview-img" loading="lazy" width="1200" height="700">
+            <div class="diagram-image-wrapper" role="button" tabindex="0" data-diagram-src="${vetErdSvg}" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD" aria-label="Open Veterinary Clinical EHR Schema Diagram in Fullsize Lightbox">
+              <img src="${vetErdSvg}" onerror="this.onerror=null; this.src='${vetErdSvg}';" alt="Veterinary Clinical EHR Schema Diagram" class="diagram-preview-img" loading="lazy" width="1200" height="700">
               <div class="diagram-overlay">
                 <span class="diagram-zoom-btn" aria-hidden="true">🔍 View Fullsize</span>
               </div>
             </div>
             <div class="diagram-footer-actions">
               <p class="diagram-caption">Entity relationships linking Pet Owners, Pets, Appointments, Clinical Records, and Prescriptions</p>
-              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="./images/veterinary-erd.png" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
+              <button type="button" class="btn-text-zoom open-diagram-lightbox-btn" data-diagram-src="${vetErdSvg}" data-diagram-fallback="${vetErdSvg}" data-diagram-title="[DATABASE SCHEMA] 3NF Relational ERD">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                 <span>View Fullsize Diagram</span>
               </button>
@@ -1357,14 +1519,16 @@ function initDiagramLightbox() {
   }
 
   // Open Lightbox with specified diagram info
-  window.openDiagramLightbox = function (src, fallback, title, triggerEl) {
+  function openDiagramLightbox(src, fallback, title, triggerEl) {
     lastFocusedDiagramTrigger = triggerEl || document.activeElement;
 
     // Standardize title labels to technical standards
     let normalizedTitle = title;
     const lowerSrc = (src || '').toLowerCase();
     const lowerTitle = (title || '').toLowerCase();
-    if (lowerSrc.includes('architecture') || lowerTitle.includes('architecture') || lowerTitle.includes('kiến trúc')) {
+    if (lowerTitle.includes('ui showcase') || lowerTitle.includes('giao diện') || lowerTitle.includes('screenshot') || lowerTitle.includes('banner') || lowerTitle.includes('dashboard') || lowerTitle.includes('checkout') || lowerTitle.includes('seat')) {
+      normalizedTitle = title;
+    } else if (lowerSrc.includes('architecture') || lowerTitle.includes('architecture') || lowerTitle.includes('kiến trúc')) {
       normalizedTitle = '[SYSTEM ARCHITECTURE] 3-Tier Enterprise MVC';
     } else if (lowerSrc.includes('erd') || lowerTitle.includes('erd') || lowerTitle.includes('schema') || lowerTitle.includes('thực thể')) {
       normalizedTitle = '[DATABASE SCHEMA] 3NF Relational ERD';
@@ -1385,9 +1549,9 @@ function initDiagramLightbox() {
     lightbox.showModal();
     diagramLightboxActive = true;
     closeBtn?.focus();
-  };
+  }
 
-  window.closeDiagramLightbox = function () {
+  function closeDiagramLightbox() {
     if (lightbox.open) {
       lightbox.close();
       diagramLightboxActive = false;
@@ -1396,7 +1560,7 @@ function initDiagramLightbox() {
         lastFocusedDiagramTrigger.focus();
       }
     }
-  };
+  }
 
   // Zoom controls
   zoomInBtn?.addEventListener('click', () => setZoom(currentDiagramZoom + zoomStep));
@@ -1404,21 +1568,21 @@ function initDiagramLightbox() {
   zoomResetBtn?.addEventListener('click', resetZoom);
 
   // Close buttons
-  closeBtn?.addEventListener('click', window.closeDiagramLightbox);
-  dismissBtn?.addEventListener('click', window.closeDiagramLightbox);
+  closeBtn?.addEventListener('click', closeDiagramLightbox);
+  dismissBtn?.addEventListener('click', closeDiagramLightbox);
 
   // Backdrop click to close
   lightbox.addEventListener('click', (e) => {
     const dialogCard = lightbox.querySelector('.lightbox-dialog-card');
     if (dialogCard && !dialogCard.contains(e.target)) {
-      window.closeDiagramLightbox();
+      closeDiagramLightbox();
     }
   });
 
   // Esc key & Focus Trap inside lightbox
   lightbox.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      window.closeDiagramLightbox();
+      closeDiagramLightbox();
       return;
     }
 
@@ -1449,38 +1613,38 @@ function initDiagramLightbox() {
     }
   }, { passive: false });
 
-  // Event delegation on document / modal container for diagram clicks
+  // Event delegation on document / modal container for diagram & gallery clicks
   document.addEventListener('click', (e) => {
-    const trigger = e.target.closest('.diagram-image-wrapper, .open-diagram-lightbox-btn, .diagram-zoom-btn');
+    const trigger = e.target.closest('.diagram-image-wrapper, .open-diagram-lightbox-btn, .diagram-zoom-btn, .gallery-card, .gallery-thumb-wrapper, .gallery-zoom-badge');
     if (!trigger) return;
 
     e.preventDefault();
     e.stopPropagation();
 
-    const parent = trigger.closest('.diagram-viewer-card') || trigger;
-    const wrapper = parent.querySelector('.diagram-image-wrapper') || trigger;
-    const btn = parent.querySelector('.open-diagram-lightbox-btn');
+    const parent = trigger.closest('.diagram-viewer-card, .gallery-card') || trigger;
+    const wrapper = parent.querySelector('.diagram-image-wrapper, .gallery-thumb-wrapper') || trigger;
+    const btn = parent.querySelector('.open-diagram-lightbox-btn, .gallery-zoom-badge');
 
-    const src = trigger.getAttribute('data-diagram-src') || wrapper.getAttribute('data-diagram-src') || btn?.getAttribute('data-diagram-src');
-    const fallback = trigger.getAttribute('data-diagram-fallback') || wrapper.getAttribute('data-diagram-fallback') || btn?.getAttribute('data-diagram-fallback');
-    const title = trigger.getAttribute('data-diagram-title') || wrapper.getAttribute('data-diagram-title') || btn?.getAttribute('data-diagram-title');
+    const src = trigger.getAttribute('data-diagram-src') || wrapper.getAttribute('data-diagram-src') || btn?.getAttribute('data-diagram-src') || parent.getAttribute('data-diagram-src');
+    const fallback = trigger.getAttribute('data-diagram-fallback') || wrapper.getAttribute('data-diagram-fallback') || btn?.getAttribute('data-diagram-fallback') || parent.getAttribute('data-diagram-fallback');
+    const title = trigger.getAttribute('data-diagram-title') || wrapper.getAttribute('data-diagram-title') || btn?.getAttribute('data-diagram-title') || parent.getAttribute('data-diagram-title');
 
     if (src) {
-      window.openDiagramLightbox(src, fallback, title, trigger);
+      openDiagramLightbox(src, fallback, title, trigger);
     }
   });
 
-  // Keyboard accessibility: Enter or Space on diagram wrapper opens lightbox
+  // Keyboard accessibility: Enter or Space on diagram wrapper or gallery card opens lightbox
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      const wrapper = document.activeElement?.closest?.('.diagram-image-wrapper');
+      const wrapper = document.activeElement?.closest?.('.diagram-image-wrapper, .gallery-card');
       if (wrapper && wrapper === document.activeElement) {
         e.preventDefault();
         const src = wrapper.getAttribute('data-diagram-src');
         const fallback = wrapper.getAttribute('data-diagram-fallback');
         const title = wrapper.getAttribute('data-diagram-title');
         if (src) {
-          window.openDiagramLightbox(src, fallback, title, wrapper);
+          openDiagramLightbox(src, fallback, title, wrapper);
         }
       }
     }
@@ -1548,7 +1712,7 @@ function initProjectModal() {
   });
 
   // Open Modal function with Focus Trap setup
-  window.openProjectModal = function (projectId, triggerElement) {
+  function openProjectModal(projectId, triggerElement) {
     lastFocusedTrigger = triggerElement || document.activeElement;
     renderModalData(projectId, currentLang);
 
@@ -1564,21 +1728,21 @@ function initProjectModal() {
     modal.showModal();
     // Focus first actionable element
     modalCloseBtn?.focus();
-  };
+  }
 
   // Close Modal function with Focus Restoration
-  window.closeProjectModal = function () {
+  function closeProjectModal() {
     if (modal.open) {
       modal.close();
       if (lastFocusedTrigger && typeof lastFocusedTrigger.focus === 'function') {
         lastFocusedTrigger.focus();
       }
     }
-  };
+  }
 
   // Bind close buttons
-  modalCloseBtn?.addEventListener('click', window.closeProjectModal);
-  modalDismissBtn?.addEventListener('click', window.closeProjectModal);
+  modalCloseBtn?.addEventListener('click', closeProjectModal);
+  modalDismissBtn?.addEventListener('click', closeProjectModal);
 
   // Close when clicking modal backdrop outside dialog content
   modal.addEventListener('click', (e) => {
@@ -1589,14 +1753,14 @@ function initProjectModal() {
       e.clientY < dialogDimensions.top ||
       e.clientY > dialogDimensions.bottom
     ) {
-      window.closeProjectModal();
+      closeProjectModal();
     }
   });
 
   // Focus Trap & Esc Key Listener inside Modal
   modal.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      window.closeProjectModal();
+      closeProjectModal();
       return;
     }
 
@@ -1625,7 +1789,7 @@ function initProjectModal() {
       e.stopPropagation();
       const targetId = btn.getAttribute('data-modal-target');
       if (targetId) {
-        window.openProjectModal(targetId, btn);
+        openProjectModal(targetId, btn);
       }
     });
   });
@@ -1638,7 +1802,7 @@ function initProjectModal() {
       }
       const targetId = card.getAttribute('data-project-id');
       if (targetId) {
-        window.openProjectModal(targetId, card);
+        openProjectModal(targetId, card);
       }
     });
   });
@@ -1735,8 +1899,9 @@ function initCopyEmail() {
         ? 'Đã sao chép địa chỉ email vào bộ nhớ tạm!'
         : 'Email address copied to clipboard!';
       showToast(msg);
-    } catch (err) {
-      console.warn('Clipboard write failed:', err);
+    } catch {
+      /* Fallback if clipboard permission is denied */
+      showToast(email);
     }
   });
 }
@@ -1898,22 +2063,14 @@ function initHeroAvatar() {
   const avatarFallback = document.getElementById('hero-avatar-fallback');
   if (!avatarImg || !avatarFallback) return;
 
-  const tryExtensions = ['./images/avatar.jpg', './images/avatar.webp', './images/avatar.png'];
-  let currentExtIdx = 0;
-
   function handleSuccess() {
     avatarImg.classList.add('is-loaded');
     avatarFallback.classList.add('is-hidden');
   }
 
   function handleFail() {
-    currentExtIdx++;
-    if (currentExtIdx < tryExtensions.length) {
-      avatarImg.src = tryExtensions[currentExtIdx];
-    } else {
-      avatarImg.style.display = 'none';
-      avatarFallback.classList.remove('is-hidden');
-    }
+    avatarImg.style.display = 'none';
+    avatarFallback.classList.remove('is-hidden');
   }
 
   avatarImg.addEventListener('load', handleSuccess);
@@ -2243,7 +2400,7 @@ async function initVanillaTilt() {
     if (!VanillaTilt) return;
 
     const tiltTargets = document.querySelectorAll(
-      '.project-card, .editorial-quote-card, .process-quote-card'
+      '.project-card, .quote-card, .process-quote-card'
     );
 
     tiltTargets.forEach((el) => {
@@ -2266,8 +2423,8 @@ async function initVanillaTilt() {
         vanillaTiltInstances = [];
       }
     });
-  } catch (err) {
-    console.warn('VanillaTilt could not be initialized:', err);
+  } catch {
+    /* VanillaTilt unavailable or network offline - fallback gracefully without error */
   }
 }
 
@@ -2357,7 +2514,7 @@ function initSkillTooltips() {
     }
   }
 
-  window.updateActiveSkillTooltip = () => {
+  updateActiveSkillTooltipFn = () => {
     if (activeBadge) {
       showTooltip(activeBadge);
     }
@@ -2555,7 +2712,7 @@ function initCliTerminal() {
     `;
   }
 
-  window.renderActiveCliWelcome = renderWelcomeBanner;
+  renderActiveCliWelcomeFn = renderWelcomeBanner;
 
   function openTerminal() {
     lastFocusedElement = document.activeElement;
@@ -2768,8 +2925,6 @@ function initLiveStatusMonitor() {
 // 17. INITIALIZATION & FOUNDATION EVENT LISTENERS
 // ------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Nguyen Xuan Hieu Portfolio - Stage 2C Complete Engine Initialized.');
-
   // Initialize Language from LocalStorage or default to 'vi'
   let savedLang = 'vi';
   try {
