@@ -15,9 +15,9 @@ const NEXUS_MEMBERS_DATA = [
     displayName: 'Trường',
     symbol: 'Tr',
     port: 'PORT_01',
-    rank: 'NODE 01 // HOST VERIFIED',
-    focus: 'Software Engineer Trainee, thiên về Backend; mục tiêu thực tập SE Intern 2026.',
-    role: '[CẦN XÁC NHẬN]',
+    rank: 'THÀNH VIÊN 01 // TRƯỞNG NHÓM',
+    focus: 'Software Engineer Trainee, định hướng chuyên sâu Backend và kiến trúc phần mềm.',
+    role: 'Trưởng nhóm · Kỹ sư Phần mềm',
     strengths: ['Java', 'Mạng', 'C/C++', 'CSDL', 'Backend'],
     strengthsMatrix: [
       { label: 'Java', val: 90 },
@@ -41,9 +41,9 @@ const NEXUS_MEMBERS_DATA = [
     displayName: 'Hiếu',
     symbol: 'Hi',
     port: 'PORT_02',
-    rank: 'NODE 02 // FOUNDATION',
-    focus: 'Full-Stack Web Developer & Network Administrator. Khung sẵn sàng cho Phase 3.',
-    role: '[CẦN XÁC NHẬN]',
+    rank: 'THÀNH VIÊN 02 // LẬP TRÌNH WEB',
+    focus: 'Lập trình viên Web Full-Stack và Quản trị hệ thống mạng.',
+    role: 'Thành viên · Lập trình Full-Stack & Mạng',
     strengths: ['Full-Stack', 'Network', 'HTML/CSS', 'Web'],
     strengthsMatrix: [
       { label: 'Full-Stack', val: 85 },
@@ -66,9 +66,9 @@ const NEXUS_MEMBERS_DATA = [
     displayName: 'Châu',
     symbol: 'Ch',
     port: 'PORT_03',
-    rank: 'NODE 03 // STANDBY',
-    focus: 'Portfolio Foundation sẵn sàng tích hợp đồng bộ trong giai đoạn Phase 3.',
-    role: '[CẦN XÁC NHẬN]',
+    rank: 'THÀNH VIÊN 03 // PHÁT TRIỂN GIAO DIỆN',
+    focus: 'Xây dựng giao diện web chuẩn responsive và tối ưu hiệu năng người dùng.',
+    role: 'Thành viên · Phát triển Giao diện Web',
     strengths: ['Web Foundation', 'Frontend'],
     strengthsMatrix: [
       { label: 'HTML/CSS', val: 80 },
@@ -79,7 +79,7 @@ const NEXUS_MEMBERS_DATA = [
     portfolioUrl: './members/le-huu-chau/index.html',
     avatarUrl: '',
     hasRealAvatar: false,
-    isLinked: false,
+    isLinked: true,
     frequency: 659.25, // E5 harmonic
     statusText: 'PORT_03 · 659.2MHz'
   },
@@ -90,9 +90,9 @@ const NEXUS_MEMBERS_DATA = [
     displayName: 'Thư',
     symbol: 'Th',
     port: 'PORT_04',
-    rank: 'NODE 04 // STANDBY',
-    focus: 'Khung giao diện sẵn sàng tích hợp đồng bộ trong giai đoạn Phase 3.',
-    role: '[CẦN XÁC NHẬN]',
+    rank: 'THÀNH VIÊN 04 // THIẾT KẾ TRẢI NGHIỆM',
+    focus: 'Thiết kế giao diện người dùng tinh gọn, thẩm mỹ và trực quan.',
+    role: 'Thành viên · Thiết kế Giao diện UI/UX',
     strengths: ['Web Foundation', 'UI Design', 'Frontend'],
     strengthsMatrix: [
       { label: 'UI Design', val: 82 },
@@ -103,20 +103,20 @@ const NEXUS_MEMBERS_DATA = [
     portfolioUrl: './members/nguyen-anh-thu/index.html',
     avatarUrl: '',
     hasRealAvatar: false,
-    isLinked: false,
+    isLinked: true,
     frequency: 783.99, // G5 harmonic
     statusText: 'PORT_04 · 784.0MHz'
   },
   {
     id: 5,
     slug: 'nguyen-pham-y-huynh',
-    fullName: 'Nguyễn Phạm Ý Huỳnh',
+    fullName: 'Nguyễn Phạm Y Huỳnh',
     displayName: 'Huỳnh',
     symbol: 'Hy',
     port: 'PORT_05',
-    rank: 'NODE 05 // STANDBY',
-    focus: 'Cấu trúc logic module sẵn sàng tích hợp đồng bộ trong giai đoạn Phase 3.',
-    role: '[CẦN XÁC NHẬN]',
+    rank: 'THÀNH VIÊN 05 // NỀN TẢNG PHẦN MỀM',
+    focus: 'Phát triển nền tảng web vững chắc và xây dựng logic xử lý hệ thống.',
+    role: 'Thành viên · Logic & Nền tảng Web',
     strengths: ['Web Foundation', 'Logic Modules'],
     strengthsMatrix: [
       { label: 'Logic', val: 80 },
@@ -127,7 +127,7 @@ const NEXUS_MEMBERS_DATA = [
     portfolioUrl: './members/nguyen-pham-y-huynh/index.html',
     avatarUrl: '',
     hasRealAvatar: false,
-    isLinked: false,
+    isLinked: true,
     frequency: 880.0, // A5 harmonic
     statusText: 'PORT_05 · 880.0MHz'
   },
@@ -138,9 +138,9 @@ const NEXUS_MEMBERS_DATA = [
     displayName: 'Như',
     symbol: 'Nh',
     port: 'PORT_06',
-    rank: 'NODE 06 // STANDBY',
-    focus: 'Thành phần truyền thông số sẵn sàng tích hợp đồng bộ trong giai đoạn Phase 3.',
-    role: '[CẦN XÁC NHẬN]',
+    rank: 'THÀNH VIÊN 06 // TRUYỀN THÔNG SỐ',
+    focus: 'Thiết kế truyền thông số, đồ họa trực quan và tương tác web sáng tạo.',
+    role: 'Thành viên · Truyền thông & Đồ họa Số',
     strengths: ['Web Foundation', 'Creative Media'],
     strengthsMatrix: [
       { label: 'Media', val: 82 },
@@ -151,7 +151,7 @@ const NEXUS_MEMBERS_DATA = [
     portfolioUrl: './members/nguyen-thi-thao-nhu/index.html',
     avatarUrl: '',
     hasRealAvatar: false,
-    isLinked: false,
+    isLinked: true,
     frequency: 987.77, // B5 harmonic
     statusText: 'PORT_06 · 987.8MHz'
   }
@@ -162,14 +162,14 @@ const NEXUS_MEMBERS_DATA = [
 // -------------------------------------------------------------
 const SystemState = {
   activeNodeId: 1,
-  audioEnabled: false,
+  audioEnabled: true, // Enabled by default; wakes up on first interaction
   searchQuery: '',
   activeFilter: 'all',
   matchedNodeIds: [1, 2, 3, 4, 5, 6]
 };
 
 // -------------------------------------------------------------
-// 3. UTILITY: COMPREHENSIVE VIETNAMESE NORMALIZATION
+// 3. UTILITIES: VIETNAMESE & TOKEN NORMALIZATION
 // -------------------------------------------------------------
 function removeVietnameseTones(str) {
   if (!str) return '';
@@ -181,53 +181,194 @@ function removeVietnameseTones(str) {
   str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
   str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
   str = str.replace(/đ/g, 'd');
-  // Combine accents removal
   str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   return str;
 }
 
+function normalizeToken(str) {
+  if (!str) return '';
+  return removeVietnameseTones(str)
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, ''); // strip punctuation, slashes, hyphens
+}
+
 // -------------------------------------------------------------
-// 4. WEB AUDIO API SYNTHESIZER (OPTIC FEEDBACK CHIRP)
+// 4. ADVANCED WEB AUDIO API SYNTHESIZER
 // -------------------------------------------------------------
 let audioCtx = null;
 
 function initAudioContext() {
-  if (!audioCtx) {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (AudioContext) {
-      audioCtx = new AudioContext();
+  try {
+    if (!audioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        audioCtx = new AudioContextClass();
+      }
     }
-  }
-  if (audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  } catch (err) {
+    console.warn('AudioContext init prevented:', err);
   }
 }
 
-function playOpticChirp(freq = 440, duration = 0.08) {
-  if (!SystemState.audioEnabled || !audioCtx) return;
+// Cybernetic Frequency Note for Node Synchronize
+function playCyberChirp(freq = 440, duration = 0.14) {
+  if (!SystemState.audioEnabled) return;
+  initAudioContext();
+  if (!audioCtx) return;
+
   try {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
+    const now = audioCtx.currentTime;
     
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + duration);
-    
-    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-    
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    
-    osc.start();
-    osc.stop(audioCtx.currentTime + duration);
+    // Primary Tone
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(freq, now);
+    osc1.frequency.exponentialRampToValueAtTime(freq * 1.35, now + duration);
+
+    gain1.gain.setValueAtTime(0.001, now);
+    gain1.gain.linearRampToValueAtTime(0.14, now + 0.015);
+    gain1.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+    osc1.connect(gain1);
+    gain1.connect(audioCtx.destination);
+    osc1.start(now);
+    osc1.stop(now + duration);
+
+    // Harmonic Shimmer Tone (Octave + subtle detune)
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.type = 'triangle';
+    osc2.frequency.setValueAtTime(freq * 2.01, now);
+    osc2.frequency.exponentialRampToValueAtTime(freq * 2.05, now + duration * 0.7);
+
+    gain2.gain.setValueAtTime(0.001, now);
+    gain2.gain.linearRampToValueAtTime(0.05, now + 0.01);
+    gain2.gain.exponentialRampToValueAtTime(0.0001, now + duration * 0.7);
+
+    osc2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+    osc2.start(now);
+    osc2.stop(now + duration * 0.7);
   } catch (err) {
     console.warn('Audio playback inhibited:', err);
   }
 }
 
+// Crisp Mechanical Click Sound for Buttons
+function playClickSound() {
+  if (!SystemState.audioEnabled) return;
+  initAudioContext();
+  if (!audioCtx) return;
+
+  try {
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1200, now);
+    osc.frequency.exponentialRampToValueAtTime(320, now + 0.04);
+
+    gain.gain.setValueAtTime(0.12, now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.04);
+  } catch (err) {}
+}
+
+// High-tech Filter Blip Sound
+function playFilterSound() {
+  if (!SystemState.audioEnabled) return;
+  initAudioContext();
+  if (!audioCtx) return;
+
+  try {
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(750, now);
+    osc.frequency.linearRampToValueAtTime(1100, now + 0.06);
+
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.12, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.06);
+  } catch (err) {}
+}
+
+// Descending Sweep Sound for Reset Operations
+function playResetSound() {
+  if (!SystemState.audioEnabled) return;
+  initAudioContext();
+  if (!audioCtx) return;
+
+  try {
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1050, now);
+    osc.frequency.exponentialRampToValueAtTime(260, now + 0.12);
+
+    gain.gain.setValueAtTime(0.12, now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.12);
+  } catch (err) {}
+}
+
+// Toggle Audio System (Desktop & Mobile synchronized)
+function toggleAudio() {
+  initAudioContext();
+  SystemState.audioEnabled = !SystemState.audioEnabled;
+
+  const audioToggle = document.getElementById('audioToggleBtn');
+  const mobileToggle = document.getElementById('mobileAudioToggleBtn');
+  const mobileLabel = document.getElementById('mobileAudioLabel');
+
+  const statusLabel = audioToggle ? audioToggle.querySelector('.audio-status-label') : null;
+  const icon = SystemState.audioEnabled ? '🔊' : '🔇';
+  const labelText = SystemState.audioEnabled ? 'SOUND: ON' : 'SOUND: MUTE';
+  const mobileText = SystemState.audioEnabled ? 'ÂM THANH: BẬT' : 'ÂM THANH: TẮT';
+
+  if (audioToggle) {
+    audioToggle.setAttribute('aria-pressed', SystemState.audioEnabled ? 'true' : 'false');
+    const iconSpan = audioToggle.querySelector('.audio-wave-icon');
+    if (iconSpan) iconSpan.textContent = icon;
+    if (statusLabel) statusLabel.textContent = labelText;
+  }
+
+  if (mobileToggle) {
+    mobileToggle.setAttribute('aria-pressed', SystemState.audioEnabled ? 'true' : 'false');
+    const mobIcon = mobileToggle.querySelector('.audio-wave-icon');
+    if (mobIcon) mobIcon.textContent = icon;
+    if (mobileLabel) mobileLabel.textContent = mobileText;
+  }
+
+  if (SystemState.audioEnabled) {
+    playCyberChirp(660, 0.12);
+  }
+}
+
 // -------------------------------------------------------------
-// 5. REACT BITS INTEGRATION 1: SPLIT-TEXT COMPONENT
+// 5. REACT BITS INTEGRATION: SPLIT-TEXT, MAGNET, ANIMATED-CONTENT
 // -------------------------------------------------------------
 function initReactBitsSplitText() {
   const headline = document.querySelector('[data-react-bits="split-text"]');
@@ -236,7 +377,6 @@ function initReactBitsSplitText() {
   const rawText = headline.innerText.trim();
   headline.innerHTML = '';
   
-  // Split into words, then letters to maintain proper wrapping
   const words = rawText.split(' ');
   words.forEach((word, wIdx) => {
     const wordSpan = document.createElement('span');
@@ -257,13 +397,8 @@ function initReactBitsSplitText() {
   });
 }
 
-// -------------------------------------------------------------
-// 6. REACT BITS INTEGRATION 2: MAGNET COMPONENT
-// -------------------------------------------------------------
 function initReactBitsMagnet() {
   const magnetButtons = document.querySelectorAll('[data-react-bits="magnet"]');
-  
-  // Check if reduced motion is requested
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) return;
 
@@ -273,8 +408,8 @@ function initReactBitsMagnet() {
       const btnCenterX = rect.left + rect.width / 2;
       const btnCenterY = rect.top + rect.height / 2;
       
-      const deltaX = (e.clientX - btnCenterX) * 0.28;
-      const deltaY = (e.clientY - btnCenterY) * 0.28;
+      const deltaX = (e.clientX - btnCenterX) * 0.25;
+      const deltaY = (e.clientY - btnCenterY) * 0.25;
       
       btn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     });
@@ -285,23 +420,20 @@ function initReactBitsMagnet() {
   });
 }
 
-// -------------------------------------------------------------
-// 7. REACT BITS INTEGRATION 3: ANIMATED-CONTENT TRANSITIONS
-// -------------------------------------------------------------
 function triggerAnimatedContent(element) {
   if (!element) return;
   element.style.opacity = '0';
-  element.style.transform = 'translateY(10px)';
+  element.style.transform = 'translateY(8px)';
   
   requestAnimationFrame(() => {
-    element.style.transition = 'opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
+    element.style.transition = 'opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1), transform 0.26s cubic-bezier(0.16, 1, 0.3, 1)';
     element.style.opacity = '1';
     element.style.transform = 'translateY(0px)';
   });
 }
 
 // -------------------------------------------------------------
-// 8. CONSTELLATION NEXUS CANVAS (INTERACTIVE 6-NODE MESH)
+// 6. CONSTELLATION NEXUS CANVAS (INTERACTIVE 6-NODE MESH)
 // -------------------------------------------------------------
 class ConstellationCanvas {
   constructor(canvasId) {
@@ -319,7 +451,6 @@ class ConstellationCanvas {
   }
 
   initNodes() {
-    // 6 Orbital Nodes arranged harmoniously across 2D plane
     const basePositions = [
       { x: 0.16, y: 0.45, memberId: 1, label: 'Trường' },
       { x: 0.30, y: 0.70, memberId: 2, label: 'Hiếu' },
@@ -352,7 +483,6 @@ class ConstellationCanvas {
     this.width = rect.width;
     this.height = rect.height;
 
-    // Recalculate target positions
     this.nodes.forEach((n) => {
       n.cx = n.x * this.width;
       n.cy = n.y * this.height;
@@ -371,12 +501,24 @@ class ConstellationCanvas {
       this.mouse.x = e.clientX - rect.left;
       this.mouse.y = e.clientY - rect.top;
       this.mouse.isHovering = true;
+
+      // Update cursor when hovering near any node
+      let isNearNode = false;
+      for (let n of this.nodes) {
+        const dist = Math.hypot(this.mouse.x - n.currentX, this.mouse.y - n.currentY);
+        if (dist <= n.radius + 14) {
+          isNearNode = true;
+          break;
+        }
+      }
+      this.canvas.style.cursor = isNearNode ? 'pointer' : 'crosshair';
     });
 
     this.canvas.addEventListener('mouseleave', () => {
       this.mouse.x = -1000;
       this.mouse.y = -1000;
       this.mouse.isHovering = false;
+      this.canvas.style.cursor = 'default';
     });
 
     this.canvas.addEventListener('click', (e) => {
@@ -384,10 +526,9 @@ class ConstellationCanvas {
       const clickX = e.clientX - rect.left;
       const clickY = e.clientY - rect.top;
 
-      // Detect node click
       for (let n of this.nodes) {
         const dist = Math.hypot(clickX - n.currentX, clickY - n.currentY);
-        if (dist <= n.radius + 14) {
+        if (dist <= n.radius + 18) {
           syncActiveNode(n.memberId);
           break;
         }
@@ -405,13 +546,11 @@ class ConstellationCanvas {
     this.nodes.forEach((n) => {
       n.pulse += 0.04;
 
-      // Spring physics to base center
       const dx = n.cx - n.currentX;
       const dy = n.cy - n.currentY;
       n.vx += dx * 0.05;
       n.vy += dy * 0.05;
 
-      // Mouse repulsion
       if (this.mouse.isHovering) {
         const mdx = n.currentX - this.mouse.x;
         const mdy = n.currentY - this.mouse.y;
@@ -423,7 +562,6 @@ class ConstellationCanvas {
         }
       }
 
-      // Damping
       n.vx *= 0.85;
       n.vy *= 0.85;
 
@@ -435,7 +573,7 @@ class ConstellationCanvas {
   render() {
     this.ctx.clearRect(0, 0, this.width, this.height);
 
-    // Draw connection lines between nodes
+    // Draw connection lines
     for (let i = 0; i < this.nodes.length; i++) {
       for (let j = i + 1; j < this.nodes.length; j++) {
         const n1 = this.nodes[i];
@@ -462,21 +600,19 @@ class ConstellationCanvas {
       }
     }
 
-    // Draw each node
+    // Draw nodes
     this.nodes.forEach((n) => {
       const isActive = n.memberId === SystemState.activeNodeId;
 
-      // Outer Pulse Ring for active node
       if (isActive) {
         const pulseR = n.radius + 8 + Math.sin(n.pulse) * 4;
         this.ctx.beginPath();
         this.ctx.arc(n.currentX, n.currentY, pulseR, 0, Math.PI * 2);
-        this.ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+        this.ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
         this.ctx.lineWidth = 1.5;
         this.ctx.stroke();
       }
 
-      // Core Node Body
       this.ctx.beginPath();
       this.ctx.arc(n.currentX, n.currentY, n.radius, 0, Math.PI * 2);
       this.ctx.fillStyle = isActive ? '#00F0FF' : '#0E1424';
@@ -485,7 +621,6 @@ class ConstellationCanvas {
       this.ctx.lineWidth = 2;
       this.ctx.stroke();
 
-      // Node Label
       this.ctx.font = `600 ${isActive ? '11px' : '10px'} "IBM Plex Mono", monospace`;
       this.ctx.fillStyle = isActive ? '#00F0FF' : '#8A99AD';
       this.ctx.textAlign = 'center';
@@ -495,7 +630,7 @@ class ConstellationCanvas {
 }
 
 // -------------------------------------------------------------
-// 9. OPTICAL SPECTRUM CANVAS (HARMONIC OSCILLOSCOPE)
+// 7. OPTICAL SPECTRUM CANVAS (HARMONIC OSCILLOSCOPE)
 // -------------------------------------------------------------
 class OpticalSpectrumVisualizer {
   constructor(canvasId) {
@@ -566,14 +701,14 @@ class OpticalSpectrumVisualizer {
 }
 
 // -------------------------------------------------------------
-// 10. SYNCHRONIZED NODE SWITCHING CONTROLLER
+// 8. SYNCHRONIZED NODE SWITCHING CONTROLLER
 // -------------------------------------------------------------
 function syncActiveNode(nodeId) {
   const member = NEXUS_MEMBERS_DATA.find((m) => m.id === Number(nodeId));
   if (!member) return;
 
   SystemState.activeNodeId = member.id;
-  playOpticChirp(member.frequency || 440);
+  playCyberChirp(member.frequency || 440);
 
   // 1. Update Hero Quick Buttons
   document.querySelectorAll('.node-btn').forEach((btn) => {
@@ -582,10 +717,14 @@ function syncActiveNode(nodeId) {
     btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
   });
 
-  // 2. Update Hero Badge
+  // 2. Update Hero Active Badge & Header Status Pill
   const heroBadge = document.getElementById('activeNodeBadge');
   if (heroBadge) {
     heroBadge.textContent = `FOCUSED: N.0${member.id} [${member.displayName}]`;
+  }
+  const hudStatus = document.getElementById('hudStatusReadout');
+  if (hudStatus) {
+    hudStatus.textContent = `NODE 0${member.id} [${member.displayName.toUpperCase()}] SYNCHRONIZED`;
   }
 
   // 3. Update Member Terminal Cards
@@ -602,7 +741,6 @@ function syncActiveNode(nodeId) {
   });
 
   // 4. Update Spatial Telemetry Readouts
-  const telSection = document.getElementById('telemetry');
   const telActiveCallsign = document.getElementById('telActiveCallsign');
   const apertureCoord = document.getElementById('apertureCoord');
   const hudAvatarImg = document.getElementById('hudAvatarImg');
@@ -627,7 +765,6 @@ function syncActiveNode(nodeId) {
       hudAvatarImg.src = member.avatarUrl;
       hudAvatarImg.alt = `Ảnh chân dung màu thực tế của ${member.fullName}`;
     } else {
-      // Clean SVG vector fallback for members without photographic asset
       hudAvatarImg.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100%" height="100%" fill="%230E1424"/><text x="50%" y="54%" font-family="monospace" font-size="28" fill="%2300F0FF" text-anchor="middle" dominant-baseline="middle" font-weight="bold">${member.symbol}</text></svg>`;
       hudAvatarImg.alt = `Biểu trưng số của ${member.fullName}`;
     }
@@ -645,9 +782,12 @@ function syncActiveNode(nodeId) {
 
   if (telLaunchBtn) {
     telLaunchBtn.href = member.portfolioUrl;
-    telLaunchBtn.querySelector('span:first-child').textContent = member.isLinked 
-      ? 'TRUY CẬP PORTFOLIO CHI TIẾT' 
-      : 'XEM KHUNG SẴN SÀNG PHASE 3';
+    const btnSpan = telLaunchBtn.querySelector('span:first-child');
+    if (btnSpan) {
+      btnSpan.textContent = member.id === 1 
+        ? 'TRUY CẬP PORTFOLIO CHI TIẾT' 
+        : 'TRUY CẬP KHUNG PORTFOLIO';
+    }
   }
 
   if (telGithubBtn) {
@@ -671,11 +811,12 @@ function syncActiveNode(nodeId) {
 }
 
 // -------------------------------------------------------------
-// 11. MULTI-VECTOR SIGNAL ROUTER (SEARCH & FILTER ENGINE)
+// 9. MULTI-VECTOR SIGNAL ROUTER (SEARCH & FILTER ENGINE)
 // -------------------------------------------------------------
 function filterNodes() {
   const queryNormalized = removeVietnameseTones(SystemState.searchQuery.trim());
-  const activeTag = SystemState.activeFilter.toLowerCase();
+  const activeFilterTag = SystemState.activeFilter.trim();
+  const normalizedActiveTag = normalizeToken(activeFilterTag);
 
   const matched = NEXUS_MEMBERS_DATA.filter((member) => {
     // 1. Text Search matching
@@ -690,11 +831,34 @@ function filterNodes() {
       matchesSearch = searchBlob.includes(queryNormalized);
     }
 
-    // 2. Vector Tag matching (AND logic)
+    // 2. Vector Tag matching (Robust Diacritic-Insensitive & Symbol-Neutral)
     let matchesTag = true;
-    if (activeTag !== 'all') {
-      const memberStrengthsLower = member.strengths.map((s) => s.toLowerCase());
-      matchesTag = memberStrengthsLower.some((s) => s.includes(activeTag));
+    if (activeFilterTag !== 'all' && normalizedActiveTag.length > 0) {
+      // Collect all tokens from member
+      const memberTokens = [
+        ...member.strengths.map(normalizeToken),
+        normalizeToken(member.displayName),
+        normalizeToken(member.focus),
+        normalizeToken(member.role)
+      ];
+
+      // Match against normalized active tag
+      matchesTag = memberTokens.some((token) => 
+        token.includes(normalizedActiveTag) || normalizedActiveTag.includes(token)
+      );
+
+      // Special alias checks
+      if (!matchesTag) {
+        if (normalizedActiveTag === 'mang' && memberTokens.some((t) => t.includes('network') || t.includes('mang'))) {
+          matchesTag = true;
+        }
+        if (normalizedActiveTag === 'fullstack' && memberTokens.some((t) => t.includes('fullstack') || t.includes('full'))) {
+          matchesTag = true;
+        }
+        if (normalizedActiveTag === 'cc' && memberTokens.some((t) => t.includes('c') || t.includes('cc'))) {
+          matchesTag = true;
+        }
+      }
     }
 
     return matchesSearch && matchesTag;
@@ -732,9 +896,20 @@ function filterNodes() {
 }
 
 // -------------------------------------------------------------
-// 12. EVENT LISTENERS INITIALIZATION
+// 10. EVENT LISTENERS INITIALIZATION
 // -------------------------------------------------------------
 function initEventListeners() {
+  // Global User Gesture Listener to Unlock AudioContext
+  const unlockAudio = () => {
+    initAudioContext();
+    window.removeEventListener('click', unlockAudio);
+    window.removeEventListener('keydown', unlockAudio);
+    window.removeEventListener('touchstart', unlockAudio);
+  };
+  window.addEventListener('click', unlockAudio);
+  window.addEventListener('keydown', unlockAudio);
+  window.addEventListener('touchstart', unlockAudio);
+
   // 1. Hero Quick Node Buttons
   document.querySelectorAll('.node-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -752,16 +927,23 @@ function initEventListeners() {
     });
   });
 
-  // 3. Member Terminal Card Click
+  // 3. Member Terminal Card Click (syncs node when clicking card body)
   document.querySelectorAll('.identity-terminal').forEach((term) => {
     term.addEventListener('click', (e) => {
-      if (e.target.closest('a')) return; // Allow natural navigation
+      if (e.target.closest('a')) return; // Allow natural link navigation
       const targetId = Number(term.getAttribute('data-member-id'));
       syncActiveNode(targetId);
     });
   });
 
-  // 4. Router Search Input
+  // 4. Click Sound on Action Links & Buttons
+  document.querySelectorAll('.terminal-link, .btn').forEach((el) => {
+    el.addEventListener('click', () => {
+      playClickSound();
+    });
+  });
+
+  // 5. Router Search Input
   const searchInput = document.getElementById('routerSearchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
   if (searchInput) {
@@ -769,17 +951,28 @@ function initEventListeners() {
       SystemState.searchQuery = e.target.value;
       filterNodes();
     });
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        SystemState.searchQuery = '';
+        filterNodes();
+        playResetSound();
+      }
+    });
   }
+
   if (clearBtn && searchInput) {
     clearBtn.addEventListener('click', () => {
       searchInput.value = '';
       SystemState.searchQuery = '';
       filterNodes();
       searchInput.focus();
+      playClickSound();
     });
   }
 
-  // 5. Router Tag Filter Buttons
+  // 6. Router Tag Filter Buttons
   document.querySelectorAll('.tag-filter-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.tag-filter-btn').forEach((b) => {
@@ -790,12 +983,12 @@ function initEventListeners() {
       btn.setAttribute('aria-pressed', 'true');
 
       SystemState.activeFilter = btn.getAttribute('data-filter') || 'all';
-      playOpticChirp(600, 0.05);
+      playFilterSound();
       filterNodes();
     });
   });
 
-  // 6. Router Reset Buttons
+  // 7. Router Reset Buttons
   const resetBtn = document.getElementById('resetSignalBtn');
   const emptyResetBtn = document.getElementById('emptyResetBtn');
   const resetRouter = () => {
@@ -809,29 +1002,19 @@ function initEventListeners() {
       b.setAttribute('aria-pressed', isAll ? 'true' : 'false');
     });
 
+    playResetSound();
     filterNodes();
   };
   if (resetBtn) resetBtn.addEventListener('click', resetRouter);
   if (emptyResetBtn) emptyResetBtn.addEventListener('click', resetRouter);
 
-  // 7. Audio FX Toggle Button
+  // 8. Audio FX Toggle Buttons (Header & Mobile Drawer)
   const audioToggle = document.getElementById('audioToggleBtn');
-  if (audioToggle) {
-    audioToggle.addEventListener('click', () => {
-      initAudioContext();
-      SystemState.audioEnabled = !SystemState.audioEnabled;
-      audioToggle.setAttribute('aria-pressed', SystemState.audioEnabled ? 'true' : 'false');
-      
-      const label = audioToggle.querySelector('.audio-status-label');
-      if (label) label.textContent = SystemState.audioEnabled ? 'FX: ON' : 'FX: OFF';
-      
-      if (SystemState.audioEnabled) {
-        playOpticChirp(880, 0.12);
-      }
-    });
-  }
+  const mobileAudioToggle = document.getElementById('mobileAudioToggleBtn');
+  if (audioToggle) audioToggle.addEventListener('click', toggleAudio);
+  if (mobileAudioToggle) mobileAudioToggle.addEventListener('click', toggleAudio);
 
-  // 8. Mobile Navigation Drawer
+  // 9. Mobile Navigation Drawer
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mobileDrawer = document.getElementById('mobileDrawer');
   if (mobileMenuBtn && mobileDrawer) {
@@ -839,19 +1022,81 @@ function initEventListeners() {
       const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
       mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
       mobileDrawer.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
+      playClickSound();
     });
 
-    mobileDrawer.querySelectorAll('.mobile-nav-item').forEach((link) => {
+    mobileDrawer.querySelectorAll('.mobile-nav-item:not(.mobile-audio-toggle)').forEach((link) => {
       link.addEventListener('click', () => {
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
         mobileDrawer.setAttribute('aria-hidden', 'true');
+        playClickSound();
       });
     });
   }
+
+  // 10. Footer Node Quick Jump Links
+  document.querySelectorAll('.footer-nav-matrix .group-link[href^="#node-card-"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      const match = href.match(/#node-card-(\d+)/);
+      if (match) {
+        syncActiveNode(Number(match[1]));
+      }
+    });
+  });
+
+  // 11. Contact & Feedback Form Handler
+  const contactForm = document.getElementById('contactForm');
+  const contactSuccessAlert = document.getElementById('contactSuccessAlert');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('contactName')?.value.trim();
+      const email = document.getElementById('contactEmail')?.value.trim();
+      const msg = document.getElementById('contactMsg')?.value.trim();
+
+      if (!name || !email || !msg) {
+        alert('Vui lòng điền đầy đủ họ tên, email và nội dung phản hồi!');
+        return;
+      }
+
+      playCyberChirp(880, 0.18);
+      if (contactSuccessAlert) {
+        contactSuccessAlert.classList.remove('hidden');
+        contactSuccessAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      contactForm.reset();
+
+      setTimeout(() => {
+        if (contactSuccessAlert) contactSuccessAlert.classList.add('hidden');
+      }, 7000);
+    });
+
+    const contactResetBtn = document.getElementById('contactResetBtn');
+    if (contactResetBtn) {
+      contactResetBtn.addEventListener('click', () => {
+        playResetSound();
+        if (contactSuccessAlert) contactSuccessAlert.classList.add('hidden');
+      });
+    }
+  }
+
+  // 12. Search Suggestion Chips
+  document.querySelectorAll('.sugg-chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const query = chip.getAttribute('data-query') || chip.textContent.trim();
+      if (searchInput) {
+        searchInput.value = query;
+        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+        searchInput.focus();
+        playClickSound();
+      }
+    });
+  });
 }
 
 // -------------------------------------------------------------
-// 13. BOOTSTRAP INITIALIZATION
+// 11. BOOTSTRAP INITIALIZATION
 // -------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize React Bits Features
@@ -868,5 +1113,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Sync Initial Node (Node 01: Trường)
   syncActiveNode(1);
 
-  console.info('NEXUS-06 // Neo-Futuristic Digital System initialized successfully.');
+  console.info('NEXUS-06 // Neo-Futuristic Digital System initialized with active audio.');
 });
