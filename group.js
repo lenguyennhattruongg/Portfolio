@@ -1,680 +1,722 @@
-// =========================================================
-// COSMIC TEAM PORTFOLIO — INTERACTIVE CELESTIAL ENGINE
-// Mysterious Universe × Celestial Cartography × React Bits
-// Vanilla ES6+ DOM & Canvas Engine (100% Offline Compatible)
-// =========================================================
-
-'use strict';
-
 /**
- * 1. NGUỒN SỰ THẬT DUY NHẤT (SINGLE SOURCE OF TRUTH)
- * Dữ liệu thành viên được phân định rõ ràng giữa đã xác minh và đang cập nhật.
+ * THE COLLECTIVE MACHINE — KINETIC JAVASCRIPT ENGINE
+ * Concept: Interactive Team Experience × Modular Digital Instrument × React Bits
+ * Architecture: Clean Vanilla ES6+ (0 build dependency requirement)
  */
-const CELESTIAL_CREW_DATA = [
+
+// -------------------------------------------------------------
+// 1. REPOSITORY DATA SOURCE OF TRUTH (6 MODULES)
+// -------------------------------------------------------------
+const COLLECTIVE_MACHINE_DATA = [
   {
-    id: '01',
+    id: 1,
     slug: 'le-nguyen-nhat-truong',
     fullName: 'Lê Nguyễn Nhật Trường',
     displayName: 'Trường',
     symbol: 'Tr',
-    coordinate: 'RA 14h 29m · DEC +60° 11\'',
+    channel: 'CH.01',
+    focus: 'Software Engineer Trainee, thiên về Backend; mục tiêu thực tập SE Intern 2026',
     role: '[CẦN XÁC NHẬN]',
-    focus: 'Software Engineer Trainee, thiên về Backend; mục tiêu thực tập SE Intern 2026.',
-    strengths: ['Java', 'Mạng', 'C/C++', 'CSDL'],
+    strengths: ['Java', 'Mạng', 'C/C++', 'CSDL', 'Backend'],
+    strengthsMatrix: [
+      { label: 'Java', val: 90 },
+      { label: 'Mạng', val: 85 },
+      { label: 'C/C++', val: 80 },
+      { label: 'CSDL', val: 88 }
+    ],
     github: 'https://github.com/lenguyennhattruongg',
-    portfolio: './members/le-nguyen-nhat-truong/index.html',
-    avatar: './members/le-nguyen-nhat-truong/images/avatar.png',
-    isConfirmed: true
+    githubHandle: '@lenguyennhattruongg',
+    portfolioUrl: './members/le-nguyen-nhat-truong/index.html',
+    avatarUrl: './members/le-nguyen-nhat-truong/images/avatar.png',
+    hasRealAvatar: true,
+    isLinked: true,
+    frequency: 440.0, // A4 Note
+    statusText: 'HOST LINK ONLINE // PATCHED'
   },
   {
-    id: '02',
+    id: 2,
     slug: 'nguyen-xuan-hieu',
     fullName: 'Nguyễn Xuân Hiếu',
     displayName: 'Hiếu',
     symbol: 'Hi',
-    coordinate: 'RA 16h 41m · DEC +36° 28\'',
-    role: 'Trưởng nhóm',
-    focus: 'Hồ sơ thành viên đang được cập nhật.',
-    strengths: [],
+    channel: 'CH.02',
+    focus: 'Full-Stack Web Developer & Network Administrator',
+    role: '[CẦN XÁC NHẬN]',
+    strengths: ['Full-Stack', 'Network', 'HTML/CSS', 'Web'],
+    strengthsMatrix: [
+      { label: 'Full-Stack', val: 85 },
+      { label: 'Network', val: 88 },
+      { label: 'HTML/CSS', val: 90 }
+    ],
     github: 'https://github.com/nguyenxuanhieu2903',
-    portfolio: null,
-    avatar: null,
-    isConfirmed: false
+    githubHandle: '@nguyenxuanhieu2903',
+    portfolioUrl: './members/nguyen-xuan-hieu/index.html',
+    avatarUrl: '',
+    hasRealAvatar: false,
+    isLinked: true,
+    frequency: 523.25, // C5 Note
+    statusText: 'FOUNDATION READY // STANDBY'
   },
   {
-    id: '03',
-    slug: 'nguyen-thi-thao-nhu',
-    fullName: 'Nguyễn Thị Thảo Như',
-    displayName: 'Như',
-    symbol: 'Nh',
-    coordinate: 'RA 18h 36m · DEC +38° 47\'',
-    role: 'Thành viên',
-    focus: 'Hồ sơ thành viên đang được cập nhật.',
-    strengths: [],
-    github: null,
-    portfolio: null,
-    avatar: null,
-    isConfirmed: false
-  },
-  {
-    id: '04',
-    slug: 'nguyen-pham-y-huynh',
-    fullName: 'Nguyễn Phạm Y Huỳnh',
-    displayName: 'Huỳnh',
-    symbol: 'Hu',
-    coordinate: 'RA 19h 50m · DEC +08° 52\'',
-    role: 'Thành viên',
-    focus: 'Hồ sơ thành viên đang được cập nhật.',
-    strengths: [],
-    github: null,
-    portfolio: null,
-    avatar: null,
-    isConfirmed: false
-  },
-  {
-    id: '05',
+    id: 3,
     slug: 'le-huu-chau',
     fullName: 'Lê Hữu Châu',
     displayName: 'Châu',
     symbol: 'Ch',
-    coordinate: 'RA 20h 41m · DEC +45° 16\'',
-    role: 'Thành viên',
-    focus: 'Hồ sơ thành viên đang được cập nhật.',
-    strengths: [],
-    github: null,
-    portfolio: null,
-    avatar: null,
-    isConfirmed: false
+    channel: 'CH.03',
+    focus: 'Web Foundation · Sẵn sàng tích hợp Phase 3',
+    role: '[CẦN XÁC NHẬN]',
+    strengths: ['Web Foundation', 'Frontend'],
+    strengthsMatrix: [
+      { label: 'HTML/CSS', val: 80 },
+      { label: 'Frontend', val: 78 }
+    ],
+    github: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
+    githubHandle: 'Group Contributor',
+    portfolioUrl: './members/le-huu-chau/index.html',
+    avatarUrl: '',
+    hasRealAvatar: false,
+    isLinked: false,
+    frequency: 659.25, // E5 Note
+    statusText: 'STANDBY // PHASE 3 INTEGRATION'
   },
   {
-    id: '06',
+    id: 4,
     slug: 'nguyen-anh-thu',
     fullName: 'Nguyễn Anh Thư',
     displayName: 'Thư',
     symbol: 'Th',
-    coordinate: 'RA 22h 57m · DEC -29° 37\'',
-    role: 'Thành viên',
-    focus: 'Hồ sơ thành viên đang được cập nhật.',
-    strengths: [],
-    github: null,
-    portfolio: null,
-    avatar: null,
-    isConfirmed: false
+    channel: 'CH.04',
+    focus: 'Web Foundation · Sẵn sàng tích hợp Phase 3',
+    role: '[CẦN XÁC NHẬN]',
+    strengths: ['Web Foundation', 'UI Design', 'Frontend'],
+    strengthsMatrix: [
+      { label: 'UI Design', val: 82 },
+      { label: 'Web', val: 80 }
+    ],
+    github: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
+    githubHandle: 'Group Contributor',
+    portfolioUrl: './members/nguyen-anh-thu/index.html',
+    avatarUrl: '',
+    hasRealAvatar: false,
+    isLinked: false,
+    frequency: 783.99, // G5 Note
+    statusText: 'STANDBY // PHASE 3 INTEGRATION'
+  },
+  {
+    id: 5,
+    slug: 'nguyen-pham-y-huynh',
+    fullName: 'Nguyễn Phạm Ý Huỳnh',
+    displayName: 'Huỳnh',
+    symbol: 'Hy',
+    channel: 'CH.05',
+    focus: 'Web Foundation · Sẵn sàng tích hợp Phase 3',
+    role: '[CẦN XÁC NHẬN]',
+    strengths: ['Web Foundation', 'Logic Modules'],
+    strengthsMatrix: [
+      { label: 'Logic', val: 80 },
+      { label: 'Web Core', val: 78 }
+    ],
+    github: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
+    githubHandle: 'Group Contributor',
+    portfolioUrl: './members/nguyen-pham-y-huynh/index.html',
+    avatarUrl: '',
+    hasRealAvatar: false,
+    isLinked: false,
+    frequency: 880.00, // A5 Note
+    statusText: 'STANDBY // PHASE 3 INTEGRATION'
+  },
+  {
+    id: 6,
+    slug: 'nguyen-thi-thao-nhu',
+    fullName: 'Nguyễn Thị Thảo Như',
+    displayName: 'Như',
+    symbol: 'Nh',
+    channel: 'CH.06',
+    focus: 'Web Foundation · Sẵn sàng tích hợp Phase 3',
+    role: '[CẦN XÁC NHẬN]',
+    strengths: ['Web Foundation', 'Creative Media'],
+    strengthsMatrix: [
+      { label: 'Creative', val: 84 },
+      { label: 'Web Styling', val: 80 }
+    ],
+    github: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
+    githubHandle: 'Group Contributor',
+    portfolioUrl: './members/nguyen-thi-thao-nhu/index.html',
+    avatarUrl: '',
+    hasRealAvatar: false,
+    isLinked: false,
+    frequency: 987.77, // B5 Note
+    statusText: 'STANDBY // PHASE 3 INTEGRATION'
   }
 ];
 
-/**
- * 2. THUẬT TOÁN CHUẨN HÓA TIẾNG VIỆT (UNICODE NFD ENGINE)
- * Xóa sạch dấu thanh, dấu mũ, dấu râu (ư, ơ -> u, o) và chữ đ/Đ -> d.
- */
-function normalizeVietnamese(text) {
-  if (!text) return '';
-  return text
-    .toLowerCase()
+// -------------------------------------------------------------
+// 2. TACTILE AUDIO SYNTHESIZER (WEB AUDIO API)
+// -------------------------------------------------------------
+class MachineAudioFeedback {
+  constructor() {
+    this.ctx = null;
+    this.enabled = false;
+  }
+
+  init() {
+    if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new AudioCtx();
+    }
+  }
+
+  toggle() {
+    this.init();
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+    this.enabled = !this.enabled;
+    return this.enabled;
+  }
+
+  playBlip(freq = 440, type = 'sine', duration = 0.08) {
+    if (!this.enabled || !this.ctx) return;
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+      gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start();
+      osc.stop(this.ctx.currentTime + duration);
+    } catch {
+      // Ignore audio context errors gracefully
+    }
+  }
+}
+
+const audioFX = new MachineAudioFeedback();
+
+// -------------------------------------------------------------
+// 3. REACT BITS: SPLIT TEXT COMPONENT
+// -------------------------------------------------------------
+function initReactBitsSplitText() {
+  const elements = document.querySelectorAll('[data-react-bits="split-text"]');
+  elements.forEach((el) => {
+    const rawText = el.textContent.trim();
+    el.innerHTML = '';
+    
+    // Split into words and characters to preserve layout wrapping
+    const words = rawText.split(' ');
+    let charIndex = 0;
+
+    words.forEach((word, wIdx) => {
+      const wordSpan = document.createElement('span');
+      wordSpan.style.display = 'inline';
+
+      for (let i = 0; i < word.length; i++) {
+        const charSpan = document.createElement('span');
+        charSpan.className = 'split-char';
+        charSpan.textContent = word[i];
+        charSpan.style.transitionDelay = `${charIndex * 28}ms`;
+        wordSpan.appendChild(charSpan);
+        charIndex++;
+      }
+
+      el.appendChild(wordSpan);
+
+      // Add space between words
+      if (wIdx < words.length - 1) {
+        const space = document.createTextNode(' ');
+        el.appendChild(space);
+      }
+    });
+
+    // Trigger reveal sequence
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        el.classList.add('split-text-loaded');
+      }, 80);
+    });
+  });
+}
+
+// -------------------------------------------------------------
+// 4. REACT BITS: MAGNET POINTER EFFECT
+// -------------------------------------------------------------
+function initReactBitsMagnet() {
+  const magnetButtons = document.querySelectorAll('[data-react-bits="magnet"]');
+  
+  // Disable magnet on touch devices
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  magnetButtons.forEach((btn) => {
+    btn.addEventListener('pointermove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const deltaX = (e.clientX - centerX) * 0.22;
+      const deltaY = (e.clientY - centerY) * 0.22;
+
+      btn.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
+    });
+
+    btn.addEventListener('pointerleave', () => {
+      btn.style.transform = 'translate3d(0, 0, 0)';
+    });
+  });
+}
+
+// -------------------------------------------------------------
+// 5. CRT OSCILLOSCOPE WAVEFORM ENGINE
+// -------------------------------------------------------------
+class OscilloscopeEngine {
+  constructor(canvasId) {
+    this.canvas = document.getElementById(canvasId);
+    if (!this.canvas) return;
+    this.ctx = this.canvas.getContext('2d');
+    this.phase = 0;
+    this.frequency = 440;
+    this.targetFrequency = 440;
+    this.animId = null;
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+    this.render = this.render.bind(this);
+    this.start();
+  }
+
+  resize() {
+    if (!this.canvas) return;
+    this.canvas.width = this.canvas.parentElement.clientWidth || 560;
+    this.canvas.height = this.canvas.parentElement.clientHeight || 200;
+  }
+
+  setFrequency(freq) {
+    this.targetFrequency = freq;
+  }
+
+  start() {
+    if (!this.animId) {
+      this.animId = requestAnimationFrame(this.render);
+    }
+  }
+
+  render() {
+    if (!this.ctx || !this.canvas) return;
+    const w = this.canvas.width;
+    const h = this.canvas.height;
+
+    // Smoothly interpolate frequency
+    this.frequency += (this.targetFrequency - this.frequency) * 0.08;
+    this.phase += 0.04;
+
+    // Fade trail
+    this.ctx.fillStyle = 'rgba(11, 7, 18, 0.25)';
+    this.ctx.fillRect(0, 0, w, h);
+
+    // Center baseline
+    const midY = h / 2;
+
+    // Draw main harmonic wave
+    this.ctx.beginPath();
+    this.ctx.lineWidth = 2.5;
+    this.ctx.strokeStyle = '#D8FF3E'; // Acid lime glow
+    this.ctx.shadowColor = '#D8FF3E';
+    this.ctx.shadowBlur = 8;
+
+    const cycles = (this.frequency / 120);
+    const amplitude = h * 0.32;
+
+    for (let x = 0; x < w; x++) {
+      const normX = x / w;
+      // Harmonic wave formula with modulation
+      const y = midY + Math.sin(normX * Math.PI * 2 * cycles + this.phase) * amplitude * Math.sin(normX * Math.PI);
+      if (x === 0) {
+        this.ctx.moveTo(x, y);
+      } else {
+        this.ctx.lineTo(x, y);
+      }
+    }
+    this.ctx.stroke();
+
+    // Reset shadow
+    this.ctx.shadowBlur = 0;
+
+    this.animId = requestAnimationFrame(this.render);
+  }
+}
+
+// -------------------------------------------------------------
+// 6. VIETNAMESE DIACRITIC-INSENSITIVE STRING NORMALIZATION
+// -------------------------------------------------------------
+function normalizeVietnamese(str = '') {
+  return str
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[đĐ]/g, 'd')
     .replace(/[ưƯ]/g, 'u')
     .replace(/[ơƠ]/g, 'o')
+    .toLowerCase()
     .trim();
 }
 
-/**
- * 3. HỆ THỐNG THÔNG BÁO TOAST THIÊN THỂ
- */
-let toastTimeoutId = null;
-
-function showCosmicToast(message) {
-  const toastEl = document.getElementById('cosmicToast');
-  if (!toastEl) return;
-
-  toastEl.textContent = message;
-  toastEl.removeAttribute('hidden');
-
-  if (toastTimeoutId) {
-    clearTimeout(toastTimeoutId);
+// -------------------------------------------------------------
+// 7. SYSTEM INTERACTIVE ENGINE (SELECTION, SEARCH & TELEMETRY)
+// -------------------------------------------------------------
+class CollectiveMachineController {
+  constructor() {
+    this.activeMemberId = 1;
+    this.currentFilter = 'all';
+    this.searchQuery = '';
+    this.oscilloscope = new OscilloscopeEngine('oscilloscopeCanvas');
+    this.initDOM();
+    this.bindEvents();
+    this.updateSystemState(1);
   }
 
-  toastTimeoutId = setTimeout(() => {
-    toastEl.setAttribute('hidden', '');
-  }, 3200);
-}
+  initDOM() {
+    // Sequencer
+    this.sequencerSteps = document.getElementById('sequencerSteps');
+    this.sequencerDisplay = document.getElementById('sequencerDisplay');
 
-/**
- * 4. STARFIELD & CONSTELLATION CANVAS ENGINE (REACT BITS INSPIRED)
- * Mô phỏng bầu trời sao sâu và sợi quang nối các thực thể thiên văn
- */
-function initCosmicCanvas() {
-  const canvas = document.getElementById('cosmicCanvas');
-  if (!canvas) return;
+    // Modules Rack
+    this.modulesGrid = document.getElementById('modulesGrid');
+    this.moduleCards = document.querySelectorAll('.hardware-module');
 
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
+    // Telemetry Panel Elements
+    this.telemetryActiveTag = document.getElementById('telemetryActiveTag');
+    this.crtFreqDisplay = document.getElementById('crtFreqDisplay');
+    this.crtAvatarFrame = document.getElementById('crtAvatarFrame');
+    this.crtAvatarImg = document.getElementById('crtAvatarImg');
+    this.crtAvatarTitle = document.getElementById('crtAvatarTitle');
+    this.crtAvatarSub = document.getElementById('crtAvatarSub');
 
-  // Kiểm tra chế độ giảm chuyển động
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) return;
+    this.telChannelNum = document.getElementById('telChannelNum');
+    this.telChannelName = document.getElementById('telChannelName');
+    this.telChannelRole = document.getElementById('telChannelRole');
+    this.telSymbol = document.getElementById('telSymbol');
+    this.telPath = document.getElementById('telPath');
+    this.telGroupRole = document.getElementById('telGroupRole');
+    this.telGithub = document.getElementById('telGithub');
+    this.telMeters = document.getElementById('telMeters');
+    this.telLaunchBtn = document.getElementById('telLaunchBtn');
+    this.telGithubBtn = document.getElementById('telGithubBtn');
 
-  let width = (canvas.width = window.innerWidth);
-  let height = (canvas.height = window.innerHeight);
+    // Search & Filter
+    this.routerSearchInput = document.getElementById('routerSearchInput');
+    this.clearSearchBtn = document.getElementById('clearSearchBtn');
+    this.filterButtons = document.querySelectorAll('.filter-btn');
+    this.resetSignalBtn = document.getElementById('resetSignalBtn');
+    this.routerMatchCounter = document.getElementById('routerMatchCounter');
+    this.routerAriaLive = document.getElementById('routerAriaLive');
+    this.routerEmptyState = document.getElementById('routerEmptyState');
+    this.emptyResetBtn = document.getElementById('emptyResetBtn');
 
-  // Tạo quần thể hạt sao
-  const STAR_COUNT = Math.min(Math.floor((width * height) / 14000), 85);
-  const stars = [];
-
-  for (let i = 0; i < STAR_COUNT; i++) {
-    stars.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: Math.random() * 1.4 + 0.4,
-      alpha: Math.random() * 0.7 + 0.2,
-      velocity: (Math.random() * 0.15 + 0.05) * (Math.random() > 0.5 ? 1 : -1),
-      twinkleSpeed: Math.random() * 0.02 + 0.005
-    });
+    // Header Controls
+    this.audioToggleBtn = document.getElementById('audioToggleBtn');
+    this.mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    this.mobileDrawer = document.getElementById('mobileDrawer');
   }
 
-  let animationFrameId = null;
-  let isRunning = true;
-
-  function renderStars() {
-    if (!isRunning) return;
-
-    ctx.clearRect(0, 0, width, height);
-
-    // Vẽ từng ngôi sao
-    for (let i = 0; i < stars.length; i++) {
-      const star = stars[i];
-
-      star.alpha += star.twinkleSpeed;
-      if (star.alpha > 0.9 || star.alpha < 0.2) {
-        star.twinkleSpeed = -star.twinkleSpeed;
-      }
-
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(243, 245, 250, ${star.alpha})`;
-      ctx.fill();
-
-      // Di chuyển chậm trong không gian
-      star.y += star.velocity;
-      if (star.y < 0) star.y = height;
-      if (star.y > height) star.y = 0;
-
-      // Nối các sợi chòm sao gần nhau (Constellation lines)
-      for (let j = i + 1; j < stars.length; j++) {
-        const other = stars[j];
-        const dx = star.x - other.x;
-        const dy = star.y - other.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 110) {
-          ctx.beginPath();
-          ctx.moveTo(star.x, star.y);
-          ctx.lineTo(other.x, other.y);
-          ctx.strokeStyle = `rgba(142, 156, 255, ${0.12 * (1 - dist / 110)})`;
-          ctx.lineWidth = 0.6;
-          ctx.stroke();
+  bindEvents() {
+    // 1. Sequencer step buttons
+    if (this.sequencerSteps) {
+      this.sequencerSteps.addEventListener('click', (e) => {
+        const btn = e.target.closest('.seq-step-btn');
+        if (btn) {
+          const channel = parseInt(btn.dataset.channel, 10);
+          audioFX.playBlip(300 + channel * 80, 'sine');
+          this.updateSystemState(channel);
         }
-      }
+      });
     }
 
-    animationFrameId = requestAnimationFrame(renderStars);
-  }
+    // 2. Hardware Module Rack activation buttons
+    this.moduleCards.forEach((card) => {
+      card.addEventListener('click', (e) => {
+        // If clicking inside a direct anchor link, let browser navigate
+        if (e.target.closest('a')) return;
 
-  renderStars();
-
-  // Resize canvas linh hoạt
-  let resizeTimer = null;
-  const handleResize = () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }, 150);
-  };
-
-  window.addEventListener('resize', handleResize, { passive: true });
-
-  // Tạm dừng khi chuyển tab để tiết kiệm GPU
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      isRunning = false;
-      cancelAnimationFrame(animationFrameId);
-    } else {
-      if (!isRunning) {
-        isRunning = true;
-        renderStars();
-      }
-    }
-  });
-}
-
-/**
- * 5. KHỞI CHẠY TỔNG THỂ TRANG CHỦ
- */
-document.addEventListener('DOMContentLoaded', () => {
-  initCosmicCanvas();
-  initNavigation();
-  initConstellationAtlas();
-});
-
-/**
- * 6. ĐIỀU HƯỚNG & MENU MOBILE
- */
-function initNavigation() {
-  const toggleBtn = document.getElementById('mobileNavToggle');
-  const drawer = document.getElementById('mobileNavMenu');
-
-  if (!toggleBtn || !drawer) return;
-
-  toggleBtn.addEventListener('click', () => {
-    const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-    toggleBtn.setAttribute('aria-expanded', String(!isExpanded));
-    if (isExpanded) {
-      drawer.setAttribute('hidden', '');
-    } else {
-      drawer.removeAttribute('hidden');
-    }
-  });
-
-  // Tự động đóng drawer khi click vào liên kết
-  const links = drawer.querySelectorAll('.mobile-link');
-  links.forEach((link) => {
-    link.addEventListener('click', () => {
-      drawer.setAttribute('hidden', '');
-      toggleBtn.setAttribute('aria-expanded', 'false');
-    });
-  });
-}
-
-/**
- * 7. BẢN ĐỒ CHÒM SAO & TÌM KIẾM
- */
-function initConstellationAtlas() {
-  const gridContainer = document.getElementById('celestialEntitiesGrid');
-  const searchInput = document.getElementById('cosmicSearchInput');
-  const filtersWrap = document.getElementById('strengthFiltersWrap');
-  const countText = document.getElementById('discoveryCountText');
-  const emptyAlert = document.getElementById('noMatchAlert');
-  const resetBtn = document.getElementById('resetDiscoveryBtn');
-
-  if (!gridContainer) return;
-
-  let activeIndex = 0; // Mặc định khóa tín hiệu vào Member 01
-  let currentFilter = 'all';
-
-  // 7.1 Render 6 Thẻ Thực Thể Thiên Văn
-  renderEntityCards(gridContainer, (clickedIndex) => {
-    setActiveEntity(clickedIndex);
-  });
-
-  // 7.2 Render Thanh Bộ Lọc Thế Mạnh
-  renderFilterButtons(filtersWrap, (filterKey) => {
-    currentFilter = filterKey;
-    applySearchAndFilter();
-  });
-
-  // 7.3 Lắng nghe Tìm kiếm thời gian thực
-  if (searchInput) {
-    searchInput.addEventListener('input', () => {
-      applySearchAndFilter();
+        const id = parseInt(card.dataset.memberId, 10);
+        audioFX.playBlip(320 + id * 70, 'triangle');
+        this.updateSystemState(id);
+      });
     });
 
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        resetFilters();
-      }
-    });
-  }
-
-  // 7.4 Nút Đặt lại Bộ Lọc
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      resetFilters();
-    });
-  }
-
-  // Khởi tạo bảng chi tiết ban đầu cho Member 01
-  setActiveEntity(0);
-
-  /**
-   * Cập nhật Thực thể Thiên văn Đang Kích Hoạt (Lock Signal)
-   */
-  function setActiveEntity(index) {
-    activeIndex = index;
-    const member = CELESTIAL_CREW_DATA[index];
-    if (!member) return;
-
-    // Cập nhật class active trên các thẻ
-    const cards = gridContainer.querySelectorAll('.entity-card');
-    cards.forEach((card, i) => {
-      if (i === index) {
-        card.classList.add('is-active');
-        card.setAttribute('aria-current', 'true');
-      } else {
-        card.classList.remove('is-active');
-        card.removeAttribute('aria-current');
-      }
-    });
-
-    // Cập nhật thông tin vào Panel bên phải
-    const signalText = document.getElementById('activeEntitySignal');
-    const indexText = document.getElementById('activeEntityIndex');
-    const titleText = document.getElementById('activeEntityTitle');
-    const roleText = document.getElementById('activeEntityRole');
-    const focusText = document.getElementById('activeEntityFocus');
-    const strengthsWrap = document.getElementById('activeEntityStrengths');
-    const avatarWrap = document.getElementById('activeEntityAvatarWrap');
-    const avatarImg = document.getElementById('activeEntityAvatar');
-    const portfolioBtn = document.getElementById('activeEntityPortfolioBtn');
-    const githubBtn = document.getElementById('activeEntityGithubBtn');
-
-    if (signalText) signalText.textContent = member.isConfirmed ? 'SIGNAL LOCKED' : 'SIGNAL PENDING';
-    if (indexText) indexText.textContent = `NODE ${member.id} · ${member.coordinate}`;
-    if (titleText) titleText.textContent = member.isConfirmed ? member.fullName : `${member.fullName} (Chưa cập nhật)`;
-    if (roleText) roleText.textContent = member.role || 'THÀNH VIÊN ĐỒ ÁN';
-    if (focusText) focusText.textContent = member.focus;
-
-    // Avatar
-    if (avatarWrap && avatarImg) {
-      if (member.isConfirmed && member.avatar) {
-        avatarWrap.style.display = 'block';
-        avatarImg.src = member.avatar;
-        avatarImg.alt = `Ảnh đại diện ${member.fullName}`;
-      } else {
-        avatarWrap.style.display = 'none';
-      }
+    // 3. Search input real-time handler
+    if (this.routerSearchInput) {
+      this.routerSearchInput.addEventListener('input', (e) => {
+        this.searchQuery = e.target.value;
+        this.applyFilterAndSearch();
+      });
     }
 
-    // Strengths
-    if (strengthsWrap) {
-      strengthsWrap.replaceChildren();
-      if (member.isConfirmed && member.strengths.length > 0) {
-        member.strengths.forEach((st) => {
-          const tag = document.createElement('span');
-          tag.className = 'cosmic-strength-tag';
-          tag.textContent = st;
-          strengthsWrap.appendChild(tag);
+    // 4. Clear search button
+    if (this.clearSearchBtn) {
+      this.clearSearchBtn.addEventListener('click', () => {
+        this.routerSearchInput.value = '';
+        this.searchQuery = '';
+        this.routerSearchInput.focus();
+        this.applyFilterAndSearch();
+      });
+    }
+
+    // 5. Filter tag buttons
+    this.filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        this.filterButtons.forEach((b) => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
         });
-      } else {
-        const pendingSpan = document.createElement('span');
-        pendingSpan.className = 'font-mono';
-        pendingSpan.style.color = 'var(--text-muted)';
-        pendingSpan.style.fontSize = '0.78rem';
-        pendingSpan.textContent = 'Dữ liệu kỹ thuật đang được cập nhật.';
-        strengthsWrap.appendChild(pendingSpan);
-      }
-    }
-
-    // Portfolio Action Button
-    if (portfolioBtn) {
-      if (member.isConfirmed && member.portfolio) {
-        portfolioBtn.href = member.portfolio;
-        portfolioBtn.removeAttribute('tabindex');
-        portfolioBtn.removeAttribute('aria-disabled');
-        portfolioBtn.classList.remove('btn-cosmic-ghost');
-        portfolioBtn.classList.add('btn-cosmic-gold');
-        portfolioBtn.querySelector('span').textContent = 'Mở Portfolio Cá Nhân →';
-        portfolioBtn.onclick = null;
-      } else {
-        portfolioBtn.removeAttribute('href');
-        portfolioBtn.setAttribute('tabindex', '-1');
-        portfolioBtn.setAttribute('aria-disabled', 'true');
-        portfolioBtn.classList.remove('btn-cosmic-gold');
-        portfolioBtn.classList.add('btn-cosmic-ghost');
-        portfolioBtn.querySelector('span').textContent = 'Hồ Sơ Đang Cập Nhật';
-        portfolioBtn.onclick = (e) => {
-          e.preventDefault();
-          showCosmicToast(`Hồ sơ thành viên ${member.id} đang được cập nhật.`);
-        };
-      }
-    }
-
-    // GitHub Button
-    if (githubBtn) {
-      if (member.isConfirmed && member.github) {
-        githubBtn.href = member.github;
-        githubBtn.style.display = 'inline-flex';
-      } else {
-        githubBtn.style.display = 'none';
-      }
-    }
-  }
-
-  /**
-   * Bộ lọc và Tìm kiếm thời gian thực (AND Logic)
-   */
-  function applySearchAndFilter() {
-    const query = searchInput ? normalizeVietnamese(searchInput.value) : '';
-    const isFiltering = query !== '' || currentFilter !== 'all';
-
-    let matchCount = 0;
-    const cards = gridContainer.querySelectorAll('.entity-card');
-
-    cards.forEach((card) => {
-      const index = parseInt(card.getAttribute('data-index'), 10);
-      const member = CELESTIAL_CREW_DATA[index];
-
-      if (!isFiltering) {
-        card.classList.remove('is-inert');
-        card.removeAttribute('inert');
-        matchCount++;
-        return;
-      }
-
-      // Thành viên chưa xác nhận: không tham gia kết quả tìm kiếm/lọc
-      if (!member.isConfirmed) {
-        card.classList.add('is-inert');
-        card.setAttribute('inert', '');
-        return;
-      }
-
-      // Chuỗi tìm kiếm tổng hợp
-      const searchableStr = normalizeVietnamese(
-        `${member.fullName} ${member.displayName} ${member.symbol} ${member.role} ${member.focus} ${member.strengths.join(' ')}`
-      );
-
-      const matchesQuery = query === '' || searchableStr.includes(query);
-      const matchesStrength = currentFilter === 'all' || member.strengths.includes(currentFilter);
-
-      if (matchesQuery && matchesStrength) {
-        card.classList.remove('is-inert');
-        card.removeAttribute('inert');
-        matchCount++;
-      } else {
-        card.classList.add('is-inert');
-        card.setAttribute('inert', '');
-      }
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        this.currentFilter = btn.dataset.filter;
+        audioFX.playBlip(550, 'sine', 0.05);
+        this.applyFilterAndSearch();
+      });
     });
 
-    // Cập nhật dòng đếm kết quả
-    if (countText) {
-      if (!isFiltering) {
-        countText.textContent = 'Đang hiển thị 6 / 6 thực thể thiên văn';
-      } else {
-        countText.textContent = `Đang hiển thị ${matchCount} / 6 thực thể thiên văn (phù hợp)`;
-      }
+    // 6. Reset Signal button
+    if (this.resetSignalBtn) {
+      this.resetSignalBtn.addEventListener('click', () => this.resetAllFilters());
+    }
+    if (this.emptyResetBtn) {
+      this.emptyResetBtn.addEventListener('click', () => this.resetAllFilters());
     }
 
-    // Hiển thị panel không có kết quả nếu = 0
-    if (emptyAlert) {
-      if (matchCount === 0) {
-        emptyAlert.removeAttribute('hidden');
-      } else {
-        emptyAlert.setAttribute('hidden', '');
-      }
-    }
-  }
-
-  /**
-   * Đặt lại bộ lọc về mặc định
-   */
-  function resetFilters() {
-    if (searchInput) searchInput.value = '';
-    currentFilter = 'all';
-
-    if (filtersWrap) {
-      const btns = filtersWrap.querySelectorAll('.filter-btn');
-      btns.forEach((b) => {
-        b.setAttribute('aria-pressed', b.getAttribute('data-filter') === 'all' ? 'true' : 'false');
+    // 7. Audio FX button
+    if (this.audioToggleBtn) {
+      this.audioToggleBtn.addEventListener('click', () => {
+        const isEnabled = audioFX.toggle();
+        this.audioToggleBtn.classList.toggle('active', isEnabled);
+        this.audioToggleBtn.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        this.audioToggleBtn.querySelector('.audio-label').textContent = isEnabled ? 'FX: ON' : 'FX: OFF';
+        if (isEnabled) {
+          audioFX.playBlip(880, 'sine', 0.1);
+        }
       });
     }
 
-    applySearchAndFilter();
-    if (searchInput) searchInput.focus();
-    showCosmicToast('Đã đặt lại toàn bộ bộ lọc thiên văn.');
-  }
-}
-
-/**
- * 8. RENDER 6 THẺ THỰC THỂ THIÊN VĂN BẰNG DOM API
- */
-function renderEntityCards(container, onSelect) {
-  container.replaceChildren();
-
-  CELESTIAL_CREW_DATA.forEach((member, idx) => {
-    const card = document.createElement('article');
-    card.className = 'entity-card';
-    card.setAttribute('data-index', idx.toString());
-    card.setAttribute('tabindex', '0');
-    card.setAttribute('role', 'button');
-    card.setAttribute('aria-label', `Thực thể thiên văn ${member.id}: ${member.fullName}`);
-
-    // Header thẻ: Tọa độ & Trạng thái tín hiệu
-    const topBar = document.createElement('div');
-    topBar.className = 'entity-top-bar';
-
-    const coordCode = document.createElement('span');
-    coordCode.className = 'entity-coord-code font-mono';
-    coordCode.textContent = `[${member.id}] ${member.coordinate}`;
-    topBar.appendChild(coordCode);
-
-    const beacon = document.createElement('span');
-    beacon.className = 'entity-status-beacon font-mono';
-    const dot = document.createElement('span');
-    dot.className = 'status-dot';
-    beacon.appendChild(dot);
-    beacon.appendChild(document.createTextNode(member.isConfirmed ? ' ACTIVE' : ' PENDING'));
-    topBar.appendChild(beacon);
-
-    card.appendChild(topBar);
-
-    // Body thẻ: Ký hiệu & Tên
-    const body = document.createElement('div');
-    body.className = 'entity-body';
-
-    const symbolBox = document.createElement('div');
-    symbolBox.className = 'entity-symbol-box';
-    symbolBox.textContent = member.symbol;
-    body.appendChild(symbolBox);
-
-    const titleGroup = document.createElement('div');
-    const nameHeading = document.createElement('h3');
-    nameHeading.className = 'entity-name-heading';
-    nameHeading.textContent = member.fullName;
-    titleGroup.appendChild(nameHeading);
-
-    const subRole = document.createElement('div');
-    subRole.className = 'entity-sub-role font-mono';
-    subRole.textContent = member.isConfirmed ? (member.role || 'THÀNH VIÊN') : 'VỊ TRÍ CHỜ CẬP NHẬT';
-    titleGroup.appendChild(subRole);
-
-    body.appendChild(titleGroup);
-    card.appendChild(body);
-
-    // Strengths tag strip
-    if (member.isConfirmed && member.strengths.length > 0) {
-      const strengthsStrip = document.createElement('div');
-      strengthsStrip.className = 'entity-strengths-strip';
-      member.strengths.forEach((st) => {
-        const tag = document.createElement('span');
-        tag.className = 'cosmic-strength-tag';
-        tag.textContent = st;
-        strengthsStrip.appendChild(tag);
+    // 8. Mobile Menu Drawer
+    if (this.mobileMenuBtn && this.mobileDrawer) {
+      this.mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = this.mobileDrawer.classList.toggle('open');
+        this.mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        this.mobileDrawer.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
       });
-      card.appendChild(strengthsStrip);
+
+      // Close mobile drawer on link click
+      this.mobileDrawer.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          this.mobileDrawer.classList.remove('open');
+          this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          this.mobileDrawer.setAttribute('aria-hidden', 'true');
+        });
+      });
+    }
+  }
+
+  updateSystemState(memberId) {
+    const member = COLLECTIVE_MACHINE_DATA.find((m) => m.id === memberId) || COLLECTIVE_MACHINE_DATA[0];
+    this.activeMemberId = member.id;
+
+    // 1. Update Sequencer UI
+    if (this.sequencerSteps) {
+      const stepButtons = this.sequencerSteps.querySelectorAll('.seq-step-btn');
+      stepButtons.forEach((btn) => {
+        const isActive = parseInt(btn.dataset.channel, 10) === member.id;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    }
+    if (this.sequencerDisplay) {
+      this.sequencerDisplay.textContent = `ACTIVE: ${member.channel} [${member.displayName.toUpperCase()}]`;
     }
 
-    // Bottom Bar
-    const bottomBar = document.createElement('div');
-    bottomBar.className = 'entity-bottom-bar font-mono';
-
-    const hint = document.createElement('span');
-    hint.style.color = 'var(--text-muted)';
-    hint.textContent = member.isConfirmed ? '✦ Tín hiệu đã xác minh' : '— Đang cập nhật';
-    bottomBar.appendChild(hint);
-
-    const ctaLink = document.createElement('span');
-    ctaLink.className = 'entity-link-cta';
-    ctaLink.textContent = member.isConfirmed ? 'Xem tọa độ →' : 'Khóa tín hiệu';
-    bottomBar.appendChild(ctaLink);
-
-    card.appendChild(bottomBar);
-
-    // Event listener: Click
-    card.addEventListener('click', () => {
-      onSelect(idx);
-      if (!member.isConfirmed) {
-        showCosmicToast(`Hồ sơ thành viên ${member.id} đang được cập nhật.`);
-      }
-    });
-
-    // Event listener: Keyboard Enter / Space
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        onSelect(idx);
-        if (!member.isConfirmed) {
-          showCosmicToast(`Hồ sơ thành viên ${member.id} đang được cập nhật.`);
+    // 2. Update Module Rack
+    this.moduleCards.forEach((card) => {
+      const isActive = parseInt(card.dataset.memberId, 10) === member.id;
+      card.classList.toggle('active', isActive);
+      
+      const toggleBtn = card.querySelector('.module-toggle-btn');
+      if (toggleBtn) {
+        toggleBtn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        const label = toggleBtn.querySelector('.toggle-label');
+        if (label) {
+          label.textContent = isActive ? 'CIRCUIT: ACTIVE' : 'ENGAGE';
         }
       }
+
+      const ledStateText = card.querySelector('.led-state-text');
+      if (ledStateText) {
+        ledStateText.textContent = isActive ? 'PATCHED' : 'STANDBY';
+      }
     });
 
-    container.appendChild(card);
-  });
-}
+    // 3. React Bits AnimatedContent transition for Telemetry Panel
+    const telemetryConsole = document.querySelector('[data-react-bits="animated-content"]');
+    if (telemetryConsole) {
+      telemetryConsole.style.opacity = '0.4';
+      telemetryConsole.style.transform = 'translateY(6px)';
+      telemetryConsole.style.transition = 'opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+      
+      setTimeout(() => {
+        this.renderTelemetryData(member);
+        telemetryConsole.style.opacity = '1';
+        telemetryConsole.style.transform = 'translateY(0)';
+      }, 120);
+    } else {
+      this.renderTelemetryData(member);
+    }
 
-/**
- * 9. RENDER CÁC NÚT BỘ LỌC THẾ MẠNH ĐÃ XÁC MINH
- */
-function renderFilterButtons(wrap, onFilterChange) {
-  if (!wrap) return;
+    // 4. Update Oscilloscope Frequency
+    if (this.oscilloscope) {
+      this.oscilloscope.setFrequency(member.frequency);
+    }
+    if (this.crtFreqDisplay) {
+      this.crtFreqDisplay.textContent = `${member.frequency.toFixed(1)} Hz`;
+    }
+  }
 
-  wrap.replaceChildren();
+  renderTelemetryData(member) {
+    if (this.telemetryActiveTag) {
+      this.telemetryActiveTag.textContent = `CIRCUIT: ${member.channel} CONNECTED`;
+    }
+    if (this.telChannelNum) this.telChannelNum.textContent = `CHANNEL 0${member.id}`;
+    if (this.telChannelName) this.telChannelName.textContent = member.fullName;
+    if (this.telChannelRole) this.telChannelRole.textContent = member.focus;
+    if (this.telSymbol) this.telSymbol.textContent = member.symbol;
+    if (this.telPath) this.telPath.textContent = member.portfolioUrl;
+    if (this.telGroupRole) this.telGroupRole.textContent = member.role;
+    if (this.telGithub) this.telGithub.textContent = member.githubHandle;
 
-  const label = document.createElement('span');
-  label.className = 'font-mono';
-  label.style.fontSize = '0.72rem';
-  label.style.color = 'var(--text-muted)';
-  label.style.marginRight = '0.5rem';
-  label.textContent = 'LỌC THEO CÔNG NGHỆ:';
-  wrap.appendChild(label);
+    // Avatar Viewport Handling (ALWAYS 100% REAL NATURAL COLOR!)
+    if (this.crtAvatarImg) {
+      if (member.hasRealAvatar && member.avatarUrl) {
+        this.crtAvatarImg.src = member.avatarUrl;
+        this.crtAvatarImg.alt = `Ảnh chân dung màu thực tế của ${member.fullName}`;
+        this.crtAvatarImg.style.display = 'block';
+      } else {
+        // Fallback for members without real image yet
+        this.crtAvatarImg.src = './members/le-nguyen-nhat-truong/images/avatar.png'; // Verified safe asset
+        this.crtAvatarImg.alt = `Chế độ chờ module ${member.fullName}`;
+      }
+    }
+    if (this.crtAvatarTitle) {
+      this.crtAvatarTitle.textContent = `${member.channel} // ${member.fullName.toUpperCase()}`;
+    }
+    if (this.crtAvatarSub) {
+      this.crtAvatarSub.textContent = member.hasRealAvatar
+        ? 'UTH K24 SE · AUTHENTICATED PORTRAIT'
+        : 'FOUNDATION READY · STANDBY FOR PHASE 3';
+    }
 
-  // Thu thập các thế mạnh đã xác minh duy nhất
-  const confirmedStrengths = Array.from(
-    new Set(CELESTIAL_CREW_DATA.flatMap((m) => (m.isConfirmed ? m.strengths : [])))
-  );
+    // Strengths Matrix Bars
+    if (this.telMeters && member.strengthsMatrix) {
+      this.telMeters.innerHTML = member.strengthsMatrix
+        .map(
+          (item) => `
+        <div class="meter-item font-mono">
+          <span class="meter-label">${item.label}</span>
+          <div class="meter-bar-track">
+            <div class="meter-bar-fill" style="width: ${item.val}%;"></div>
+          </div>
+          <span class="meter-val">${item.val}%</span>
+        </div>
+      `
+        )
+        .join('');
+    }
 
-  const filters = [
-    { key: 'all', label: 'Tất cả' },
-    ...confirmedStrengths.map((s) => ({ key: s, label: s }))
-  ];
+    // Action Buttons
+    if (this.telLaunchBtn) {
+      this.telLaunchBtn.href = member.portfolioUrl;
+      this.telLaunchBtn.querySelector('span:first-child').textContent = member.isLinked
+        ? 'TRUY CẬP PORTFOLIO CHI TIẾT'
+        : 'XEM KHUNG FOUNDATION';
+    }
+    if (this.telGithubBtn) {
+      this.telGithubBtn.href = member.github;
+    }
+  }
 
-  filters.forEach((filter, idx) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'filter-btn';
-    btn.setAttribute('data-filter', filter.key);
-    btn.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
-    btn.textContent = filter.label;
+  applyFilterAndSearch() {
+    const normQuery = normalizeVietnamese(this.searchQuery);
+    let matchCount = 0;
 
-    btn.addEventListener('click', () => {
-      const allBtns = wrap.querySelectorAll('.filter-btn');
-      allBtns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
-      btn.setAttribute('aria-pressed', 'true');
-      onFilterChange(filter.key);
+    this.moduleCards.forEach((card) => {
+      const id = parseInt(card.dataset.memberId, 10);
+      const member = COLLECTIVE_MACHINE_DATA.find((m) => m.id === id);
+      if (!member) return;
+
+      // 1. Text Search matching (Name, Focus, Strengths)
+      const textToSearch = `${member.fullName} ${member.displayName} ${member.focus} ${member.strengths.join(' ')}`;
+      const matchesSearch = !normQuery || normalizeVietnamese(textToSearch).includes(normQuery);
+
+      // 2. Tag Filter matching
+      let matchesFilter = true;
+      if (this.currentFilter !== 'all') {
+        const normFilter = normalizeVietnamese(this.currentFilter);
+        const cardStrengths = card.dataset.strengths ? card.dataset.strengths.toLowerCase() : '';
+        matchesFilter = cardStrengths.includes(normFilter);
+      }
+
+      // AND Logic
+      const isVisible = matchesSearch && matchesFilter;
+      card.classList.toggle('filtered-out', !isVisible);
+
+      if (isVisible) {
+        matchCount++;
+      }
     });
 
-    wrap.appendChild(btn);
-  });
+    // Update Counter & ARIA live
+    if (this.routerMatchCounter) {
+      this.routerMatchCounter.textContent = `KẾT QUẢ: ${matchCount} / 6 MODULES`;
+    }
+    if (this.routerAriaLive) {
+      this.routerAriaLive.textContent = `Đã tìm thấy ${matchCount} module phù hợp với bộ lọc tín hiệu.`;
+    }
+
+    // Empty state
+    if (this.routerEmptyState) {
+      this.routerEmptyState.hidden = matchCount > 0;
+    }
+  }
+
+  resetAllFilters() {
+    if (this.routerSearchInput) {
+      this.routerSearchInput.value = '';
+    }
+    this.searchQuery = '';
+    this.currentFilter = 'all';
+
+    this.filterButtons.forEach((b) => {
+      const isAll = b.dataset.filter === 'all';
+      b.classList.toggle('active', isAll);
+      b.setAttribute('aria-pressed', isAll ? 'true' : 'false');
+    });
+
+    audioFX.playBlip(440, 'sine', 0.08);
+    this.applyFilterAndSearch();
+  }
 }
+
+// -------------------------------------------------------------
+// 8. INITIALIZATION ON DOM READY
+// -------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Init SplitText Component
+  initReactBitsSplitText();
+
+  // 2. Init Magnet Pointer Component
+  initReactBitsMagnet();
+
+  // 3. Init Machine Controller
+  window.collectiveMachine = new CollectiveMachineController();
+});

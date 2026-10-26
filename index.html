@@ -3,336 +3,662 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Trang chủ nhóm 6 sinh viên UTH — Cosmic Constellation Atlas &amp; Multi-Page Portfolio Hub. Khám phá 6 thành viên như 6 thực thể thiên văn kết nối qua một chòm sao kỹ thuật.">
+  <meta name="description" content="THE COLLECTIVE MACHINE — Nhóm 06 · UTH. Trải nghiệm danh mục kỹ thuật số dạng nhạc cụ module hóa (Modular Digital Instrument) tích hợp React Bits.">
   <meta name="author" content="Nhóm 06 — Khoa CNTT, UTH">
-  <meta name="keywords" content="Portfolio nhóm, UTH, Lập trình Web, Cosmic Portfolio, Constellation, Lê Nguyễn Nhật Trường, Thiên văn kỹ thuật">
+  <meta name="keywords" content="The Collective Machine, Portfolio nhóm, UTH, Modular Instrument, React Bits, Software Engineering, K24">
 
-  <title>Cosmic Team Constellation | Nhóm 06 — UTH</title>
+  <title>THE COLLECTIVE MACHINE — Nhóm 06 · UTH</title>
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Cosmic Team Constellation | Nhóm 06 — UTH">
-  <meta property="og:description" content="Bản đồ thiên văn định hướng và danh mục 6 thành viên nhóm sinh viên UTH — Six Minds. One Constellation.">
+  <meta property="og:title" content="THE COLLECTIVE MACHINE — Nhóm 06 · UTH">
+  <meta property="og:description" content="Six Inputs. One System. Sáu module độc lập kết nối tạo thành một cỗ máy kỹ thuật số tương tác.">
   <meta property="og:type" content="website">
 
-  <!-- Google Fonts: Space Grotesk (Display / Coordinates), Be Vietnam Pro (Body), JetBrains Mono (Technical Metadata) -->
+  <!-- Typography: Space Grotesk (Machine Headlines), Sora (Tactile Controls), IBM Plex Mono (Digital Telemetry Readouts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Custom Cosmic Cartography Stylesheet -->
+  <!-- The Collective Machine Stylesheet -->
   <link rel="stylesheet" href="./group.css">
 </head>
-<body class="cosmic-theme">
+<body class="machine-theme">
 
-  <!-- Trợ năng bàn phím WCAG AA: Skip Link -->
-  <a href="#main-content" class="skip-link">Chuyển trực tiếp đến nội dung chính</a>
-
-  <!-- Lớp Canvas Thiên hà & Chòm sao (React Bits Starfield & Constellation Engine) -->
-  <canvas id="cosmicCanvas" class="cosmic-bg-canvas" aria-hidden="true"></canvas>
-
-  <!-- Lưới tọa độ bản đồ thiên văn nền (Astronomical Reticle Grid) -->
-  <div class="celestial-grid-overlay" aria-hidden="true"></div>
+  <!-- WCAG AA Accessibility: Skip to Content -->
+  <a href="#main-content" class="skip-link font-mono">Chuyển đến nội dung chính [Skip to Content]</a>
 
   <!-- =========================================================
-       SECTION A — NAVIGATION (ASTRONOMICAL INSTRUMENT)
+       SECTION A — HEADER (RACKMOUNT MASTER CONTROL STRIP)
        ========================================================= -->
-  <header class="cosmic-header" id="siteHeader">
-    <div class="container header-container">
+  <header class="machine-header" id="siteHeader" role="banner">
+    <div class="container header-inner">
       
-      <!-- Brand & Constellation Monogram -->
-      <a href="#hero" class="brand-link" aria-label="Trang chủ Nhóm 06 UTH">
-        <div class="brand-orbital-mark" aria-hidden="true">
-          <span class="orbital-ring"></span>
-          <span class="orbital-dot"></span>
-          <span class="orbital-center">✦</span>
-        </div>
-        <div class="brand-text-block">
-          <span class="brand-title">CONSTELLATION·06</span>
-          <span class="brand-sub">CELESTIAL ARCHIVE · UTH</span>
+      <!-- Machine Brand & Status -->
+      <a href="#hero" class="brand-link" aria-label="The Collective Machine — Nhóm 06 UTH">
+        <div class="brand-badge font-mono">SYS_06</div>
+        <div class="brand-info">
+          <span class="brand-title font-heading">THE COLLECTIVE MACHINE</span>
+          <span class="brand-meta font-mono">UTH · SE K24 · CH_BUS: ONLINE</span>
         </div>
       </a>
 
-      <!-- Desktop Navigation Links -->
-      <nav class="cosmic-nav" aria-label="Điều hướng chính">
-        <a href="#constellation" class="nav-item">
-          <span class="nav-index">01</span> Chòm sao
+      <!-- Machine Status LED Indicator -->
+      <div class="system-status-pill font-mono" aria-live="polite">
+        <span class="status-led led-active" id="sysClockLed" aria-hidden="true"></span>
+        <span class="status-text" id="sysClockText">48kHz CLK // 6 CHANNELS</span>
+      </div>
+
+      <!-- Navigation Matrix -->
+      <nav class="machine-nav" aria-label="Điều khiển hệ thống">
+        <a href="#rack" class="nav-item font-mono">
+          <span class="nav-prefix">01</span> MODULE_RACK
         </a>
-        <a href="#discovery" class="nav-item">
-          <span class="nav-index">02</span> Tra cứu
+        <a href="#telemetry" class="nav-item font-mono">
+          <span class="nav-prefix">02</span> TELEMETRY
         </a>
-        <a href="#about" class="nav-item">
-          <span class="nav-index">03</span> Hồ sơ
+        <a href="#router" class="nav-item font-mono">
+          <span class="nav-prefix">03</span> SIGNAL_ROUTER
         </a>
-        <a href="#how-we-build" class="nav-item">
-          <span class="nav-index">04</span> Giao thức
+        <a href="#specs" class="nav-item font-mono">
+          <span class="nav-prefix">04</span> SYS_SPECS
         </a>
-        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="nav-item nav-item-repo" target="_blank" rel="noopener noreferrer">
-          Repository ↗
+        <a href="#pipeline" class="nav-item font-mono">
+          <span class="nav-prefix">05</span> PIPELINE
+        </a>
+        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="nav-item nav-item-repo font-mono" target="_blank" rel="noopener noreferrer">
+          REPO ↗
         </a>
       </nav>
 
-      <!-- Nút mở menu mobile -->
-      <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-expanded="false" aria-controls="mobileNavMenu" aria-label="Mở menu điều hướng">
-        <span class="toggle-bar"></span>
-        <span class="toggle-bar"></span>
+      <!-- Audio / Haptic Feedback Toggle (Tactile Instrument Sound) -->
+      <button type="button" class="audio-toggle-btn font-mono" id="audioToggleBtn" aria-pressed="false" aria-label="Bật/Tắt âm thanh tương tác cơ học">
+        <span class="audio-icon" aria-hidden="true">🔊</span>
+        <span class="audio-label">FX: OFF</span>
+      </button>
+
+      <!-- Mobile Menu Trigger -->
+      <button type="button" class="mobile-toggle font-mono" id="mobileMenuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Mở bảng điều khiển di động">
+        <span class="mobile-bar"></span>
+        <span class="mobile-bar"></span>
       </button>
 
     </div>
 
-    <!-- Mobile Navigation Drawer -->
-    <div class="mobile-nav-drawer" id="mobileNavMenu" hidden>
-      <nav class="mobile-nav-links" aria-label="Điều hướng trên di động">
-        <a href="#constellation" class="mobile-link"><span>01</span> Chòm sao 6 Thành viên</a>
-        <a href="#discovery" class="mobile-link"><span>02</span> Tra cứu Tọa độ Kỹ thuật</a>
-        <a href="#about" class="mobile-link"><span>03</span> Hồ sơ Dự án &amp; Nhiệm vụ</a>
-        <a href="#how-we-build" class="mobile-link"><span>04</span> Giao thức Xây dựng</a>
-        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="mobile-link" target="_blank" rel="noopener noreferrer">Mã nguồn GitHub ↗</a>
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+      <nav class="mobile-nav" aria-label="Điều hướng di động">
+        <a href="#rack" class="mobile-nav-link font-mono"><span>[01]</span> MODULE_RACK</a>
+        <a href="#telemetry" class="mobile-nav-link font-mono"><span>[02]</span> TELEMETRY_INSPECTOR</a>
+        <a href="#router" class="mobile-nav-link font-mono"><span>[03]</span> SIGNAL_ROUTER</a>
+        <a href="#specs" class="mobile-nav-link font-mono"><span>[04]</span> SYSTEM_SPECS</a>
+        <a href="#pipeline" class="mobile-nav-link font-mono"><span>[05]</span> PIPELINE_WORKFLOW</a>
+        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="mobile-nav-link font-mono" target="_blank" rel="noopener noreferrer"><span>[06]</span> GITHUB_REPOSITORY ↗</a>
       </nav>
     </div>
   </header>
 
   <!-- =========================================================
-       MAIN CONTENT
+       MAIN CONTENT CONTAINER
        ========================================================= -->
   <main id="main-content">
 
     <!-- =========================================================
-         SECTION B — COSMIC HERO
+         SECTION B — HERO (POWER ON & SEQUENCER BAR)
          ========================================================= -->
-    <section class="cosmic-hero-section" id="hero" aria-label="Giới thiệu trang chủ nhóm">
-      <div class="container hero-container">
+    <section class="machine-hero" id="hero" aria-labelledby="heroHeadline">
+      <div class="container hero-layout">
         
-        <div class="hero-content">
-          <div class="celestial-badge">
-            <span class="badge-radar"></span>
-            <span class="badge-text">GROUP 06 / CELESTIAL ARCHIVE</span>
+        <!-- Hero Machine Control Bar -->
+        <div class="hero-control-strip font-mono">
+          <div class="strip-item"><span class="strip-label">CHASSIS:</span> MODULAR_SYNTH_06</div>
+          <div class="strip-item"><span class="strip-label">SYNC_BUS:</span> LOW_LATENCY</div>
+          <div class="strip-item"><span class="strip-label">SAMPLE_RATE:</span> 96kHz / 24-BIT</div>
+          <div class="strip-item strip-item-active"><span class="strip-led" aria-hidden="true"></span> POWER_ENGAGED</div>
+        </div>
+
+        <div class="hero-body">
+          <div class="hero-meta-tag font-mono">
+            <span class="tag-bracket">[</span> MODULAR_DIGITAL_INSTRUMENT <span class="tag-bracket">]</span>
           </div>
 
-          <h1 class="hero-headline">
-            Six Minds.<br>
-            <span class="headline-gradient">One Constellation.</span>
+          <!-- React Bits SplitText Hero Headline -->
+          <h1 class="hero-headline font-heading" id="heroHeadline" data-react-bits="split-text">
+            SIX INPUTS. ONE SYSTEM.
           </h1>
 
-          <p class="hero-lead">
-            Hồ sơ thiên văn định hướng và cổng kết nối 6 thành viên nhóm sinh viên UTH. Mỗi cá nhân là một thực thể thiên thể độc lập với quỹ đạo kỹ thuật riêng; cùng hội tụ trong một chòm sao đồ án môn Lập trình Web thống nhất.
+          <p class="hero-subheadline font-heading">
+            DIFFERENT MINDS. SHARED OUTPUT.
           </p>
 
+          <p class="hero-description font-body">
+            Không phải trang portfolio thông thường hay bộ danh thiếp tĩnh. Đây là một <strong>nhạc cụ số tương tác</strong> mô phỏng hệ thống phần cứng modular: sáu lập trình viên UTH là sáu module kỹ thuật số độc lập cùng kết nối, chia sẻ luồng tín hiệu và định hình sản phẩm.
+          </p>
+
+          <!-- Interactive Channel Step Sequencer (6 Channels) -->
+          <div class="sequencer-widget" role="region" aria-label="Bộ chọn kênh Sequencer 6 bước">
+            <div class="sequencer-header font-mono">
+              <span>CHANNEL_SEQUENCER [CH.01 &rarr; CH.06]</span>
+              <span class="sequencer-step-display" id="sequencerDisplay">ACTIVE: CH.01 [TRƯỜNG]</span>
+            </div>
+            <div class="sequencer-steps" id="sequencerSteps" role="tablist" aria-label="Bộ phím kênh">
+              <button type="button" class="seq-step-btn active" data-channel="1" role="tab" aria-selected="true" aria-controls="telemetry">
+                <span class="seq-num font-mono">01</span>
+                <span class="seq-id font-mono">Tr</span>
+              </button>
+              <button type="button" class="seq-step-btn" data-channel="2" role="tab" aria-selected="false" aria-controls="telemetry">
+                <span class="seq-num font-mono">02</span>
+                <span class="seq-id font-mono">Hi</span>
+              </button>
+              <button type="button" class="seq-step-btn" data-channel="3" role="tab" aria-selected="false" aria-controls="telemetry">
+                <span class="seq-num font-mono">03</span>
+                <span class="seq-id font-mono">Ch</span>
+              </button>
+              <button type="button" class="seq-step-btn" data-channel="4" role="tab" aria-selected="false" aria-controls="telemetry">
+                <span class="seq-num font-mono">04</span>
+                <span class="seq-id font-mono">Th</span>
+              </button>
+              <button type="button" class="seq-step-btn" data-channel="5" role="tab" aria-selected="false" aria-controls="telemetry">
+                <span class="seq-num font-mono">05</span>
+                <span class="seq-id font-mono">Hy</span>
+              </button>
+              <button type="button" class="seq-step-btn" data-channel="6" role="tab" aria-selected="false" aria-controls="telemetry">
+                <span class="seq-num font-mono">06</span>
+                <span class="seq-id font-mono">Nh</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Hero Actions with React Bits Magnet Component -->
           <div class="hero-actions">
-            <a href="#constellation" class="btn-cosmic btn-cosmic-primary">
-              <span>Khám Phá Chòm Sao ↓</span>
+            <a href="#rack" class="btn btn-primary font-mono btn-magnet" data-react-bits="magnet" id="heroEngageBtn">
+              <span class="btn-indicator" aria-hidden="true">&bull;</span>
+              <span>KÍCH HOẠT MODULE RACK</span>
+              <span class="btn-arrow" aria-hidden="true">&darr;</span>
             </a>
-            <a href="#about" class="btn-cosmic btn-cosmic-secondary">
-              <span>Hồ Sơ Nhiệm Vụ</span>
+            <a href="#telemetry" class="btn btn-secondary font-mono btn-magnet" data-react-bits="magnet">
+              <span>ĐỌC TELEMETRY CH.01</span>
+              <span class="btn-arrow" aria-hidden="true">&rarr;</span>
             </a>
           </div>
 
-          <!-- Dòng dữ liệu tọa độ thiên văn trang trí -->
-          <div class="hero-coordinate-bar font-mono" aria-hidden="true">
-            <span>OBSERVATION COORD: 10°47'N · 106°42'E</span>
-            <span>SYSTEM: MPA VITE</span>
-            <span>EPOCH: HK1 2026</span>
+          <!-- Telemetry Teleprompter Ticker -->
+          <div class="hero-telemetry-bar font-mono">
+            <div class="bar-stat">
+              <span class="bar-key">HOST:</span> <span class="bar-val">UTH_K24_SE</span>
+            </div>
+            <div class="bar-stat">
+              <span class="bar-key">MODULES:</span> <span class="bar-val">06 LOADED</span>
+            </div>
+            <div class="bar-stat">
+              <span class="bar-key">ARCHITECTURE:</span> <span class="bar-val">MODULAR_ES6</span>
+            </div>
+            <div class="bar-stat">
+              <span class="bar-key">SIGNAL_FLOW:</span> <span class="bar-val">BIDIRECTIONAL</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION C — THE SIX-MEMBER MACHINE (MODULE RACK)
+         ========================================================= -->
+    <section class="machine-rack-section" id="rack" aria-labelledby="rackTitle">
+      <div class="container">
+        
+        <!-- Section Header Module -->
+        <div class="section-machine-bar">
+          <div class="section-title-wrap">
+            <span class="section-badge font-mono">[SECTION 01]</span>
+            <h2 class="section-title font-heading" id="rackTitle">THE SIX-MEMBER MACHINE</h2>
+          </div>
+          <div class="section-status font-mono">
+            <span>RACK_STATUS: 6 UNITS MOUNTED</span>
+            <span class="led-active" aria-hidden="true"></span>
           </div>
         </div>
 
-        <!-- Bản đồ chòm sao đồ họa Hero -->
-        <div class="hero-visual-col" aria-hidden="true">
-          <div class="constellation-mini-radar">
-            <div class="radar-sweep"></div>
-            <div class="radar-ring radar-ring-1"></div>
-            <div class="radar-ring radar-ring-2"></div>
-            <div class="radar-ring radar-ring-3"></div>
-            <div class="radar-axis radar-axis-x"></div>
-            <div class="radar-axis radar-axis-y"></div>
+        <p class="section-intro font-body">
+          Mỗi module dưới đây biểu thị một thành viên thực tế trong nhóm. Nhấn vào bất kỳ module nào để <strong>kết nối mạch (Patch Circuit)</strong>, hiển thị luồng thông số và kích hoạt dữ liệu tương ứng trên màn hình giám sát.
+        </p>
+
+        <!-- 6-Module Hardware Rack Grid -->
+        <div class="modules-grid" id="modulesGrid" role="region" aria-label="Giá gắn 6 module thành viên">
+          
+          <!-- MODULE 01: LÊ NGUYỄN NHẬT TRƯỜNG -->
+          <article class="hardware-module active" data-member-id="1" data-role="backend" data-strengths="java,mang,c/c++,csdl,backend" id="module-1">
+            <div class="module-faceplate">
+              
+              <!-- Module Top Bar: Jack Socket & Status LED -->
+              <div class="module-topbar font-mono">
+                <div class="jack-socket" title="Cổng tín hiệu I/O">
+                  <span class="jack-hole" aria-hidden="true"></span>
+                  <span class="jack-label">CH.01</span>
+                </div>
+                <div class="module-symbol font-mono">Tr</div>
+                <div class="module-led-indicator">
+                  <span class="signal-led led-active" aria-hidden="true"></span>
+                  <span class="led-state-text">PATCHED</span>
+                </div>
+              </div>
+
+              <!-- Module Identifiers -->
+              <div class="module-identity">
+                <span class="module-index font-mono">[01 // VERIFIED]</span>
+                <h3 class="module-name font-heading">Lê Nguyễn Nhật Trường</h3>
+                <span class="module-callsign font-mono">Trường · Backend Focus</span>
+              </div>
+
+              <!-- Module Hardware Specs -->
+              <div class="module-specs font-mono">
+                <div class="spec-row">
+                  <span class="spec-label">FOCUS:</span>
+                  <span class="spec-val">Software Engineer Trainee (Backend)</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">TARGET:</span>
+                  <span class="spec-val">SE Intern 2026</span>
+                </div>
+              </div>
+
+              <!-- Module Strengths Matrix -->
+              <div class="module-strengths">
+                <span class="strength-pill font-mono">Java</span>
+                <span class="strength-pill font-mono">Mạng</span>
+                <span class="strength-pill font-mono">C/C++</span>
+                <span class="strength-pill font-mono">CSDL</span>
+              </div>
+
+              <!-- Module Controls & Switch -->
+              <div class="module-controls">
+                <button type="button" class="module-toggle-btn font-mono" data-action="select-module" data-target="1" aria-pressed="true">
+                  <span class="toggle-switch-ui" aria-hidden="true"></span>
+                  <span class="toggle-label">CIRCUIT: ACTIVE</span>
+                </button>
+
+                <a href="./members/le-nguyen-nhat-truong/index.html" class="module-launch-link font-mono" aria-label="Mở portfolio cá nhân của Lê Nguyễn Nhật Trường">
+                  <span>MỞ PORTFOLIO</span>
+                  <span class="link-arrow">&rarr;</span>
+                </a>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- MODULE 02: NGUYỄN XUÂN HIẾU -->
+          <article class="hardware-module" data-member-id="2" data-role="fullstack" data-strengths="fullstack,network,html/css,web" id="module-2">
+            <div class="module-faceplate">
+              
+              <div class="module-topbar font-mono">
+                <div class="jack-socket">
+                  <span class="jack-hole" aria-hidden="true"></span>
+                  <span class="jack-label">CH.02</span>
+                </div>
+                <div class="module-symbol font-mono">Hi</div>
+                <div class="module-led-indicator">
+                  <span class="signal-led" aria-hidden="true"></span>
+                  <span class="led-state-text">STANDBY</span>
+                </div>
+              </div>
+
+              <div class="module-identity">
+                <span class="module-index font-mono">[02 // VERIFIED]</span>
+                <h3 class="module-name font-heading">Nguyễn Xuân Hiếu</h3>
+                <span class="module-callsign font-mono">Hiếu · Full-Stack &amp; Network</span>
+              </div>
+
+              <div class="module-specs font-mono">
+                <div class="spec-row">
+                  <span class="spec-label">FOCUS:</span>
+                  <span class="spec-val">Full-Stack Web &amp; Network Admin</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">STATE:</span>
+                  <span class="spec-val">Foundation Ready (Phase 3)</span>
+                </div>
+              </div>
+
+              <div class="module-strengths">
+                <span class="strength-pill font-mono">Full-Stack</span>
+                <span class="strength-pill font-mono">Network</span>
+                <span class="strength-pill font-mono">HTML/CSS</span>
+              </div>
+
+              <div class="module-controls">
+                <button type="button" class="module-toggle-btn font-mono" data-action="select-module" data-target="2" aria-pressed="false">
+                  <span class="toggle-switch-ui" aria-hidden="true"></span>
+                  <span class="toggle-label">ENGAGE</span>
+                </button>
+                <a href="./members/nguyen-xuan-hieu/index.html" class="module-launch-link font-mono" aria-label="Xem khung portfolio của Nguyễn Xuân Hiếu">
+                  <span>KHUNG PORTFOLIO</span>
+                  <span class="link-arrow">&rarr;</span>
+                </a>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- MODULE 03: LÊ HỮU CHÂU -->
+          <article class="hardware-module" data-member-id="3" data-role="frontend" data-strengths="web,frontend" id="module-3">
+            <div class="module-faceplate">
+              
+              <div class="module-topbar font-mono">
+                <div class="jack-socket">
+                  <span class="jack-hole" aria-hidden="true"></span>
+                  <span class="jack-label">CH.03</span>
+                </div>
+                <div class="module-symbol font-mono">Ch</div>
+                <div class="module-led-indicator">
+                  <span class="signal-led" aria-hidden="true"></span>
+                  <span class="led-state-text">STANDBY</span>
+                </div>
+              </div>
+
+              <div class="module-identity">
+                <span class="module-index font-mono">[03 // VERIFIED]</span>
+                <h3 class="module-name font-heading">Lê Hữu Châu</h3>
+                <span class="module-callsign font-mono">Châu · Web Foundation</span>
+              </div>
+
+              <div class="module-specs font-mono">
+                <div class="spec-row">
+                  <span class="spec-label">STATUS:</span>
+                  <span class="spec-val">Portfolio Foundation Sẵn sàng</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">INTEGRATION:</span>
+                  <span class="spec-val">Phase 3 Deployment</span>
+                </div>
+              </div>
+
+              <div class="module-strengths">
+                <span class="strength-pill font-mono">Web Foundation</span>
+                <span class="strength-pill font-mono">Frontend</span>
+              </div>
+
+              <div class="module-controls">
+                <button type="button" class="module-toggle-btn font-mono" data-action="select-module" data-target="3" aria-pressed="false">
+                  <span class="toggle-switch-ui" aria-hidden="true"></span>
+                  <span class="toggle-label">ENGAGE</span>
+                </button>
+                <span class="module-standby-badge font-mono" title="Module đang ở chế độ chờ hoàn thiện">[CHẾ ĐỘ CHỜ]</span>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- MODULE 04: NGUYỄN ANH THƯ -->
+          <article class="hardware-module" data-member-id="4" data-role="frontend" data-strengths="web,ui,frontend" id="module-4">
+            <div class="module-faceplate">
+              
+              <div class="module-topbar font-mono">
+                <div class="jack-socket">
+                  <span class="jack-hole" aria-hidden="true"></span>
+                  <span class="jack-label">CH.04</span>
+                </div>
+                <div class="module-symbol font-mono">Th</div>
+                <div class="module-led-indicator">
+                  <span class="signal-led" aria-hidden="true"></span>
+                  <span class="led-state-text">STANDBY</span>
+                </div>
+              </div>
+
+              <div class="module-identity">
+                <span class="module-index font-mono">[04 // VERIFIED]</span>
+                <h3 class="module-name font-heading">Nguyễn Anh Thư</h3>
+                <span class="module-callsign font-mono">Thư · Web Foundation</span>
+              </div>
+
+              <div class="module-specs font-mono">
+                <div class="spec-row">
+                  <span class="spec-label">STATUS:</span>
+                  <span class="spec-val">Khung sẵn sàng tích hợp</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">INTEGRATION:</span>
+                  <span class="spec-val">Phase 3 Deployment</span>
+                </div>
+              </div>
+
+              <div class="module-strengths">
+                <span class="strength-pill font-mono">Web Foundation</span>
+                <span class="strength-pill font-mono">UI Design</span>
+              </div>
+
+              <div class="module-controls">
+                <button type="button" class="module-toggle-btn font-mono" data-action="select-module" data-target="4" aria-pressed="false">
+                  <span class="toggle-switch-ui" aria-hidden="true"></span>
+                  <span class="toggle-label">ENGAGE</span>
+                </button>
+                <span class="module-standby-badge font-mono" title="Module đang ở chế độ chờ hoàn thiện">[CHẾ ĐỘ CHỜ]</span>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- MODULE 05: NGUYỄN PHẠM Ý HUỲNH -->
+          <article class="hardware-module" data-member-id="5" data-role="logic" data-strengths="web,logic" id="module-5">
+            <div class="module-faceplate">
+              
+              <div class="module-topbar font-mono">
+                <div class="jack-socket">
+                  <span class="jack-hole" aria-hidden="true"></span>
+                  <span class="jack-label">CH.05</span>
+                </div>
+                <div class="module-symbol font-mono">Hy</div>
+                <div class="module-led-indicator">
+                  <span class="signal-led" aria-hidden="true"></span>
+                  <span class="led-state-text">STANDBY</span>
+                </div>
+              </div>
+
+              <div class="module-identity">
+                <span class="module-index font-mono">[05 // VERIFIED]</span>
+                <h3 class="module-name font-heading">Nguyễn Phạm Ý Huỳnh</h3>
+                <span class="module-callsign font-mono">Huỳnh · Web Foundation</span>
+              </div>
+
+              <div class="module-specs font-mono">
+                <div class="spec-row">
+                  <span class="spec-label">STATUS:</span>
+                  <span class="spec-val">Khung sẵn sàng tích hợp</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">INTEGRATION:</span>
+                  <span class="spec-val">Phase 3 Deployment</span>
+                </div>
+              </div>
+
+              <div class="module-strengths">
+                <span class="strength-pill font-mono">Web Foundation</span>
+                <span class="strength-pill font-mono">Logic Modules</span>
+              </div>
+
+              <div class="module-controls">
+                <button type="button" class="module-toggle-btn font-mono" data-action="select-module" data-target="5" aria-pressed="false">
+                  <span class="toggle-switch-ui" aria-hidden="true"></span>
+                  <span class="toggle-label">ENGAGE</span>
+                </button>
+                <span class="module-standby-badge font-mono" title="Module đang ở chế độ chờ hoàn thiện">[CHẾ ĐỘ CHỜ]</span>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- MODULE 06: NGUYỄN THỊ THẢO NHƯ -->
+          <article class="hardware-module" data-member-id="6" data-role="frontend" data-strengths="web,creative" id="module-6">
+            <div class="module-faceplate">
+              
+              <div class="module-topbar font-mono">
+                <div class="jack-socket">
+                  <span class="jack-hole" aria-hidden="true"></span>
+                  <span class="jack-label">CH.06</span>
+                </div>
+                <div class="module-symbol font-mono">Nh</div>
+                <div class="module-led-indicator">
+                  <span class="signal-led" aria-hidden="true"></span>
+                  <span class="led-state-text">STANDBY</span>
+                </div>
+              </div>
+
+              <div class="module-identity">
+                <span class="module-index font-mono">[06 // VERIFIED]</span>
+                <h3 class="module-name font-heading">Nguyễn Thị Thảo Như</h3>
+                <span class="module-callsign font-mono">Như · Web Foundation</span>
+              </div>
+
+              <div class="module-specs font-mono">
+                <div class="spec-row">
+                  <span class="spec-label">STATUS:</span>
+                  <span class="spec-val">Khung sẵn sàng tích hợp</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">INTEGRATION:</span>
+                  <span class="spec-val">Phase 3 Deployment</span>
+                </div>
+              </div>
+
+              <div class="module-strengths">
+                <span class="strength-pill font-mono">Web Foundation</span>
+                <span class="strength-pill font-mono">Creative Media</span>
+              </div>
+
+              <div class="module-controls">
+                <button type="button" class="module-toggle-btn font-mono" data-action="select-module" data-target="6" aria-pressed="false">
+                  <span class="toggle-switch-ui" aria-hidden="true"></span>
+                  <span class="toggle-label">ENGAGE</span>
+                </button>
+                <span class="module-standby-badge font-mono" title="Module đang ở chế độ chờ hoàn thiện">[CHẾ ĐỘ CHỜ]</span>
+              </div>
+
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION D — TELEMETRY & OSCILLOSCOPE INSPECTOR
+         ========================================================= -->
+    <section class="machine-telemetry-section" id="telemetry" aria-labelledby="telemetryTitle">
+      <div class="container">
+        
+        <div class="section-machine-bar">
+          <div class="section-title-wrap">
+            <span class="section-badge font-mono">[SECTION 02]</span>
+            <h2 class="section-title font-heading" id="telemetryTitle">TELEMETRY &amp; OSCILLOSCOPE INSPECTOR</h2>
+          </div>
+          <div class="section-status font-mono">
+            <span id="telemetryActiveTag">CIRCUIT: CH.01 CONNECTED</span>
+            <span class="led-active" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="telemetry-console" data-react-bits="animated-content">
+          
+          <!-- Left Display: Digital Oscilloscope CRT Viewport -->
+          <div class="crt-screen-wrapper">
+            <div class="crt-screen-bezel">
+              <div class="crt-header font-mono">
+                <span>OSCILLOSCOPE // REAL-TIME HARMONIC</span>
+                <span class="crt-freq" id="crtFreqDisplay">440.0 Hz</span>
+              </div>
+
+              <!-- Animated Oscilloscope Waveform Canvas -->
+              <div class="crt-canvas-container">
+                <canvas id="oscilloscopeCanvas" width="560" height="220" aria-label="Màn hình sóng dao động âm tầng"></canvas>
+                <div class="crt-scanlines" aria-hidden="true"></div>
+                <div class="crt-reticle" aria-hidden="true"></div>
+              </div>
+
+              <!-- Verified Full Color Real Avatar Viewport -->
+              <div class="crt-avatar-panel">
+                <div class="avatar-frame" id="crtAvatarFrame">
+                  <img src="./members/le-nguyen-nhat-truong/images/avatar.png" alt="Ảnh chân dung màu thực tế của Lê Nguyễn Nhật Trường" class="crt-avatar-img" id="crtAvatarImg" loading="lazy">
+                </div>
+                <div class="avatar-telemetry font-mono">
+                  <span class="avatar-title" id="crtAvatarTitle">MEMBER 01 // LÊ NGUYỄN NHẬT TRƯỜNG</span>
+                  <span class="avatar-sub" id="crtAvatarSub">UTH K24 SE · AUTHENTICATED PORTRAIT</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right Display: Active Module Parameter Matrix -->
+          <div class="telemetry-readout-panel">
             
-            <!-- 6 Điểm thiên thể tương ứng 6 thành viên -->
-            <div class="mini-node node-1" title="Lê Nguyễn Nhật Trường"><span>01</span></div>
-            <div class="mini-node node-2" title="Nguyễn Xuân Hiếu"><span>02</span></div>
-            <div class="mini-node node-3" title="Nguyễn Thị Thảo Như"><span>03</span></div>
-            <div class="mini-node node-4" title="Nguyễn Phạm Y Huỳnh"><span>04</span></div>
-            <div class="mini-node node-5" title="Lê Hữu Châu"><span>05</span></div>
-            <div class="mini-node node-6" title="Nguyễn Anh Thư"><span>06</span></div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================
-         SECTION C — TEAM CONSTELLATION (CENTRAL FEATURE)
-         ========================================================= -->
-    <section class="constellation-section" id="constellation" aria-labelledby="heading-constellation">
-      <div class="container">
-        
-        <div class="section-meta-head">
-          <span class="meta-tag font-mono">§ 01 / TEAM CONSTELLATION</span>
-          <h2 id="heading-constellation" class="section-heading">Bản Đồ Chòm Sao 6 Thành Viên</h2>
-          <p class="section-subtext">
-            Mỗi thực thể trong chòm sao sở hữu một định danh, ký hiệu thiên thể và không gian portfolio cá nhân độc lập. Chọn bất kỳ thực thể nào để xem tọa độ kỹ thuật hoặc truy cập portfolio.
-          </p>
-        </div>
-
-        <!-- Bố cục tương tác chòm sao (Constellation Interactive Layout) -->
-        <div class="constellation-display-grid">
-          
-          <!-- Lưới 6 thẻ thực thể thiên văn (Celestial Entity Dossiers) -->
-          <div class="entities-grid" id="celestialEntitiesGrid" role="region" aria-label="Danh sách thực thể thiên văn 6 thành viên">
-            <!-- Nạp tự động bằng JavaScript DOM -->
-          </div>
-
-          <!-- Bảng chi tiết thực thể đang kích hoạt (Active Celestial Dossier Panel) -->
-          <aside class="active-entity-panel" id="activeEntityPanel" aria-labelledby="activeEntityTitle" aria-live="polite">
-            <div class="panel-header font-mono">
-              <span class="panel-status-dot"></span>
-              <span id="activeEntitySignal">SIGNAL LOCKED</span>
-              <span id="activeEntityIndex" class="panel-index">NODE 01</span>
+            <div class="telemetry-channel-header">
+              <span class="channel-num font-mono" id="telChannelNum">CHANNEL 01</span>
+              <h3 class="channel-name font-heading" id="telChannelName">Lê Nguyễn Nhật Trường</h3>
+              <p class="channel-role font-body" id="telChannelRole">
+                Software Engineer Trainee, định hướng chuyên sâu Backend; mục tiêu kỳ thực tập SE Intern 2026.
+              </p>
             </div>
 
-            <div class="panel-body">
-              <div class="panel-avatar-row">
-                <div class="panel-avatar-wrap" id="activeEntityAvatarWrap">
-                  <img id="activeEntityAvatar" src="./members/le-nguyen-nhat-truong/images/avatar.png" alt="Ảnh chân dung thành viên" width="72" height="72">
-                </div>
-                <div>
-                  <h3 class="panel-name" id="activeEntityTitle">Lê Nguyễn Nhật Trường</h3>
-                  <div class="panel-role font-mono" id="activeEntityRole">SOFTWARE ENGINEER TRAINEE</div>
-                </div>
+            <!-- Parameters Grid -->
+            <div class="params-grid font-mono">
+              <div class="param-card">
+                <span class="param-key">GROUP_SYMBOL:</span>
+                <span class="param-val" id="telSymbol">Tr</span>
               </div>
-
-              <div class="panel-divider"></div>
-
-              <div class="panel-detail-item">
-                <span class="detail-label font-mono">ĐỊNH HƯỚNG KỸ THUẬT:</span>
-                <p class="detail-value" id="activeEntityFocus">Software Engineer Trainee, thiên về Backend; mục tiêu thực tập SE Intern 2026.</p>
+              <div class="param-card">
+                <span class="param-key">PORTFOLIO_PATH:</span>
+                <span class="param-val" id="telPath">./members/le-nguyen-nhat-truong/</span>
               </div>
-
-              <div class="panel-detail-item">
-                <span class="detail-label font-mono">THẾ MẠNH ĐÃ XÁC MINH:</span>
-                <div class="panel-strengths-wrap" id="activeEntityStrengths">
-                  <span class="cosmic-strength-tag">Java</span>
-                  <span class="cosmic-strength-tag">Mạng</span>
-                  <span class="cosmic-strength-tag">C/C++</span>
-                  <span class="cosmic-strength-tag">CSDL</span>
-                </div>
+              <div class="param-card">
+                <span class="param-key">GROUP_ROLE:</span>
+                <span class="param-val" id="telGroupRole">[CẦN XÁC NHẬN]</span>
               </div>
-
-              <div class="panel-action-row">
-                <a href="./members/le-nguyen-nhat-truong/index.html" class="btn-cosmic btn-cosmic-gold" id="activeEntityPortfolioBtn">
-                  <span>Mở Portfolio Cá Nhân →</span>
-                </a>
-                <a href="https://github.com/lenguyennhattruongg" class="btn-cosmic btn-cosmic-ghost font-mono" id="activeEntityGithubBtn" target="_blank" rel="noopener noreferrer">
-                  GitHub ↗
-                </a>
+              <div class="param-card">
+                <span class="param-key">GITHUB_HANDLE:</span>
+                <span class="param-val" id="telGithub">@lenguyennhattruongg</span>
               </div>
             </div>
-          </aside>
 
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================
-         SECTION D — MEMBER DISCOVERY & FILTERS
-         ========================================================= -->
-    <section class="discovery-section" id="discovery" aria-labelledby="heading-discovery">
-      <div class="container">
-        
-        <div class="section-meta-head">
-          <span class="meta-tag font-mono">§ 02 / MEMBER DISCOVERY</span>
-          <h2 id="heading-discovery" class="section-heading">Tra Cứu Tọa Độ Kỹ Thuật</h2>
-          <p class="section-subtext">
-            Tìm kiếm theo thời gian thực không phân biệt dấu tiếng Việt. Kết hợp truy vấn từ khóa cùng các bộ lọc thế mạnh công nghệ theo phép giao (AND logic).
-          </p>
-        </div>
-
-        <!-- Bảng điều khiển bộ lọc & tìm kiếm -->
-        <div class="discovery-controls">
-          
-          <div class="search-input-group">
-            <label for="cosmicSearchInput" class="search-field-label font-mono">TÌM KIẾM THEO TÊN, KÝ HIỆU HOẶC CÔNG NGHỆ:</label>
-            <div class="search-input-wrap">
-              <span class="search-icon" aria-hidden="true">⌕</span>
-              <input type="search" 
-                     id="cosmicSearchInput" 
-                     class="cosmic-search-input font-mono" 
-                     placeholder="Ví dụ: Truong, Java, Mang, C++, CSDL..." 
-                     aria-label="Tìm kiếm thành viên theo tên, ký hiệu hoặc công nghệ">
+            <!-- Signal Strengths Meter -->
+            <div class="strengths-telemetry" id="telStrengthsWrap">
+              <h4 class="strengths-label font-mono">SIGNAL_STRENGTHS_MATRIX</h4>
+              <div class="meter-list" id="telMeters">
+                <div class="meter-item font-mono">
+                  <span class="meter-label">Java</span>
+                  <div class="meter-bar-track"><div class="meter-bar-fill" style="width: 90%;"></div></div>
+                  <span class="meter-val">90%</span>
+                </div>
+                <div class="meter-item font-mono">
+                  <span class="meter-label">Mạng</span>
+                  <div class="meter-bar-track"><div class="meter-bar-fill" style="width: 85%;"></div></div>
+                  <span class="meter-val">85%</span>
+                </div>
+                <div class="meter-item font-mono">
+                  <span class="meter-label">C/C++</span>
+                  <div class="meter-bar-track"><div class="meter-bar-fill" style="width: 80%;"></div></div>
+                  <span class="meter-val">80%</span>
+                </div>
+                <div class="meter-item font-mono">
+                  <span class="meter-label">CSDL</span>
+                  <div class="meter-bar-track"><div class="meter-bar-fill" style="width: 88%;"></div></div>
+                  <span class="meter-val">88%</span>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Thanh nút lọc thế mạnh kỹ thuật -->
-          <div class="strength-filters-toolbar" id="strengthFiltersWrap" role="toolbar" aria-label="Bộ lọc thế mạnh công nghệ">
-            <!-- Nạp tự động từ JavaScript -->
-          </div>
-
-          <!-- Thanh trạng thái kết quả & phím tắt -->
-          <div class="discovery-status-strip font-mono">
-            <span id="discoveryCountText" class="count-text" aria-live="polite">Đang hiển thị 6 / 6 thực thể thiên văn</span>
-            <span class="shortcut-hint">Nhấn <kbd>Esc</kbd> để đặt lại tìm kiếm</span>
-          </div>
-
-        </div>
-
-        <!-- Thông báo khi không có kết quả phù hợp -->
-        <div id="noMatchAlert" class="cosmic-empty-panel" hidden role="alert">
-          <div class="empty-icon font-mono">∅</div>
-          <h3 class="empty-title">Không Tìm Thấy Tín Hiệu Thiên Thể Phù Hợp</h3>
-          <p class="empty-desc">Không có thực thể nào thỏa mãn đồng thời điều kiện tìm kiếm và bộ lọc hiện tại.</p>
-          <button type="button" id="resetDiscoveryBtn" class="btn-cosmic btn-cosmic-secondary">
-            <span>Xóa Bộ Lọc &amp; Đặt Lại</span>
-          </button>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================
-         SECTION E — ABOUT THE TEAM
-         ========================================================= -->
-    <section class="about-section" id="about" aria-labelledby="heading-about">
-      <div class="container">
-        
-        <div class="section-meta-head">
-          <span class="meta-tag font-mono">§ 03 / MISSION ARCHIVE</span>
-          <h2 id="heading-about" class="section-heading">Hồ Sơ Nhiệm Vụ &amp; Tập Thể Nhóm</h2>
-        </div>
-
-        <div class="about-grid">
-          
-          <article class="about-card">
-            <div class="card-corner-tag font-mono">ARCHIVE #01</div>
-            <h3 class="about-card-title">Mục Đích Học Thuật</h3>
-            <p class="about-card-text">
-              Dự án website portfolio nhóm phục vụ học phần <strong>Lập trình Web</strong> tại Trường Đại học Giao thông Vận tải TP.HCM (UTH).
-            </p>
-            <p class="about-card-text">
-              Toàn bộ dữ liệu thành viên, định hướng kỹ thuật và dự án được trình bày đúng thực tế năng lực học tập của sinh viên, hướng tới kỳ thực tập chuyên nghiệp năm 2026.
-            </p>
-          </article>
-
-          <article class="about-card">
-            <div class="card-corner-tag font-mono">ARCHIVE #02</div>
-            <h3 class="about-card-title">Kiến Trúc Đa Trang (MPA)</h3>
-            <p class="about-card-text">
-              Hệ thống gồm 01 Trang chủ trung tâm đóng vai trò bản đồ định vị, kết nối tới 06 không gian portfolio cá nhân độc lập qua kiến trúc MPA.
-            </p>
-            <p class="about-card-text">
-              Mỗi thành viên tự chủ sáng tạo ngôn ngữ thị giác và cấu trúc nội dung, phản ánh đúng cá tính nghề nghiệp và thế mạnh chuyên môn của mình.
-            </p>
-          </article>
-
-          <article class="about-card">
-            <div class="card-corner-tag font-mono">ARCHIVE #03</div>
-            <h3 class="about-card-title">Nguồn Sự Thật Duy Nhất</h3>
-            <p class="about-card-text">
-              Dữ liệu thành viên được quản lý tập trung và kiểm chứng minh bạch. Chỉ những hồ sơ và kỹ năng đã hoàn thành mới tham gia vào bộ lọc tìm kiếm.
-            </p>
-            <div class="about-link-wrap">
-              <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="cosmic-repo-link font-mono" target="_blank" rel="noopener noreferrer">
-                Xem kho lưu trữ GitHub ↗
+            <!-- Direct Launch Action (React Bits Magnet Enabled) -->
+            <div class="telemetry-action-strip">
+              <a href="./members/le-nguyen-nhat-truong/index.html" class="btn btn-primary font-mono btn-magnet" data-react-bits="magnet" id="telLaunchBtn">
+                <span>TRUY CẬP PORTFOLIO CHI TIẾT</span>
+                <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+              </a>
+              <a href="https://github.com/lenguyennhattruongg" class="btn btn-secondary font-mono btn-magnet" data-react-bits="magnet" id="telGithubBtn" target="_blank" rel="noopener noreferrer">
+                <span>GITHUB PROFILE ↗</span>
               </a>
             </div>
-          </article>
+
+          </div>
 
         </div>
 
@@ -340,51 +666,202 @@
     </section>
 
     <!-- =========================================================
-         SECTION F — HOW WE BUILD (ENGINEERING PROTOCOL)
+         SECTION E — SIGNAL ROUTER (SEARCH & FILTER MATRIX)
          ========================================================= -->
-    <section class="how-we-build-section" id="how-we-build" aria-labelledby="heading-build">
+    <section class="machine-router-section" id="router" aria-labelledby="routerTitle">
       <div class="container">
         
-        <div class="section-meta-head">
-          <span class="meta-tag font-mono">§ 04 / ENGINEERING PROTOCOL</span>
-          <h2 id="heading-build" class="section-heading">Giao Thức Kỹ Thuật Trang Chủ</h2>
-          <p class="section-subtext">
-            Trang chủ được xây dựng với kỷ luật kỹ thuật cao, loại bỏ sự phụ thuộc vào các thư viện bên ngoài không cần thiết.
-          </p>
+        <div class="section-machine-bar">
+          <div class="section-title-wrap">
+            <span class="section-badge font-mono">[SECTION 03]</span>
+            <h2 class="section-title font-heading" id="routerTitle">MULTI-CHANNEL SIGNAL ROUTER</h2>
+          </div>
+          <div class="section-status font-mono">
+            <span id="routerMatchCounter">KẾT QUẢ: 6 / 6 MODULES</span>
+            <span class="led-active" aria-hidden="true"></span>
+          </div>
         </div>
 
-        <div class="protocol-grid">
+        <p class="section-intro font-body">
+          Bảng điều phối tín hiệu hỗ trợ tra cứu thời gian thực không phân biệt dấu tiếng Việt (kể cả <code>ư, ơ, đ</code>) và bộ lọc thế mạnh kết hợp theo logic <strong>AND</strong>.
+        </p>
+
+        <!-- Search & Filter Controls Matrix -->
+        <div class="router-console">
           
-          <div class="protocol-item">
-            <span class="protocol-num font-mono">01</span>
-            <h3 class="protocol-title">Semantic HTML5 &amp; WCAG AA</h3>
-            <p class="protocol-desc">
-              Cấu trúc tài liệu ngữ nghĩa chuẩn xác với header, nav, main, section, article, aside và footer. Skip link hỗ trợ người dùng bàn phím; thuộc tính <code>inert</code> vô hiệu hóa hoàn toàn tương tác vào các node bị lọc.
+          <div class="router-search-bar">
+            <label for="routerSearchInput" class="visually-hidden">Tra cứu tên hoặc kỹ năng thành viên</label>
+            <div class="input-wrap">
+              <span class="input-prefix font-mono">&gt; SEARCH:</span>
+              <input type="text" id="routerSearchInput" class="router-input font-mono" placeholder="Nhập tên, vai trò hoặc kỹ năng (VD: Trường, Java, Mạng, Web...)" autocomplete="off">
+              <button type="button" class="clear-search-btn font-mono" id="clearSearchBtn" aria-label="Xóa nội dung tìm kiếm">&times;</button>
+            </div>
+          </div>
+
+          <!-- Multi-Tag Filters with Hardware Push Buttons -->
+          <div class="router-filters" role="group" aria-label="Bộ lọc thế mạnh kỹ thuật">
+            <span class="filter-lead font-mono">STRENGTH_FILTER:</span>
+            <div class="filter-buttons-wrap">
+              <button type="button" class="filter-btn font-mono active" data-filter="all" aria-pressed="true">
+                <span class="btn-led" aria-hidden="true"></span> TẤT CẢ
+              </button>
+              <button type="button" class="filter-btn font-mono" data-filter="backend" aria-pressed="false">
+                <span class="btn-led" aria-hidden="true"></span> BACKEND
+              </button>
+              <button type="button" class="filter-btn font-mono" data-filter="java" aria-pressed="false">
+                <span class="btn-led" aria-hidden="true"></span> JAVA
+              </button>
+              <button type="button" class="filter-btn font-mono" data-filter="mang" aria-pressed="false">
+                <span class="btn-led" aria-hidden="true"></span> MẠNG
+              </button>
+              <button type="button" class="filter-btn font-mono" data-filter="csdl" aria-pressed="false">
+                <span class="btn-led" aria-hidden="true"></span> CSDL
+              </button>
+              <button type="button" class="filter-btn font-mono" data-filter="c/c++" aria-pressed="false">
+                <span class="btn-led" aria-hidden="true"></span> C/C++
+              </button>
+              <button type="button" class="filter-btn font-mono" data-filter="fullstack" aria-pressed="false">
+                <span class="btn-led" aria-hidden="true"></span> FULL-STACK
+              </button>
+              <button type="button" class="filter-btn font-mono" data-filter="frontend" aria-pressed="false">
+                <span class="btn-led" aria-hidden="true"></span> FRONTEND
+              </button>
+            </div>
+
+            <!-- Reset Signal Trigger -->
+            <button type="button" class="reset-filter-btn font-mono" id="resetSignalBtn">
+              [RESET SIGNAL]
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Live ARIA Region for Screen Readers -->
+        <div id="routerAriaLive" class="visually-hidden" aria-live="polite"></div>
+
+        <!-- Empty State Alert (Visible only when no matches found) -->
+        <div class="router-empty-state font-mono" id="routerEmptyState" hidden>
+          <span class="empty-icon">[NO_CARRIER]</span>
+          <p class="empty-msg">Không tìm thấy module nào khớp với tổ hợp tín hiệu hiện tại.</p>
+          <button type="button" class="btn btn-secondary font-mono" id="emptyResetBtn">KHÔI PHỤC TẤT CẢ MODULE</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION F — ABOUT THE TEAM (SYSTEM SPECIFICATIONS)
+         ========================================================= -->
+    <section class="machine-specs-section" id="specs" aria-labelledby="specsTitle">
+      <div class="container">
+        
+        <div class="section-machine-bar">
+          <div class="section-title-wrap">
+            <span class="section-badge font-mono">[SECTION 04]</span>
+            <h2 class="section-title font-heading" id="specsTitle">SYSTEM SPECIFICATIONS // VỀ NHÓM</h2>
+          </div>
+          <div class="section-status font-mono">
+            <span>ARCH: MODULAR_SHARED_BUS</span>
+            <span class="led-active" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="specs-grid">
+          
+          <div class="spec-block">
+            <div class="spec-block-header font-mono">
+              <span>SPEC_01 // HỌC PHẦN &amp; TỔ CHỨC</span>
+            </div>
+            <h3 class="spec-block-title font-heading">Đồ Án Lập Trình Web · UTH K24</h3>
+            <p class="font-body">
+              Website là sản phẩm nhóm của sinh viên Khoa Công nghệ Thông tin, Trường Đại học Giao thông Vận tải TP.HCM (UTH). Mục tiêu là xây dựng nền tảng giới thiệu đồ án và năng lực kỹ thuật với phong cách độc lập, chuẩn công nghiệp và chú trọng tính tương tác cao.
             </p>
           </div>
 
-          <div class="protocol-item">
-            <span class="protocol-num font-mono">02</span>
-            <h3 class="protocol-title">Cosmic Design Tokens &amp; Pure CSS</h3>
-            <p class="protocol-desc">
-              Bảng màu không gian sâu chuẩn mực với 7 biến CSS tokens. Bố cục CSS Grid và Flexbox linh hoạt, đường vẽ trắc địa thiên văn mảnh mai, hỗ trợ đầy đủ chế độ giảm chuyển động <code>prefers-reduced-motion</code>.
+          <div class="spec-block">
+            <div class="spec-block-header font-mono">
+              <span>SPEC_02 // NGUYÊN TẮC KỸ THUẬT</span>
+            </div>
+            <h3 class="spec-block-title font-heading">Độc Lập &amp; Không Rập Khuôn</h3>
+            <p class="font-body">
+              Toàn bộ kiến trúc trang chủ nhóm từ bỏ các khuôn mẫu AI thông thường (không cosmic gradient tím xanh, không neon nhòe, không glassmorphism). Thay vào đó là ngôn ngữ giao diện công nghiệp: màu sắc sắc nét, độ tương phản cao, phím bấm vật lý và phản hồi tương tác tức thì.
             </p>
           </div>
 
-          <div class="protocol-item">
-            <span class="protocol-num font-mono">03</span>
-            <h3 class="protocol-title">Starfield &amp; Constellation Engine</h3>
-            <p class="protocol-desc">
-              Hệ thống Canvas 2D mô phỏng bụi sao và sợi chòm sao kết nối 6 thành viên lấy cảm hứng từ thư viện React Bits. Vận hành mượt mà 60 FPS với cơ chế dọn dẹp bộ nhớ và tự động dự phòng nếu canvas không khả dụng.
+          <div class="spec-block">
+            <div class="spec-block-header font-mono">
+              <span>SPEC_03 // TÍNH TRUNG THỰC DỮ LIỆU</span>
+            </div>
+            <h3 class="spec-block-title font-heading">Xác Thực Từ Repository</h3>
+            <p class="font-body">
+              Chỉ sử dụng thông tin và đường dẫn đã xác minh trực tiếp trong mã nguồn dự án. Các thành viên đang trong lộ trình tích hợp Phase 3 được hiển thị rõ ràng ở chế độ chờ (Standby), không bịa đặt thành tích hay liên kết ảo.
             </p>
           </div>
 
-          <div class="protocol-item">
-            <span class="protocol-num font-mono">04</span>
-            <h3 class="protocol-title">Unicode NFD Diacritics Engine</h3>
-            <p class="protocol-desc">
-              Thuật toán chuẩn hóa tiếng Việt loại bỏ triệt để dấu thanh, dấu mũ và dấu râu (ư/ơ -> u/o, đ -> d), đảm bảo tìm kiếm gõ không dấu trơn tru trên mọi trình duyệt.
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION G — HOW WE BUILD (SIGNAL PIPELINE WORKFLOW)
+         ========================================================= -->
+    <section class="machine-pipeline-section" id="pipeline" aria-labelledby="pipelineTitle">
+      <div class="container">
+        
+        <div class="section-machine-bar">
+          <div class="section-title-wrap">
+            <span class="section-badge font-mono">[SECTION 05]</span>
+            <h2 class="section-title font-heading" id="pipelineTitle">SIGNAL PIPELINE // QUY TRÌNH PHÁT TRIỂN</h2>
+          </div>
+          <div class="section-status font-mono">
+            <span>PIPELINE: 3 BUS STAGES</span>
+            <span class="led-active" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="pipeline-track">
+          
+          <div class="pipeline-stage">
+            <div class="stage-header font-mono">
+              <span class="stage-num">STAGE_01</span>
+              <span class="stage-status">COMPLETED</span>
+            </div>
+            <h3 class="stage-title font-heading">Core Architecture &amp; Git Flow</h3>
+            <p class="font-body">
+              Khởi tạo cấu trúc dự án tĩnh tối ưu với Vite, thiết lập phân nhánh Git độc lập cho từng thành viên (<code>feature/portfolio-[tên]</code>), đảm bảo không ghi đè mã nguồn của nhau.
             </p>
+            <div class="stage-tags font-mono">
+              <span>Git</span> <span>Vite</span> <span>ES Modules</span>
+            </div>
+          </div>
+
+          <div class="pipeline-stage">
+            <div class="stage-header font-mono">
+              <span class="stage-num">STAGE_02</span>
+              <span class="stage-status">ACTIVE</span>
+            </div>
+            <h3 class="stage-title font-heading">The Collective Machine UI Engine</h3>
+            <p class="font-body">
+              Triển khai trang chủ nhóm theo concept nhạc cụ số modular: hệ màu Electric Cobalt &amp; Acid Lime, tích hợp các mẫu component React Bits (SplitText, AnimatedContent, Magnet), tối ưu trợ năng WCAG AA.
+            </p>
+            <div class="stage-tags font-mono">
+              <span>React Bits</span> <span>Canvas Wave</span> <span>WCAG AA</span>
+            </div>
+          </div>
+
+          <div class="pipeline-stage">
+            <div class="stage-header font-mono">
+              <span class="stage-num">STAGE_03</span>
+              <span class="stage-status">READY FOR SYNC</span>
+            </div>
+            <h3 class="stage-title font-heading">Member Integration &amp; Deployment</h3>
+            <p class="font-body">
+              Tích hợp đầy đủ danh mục cá nhân của 6 thành viên vào các cổng module tương ứng, kiểm thử tương thích di động đa màn hình và triển khai lên môi trường trực tuyến.
+            </p>
+            <div class="stage-tags font-mono">
+              <span>Multi-Page</span> <span>Mobile 375px</span> <span>Production</span>
+            </div>
           </div>
 
         </div>
@@ -395,42 +872,50 @@
   </main>
 
   <!-- =========================================================
-       SECTION G — FOOTER
+       SECTION H — COLOPHON FOOTER (SYSTEM TERMINATION BUS)
        ========================================================= -->
-  <footer class="cosmic-footer">
-    <div class="container footer-container">
+  <footer class="machine-footer" role="contentinfo">
+    <div class="container footer-layout">
       
-      <div class="footer-brand font-mono">
-        <span class="footer-logo">✦ CONSTELLATION·06</span>
-        <span class="footer-desc">ĐỒ ÁN HỌC PHẦN LẬP TRÌNH WEB — KHOA CÔNG NGHỆ THÔNG TIN</span>
+      <div class="footer-brand">
+        <span class="footer-title font-heading">THE COLLECTIVE MACHINE</span>
+        <span class="footer-sub font-mono">UTH KHOA CNTT · NIÊN KHÓA 2024–2028 · NHÓM 06</span>
+        <p class="footer-note font-body">
+          Thiết kế và triển khai với tư duy kỹ thuật độc lập. Toàn bộ mã nguồn chạy cục bộ và sẵn sàng cho môi trường máy chủ.
+        </p>
       </div>
 
-      <div class="footer-meta font-mono">
-        <span>TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI TP.HCM (UTH)</span>
-        <span>HỌC KỲ 1 · NĂM HỌC 2026</span>
+      <div class="footer-matrix font-mono">
+        <div class="matrix-col">
+          <span class="col-title">// SYSTEM_CHANNELS</span>
+          <a href="#module-1" class="col-link">CH.01 — Lê Nguyễn Nhật Trường</a>
+          <a href="#module-2" class="col-link">CH.02 — Nguyễn Xuân Hiếu</a>
+          <a href="#module-3" class="col-link">CH.03 — Lê Hữu Châu</a>
+          <a href="#module-4" class="col-link">CH.04 — Nguyễn Anh Thư</a>
+          <a href="#module-5" class="col-link">CH.05 — Nguyễn Phạm Ý Huỳnh</a>
+          <a href="#module-6" class="col-link">CH.06 — Nguyễn Thị Thảo Như</a>
+        </div>
+
+        <div class="matrix-col">
+          <span class="col-title">// REPOSITORY_BUS</span>
+          <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="col-link" target="_blank" rel="noopener noreferrer">GitHub Group Repository ↗</a>
+          <a href="./members/le-nguyen-nhat-truong/index.html" class="col-link">Personal Portfolio (CH.01) &rarr;</a>
+          <span class="col-text">STATUS: LOCAL DEV</span>
+          <span class="col-text">CLK_RATE: 48kHz</span>
+        </div>
       </div>
 
-      <div class="footer-links font-mono">
-        <a href="#hero">Về đầu trang ↑</a>
-        <a href="./members/le-nguyen-nhat-truong/index.html">Portfolio Lê Nguyễn Nhật Trường →</a>
-        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
-      </div>
+    </div>
 
+    <div class="footer-bottom font-mono">
+      <div class="container bottom-inner">
+        <span>&copy; 2026 THE COLLECTIVE MACHINE · UTH GROUP 06. ALL RIGHTS RESERVED.</span>
+        <a href="#hero" class="back-to-top" aria-label="Quay lại đầu trang">[TERMINAL_TOP &uarr;]</a>
+      </div>
     </div>
   </footer>
 
-  <!-- Dự phòng cho trình duyệt tắt JavaScript -->
-  <noscript>
-    <div class="noscript-banner">
-      Trình duyệt của bạn đang tắt JavaScript. Bạn vẫn có thể truy cập portfolio cá nhân của thành viên đã xác nhận:
-      <a href="./members/le-nguyen-nhat-truong/index.html">Lê Nguyễn Nhật Trường (Portfolio cá nhân) →</a>
-    </div>
-  </noscript>
-
-  <!-- Toast Notification Container -->
-  <div id="cosmicToast" class="cosmic-toast" role="status" aria-live="polite" hidden></div>
-
-  <!-- JavaScript Logic Trang Chủ -->
-  <script src="./group.js" defer></script>
+  <!-- Interactive JavaScript Engine -->
+  <script type="module" src="./group.js"></script>
 </body>
 </html>
