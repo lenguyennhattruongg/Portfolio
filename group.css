@@ -724,36 +724,135 @@ html, body {
   color: var(--accent-gold);
 }
 
-/* 6 Nút thiên thể chuyển nhanh quỹ đạo */
+/* Nút thiên thể chuyển nhanh quỹ đạo Hệ Mặt Trời (Seanpm2001 Inspired) */
 .hud-orbit-pills-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.hud-orbit-pills-row::-webkit-scrollbar {
+  display: none;
 }
 
 .orbit-pill {
-  padding: 7px 12px;
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  font-size: 0.74rem;
   font-weight: 700;
   border: 1px solid var(--border-chart);
   border-radius: 4px;
-  background: rgba(8, 11, 22, 0.75);
+  background: rgba(8, 11, 22, 0.82);
   color: var(--ink-secondary);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
 .orbit-pill:hover {
   border-color: var(--accent-cosmic);
   color: #FFFFFF;
-  background: rgba(142, 156, 255, 0.15);
+  background: rgba(142, 156, 255, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(142, 156, 255, 0.25);
 }
 
 .orbit-pill.active-pill {
   border-color: var(--accent-gold);
   color: #080B16;
   background: var(--accent-gold);
+  box-shadow: 0 0 16px var(--accent-gold-glow);
+  transform: translateY(-2px);
+}
+
+.orbit-pill-symbol {
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--accent-gold);
+}
+
+.orbit-pill.active-pill .orbit-pill-symbol {
+  color: #080B16;
+}
+
+.orbit-pill-member {
+  font-size: 0.65rem;
+  padding: 1px 4px;
+  border-radius: 2px;
+  background: rgba(142, 156, 255, 0.2);
+  color: var(--accent-cosmic);
+  margin-left: 2px;
+}
+
+.orbit-pill.active-pill .orbit-pill-member {
+  background: rgba(0, 0, 0, 0.25);
+  color: #080B16;
+}
+
+/* Ký hiệu Thiên văn học phóng to trong ngăn chi tiết */
+.panel-astro-symbol-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-gold);
+  background: rgba(240, 200, 121, 0.12);
+  color: var(--accent-gold);
+  font-size: 1.4rem;
   box-shadow: 0 0 15px var(--accent-gold-glow);
+}
+
+/* Nhãn hành tinh trên AR viewport */
+.spatial-ar-label {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.spatial-ar-label:hover {
+  transform: translate(-50%, -105%) scale(1.08);
+}
+
+.ar-label-symbol {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--accent-gold);
+  text-shadow: 0 0 10px rgba(240, 200, 121, 0.7);
+}
+
+.ar-label-pill {
+  padding: 3px 8px;
+  background: rgba(16, 23, 42, 0.88);
+  border: 1px solid rgba(142, 156, 255, 0.45);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.spatial-ar-label:hover .ar-label-pill {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
 }
 
 /* Responsive */

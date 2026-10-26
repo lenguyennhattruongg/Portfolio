@@ -1,8 +1,8 @@
 # Group Portfolio Website — Lập Trình Web (UTH)
 
-> 🌌 **Nhánh tính năng:** [`feature/portfolio-truong`](https://github.com/nguyenxuanhieu2903/portfolio-group/tree/feature/portfolio-truong)  
+> 🌌 **Nhánh tính năng:** [`cosmic-2`](https://github.com/lenguyennhattruongg/Portfolio/tree/cosmic-2) (SNU 3D Universe — Milky Way Solar System Edition)  
 > 🛸 **Thành viên phụ trách:** **Lê Nguyễn Nhật Trường** (K24 CNTT, ĐH Giao thông Vận tải TP.HCM — UTH)  
-> 🌐 **Deploy Trang Chủ Nhóm (Vũ Trụ 3D):** **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)**  
+> 🌐 **Deploy Trang Chủ Nhóm (Hệ Mặt Trời 3D):** **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)**  
 > 🧑‍🚀 **Deploy Portfolio Cá Nhân (Lê Nguyễn Nhật Trường):** **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)**
 
 ---
@@ -11,9 +11,8 @@
 
 | Nền tảng / Hạng mục | Địa chỉ truy cập trực tiếp | Ghi chú kỹ thuật |
 |---|---|---|
-| 🌌 **Trang Chủ Nhóm (Vũ Trụ 3D WebGL)** | 🚀 **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)** | Không gian vũ trụ 3D tương tác: Lỗ đen Kerr, Nhật hoa Coronal Flares, Vành đai 2.200 tiểu hành tinh, Hyper-Warp Dolly Zoom |
-| 🧑‍🚀 **Portfolio Cá Nhân (Lê Nguyễn Nhật Trường)** | 🚅 **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)** | Bản thiết kế Tuyến Metro Sài Gòn (UTH Metro Transit System) nguyên bản độc lập |
-| 🛸 **Trang Chủ Nhóm (Mirror Repo)** | 🔗 [https://nguyenxuanhieu2903.github.io/portfolio-group/](https://nguyenxuanhieu2903.github.io/portfolio-group/) | Triển khai từ nhánh `gh-pages` trên repo nhóm |
+| 🌌 **Trang Chủ Nhóm (Hệ Mặt Trời 3D WebGL)** | 🚀 **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)** | Mô phỏng Hệ Mặt Trời theo kiến trúc Seanpm2001 & ChatGPT 5.6: Mặt Trời FBM Plasma, 8 hành tinh + Pluto, vành đai Thổ tinh Cassini, vành đai 1.800 tiểu hành tinh, khí quyển tán xạ Rayleigh |
+| 🧑‍🚀 **Portfolio Cá Nhân (Lê Nguyễn Nhật Trường)** | 🚅 **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)** | Bản thiết kế Tuyến Metro Sài Gòn (UTH Metro Transit System) nguyên bản độc lập (Socket TCP, Java Core, Ticket Inspection Modal) |
 | 💻 **Máy chủ xem trước cục bộ (Local Preview)** | 🖥️ [http://127.0.0.1:3000/](http://127.0.0.1:3000/) | Môi trường preview Vite Production (Port 3000) |
 
 ---
