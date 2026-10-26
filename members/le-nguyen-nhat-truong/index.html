@@ -3,20 +3,555 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lê Nguyễn Nhật Trường | Portfolio</title>
+  <title>Lê Nguyễn Nhật Trường | Backend Trainee - Tuyến Metro UTH</title>
+  <meta name="description" content="Portfolio cá nhân của Lê Nguyễn Nhật Trường - Sinh viên CNTT K24 Đại học Giao thông Vận tải TP.HCM. Định hướng Software Engineer Backend, thế mạnh Java Core, Socket TCP/IP và Kiến trúc Client-Server.">
+  <meta name="theme-color" content="#0B0E14">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="./style.css">
 </head>
-<body>
-  <header>
-    <h1>Lê Nguyễn Nhật Trường</h1>
-    <a href="../../index.html">&larr; Về trang chủ nhóm</a>
+<body class="metro-theme">
+  <!-- Thanh tiến trình ray tàu Metro trên cùng -->
+  <div class="metro-progress-bar" id="metroProgressBar" aria-hidden="true"></div>
+
+  <!-- Header & Điều hướng Tuyến Metro -->
+  <header class="metro-header" id="header">
+    <div class="header-container">
+      <div class="metro-brand">
+        <span class="metro-badge">UTH METRO LINE</span>
+        <span class="route-id">SE-2026 // GA SỐ 02</span>
+      </div>
+
+      <nav class="metro-nav" aria-label="Điều hướng các ga tàu">
+        <ul class="nav-stations">
+          <li><a href="#station-01" class="nav-link active" data-station="1"><span class="dot"></span>Ga 01: Bến Thành</a></li>
+          <li><a href="#station-02" class="nav-link" data-station="2"><span class="dot"></span>Ga 02: Năng lực</a></li>
+          <li><a href="#station-03" class="nav-link" data-station="3"><span class="dot"></span>Ga 03: Đồ án</a></li>
+          <li><a href="#station-04" class="nav-link" data-station="4"><span class="dot"></span>Ga 04: Tư duy</a></li>
+          <li><a href="#station-05" class="nav-link" data-station="5"><span class="dot"></span>Ga 05: Trạm UTH</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="../../index.html" class="btn-group-hub" title="Quay về Hub tổng nhóm 6">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>Trang nhóm</span>
+        </a>
+      </div>
+    </div>
   </header>
-  <main>
-    <section>
-      <h2>Portfolio Foundation</h2>
-      <p>Khung sẵn sàng tích hợp.</p>
+
+  <!-- Sơ đồ đường ray Metro dọc bên trái (Desktop) -->
+  <aside class="metro-rail-indicator" aria-hidden="true">
+    <div class="rail-line">
+      <div class="rail-train" id="railTrain"></div>
+    </div>
+    <div class="rail-nodes">
+      <div class="rail-node active" data-target="station-01">01</div>
+      <div class="rail-node" data-target="station-02">02</div>
+      <div class="rail-node" data-target="station-03">03</div>
+      <div class="rail-node" data-target="station-04">04</div>
+      <div class="rail-node" data-target="station-05">05</div>
+    </div>
+  </aside>
+
+  <main class="metro-main">
+    <!-- ================= GA 01: BẾN THÀNH - KHỞI HÀNH ================= -->
+    <section class="metro-station" id="station-01" aria-labelledby="title-station-01">
+      <div class="station-meta">
+        <span class="station-code">STATION-01 // DEP_08:00</span>
+        <span class="station-name-vi">GA BẾN THÀNH — TRẠM XUẤT PHÁT</span>
+      </div>
+
+      <div class="hero-content-grid">
+        <div class="hero-text">
+          <div class="status-pill">
+            <span class="pulsing-led"></span>
+            <span>Sinh viên K24 CNTT — Đại học Giao thông Vận tải TP.HCM</span>
+          </div>
+
+          <h1 id="title-station-01" class="hero-name">
+            Lê Nguyễn <br><span class="accent-text">Nhật Trường</span>
+          </h1>
+
+          <p class="hero-role-tag">
+            <strong>Software Engineer Trainee</strong> (Thiên về Backend / Hệ thống)
+          </p>
+
+          <p class="hero-manifesto">
+            Không dùng giao diện đại trà, không sáo rỗng. Tôi tập trung xây dựng nền tảng cốt lõi bằng 
+            <span class="highlight">Java Core (SE 21)</span>, kiến trúc truyền nhận 
+            <span class="highlight">Socket TCP/IP Client-Server</span> và thiết kế cơ sở dữ liệu quan hệ chuẩn 3NF.
+            Mục tiêu: <strong>SE Intern 2026</strong>.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#station-03" class="btn btn-metro-primary">
+              <span>Xem vé 3 đồ án thật</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#station-05" class="btn btn-metro-outline">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <span>Liên hệ phỏng vấn</span>
+            </a>
+          </div>
+
+          <div class="hero-quick-stats">
+            <div class="stat-card">
+              <span class="stat-number">03</span>
+              <span class="stat-label">Đồ án thực tế</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">K24</span>
+              <span class="stat-label">Khóa đào tạo UTH</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Mã nguồn GitHub</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="avatar-ticket-wrapper">
+            <div class="avatar-frame">
+              <img 
+                src="./images/avatar.png" 
+                alt="Chân dung Lê Nguyễn Nhật Trường" 
+                class="avatar-img"
+                onerror="this.onerror=null; this.src='./images/avatar.svg';"
+              >
+            </div>
+            <div class="boarding-tag">
+              <div class="barcode">||| | |||| || ||| |||| | ||</div>
+              <div class="tag-details">
+                <span>PASSENGER: LE NGUYEN NHAT TRUONG</span>
+                <span>DEST: SE INTERN 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GA 02: NHÀ HÁT THÀNH PHỐ - NĂNG LỰC ================= -->
+    <section class="metro-station" id="station-02" aria-labelledby="title-station-02">
+      <div class="station-meta">
+        <span class="station-code">STATION-02 // SYS_CORE</span>
+        <span class="station-name-vi">GA NHÀ HÁT — NĂNG LỰC KỸ THUẬT CỐT LÕI</span>
+      </div>
+
+      <div class="section-heading">
+        <h2 id="title-station-02">Ngăn xếp Công nghệ & Kỹ năng Backend</h2>
+        <p class="subtitle">Được đào tạo chính quy, kiểm chứng qua đồ án môn học, không liệt kê công nghệ chưa từng chạm vào.</p>
+      </div>
+
+      <div class="skills-metro-grid">
+        <!-- Nhóm 1: Java Core & OOP -->
+        <div class="skill-card">
+          <div class="card-rail-badge">RAY-01</div>
+          <div class="skill-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+          </div>
+          <h3>Java Core (SE 21) & OOP</h3>
+          <p class="skill-desc">Làm chủ 4 nguyên lý hướng đối tượng (Đóng gói, Kế thừa, Đa hình, Trừu tượng), Collection Framework, Exception Handling và I/O Streams truyền nhận dữ liệu.</p>
+          <div class="skill-tags">
+            <span class="tag">Java SE 21</span>
+            <span class="tag">Collections</span>
+            <span class="tag">OOP Design</span>
+            <span class="tag">I/O Streams</span>
+          </div>
+        </div>
+
+        <!-- Nhóm 2: Hệ thống & Mạng Socket -->
+        <div class="skill-card featured">
+          <div class="card-rail-badge accent">RAY-02 // TRỌNG TÂM</div>
+          <div class="skill-icon accent">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+          </div>
+          <h3>Socket TCP/IP & Hệ thống Mạng</h3>
+          <p class="skill-desc">Xây dựng kiến trúc Client-Server, lập trình đa luồng (Multi-threading), điều phối `ServerSocket`, quản lý byte stream buffer và đồng bộ điều khiển thời gian thực.</p>
+          <div class="skill-tags">
+            <span class="tag accent">Socket TCP/IP</span>
+            <span class="tag accent">Client-Server</span>
+            <span class="tag accent">Multi-threading</span>
+            <span class="tag">Byte Buffer</span>
+          </div>
+        </div>
+
+        <!-- Nhóm 3: C/C++ & DSA -->
+        <div class="skill-card">
+          <div class="card-rail-badge">RAY-03</div>
+          <div class="skill-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></svg>
+          </div>
+          <h3>C / C++ & Giải thuật</h3>
+          <p class="skill-desc">Tư duy con trỏ (Pointers), cấp phát bộ nhớ động, tối ưu giải thuật, cấu trúc dữ liệu mảng, danh sách liên kết, cây và đồ thị.</p>
+          <div class="skill-tags">
+            <span class="tag">Pointers</span>
+            <span class="tag">Dynamic Memory</span>
+            <span class="tag">Data Structures</span>
+            <span class="tag">Algorithms</span>
+          </div>
+        </div>
+
+        <!-- Nhóm 4: CSDL SQL & 3NF -->
+        <div class="skill-card">
+          <div class="card-rail-badge">RAY-04</div>
+          <div class="skill-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <h3>Cơ sở Dữ liệu SQL (MySQL)</h3>
+          <p class="skill-desc">Thiết kế mô hình quan hệ, chuẩn hóa dữ liệu 3NF, tối ưu hóa truy vấn CRUD, mệnh đề JOIN nhiều bảng và toàn vẹn tham chiếu.</p>
+          <div class="skill-tags">
+            <span class="tag">MySQL</span>
+            <span class="tag">Chuẩn 3NF</span>
+            <span class="tag">Relational Design</span>
+            <span class="tag">CRUD/JOIN</span>
+          </div>
+        </div>
+
+        <!-- Nhóm 5: Web Căn bản & Công cụ -->
+        <div class="skill-card">
+          <div class="card-rail-badge">RAY-05</div>
+          <div class="skill-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          </div>
+          <h3>Web & Công cụ Phát triển</h3>
+          <p class="skill-desc">HTML5 semantic, CSS3, JavaScript ES6+, DOM manipulation; Git, GitHub, IntelliJ IDEA, VS Code, shell PowerShell trên Windows.</p>
+          <div class="skill-tags">
+            <span class="tag">HTML5/CSS3/JS</span>
+            <span class="tag">Git/GitHub</span>
+            <span class="tag">IntelliJ IDEA</span>
+            <span class="tag">PowerShell</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GA 03: BA SON - 3 ĐỒ ÁN (VÉ TÀU METRO) ================= -->
+    <section class="metro-station" id="station-03" aria-labelledby="title-station-03">
+      <div class="station-meta">
+        <span class="station-code">STATION-03 // PROJECTS_DEPOT</span>
+        <span class="station-name-vi">GA BA SON — KHO ĐỒ ÁN THỰC THI</span>
+      </div>
+
+      <div class="section-heading">
+        <h2 id="title-station-03">3 Đồ án Kỹ thuật Hoàn chỉnh</h2>
+        <p class="subtitle">Mỗi đồ án là một "Vé tàu Metro" minh bạch: có vai trò cụ thể, bài học rút ra và liên kết mã nguồn GitHub thật.</p>
+      </div>
+
+      <!-- Bộ lọc thẻ vé đồ án -->
+      <div class="project-filters" role="group" aria-label="Bộ lọc đồ án">
+        <button class="filter-btn active" data-filter="all">Tất cả vé (03)</button>
+        <button class="filter-btn" data-filter="network">Lập trình Mạng / Socket (01)</button>
+        <button class="filter-btn" data-filter="oop">Hệ thống Java OOP (01)</button>
+        <button class="filter-btn" data-filter="web">Web MPA Hub (01)</button>
+      </div>
+
+      <div class="projects-metro-grid">
+        <!-- ĐỒ ÁN 1: REMOTE DESKTOP -->
+        <article class="metro-ticket-card" data-category="network">
+          <div class="ticket-header">
+            <span class="ticket-type">TICKET #01 // MÔN LẬP TRÌNH MẠNG</span>
+            <span class="ticket-status-pill live">SOCKET TCP/IP</span>
+          </div>
+
+          <div class="ticket-body">
+            <div class="project-thumbnail">
+              <img 
+                src="./images/project-remote-desktop.svg" 
+                alt="Minh họa đồ án Remote Desktop"
+                loading="lazy"
+              >
+            </div>
+            
+            <h3 class="project-title">Remote Desktop Application</h3>
+            <p class="project-desc">
+              Phần mềm điều khiển máy tính từ xa mô hình Client-Server qua giao thức Socket TCP/IP; 
+              truyền nhận liên tục luồng byte stream ảnh chụp màn hình, đồng bộ sự kiện chuột và bàn phím thời gian thực.
+            </p>
+
+            <div class="project-meta-box">
+              <div class="meta-row">
+                <span class="meta-key">Công nghệ:</span>
+                <span class="meta-val">Java Core, C++, Socket TCP, Screen Capture Buffer, Network Protocol</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-key">Vai trò của tôi:</span>
+                <span class="meta-val highlight">Thiết kế ServerSocket, tối ưu luồng truyền nhận byte stream và cơ chế bắt sự kiện ngoại vi.</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-key">Bài học rút ra:</span>
+                <span class="meta-val">Hiểu sâu về độ trễ mạng (latency), tắc nghẽn buffer và kỹ thuật đồng bộ đa luồng trong ứng dụng thực.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ticket-footer">
+            <a href="https://github.com/duypham26/prj_UDM_06" target="_blank" rel="noopener noreferrer" class="btn-ticket-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              <span>Xem Repository</span>
+            </a>
+            <button class="btn-ticket-detail" data-modal="modal-project-1">Chi tiết kỹ thuật</button>
+          </div>
+        </article>
+
+        <!-- ĐỒ ÁN 2: FRESHVEND MANAGEMENT -->
+        <article class="metro-ticket-card" data-category="oop">
+          <div class="ticket-header">
+            <span class="ticket-type">TICKET #02 // MÔN LẬP TRÌNH JAVA</span>
+            <span class="ticket-status-pill oop">JAVA OOP CORE</span>
+          </div>
+
+          <div class="ticket-body">
+            <div class="project-thumbnail">
+              <img 
+                src="./images/project-freshvend.svg" 
+                alt="Minh họa đồ án FreshVend"
+                loading="lazy"
+              >
+            </div>
+
+            <h3 class="project-title">FreshVend Management System</h3>
+            <p class="project-desc">
+              Phần mềm quản lý và vận hành máy bán hàng tự động; mô hình hóa bài toán thực tế bằng kiến trúc hướng đối tượng, 
+              quản lý danh mục mặt hàng, tồn kho và mô phỏng giao dịch mua bán thanh toán an toàn.
+            </p>
+
+            <div class="project-meta-box">
+              <div class="meta-row">
+                <span class="meta-key">Công nghệ:</span>
+                <span class="meta-val">Java Core, Kiến trúc OOP (Inheritance, Polymorphism), Quản lý Tồn kho, Xử lý Giao dịch</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-key">Vai trò của tôi:</span>
+                <span class="meta-val highlight">Xây dựng kiến trúc class domain, module quản lý tồn kho và logic hoàn tiền (refund calculation).</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-key">Bài học rút ra:</span>
+                <span class="meta-val">Nắm vững cách tách module nghiệp vụ độc lập, hạn chế side-effects và xử lý chặt chẽ các trường hợp ngoại lệ.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ticket-footer">
+            <a href="https://github.com/nguyenxuanhieu2903/freshvend-java" target="_blank" rel="noopener noreferrer" class="btn-ticket-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              <span>Xem Repository</span>
+            </a>
+            <button class="btn-ticket-detail" data-modal="modal-project-2">Chi tiết kỹ thuật</button>
+          </div>
+        </article>
+
+        <!-- ĐỒ ÁN 3: GROUP PORTFOLIO HUB -->
+        <article class="metro-ticket-card" data-category="web">
+          <div class="ticket-header">
+            <span class="ticket-type">TICKET #03 // MÔN LẬP TRÌNH WEB</span>
+            <span class="ticket-status-pill web">VITE MULTI-PAGE HUB</span>
+          </div>
+
+          <div class="ticket-body">
+            <div class="project-thumbnail">
+              <img 
+                src="./images/project-portfolio-group.svg" 
+                alt="Minh họa đồ án Group Portfolio Hub"
+                loading="lazy"
+              >
+            </div>
+
+            <h3 class="project-title">Group Portfolio Website Hub</h3>
+            <p class="project-desc">
+              Hệ thống website đa trang (MPA) cho nhóm 6 sinh viên UTH; tích hợp tìm kiếm lọc thành viên realtime, 
+              responsive đa màn hình và liên kết 6 portfolio cá nhân độc lập có CI pipeline kiểm thử build tự động.
+            </p>
+
+            <div class="project-meta-box">
+              <div class="meta-row">
+                <span class="meta-key">Công nghệ:</span>
+                <span class="meta-val">HTML5 Semantic, CSS3 Vanilla, Vanilla JS ES6+, Vite MPA, GitHub Actions CI</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-key">Vai trò của tôi:</span>
+                <span class="meta-val highlight">Phát triển portfolio cá nhân Tuyến Metro UTH độc lập, viết CI workflow kiểm tra 7 artifacts đầu ra.</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-key">Bài học rút ra:</span>
+                <span class="meta-val">Kỹ năng làm việc nhóm trên Git/GitHub (Branching, PR Review, CI Build verification và bảo vệ source code).</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ticket-footer">
+            <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" target="_blank" rel="noopener noreferrer" class="btn-ticket-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              <span>Xem Repository</span>
+            </a>
+            <button class="btn-ticket-detail" data-modal="modal-project-3">Chi tiết kỹ thuật</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= GA 04: TÂN CẢNG - TƯ DUY & CAM KẾT ================= -->
+    <section class="metro-station" id="station-04" aria-labelledby="title-station-04">
+      <div class="station-meta">
+        <span class="station-code">STATION-04 // MINDSET_GATE</span>
+        <span class="station-name-vi">GA TÂN CẢNG — TƯ DUY KỸ THUẬT & CAM KẾT NGHỀ NGHIỆP</span>
+      </div>
+
+      <div class="section-heading">
+        <h2 id="title-station-04">Hành Trình Gói Tin & Văn Hóa Làm Việc</h2>
+        <p class="subtitle">Không sáo rỗng, không tô vẽ. Cam kết trung thực từ sinh viên kỹ thuật trường GTVT.</p>
+      </div>
+
+      <div class="mindset-metro-layout">
+        <div class="packet-traceroute-box">
+          <div class="box-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-title">TRACEROUTE: /dev/nhat-truong -> SE_INTERN_2026</span>
+          </div>
+          <div class="traceroute-body">
+            <div class="trace-hop">
+              <span class="hop-num">HOP 01:</span>
+              <span class="hop-name">Đại học Giao thông Vận tải TP.HCM (UTH)</span>
+              <span class="hop-latency">K24 CNTT</span>
+              <p class="hop-desc">Xây chắc nền tảng C/C++, Giải thuật, Toán rời rạc và Mạng máy tính từ năm nhất.</p>
+            </div>
+            <div class="trace-hop">
+              <span class="hop-num">HOP 02:</span>
+              <span class="hop-name">Java Core & Client-Server Socket Protocol</span>
+              <span class="hop-latency">SE 21</span>
+              <p class="hop-desc">Tự tay cấu hình byte buffer, xử lý luồng đọc ghi stream, tránh dead-lock trong đa luồng.</p>
+            </div>
+            <div class="trace-hop">
+              <span class="hop-num">HOP 03:</span>
+              <span class="hop-name">Teamwork & Git Discipline</span>
+              <span class="hop-latency">Git Flow</span>
+              <p class="hop-desc">Trân trọng quy trình code review, bảo vệ nhánh develop, CI verification trước khi merge.</p>
+            </div>
+            <div class="trace-hop highlight">
+              <span class="hop-num">HOP 04:</span>
+              <span class="hop-name">Đang ôn luyện TOEIC & Nghiên cứu Mã nguồn mở</span>
+              <span class="hop-latency">READY</span>
+              <p class="hop-desc">Sẵn sàng đọc tài liệu RFC, chuẩn API quốc tế và thích nghi nhanh với văn hóa kỹ thuật doanh nghiệp.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pledge-card">
+          <h3>Cam kết trung thực của tôi:</h3>
+          <ul class="pledge-list">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E599" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Mã nguồn thật 100%:</strong> Toàn bộ link GitHub đều tồn tại, có commit history rõ ràng.</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E599" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Hiểu rõ những gì mình viết:</strong> Trình bày mạch lạc từng dòng lệnh, luồng Socket hay class OOP khi phỏng vấn.</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E599" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Học việc với thái độ cầu tiến:</strong> Lắng nghe mentor, chủ động nhận lỗi và sửa lỗi có hệ thống.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GA 05: TRẠM UTH - GA CUỐI KẾT NỐI ================= -->
+    <section class="metro-station" id="station-05" aria-labelledby="title-station-05">
+      <div class="station-meta">
+        <span class="station-code">STATION-05 // TERMINUS_UTH</span>
+        <span class="station-name-vi">GA CUỐI — TRẠM KẾT NỐI & LIÊN HỆ</span>
+      </div>
+
+      <div class="contact-metro-card">
+        <div class="contact-info-col">
+          <h2 id="title-station-05">Chuyến Tàu Đến Ga — Kết Nối Cùng Trường</h2>
+          <p class="contact-lead">
+            Tôi luôn sẵn sàng cho các cơ hội trao đổi kỹ thuật, phỏng vấn thực tập vị trí 
+            <strong>Software Engineer Trainee / Backend Intern</strong> tại TP. Hồ Chí Minh trong năm 2026.
+          </p>
+
+          <div class="contact-channels">
+            <div class="channel-item">
+              <span class="channel-label">Email trường đại học:</span>
+              <div class="copy-email-box">
+                <a href="mailto:truonglnn0882@ut.edu.vn" class="email-link">truonglnn0882@ut.edu.vn</a>
+                <button class="btn-copy-email" id="copyEmailBtn" aria-label="Sao chép email" title="Sao chép email">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <span class="copy-tooltip" id="copyTooltip">Đã sao chép!</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="channel-item">
+              <span class="channel-label">GitHub cá nhân:</span>
+              <a href="https://github.com/lenguyennhattruongg" target="_blank" rel="noopener noreferrer" class="channel-link">
+                github.com/lenguyennhattruongg &rarr;
+              </a>
+            </div>
+
+            <div class="channel-item">
+              <span class="channel-label">Địa bàn hoạt động:</span>
+              <span class="channel-text">TP. Hồ Chí Minh (Học tập tại UTH)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-col">
+          <form class="metro-quick-form" action="mailto:truonglnn0882@ut.edu.vn" method="GET" enctype="text/plain">
+            <h3>Gửi Tin Nhắn Nhanh</h3>
+            <div class="form-group">
+              <label for="formSubject">Tiêu đề liên hệ / Công ty:</label>
+              <input type="text" id="formSubject" name="subject" placeholder="VD: Thư mời phỏng vấn thực tập Backend 2026" required>
+            </div>
+            <div class="form-group">
+              <label for="formBody">Nội dung trao đổi:</label>
+              <textarea id="formBody" name="body" rows="4" placeholder="Nhập nội dung tin nhắn của bạn..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-metro-primary full-width">
+              <span>Mở ứng dụng gửi Email</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
+
+  <!-- Footer -->
+  <footer class="metro-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <p>© 2026 <strong>Lê Nguyễn Nhật Trường</strong>. Portfolio cá nhân sinh viên K24 UTH.</p>
+        <p class="sub">Concept Tuyến Metro Sài Gòn — Thiết kế chuẩn Semantic HTML5 & CSS3 thuần.</p>
+      </div>
+      <div class="footer-right">
+        <a href="../../index.html" class="footer-hub-link">&larr; Quay về Group Portfolio Hub</a>
+        <a href="#station-01" class="btn-top" title="Lên đầu trang">&uarr; Lên đầu</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODAL CHI TIẾT ĐỒ ÁN ================= -->
+  <div class="metro-modal" id="projectModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-window">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Đóng cửa sổ">&times;</button>
+      <div class="modal-content" id="modalContent">
+        <!-- Nội dung sẽ được cập nhật động bằng script.js -->
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="./script.js"></script>
 </body>
 </html>
