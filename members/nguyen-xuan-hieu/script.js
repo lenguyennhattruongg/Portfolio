@@ -35,11 +35,21 @@ const translations = {
     hero_cta_projects: "Khám phá Dự án",
     hero_cta_cv: "Tải CV (.PDF)",
     portrait_caption: "Nguyễn Xuân Hiếu • UTH Campus 2",
-    portrait_badge_text: "Full-Stack & Network",
     stat_projects: "Dự án tiêu biểu",
+    stat_projects_hint: "hiunx-cinema-manager & veterinary-center-web",
     stat_years: "Năm nền tảng CNTT",
+    stat_years_hint: "Trường ĐH Giao thông vận tải TP.HCM (UTH)",
     stat_domains: "Lĩnh vực chuyên môn",
+    stat_domains_hint: "Full-Stack Web & Network Admin",
     stat_techs: "Công nghệ & Công cụ",
+    stat_techs_hint: "5 nhóm Stack & Hệ thống",
+    badge_drag_hint: "Kéo thả đàn hồi",
+    badge_lbl_name: "Họ và tên:",
+    badge_lbl_id: "MSSV:",
+    badge_lbl_dob: "Ngày sinh:",
+    badge_lbl_dept: "Khoa:",
+    badge_lbl_major: "Chuyên ngành:",
+    badge_lbl_course: "Khóa học:",
 
     // About Section
     about_tag: "01 / Giới thiệu",
@@ -189,11 +199,21 @@ const translations = {
     hero_cta_projects: "Explore Projects",
     hero_cta_cv: "Download CV (.PDF)",
     portrait_caption: "Nguyen Xuan Hieu • UTH Campus 2",
-    portrait_badge_text: "Full-Stack & Network",
     stat_projects: "Featured Projects",
+    stat_projects_hint: "hiunx-cinema-manager & veterinary-center-web",
     stat_years: "Years IT Foundation",
+    stat_years_hint: "HCM City Univ. of Transport (UTH)",
     stat_domains: "Core Domains",
+    stat_domains_hint: "Full-Stack Web & Network Admin",
     stat_techs: "Tech Stack & Tools",
+    stat_techs_hint: "5 Tech Stack & System Groups",
+    badge_drag_hint: "Elastic drag",
+    badge_lbl_name: "Full Name:",
+    badge_lbl_id: "Student ID:",
+    badge_lbl_dob: "Date of Birth:",
+    badge_lbl_dept: "Faculty:",
+    badge_lbl_major: "Major:",
+    badge_lbl_course: "Course:",
 
     // About Section
     about_tag: "01 / About Me",
@@ -653,43 +673,78 @@ function initNumberCounters() {
       const target = parseInt(el.getAttribute('data-target') || '0', 10);
       el.textContent = target < 10 ? `0${target}` : `${target}`;
     });
-    return;
+  } else {
+    let animated = false;
+    function runCounters() {
+      if (animated) return;
+      animated = true;
+      statNumbers.forEach((el) => {
+        const target = parseInt(el.getAttribute('data-target') || '0', 10);
+        const duration = 1350;
+        const startTime = performance.now();
+
+        function updateCounter(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease out cubic for silky smooth deceleration
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentVal = Math.floor(easeOut * target);
+
+          el.textContent = currentVal < 10 ? `0${currentVal}` : `${currentVal}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          } else {
+            el.textContent = target < 10 ? `0${target}` : `${target}`;
+          }
+        }
+
+        requestAnimationFrame(updateCounter);
+      });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          runCounters();
+          observer.unobserve(statCardsContainer);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(statCardsContainer);
+
+    // Initial check in case container is already in viewport on page load
+    setTimeout(() => {
+      const rect = statCardsContainer.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        runCounters();
+      }
+    }, 200);
   }
 
-  let animated = false;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && !animated) {
-        animated = true;
-        statNumbers.forEach((el) => {
-          const target = parseInt(el.getAttribute('data-target') || '0', 10);
-          const duration = 1200;
-          const startTime = performance.now();
+  // Interactive Click-to-Navigate & Keyboard Accessibility for Metrics Cards
+  document.querySelectorAll('.stat-card-interactive').forEach((card) => {
+    function navigate() {
+      const targetSel = card.getAttribute('data-nav-target');
+      if (!targetSel) return;
+      const targetEl = document.querySelector(targetSel);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+        history.pushState(null, '', targetSel);
+        targetEl.setAttribute('tabindex', '-1');
+        targetEl.focus({ preventScroll: true });
+      }
+    }
 
-          function updateCounter(now) {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-            const currentVal = Math.floor(easeOut * target);
-
-            el.textContent = currentVal < 10 ? `0${currentVal}` : `${currentVal}`;
-
-            if (progress < 1) {
-              requestAnimationFrame(updateCounter);
-            } else {
-              el.textContent = target < 10 ? `0${target}` : `${target}`;
-            }
-          }
-
-          requestAnimationFrame(updateCounter);
-        });
-        observer.unobserve(statCardsContainer);
+    card.addEventListener('click', navigate);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        navigate();
       }
     });
-  }, { threshold: 0.2 });
-
-  observer.observe(statCardsContainer);
+  });
 }
 
 // ------------------------------------------------------------------------------
@@ -1870,6 +1925,307 @@ function initHeroAvatar() {
 }
 
 // ------------------------------------------------------------------------------
+// 15b. UTH INTERACTIVE LANYARD BADGE PHYSICS ENGINE
+// Elastic Drag & Spring Return + Ambient Pendulum Swing + Dynamic SVG Strap
+// ------------------------------------------------------------------------------
+function initLanyardPhysics() {
+  const sceneEl = document.getElementById('lanyard-scene');
+  const cardWrapperEl = document.getElementById('lanyard-card-wrapper');
+  const cardEl = document.getElementById('lanyard-card');
+  const svgEl = document.getElementById('lanyard-svg');
+  const pathShadow = document.getElementById('lanyard-path-shadow');
+  const pathMain = document.getElementById('lanyard-path-main');
+  const pathEdgeL = document.getElementById('lanyard-path-edge-l');
+  const pathEdgeR = document.getElementById('lanyard-path-edge-r');
+  const textGuide = document.getElementById('lanyard-text-path-line');
+  const hintPill = document.getElementById('drag-hint-pill');
+
+  if (!sceneEl || !cardWrapperEl || !cardEl || !svgEl) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Physics Simulation State
+  const state = {
+    // Current displacement from rest position (px)
+    x: 0,
+    y: 0,
+    rot: 0, // degrees
+    // Instantaneous velocities
+    vx: 0,
+    vy: 0,
+    vRot: 0,
+    // Mechanical physical properties (Hooke's spring & viscous friction)
+    springK: 210,     // Linear spring stiffness
+    dampingC: 15,     // Linear damping coefficient
+    rotK: 190,        // Rotational restoring torque stiffness
+    rotC: 14,         // Rotational damping coefficient
+    mass: 1.0,
+    maxRadius: 140,   // Max allowable drag distance to preserve layout
+    // State machine flags
+    isDragging: false,
+    isSpringing: false,
+    isIdle: !prefersReducedMotion,
+    // Pointer drag tracking
+    startX: 0,
+    startY: 0,
+    lastPointerX: 0,
+    lastPointerY: 0,
+    lastTime: 0,
+    // Idle pendulum accumulator
+    idleTimer: 0
+  };
+
+  // Cache Scene Dimensions & Anchor Coordinates
+  let sceneWidth = 440;
+  let sceneHeight = 540;
+  let anchorX = 220;
+  const anchorY = 0;
+  const restAttachY = 88; // Y distance from anchor to clasp loop
+
+  function updateDimensions() {
+    const rect = sceneEl.getBoundingClientRect();
+    if (rect.width > 0) {
+      sceneWidth = rect.width;
+      sceneHeight = rect.height || 540;
+      anchorX = sceneWidth / 2;
+      svgEl.setAttribute('viewBox', `0 0 ${sceneWidth} ${sceneHeight}`);
+    }
+  }
+
+  updateDimensions();
+  window.addEventListener('resize', updateDimensions, { passive: true });
+
+  /**
+   * Recalculate dynamic SVG strap curves connecting top anchor to clasp loop
+   */
+  function updateStrapCurves(x, y, rot) {
+    const attachX = anchorX + x;
+    const attachY = restAttachY + y;
+    const rotRad = (rot * Math.PI) / 180;
+
+    // Bezier control point with tension & natural gravity sag
+    const pullDist = Math.hypot(x, y);
+    const tension = Math.min(pullDist / state.maxRadius, 1);
+    const sagY = (attachY * 0.48) + Math.max(0, -y * 0.4);
+    const ctrlX = anchorX + (x * 0.32);
+
+    // Main central curve path
+    const mainCurve = `M ${anchorX},${anchorY} Q ${ctrlX},${sagY} ${attachX},${attachY}`;
+
+    // Parallel edge highlight lines
+    const halfWidth = 13;
+    const perpX = Math.cos(rotRad + Math.PI / 2) * halfWidth;
+    const perpY = Math.sin(rotRad + Math.PI / 2) * halfWidth;
+
+    const edgeLCurve = `M ${anchorX - halfWidth},${anchorY} Q ${ctrlX - halfWidth * (1 - tension * 0.5)},${sagY} ${attachX - perpX},${attachY - perpY}`;
+    const edgeRCurve = `M ${anchorX + halfWidth},${anchorY} Q ${ctrlX + halfWidth * (1 - tension * 0.5)},${sagY} ${attachX + perpX},${attachY + perpY}`;
+
+    if (pathShadow) pathShadow.setAttribute('d', mainCurve);
+    if (pathMain) pathMain.setAttribute('d', mainCurve);
+    if (pathEdgeL) pathEdgeL.setAttribute('d', edgeLCurve);
+    if (pathEdgeR) pathEdgeR.setAttribute('d', edgeRCurve);
+    if (textGuide) textGuide.setAttribute('d', mainCurve);
+  }
+
+  /**
+   * Apply 3D matrix transform & dynamic spatial depth to card holder
+   */
+  function applyTransform(x, y, rot) {
+    cardWrapperEl.style.transform = `translateX(calc(-50% + ${x.toFixed(2)}px)) translateY(${y.toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
+    
+    // Dynamic 3D perspective depth tilt
+    const tiltX = -y * 0.05;
+    const tiltY = x * 0.06;
+    cardEl.style.transform = `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
+
+    // Organic shadow offset based on light source
+    const shadowX = (-x * 0.18).toFixed(1);
+    const shadowY = (20 - y * 0.12).toFixed(1);
+    const shadowBlur = (40 + Math.abs(x) * 0.12).toFixed(1);
+    cardEl.style.boxShadow = `${shadowX}px ${shadowY}px ${shadowBlur}px -8px rgba(0, 45, 55, 0.22), 0 8px 18px -4px rgba(0, 0, 0, 0.08)`;
+  }
+
+  // Initial draw
+  updateStrapCurves(0, 0, 0);
+
+  // --------------------------------------------------------------------------
+  // POINTER DRAG INTERACTION HANDLERS (Multi-device: Mouse & Touch)
+  // --------------------------------------------------------------------------
+  function handlePointerDown(e) {
+    if (e.button !== undefined && e.button !== 0 && e.pointerType === 'mouse') return;
+
+    state.isDragging = true;
+    state.isSpringing = false;
+    state.isIdle = false;
+
+    try {
+      cardEl.setPointerCapture(e.pointerId);
+    } catch (err) {}
+
+    cardEl.classList.add('is-dragging');
+    hintPill?.classList.add('fade-out');
+
+    state.startX = e.clientX - state.x;
+    state.startY = e.clientY - state.y;
+    state.lastPointerX = e.clientX;
+    state.lastPointerY = e.clientY;
+    state.lastTime = performance.now();
+    state.vx = 0;
+    state.vy = 0;
+    state.vRot = 0;
+  }
+
+  function handlePointerMove(e) {
+    if (!state.isDragging) return;
+
+    const now = performance.now();
+    const dt = Math.max((now - state.lastTime) / 1000, 0.008);
+
+    let rawX = e.clientX - state.startX;
+    let rawY = e.clientY - state.startY;
+
+    // Elastic rubber-band clamping at maxRadius
+    const rawDist = Math.hypot(rawX, rawY);
+    if (rawDist > 0) {
+      // Hyperbolic tangent rubber band: smooth soft barrier
+      const clampedDist = state.maxRadius * Math.tanh(rawDist / state.maxRadius);
+      const ratio = clampedDist / rawDist;
+      state.x = rawX * ratio;
+      state.y = rawY * ratio;
+    } else {
+      state.x = 0;
+      state.y = 0;
+    }
+
+    // Instantaneous velocity for throw momentum
+    state.vx = (e.clientX - state.lastPointerX) / dt;
+    state.vy = (e.clientY - state.lastPointerY) / dt;
+    state.vx = Math.max(-1200, Math.min(1200, state.vx));
+    state.vy = Math.max(-1200, Math.min(1200, state.vy));
+
+    state.lastPointerX = e.clientX;
+    state.lastPointerY = e.clientY;
+    state.lastTime = now;
+
+    // Rotation angle follows pull direction + instantaneous throw velocity
+    const tiltAngle = (state.x / state.maxRadius) * 22 + (state.vx * 0.0035);
+    state.rot = Math.max(-26, Math.min(26, tiltAngle));
+
+    applyTransform(state.x, state.y, state.rot);
+    updateStrapCurves(state.x, state.y, state.rot);
+  }
+
+  function handlePointerUp(e) {
+    if (!state.isDragging) return;
+
+    state.isDragging = false;
+    cardEl.classList.remove('is-dragging');
+
+    try {
+      cardEl.releasePointerCapture(e.pointerId);
+    } catch (err) {}
+
+    // Enter spring return mode
+    state.isSpringing = true;
+    state.vRot = state.vx * 0.06; // Angular momentum proportional to throw
+  }
+
+  cardEl.addEventListener('pointerdown', handlePointerDown);
+  cardEl.addEventListener('pointermove', handlePointerMove);
+  cardEl.addEventListener('pointerup', handlePointerUp);
+  cardEl.addEventListener('pointercancel', handlePointerUp);
+
+  // Keyboard accessibility: Arrow keys nudge / Enter & Space pulse
+  cardEl.addEventListener('keydown', (e) => {
+    hintPill?.classList.add('fade-out');
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      state.isIdle = false;
+      state.isSpringing = true;
+      state.vx -= 320;
+      state.vRot -= 80;
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      state.isIdle = false;
+      state.isSpringing = true;
+      state.vx += 320;
+      state.vRot += 80;
+    } else if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      state.isIdle = false;
+      state.isSpringing = true;
+      state.vy += 450;
+      state.vRot += (Math.random() - 0.5) * 60;
+    }
+  });
+
+  // --------------------------------------------------------------------------
+  // MAIN 60FPS PHYSICS ANIMATION LOOP (Damped Harmonic Spring & Pendulum Swing)
+  // --------------------------------------------------------------------------
+  let lastFrameTime = performance.now();
+
+  function physicsLoop(now) {
+    const dt = Math.min((now - lastFrameTime) / 1000, 0.032);
+    lastFrameTime = now;
+
+    if (state.isSpringing) {
+      // Elastic Spring Physics (Hooke's Law: F = -k*x - c*v)
+      const fx = -state.springK * state.x - state.dampingC * state.vx;
+      const fy = -state.springK * state.y - state.dampingC * state.vy;
+      const tRot = -state.rotK * state.rot - state.rotC * state.vRot;
+
+      // Euler-Cromer Integration
+      state.vx += (fx / state.mass) * dt;
+      state.x += state.vx * dt;
+
+      state.vy += (fy / state.mass) * dt;
+      state.y += state.vy * dt;
+
+      state.vRot += (tRot / state.mass) * dt;
+      state.rot += state.vRot * dt;
+
+      applyTransform(state.x, state.y, state.rot);
+      updateStrapCurves(state.x, state.y, state.rot);
+
+      // Check settlement criteria
+      const isSettled =
+        Math.abs(state.x) < 0.25 &&
+        Math.abs(state.y) < 0.25 &&
+        Math.abs(state.vx) < 1.2 &&
+        Math.abs(state.vy) < 1.2 &&
+        Math.abs(state.rot) < 0.2 &&
+        Math.abs(state.vRot) < 0.8;
+
+      if (isSettled) {
+        state.x = 0;
+        state.y = 0;
+        state.rot = 0;
+        state.vx = 0;
+        state.vy = 0;
+        state.vRot = 0;
+        state.isSpringing = false;
+        state.isIdle = !prefersReducedMotion;
+        state.idleTimer = 0;
+      }
+    } else if (state.isIdle) {
+      // Ambient Organic Pendulum Sway
+      state.idleTimer += dt;
+      const freq = 1.85; // rad/s (approx 3.4s full pendulum cycle)
+      const swayRot = Math.sin(state.idleTimer * freq) * 2.4; // degrees
+      const swayX = Math.sin(state.idleTimer * freq) * 5.8;   // px
+      const swayY = (1 - Math.cos(state.idleTimer * freq * 2)) * 1.2; // bobbing
+
+      applyTransform(swayX, swayY, swayRot);
+      updateStrapCurves(swayX, swayY, swayRot);
+    }
+
+    requestAnimationFrame(physicsLoop);
+  }
+
+  requestAnimationFrame(physicsLoop);
+}
+
+// ------------------------------------------------------------------------------
 // 16. PARALLAX 3D TILT EFFECT (vanilla-tilt via ESM CDN)
 // ------------------------------------------------------------------------------
 let vanillaTiltInstances = [];
@@ -1887,7 +2243,7 @@ async function initVanillaTilt() {
     if (!VanillaTilt) return;
 
     const tiltTargets = document.querySelectorAll(
-      '.portrait-card, .project-card, .editorial-quote-card, .process-quote-card'
+      '.project-card, .editorial-quote-card, .process-quote-card'
     );
 
     tiltTargets.forEach((el) => {
@@ -2425,6 +2781,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize Core Components
   initHeroAvatar();
+  initLanyardPhysics();
   initVanillaTilt();
   initSkillTooltips();
   initCliTerminal();

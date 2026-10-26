@@ -643,139 +643,606 @@ main:focus {
   margin-top: var(--space-sm);
 }
 
-/* Hero Visual: Portrait Card & Stat Counter Cards */
+/* --------------------------------------------------------------------------
+   5b. UTH INTERACTIVE LANYARD BADGE & METRICS DASHBOARD
+   Physical Drag & Elastic Spring Return + Ambient Pendulum Swing
+   -------------------------------------------------------------------------- */
+:root {
+  --uth-teal: #007C89;
+  --uth-teal-dark: #005863;
+  --uth-teal-light: #5EEAD4;
+  --uth-teal-glow: rgba(0, 124, 137, 0.35);
+  --uth-ribbon-blue: #0E9AA7;
+  --uth-gold: #D4AF37;
+  --uth-card-border: rgba(0, 124, 137, 0.22);
+}
+
 .hero-visual {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
-}
-
-.portrait-card {
+  gap: var(--space-lg);
   position: relative;
-  border-radius: 24px;
-  background: var(--color-elevated);
-  padding: var(--space-md);
-  border: 1px solid var(--color-border-subtle);
-  box-shadow: var(--shadow-card);
-  transform-style: preserve-3d;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  align-items: center;
+  width: 100%;
 }
 
-.portrait-image-wrapper,
-.hero-avatar-frame {
+/* Lanyard Scene Container */
+.lanyard-scene {
+  position: relative;
   width: 100%;
-  aspect-ratio: 3 / 4;
-  border-radius: 24px;
-  overflow: hidden;
-  background-color: var(--color-surface-elevated);
-  background: radial-gradient(circle at 50% 35%, #D6E0D0 0%, #BAC8B1 65%, #9EB094 100%);
+  max-width: 440px;
+  min-height: 540px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  perspective: 1200px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: visible;
+}
+
+/* Ceiling Mount Anchor Bracket */
+.lanyard-anchor-mount {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.mount-bracket {
+  width: 82px;
+  height: 14px;
+  background: linear-gradient(180deg, #475569 0%, #1E293B 100%);
+  border-radius: 4px 4px 6px 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mount-ring {
+  width: 32px;
+  height: 12px;
+  border: 3px solid #94A3B8;
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  margin-top: -2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  background: transparent;
+}
+
+/* Dynamic SVG Canvas for Strap */
+.lanyard-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+}
+
+.lanyard-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lanyard-path-shadow {
+  stroke: rgba(0, 35, 40, 0.22);
+  stroke-width: 32px;
+  filter: blur(5px);
+  transform: translateY(6px);
+}
+
+.lanyard-path-main {
+  stroke: url(#uthRibbonGrad);
+  stroke-width: 28px;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.22));
+}
+
+.lanyard-path-edge {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1.5px;
+}
+
+.lanyard-svg-text {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  fill: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Clasp & Draggable Card Wrapper */
+.lanyard-card-wrapper {
+  position: absolute;
+  top: 115px;
+  left: 50%;
+  width: 310px;
+  transform: translateX(-50%);
+  z-index: 15;
+  transform-origin: 50% 0%;
+  will-change: transform;
+}
+
+/* White Plastic Clasp & Buckle Hook */
+.lanyard-clasp {
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.clasp-loop-ring {
+  width: 24px;
+  height: 10px;
+  border: 2.5px solid #CBD5E1;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.clasp-body {
+  width: 38px;
+  height: 22px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+  border-radius: 4px;
+  border: 1px solid #CBD5E1;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  border: 1px solid rgba(123, 150, 105, 0.35);
-  box-shadow: inset 0 2px 10px rgba(64, 78, 59, 0.12), var(--shadow-subtle);
+  margin-top: -2px;
 }
 
-.portrait-real-img,
-.hero-avatar-img {
+.clasp-slot-accent {
+  width: 18px;
+  height: 5px;
+  background: #94A3B8;
+  border-radius: 2px;
+}
+
+.clasp-hook {
+  width: 16px;
+  height: 14px;
+  background: linear-gradient(180deg, #E2E8F0 0%, #CBD5E1 100%);
+  border-radius: 0 0 4px 4px;
+  border: 1px solid #94A3B8;
+  border-top: none;
+  margin-top: -2px;
+}
+
+/* Draggable Lanyard Card Badge (Real PVC Holder Look) */
+.lanyard-card {
+  position: relative;
+  width: 100%;
+  border-radius: 22px;
+  background: #F8FAFC;
+  border: 3.5px solid #FFFFFF;
+  box-shadow: 0 20px 45px -8px rgba(0, 45, 55, 0.22), 0 8px 18px -4px rgba(0, 0, 0, 0.08);
+  padding: 10px 12px 14px;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  transition: box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.lanyard-card:focus-visible {
+  outline: 3px solid var(--uth-teal);
+  outline-offset: 4px;
+}
+
+.lanyard-card.is-dragging {
+  cursor: grabbing !important;
+  box-shadow: 0 32px 64px -8px rgba(0, 45, 55, 0.35), 0 14px 28px -4px rgba(0, 0, 0, 0.15);
+}
+
+/* Slot punch hole */
+.card-slot-hole {
+  width: 48px;
+  height: 10px;
+  background: #1E293B;
+  border-radius: 6px;
+  margin: 0 auto 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Interactive Drag Hint Pill */
+.drag-hint-pill {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(0, 124, 137, 0.12);
+  border: 1px solid rgba(0, 124, 137, 0.35);
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--uth-teal-dark);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 8;
+  backdrop-filter: blur(4px);
+}
+
+.drag-hint-pill.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Inner Printed Sheet of Student Card */
+.card-inner-sheet {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  border-radius: 16px;
+  border: 1px solid var(--uth-card-border);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.9);
+}
+
+/* Card Header: UTH Branding */
+.uth-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1.5px solid rgba(0, 124, 137, 0.22);
+  padding-bottom: 6px;
+}
+
+.uth-header-branding {
+  flex-shrink: 0;
+}
+
+.uth-vector-emblem {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.uth-header-titles {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.uni-name-vn {
+  font-size: 8.5px;
+  font-weight: 800;
+  color: var(--uth-teal-dark);
+  letter-spacing: -0.01em;
+}
+
+.uni-name-en {
+  font-size: 6.5px;
+  font-weight: 600;
+  color: #64748B;
+  letter-spacing: 0.02em;
+}
+
+.badge-type-label {
+  font-size: 7.5px;
+  font-weight: 800;
+  color: var(--uth-teal);
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* Security Strip: Smart IC Chip, RFID & Hologram */
+.card-security-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1px 4px;
+}
+
+.smart-ic-chip {
+  width: 32px;
+  height: 24px;
+  background: linear-gradient(135deg, #ECC94B 0%, #D69E2E 50%, #B7791F 100%);
+  border-radius: 4px;
+  border: 1px solid #975A16;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.chip-pin {
+  position: absolute;
+  background: rgba(151, 90, 22, 0.65);
+}
+
+.chip-pin-1 { top: 0; left: 10px; width: 1px; height: 7px; }
+.chip-pin-2 { top: 0; right: 10px; width: 1px; height: 7px; }
+.chip-pin-3 { bottom: 0; left: 10px; width: 1px; height: 7px; }
+.chip-pin-4 { bottom: 0; right: 10px; width: 1px; height: 7px; }
+
+.chip-core {
+  position: absolute;
+  inset: 5px 7px;
+  border: 1px solid #975A16;
+  background: rgba(236, 201, 75, 0.35);
+  border-radius: 2px;
+}
+
+.rfid-waves {
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+}
+
+.hologram-seal {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5EEAD4 0%, #38BDF8 50%, #A855F7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.hologram-text {
+  font-size: 7px;
+  font-weight: 900;
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.5px;
+}
+
+/* Card Middle Grid: Avatar & Student Details */
+.card-middle-grid {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.badge-avatar-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-avatar-holder .portrait-image-wrapper {
+  width: 86px;
+  height: 115px;
+  max-width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0, 124, 137, 0.35);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  background: radial-gradient(circle at 50% 35%, #D6E0D0 0%, #BAC8B1 65%, #9EB094 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-avatar-holder .portrait-real-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
   display: none;
-  border-radius: 24px;
+  border-radius: 9px;
   transition: opacity var(--transition-normal);
 }
 
-.portrait-real-img.is-loaded,
-.hero-avatar-img.is-loaded {
+.badge-avatar-holder .portrait-real-img.is-loaded {
   display: block;
 }
 
-.portrait-placeholder {
+.badge-avatar-holder .portrait-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-xs);
+  gap: 2px;
   color: var(--color-primary);
   text-align: center;
   width: 100%;
   height: 100%;
 }
 
-.portrait-placeholder.is-hidden {
+.badge-avatar-holder .portrait-placeholder.is-hidden {
   display: none !important;
 }
 
-.portrait-initials {
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
+.badge-avatar-holder .portrait-initials {
+  font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 0.05em;
   color: var(--color-primary);
   opacity: 0.85;
 }
 
-.portrait-caption {
-  font-size: var(--text-xs);
+.badge-avatar-holder .portrait-caption {
+  font-size: 8px;
   font-weight: 600;
   opacity: 0.75;
 }
 
-.portrait-badge {
-  position: absolute;
-  bottom: calc(-1 * var(--space-xs));
-  right: var(--space-lg);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background-color: var(--color-primary);
-  color: var(--color-canvas);
-  padding: 6px 14px;
-  border-radius: var(--radius-full);
-  font-size: var(--text-xs);
+/* Metadata Table */
+.badge-meta-table {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 10px;
+}
+
+.meta-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  line-height: 1.25;
+}
+
+.meta-row-dept,
+.meta-row-major {
+  align-items: flex-start;
+}
+
+.meta-row-dept .meta-v {
+  font-size: 8.8px;
+  line-height: 1.22;
+}
+
+.meta-k {
+  color: #64748B;
+  font-size: 9px;
   font-weight: 600;
-  box-shadow: var(--shadow-subtle);
+  white-space: nowrap;
 }
 
-.status-indicator-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #68D391;
-  box-shadow: 0 0 6px #68D391;
+.meta-v {
+  color: #1E293B;
+  font-weight: 600;
+  font-size: 9.5px;
+  word-break: break-word;
 }
 
-/* Stats 4 Cards Grid */
+.student-name {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--uth-teal-dark);
+}
+
+.student-id {
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--uth-teal);
+  letter-spacing: 0.3px;
+}
+
+.highlight-val {
+  color: var(--uth-ribbon-blue);
+  font-weight: 700;
+}
+
+/* Card Bottom Strip: Barcode & QR */
+.card-bottom-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px dashed rgba(0, 124, 137, 0.25);
+  padding-top: 6px;
+  margin-top: 2px;
+}
+
+.barcode-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.barcode-vector {
+  width: 100%;
+  height: 20px;
+}
+
+.barcode-digits {
+  font-family: monospace;
+  font-size: 8px;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 2px;
+}
+
+.qr-box {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Glossy Plastic Sheen Overlay */
+.card-gloss-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.02) 42%, rgba(255, 255, 255, 0.22) 100%);
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: overlay;
+}
+
+/* --------------------------------------------------------------------------
+   5c. INTERACTIVE METRICS DASHBOARD CARDS
+   Count-up animation + UTH Teal Glow Hover + Smooth Navigation
+   -------------------------------------------------------------------------- */
 .hero-stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-md);
+  width: 100%;
+  max-width: 440px;
 }
 
 .stat-card {
   background: var(--color-elevated-card);
-  border: 1px solid var(--color-border-subtle);
+  border: 1.5px solid var(--color-border-subtle);
   border-radius: var(--radius-md);
-  padding: var(--space-md);
+  padding: 14px 16px;
   box-shadow: var(--shadow-subtle);
-  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.28s ease, 
+              box-shadow 0.28s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
-.stat-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--color-accent);
-  box-shadow: var(--shadow-card);
+.stat-card-interactive {
+  cursor: pointer;
+}
+
+.stat-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .stat-number-wrapper {
   display: flex;
   align-items: baseline;
-  color: var(--color-accent);
+  color: var(--uth-teal);
   font-weight: 800;
   font-size: var(--text-3xl);
   line-height: 1;
+  font-family: var(--font-sans);
 }
 
 .stat-suffix {
@@ -783,11 +1250,67 @@ main:focus {
   margin-left: 2px;
 }
 
+.stat-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0, 124, 137, 0.12);
+  color: var(--uth-teal);
+  transition: all 0.25s ease;
+}
+
+.stat-icon-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(123, 150, 105, 0.15);
+  color: var(--color-primary);
+}
+
 .stat-label {
   font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 6px;
+  margin-bottom: 2px;
+}
+
+.stat-context-hint {
+  font-size: 11px;
   font-weight: 600;
-  color: var(--color-text-muted);
-  margin-top: var(--space-2xs);
+  color: #64748B;
+  transition: color 0.25s ease;
+  line-height: 1.25;
+}
+
+/* Hover State: UTH Teal Glowing Border & Elevation */
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--uth-teal);
+  box-shadow: 0 10px 24px -4px rgba(0, 124, 137, 0.2), 
+              0 0 14px rgba(94, 234, 212, 0.35);
+}
+
+.stat-card-interactive:hover .stat-nav-badge {
+  background: var(--uth-teal);
+  color: #FFFFFF;
+  transform: translate(2px, -2px) scale(1.08);
+  box-shadow: 0 2px 6px rgba(0, 124, 137, 0.4);
+}
+
+.stat-card:hover .stat-context-hint {
+  color: var(--uth-teal);
+}
+
+.stat-card:focus-visible {
+  outline: 2px solid var(--uth-teal);
+  outline-offset: 3px;
 }
 
 /* --------------------------------------------------------------------------
@@ -2236,6 +2759,25 @@ main:focus {
 }
 
 @media (max-width: 480px) {
+  .lanyard-scene {
+    min-height: 490px;
+  }
+
+  .lanyard-card-wrapper {
+    width: 290px;
+    top: 105px;
+  }
+
+  .card-middle-grid {
+    grid-template-columns: 80px 1fr;
+    gap: 8px;
+  }
+
+  .badge-avatar-holder .portrait-image-wrapper {
+    width: 80px;
+    height: 107px;
+  }
+
   .hero-stats-grid {
     grid-template-columns: 1fr;
   }

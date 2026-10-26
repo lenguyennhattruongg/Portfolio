@@ -118,60 +118,313 @@
           </div>
         </div>
 
-        <!-- Right Column: Visual Portrait Card & 4 Hero Stats -->
+        <!-- Right Column: Visual UTH Lanyard Badge & 4 Metrics Dashboard Stats -->
         <div class="hero-visual">
-          <div class="portrait-card">
-            <div class="portrait-image-wrapper hero-avatar-frame">
-              <!-- Real Avatar Image (Supports avatar.jpg / avatar.webp / avatar.png) -->
-              <img 
-                src="./images/avatar.jpg" 
-                alt="Chân dung Nguyễn Xuân Hiếu - Full-Stack Developer & Network Administrator" 
-                class="portrait-real-img hero-avatar-img" 
-                id="hero-avatar-img" 
-                width="480" 
-                height="640" 
-                loading="eager"
-              >
-              <!-- Fallback Monogram Avatar with Spatial Depth -->
-              <div class="portrait-placeholder" id="hero-avatar-fallback" aria-label="Khung ảnh đại diện của Nguyễn Xuân Hiếu">
-                <div class="portrait-initials">NXH</div>
-                <div class="portrait-caption" data-i18n="portrait_caption">Nguyễn Xuân Hiếu • UTH Campus 2</div>
-              </div>
+          <!-- Interactive Lanyard Badge Container (Physics Drag & Pendulum Spring) -->
+          <div class="lanyard-scene" id="lanyard-scene" aria-label="Khu vực Thẻ sinh viên UTH tương tác">
+            <!-- Ceiling Mount Anchor Bracket -->
+            <div class="lanyard-anchor-mount" aria-hidden="true">
+              <div class="mount-bracket"></div>
+              <div class="mount-ring"></div>
             </div>
-            <div class="portrait-badge">
-              <span class="status-indicator-dot" aria-hidden="true"></span>
-              <span data-i18n="portrait_badge_text">Full-Stack &amp; Network</span>
+
+            <!-- Dynamic SVG Canvas for Lanyard Strap Ribbon & Printed Typography -->
+            <svg class="lanyard-svg" id="lanyard-svg" aria-hidden="true">
+              <defs>
+                <!-- UTH Teal Woven Ribbon Gradient -->
+                <linearGradient id="uthRibbonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#005863" />
+                  <stop offset="15%" stop-color="#007C89" />
+                  <stop offset="50%" stop-color="#0E9AA7" />
+                  <stop offset="85%" stop-color="#007C89" />
+                  <stop offset="100%" stop-color="#005863" />
+                </linearGradient>
+
+                <!-- Shadow Filter for Physical Depth -->
+                <filter id="lanyardShadow" x="-30%" y="-10%" width="160%" height="130%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="rgba(0,35,40,0.28)" />
+                </filter>
+              </defs>
+
+              <!-- Dynamic ribbon paths calculated via physics engine -->
+              <path id="lanyard-path-shadow" class="lanyard-path lanyard-path-shadow" d="" />
+              <path id="lanyard-path-main" class="lanyard-path lanyard-path-main" d="" />
+              <path id="lanyard-path-edge-l" class="lanyard-path-edge" d="" />
+              <path id="lanyard-path-edge-r" class="lanyard-path-edge" d="" />
+
+              <!-- Invisible guide path for curved brand text -->
+              <path id="lanyard-text-path-line" class="lanyard-text-guide" d="" fill="none" stroke="none" />
+              <text class="lanyard-svg-text">
+                <textPath href="#lanyard-text-path-line" startOffset="50%" text-anchor="middle">
+                  TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI TP.HCM • UTH • UNIVERSITY OF TRANSPORT HOCHIMINH CITY
+                </textPath>
+              </text>
+            </svg>
+
+            <!-- Physical Clasp & Draggable Card Holder Wrapper -->
+            <div class="lanyard-card-wrapper" id="lanyard-card-wrapper">
+              <!-- Physical White Clasp / Buckle -->
+              <div class="lanyard-clasp" id="lanyard-clasp" aria-hidden="true">
+                <div class="clasp-loop-ring"></div>
+                <div class="clasp-body">
+                  <div class="clasp-slot-accent"></div>
+                </div>
+                <div class="clasp-hook"></div>
+              </div>
+
+              <!-- Draggable Lanyard Card Badge -->
+              <div 
+                class="lanyard-card" 
+                id="lanyard-card" 
+                role="region" 
+                aria-label="Thẻ sinh viên UTH Nguyễn Xuân Hiếu. Kéo thả để xem hiệu ứng đàn hồi."
+                tabindex="0"
+              >
+                <!-- Top Slot Punch Hole for Clip -->
+                <div class="card-slot-hole" aria-hidden="true">
+                  <div class="slot-cutout"></div>
+                </div>
+
+                <!-- Interactive Drag Hint Badge (Auto-fades on first interaction) -->
+                <div class="drag-hint-pill" id="drag-hint-pill" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+                  </svg>
+                  <span data-i18n="badge_drag_hint">Kéo thả đàn hồi</span>
+                </div>
+
+                <!-- Inner Plastic Badge Sheet -->
+                <div class="card-inner-sheet">
+                  <!-- Card Header: Official UTH University Branding -->
+                  <div class="uth-card-header">
+                    <div class="uth-header-branding">
+                      <!-- UTH Vector Logo Emblem -->
+                      <svg viewBox="0 0 110 38" class="uth-vector-emblem" aria-label="Logo UTH">
+                        <rect x="2" y="2" width="34" height="34" rx="7" fill="#007C89" />
+                        <path d="M8 20 C13 14, 18 26, 23 20 C27 16, 30 24, 32 20" stroke="#FFFFFF" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                        <path d="M8 26 C13 20, 18 32, 23 26 C27 22, 30 30, 32 26" stroke="#5EEAD4" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                        <circle cx="19" cy="11" r="3.2" fill="#FFFFFF"/>
+                        <line x1="19" y1="14" x2="19" y2="28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+                        <text x="42" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="18" fill="#005B66" letter-spacing="1">UTH</text>
+                        <text x="42" y="31" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="6.5" fill="#007C89" letter-spacing="0.3">TP. HỒ CHÍ MINH</text>
+                      </svg>
+                    </div>
+                    <div class="uth-header-titles">
+                      <span class="uni-name-vn">TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI</span>
+                      <span class="uni-name-en">HO CHI MINH CITY UNIVERSITY OF TRANSPORT</span>
+                      <span class="badge-type-label">THẺ SINH VIÊN • STUDENT CARD</span>
+                    </div>
+                  </div>
+
+                  <!-- Security Row: Smart IC Chip, RFID & Hologram -->
+                  <div class="card-security-strip">
+                    <div class="smart-ic-chip" aria-hidden="true" title="Smart IC Chip">
+                      <div class="chip-pin chip-pin-1"></div>
+                      <div class="chip-pin chip-pin-2"></div>
+                      <div class="chip-core"></div>
+                      <div class="chip-pin chip-pin-3"></div>
+                      <div class="chip-pin chip-pin-4"></div>
+                    </div>
+                    <div class="rfid-waves" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 8a6 6 0 0 1 0 8M12 5a10 10 0 0 1 0 14M16 2a14 14 0 0 1 0 20"/>
+                      </svg>
+                    </div>
+                    <div class="hologram-seal" aria-hidden="true">
+                      <span class="hologram-text">UTH</span>
+                    </div>
+                  </div>
+
+                  <!-- Middle Body: Avatar Photo (3:4) & Student Metadata -->
+                  <div class="card-middle-grid">
+                    <!-- 3:4 Avatar Portrait with Real Photo + Fallback -->
+                    <div class="badge-avatar-holder">
+                      <div class="portrait-image-wrapper hero-avatar-frame">
+                        <img 
+                          src="./images/avatar.jpg" 
+                          alt="Chân dung Nguyễn Xuân Hiếu - Full-Stack Developer & Network Administrator" 
+                          class="portrait-real-img hero-avatar-img" 
+                          id="hero-avatar-img" 
+                          width="480" 
+                          height="640" 
+                          loading="eager"
+                        >
+                        <div class="portrait-placeholder" id="hero-avatar-fallback" aria-label="Khung ảnh đại diện của Nguyễn Xuân Hiếu">
+                          <div class="portrait-initials">NXH</div>
+                          <div class="portrait-caption" data-i18n="portrait_caption">Nguyễn Xuân Hiếu • UTH Campus 2</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Student Detailed Information -->
+                    <div class="badge-meta-table">
+                      <div class="meta-row meta-row-name">
+                        <span class="meta-k" data-i18n="badge_lbl_name">Họ và tên:</span>
+                        <strong class="meta-v student-name">NGUYỄN XUÂN HIẾU</strong>
+                      </div>
+                      <div class="meta-row meta-row-id">
+                        <span class="meta-k" data-i18n="badge_lbl_id">MSSV:</span>
+                        <strong class="meta-v student-id">060206005938</strong>
+                      </div>
+                      <div class="meta-row meta-row-dob">
+                        <span class="meta-k" data-i18n="badge_lbl_dob">Ngày sinh:</span>
+                        <span class="meta-v">29/03/2006</span>
+                      </div>
+                      <div class="meta-row meta-row-dept">
+                        <span class="meta-k" data-i18n="badge_lbl_dept">Khoa:</span>
+                        <span class="meta-v">Công nghệ thông tin và Điện, điện tử</span>
+                      </div>
+                      <div class="meta-row meta-row-major">
+                        <span class="meta-k" data-i18n="badge_lbl_major">Chuyên ngành:</span>
+                        <span class="meta-v highlight-val">Công nghệ thông tin</span>
+                      </div>
+                      <div class="meta-row meta-row-course">
+                        <span class="meta-k" data-i18n="badge_lbl_course">Khóa học:</span>
+                        <span class="meta-v">2024 - 2028 (K24)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Bottom Strip: High Precision Barcode & QR Code -->
+                  <div class="card-bottom-strip">
+                    <div class="barcode-box" aria-hidden="true">
+                      <svg viewBox="0 0 180 34" class="barcode-vector" preserveAspectRatio="none">
+                        <rect x="2" width="3" height="28" fill="#0F172A"/>
+                        <rect x="7" width="2" height="28" fill="#0F172A"/>
+                        <rect x="11" width="5" height="28" fill="#0F172A"/>
+                        <rect x="19" width="2" height="28" fill="#0F172A"/>
+                        <rect x="23" width="4" height="28" fill="#0F172A"/>
+                        <rect x="30" width="2" height="28" fill="#0F172A"/>
+                        <rect x="34" width="6" height="28" fill="#0F172A"/>
+                        <rect x="43" width="3" height="28" fill="#0F172A"/>
+                        <rect x="48" width="2" height="28" fill="#0F172A"/>
+                        <rect x="52" width="5" height="28" fill="#0F172A"/>
+                        <rect x="60" width="3" height="28" fill="#0F172A"/>
+                        <rect x="66" width="2" height="28" fill="#0F172A"/>
+                        <rect x="70" width="4" height="28" fill="#0F172A"/>
+                        <rect x="76" width="6" height="28" fill="#0F172A"/>
+                        <rect x="85" width="2" height="28" fill="#0F172A"/>
+                        <rect x="90" width="4" height="28" fill="#0F172A"/>
+                        <rect x="96" width="3" height="28" fill="#0F172A"/>
+                        <rect x="101" width="5" height="28" fill="#0F172A"/>
+                        <rect x="108" width="2" height="28" fill="#0F172A"/>
+                        <rect x="112" width="4" height="28" fill="#0F172A"/>
+                        <rect x="118" width="6" height="28" fill="#0F172A"/>
+                        <rect x="126" width="3" height="28" fill="#0F172A"/>
+                        <rect x="131" width="2" height="28" fill="#0F172A"/>
+                        <rect x="136" width="5" height="28" fill="#0F172A"/>
+                        <rect x="143" width="2" height="28" fill="#0F172A"/>
+                        <rect x="147" width="4" height="28" fill="#0F172A"/>
+                        <rect x="153" width="3" height="28" fill="#0F172A"/>
+                        <rect x="159" width="5" height="28" fill="#0F172A"/>
+                        <rect x="166" width="2" height="28" fill="#0F172A"/>
+                        <rect x="171" width="4" height="28" fill="#0F172A"/>
+                      </svg>
+                      <div class="barcode-digits">* 060206005938 *</div>
+                    </div>
+                    <div class="qr-box" aria-hidden="true" title="QR Code Sinh viên UTH">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="#0F172A">
+                        <path d="M2 2h7v7H2zM4 4v3h3V4zm11-2h7v7h-7zM17 4v3h3V4zM2 15h7v7H2zm2 2v3h3v-3zm11 0h2v2h-2zm3 0h3v2h-3zm-3 3h2v2h-2zm3 0h3v2h-3zm-5-8h2v2h-2zm4 0h3v2h-3zm-2 2h2v2h-2zm-2 2h2v2h-2zm4 0h2v2h-2z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Glossy Plastic Sheen Overlay -->
+                <div class="card-gloss-sheen" aria-hidden="true"></div>
+              </div>
             </div>
           </div>
 
-          <!-- 4 Confirmed Hero Stats Cards -->
-          <div class="hero-stats-grid" aria-label="Thống kê nổi bật">
-            <div class="stat-card">
-              <div class="stat-number-wrapper">
-                <span class="stat-number" data-target="2">02</span>
+          <!-- 4 Confirmed Interactive Hero Stats Cards (Metrics Dashboard) -->
+          <div class="hero-stats-grid" id="hero-metrics-dashboard" aria-label="Thống kê nổi bật">
+            <!-- Card 01: 02 Dự án tiêu biểu -> Navigates to #projects -->
+            <div 
+              class="stat-card stat-card-interactive" 
+              data-nav-target="#projects" 
+              role="button" 
+              tabindex="0" 
+              aria-label="02 Dự án tiêu biểu. Nhấp để cuộn đến phần Dự án thực tế."
+            >
+              <div class="stat-card-header">
+                <div class="stat-number-wrapper">
+                  <span class="stat-number" data-target="2">00</span>
+                </div>
+                <span class="stat-nav-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
               </div>
               <p class="stat-label" data-i18n="stat_projects">Dự án tiêu biểu</p>
+              <span class="stat-context-hint" data-i18n="stat_projects_hint">hiunx-cinema-manager &amp; veterinary-center-web</span>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-number-wrapper">
-                <span class="stat-number" data-target="3">03</span>
+            <!-- Card 02: 03 Năm nền tảng CNTT -->
+            <div 
+              class="stat-card" 
+              tabindex="0" 
+              aria-label="03 Năm nền tảng Công nghệ thông tin tại Trường Đại học Giao thông vận tải TP.HCM (UTH)"
+            >
+              <div class="stat-card-header">
+                <div class="stat-number-wrapper">
+                  <span class="stat-number" data-target="3">00</span>
+                </div>
+                <span class="stat-icon-pill" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                  </svg>
+                </span>
               </div>
               <p class="stat-label" data-i18n="stat_years">Năm nền tảng CNTT</p>
+              <span class="stat-context-hint" data-i18n="stat_years_hint">Trường ĐH Giao thông vận tải TP.HCM (UTH)</span>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-number-wrapper">
-                <span class="stat-number" data-target="2">02</span>
+            <!-- Card 03: 02 Lĩnh vực chuyên môn -->
+            <div 
+              class="stat-card" 
+              tabindex="0" 
+              aria-label="02 Lĩnh vực chuyên môn: Full-Stack Web & Network Administrator"
+            >
+              <div class="stat-card-header">
+                <div class="stat-number-wrapper">
+                  <span class="stat-number" data-target="2">00</span>
+                </div>
+                <span class="stat-icon-pill" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                </span>
               </div>
               <p class="stat-label" data-i18n="stat_domains">Lĩnh vực chuyên môn</p>
+              <span class="stat-context-hint" data-i18n="stat_domains_hint">Full-Stack Web &amp; Network Admin</span>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-number-wrapper">
-                <span class="stat-number" data-target="10">10</span><span class="stat-suffix">+</span>
+            <!-- Card 04: 19+ Công nghệ & Công cụ -> Navigates to #skills -->
+            <div 
+              class="stat-card stat-card-interactive" 
+              data-nav-target="#skills" 
+              role="button" 
+              tabindex="0" 
+              aria-label="19+ Công nghệ & Công cụ. Nhấp để cuộn đến phần Kỹ năng."
+            >
+              <div class="stat-card-header">
+                <div class="stat-number-wrapper">
+                  <span class="stat-number" data-target="19">00</span><span class="stat-suffix">+</span>
+                </div>
+                <span class="stat-nav-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
               </div>
               <p class="stat-label" data-i18n="stat_techs">Công nghệ &amp; Công cụ</p>
+              <span class="stat-context-hint" data-i18n="stat_techs_hint">5 nhóm Stack &amp; Hệ thống</span>
             </div>
           </div>
         </div>
