@@ -1,21 +1,22 @@
 /**
- * THE COLLECTIVE MACHINE — KINETIC JAVASCRIPT ENGINE
- * Concept: Interactive Team Experience × Modular Digital Instrument × React Bits
- * Architecture: Clean Vanilla ES6+ (0 build dependency requirement)
+ * NEXUS-06 // NEO-FUTURISTIC DIGITAL SYSTEM ENGINE
+ * Architecture: Clean Vanilla ES6+ & Web Audio API
+ * React Bits Integrated: SplitText • AnimatedContent • Magnet
  */
 
 // -------------------------------------------------------------
-// 1. REPOSITORY DATA SOURCE OF TRUTH (6 MODULES)
+// 1. REPOSITORY SOURCE OF TRUTH (6 VERIFIED MEMBERS)
 // -------------------------------------------------------------
-const COLLECTIVE_MACHINE_DATA = [
+const NEXUS_MEMBERS_DATA = [
   {
     id: 1,
     slug: 'le-nguyen-nhat-truong',
     fullName: 'Lê Nguyễn Nhật Trường',
     displayName: 'Trường',
     symbol: 'Tr',
-    channel: 'CH.01',
-    focus: 'Software Engineer Trainee, thiên về Backend; mục tiêu thực tập SE Intern 2026',
+    port: 'PORT_01',
+    rank: 'NODE 01 // HOST VERIFIED',
+    focus: 'Software Engineer Trainee, thiên về Backend; mục tiêu thực tập SE Intern 2026.',
     role: '[CẦN XÁC NHẬN]',
     strengths: ['Java', 'Mạng', 'C/C++', 'CSDL', 'Backend'],
     strengthsMatrix: [
@@ -30,8 +31,8 @@ const COLLECTIVE_MACHINE_DATA = [
     avatarUrl: './members/le-nguyen-nhat-truong/images/avatar.png',
     hasRealAvatar: true,
     isLinked: true,
-    frequency: 440.0, // A4 Note
-    statusText: 'HOST LINK ONLINE // PATCHED'
+    frequency: 440.0, // A4 harmonic
+    statusText: 'PORT_01 · 440.0MHz'
   },
   {
     id: 2,
@@ -39,8 +40,9 @@ const COLLECTIVE_MACHINE_DATA = [
     fullName: 'Nguyễn Xuân Hiếu',
     displayName: 'Hiếu',
     symbol: 'Hi',
-    channel: 'CH.02',
-    focus: 'Full-Stack Web Developer & Network Administrator',
+    port: 'PORT_02',
+    rank: 'NODE 02 // FOUNDATION',
+    focus: 'Full-Stack Web Developer & Network Administrator. Khung sẵn sàng cho Phase 3.',
     role: '[CẦN XÁC NHẬN]',
     strengths: ['Full-Stack', 'Network', 'HTML/CSS', 'Web'],
     strengthsMatrix: [
@@ -54,8 +56,8 @@ const COLLECTIVE_MACHINE_DATA = [
     avatarUrl: '',
     hasRealAvatar: false,
     isLinked: true,
-    frequency: 523.25, // C5 Note
-    statusText: 'FOUNDATION READY // STANDBY'
+    frequency: 523.25, // C5 harmonic
+    statusText: 'PORT_02 · 523.2MHz'
   },
   {
     id: 3,
@@ -63,8 +65,9 @@ const COLLECTIVE_MACHINE_DATA = [
     fullName: 'Lê Hữu Châu',
     displayName: 'Châu',
     symbol: 'Ch',
-    channel: 'CH.03',
-    focus: 'Web Foundation · Sẵn sàng tích hợp Phase 3',
+    port: 'PORT_03',
+    rank: 'NODE 03 // STANDBY',
+    focus: 'Portfolio Foundation sẵn sàng tích hợp đồng bộ trong giai đoạn Phase 3.',
     role: '[CẦN XÁC NHẬN]',
     strengths: ['Web Foundation', 'Frontend'],
     strengthsMatrix: [
@@ -77,8 +80,8 @@ const COLLECTIVE_MACHINE_DATA = [
     avatarUrl: '',
     hasRealAvatar: false,
     isLinked: false,
-    frequency: 659.25, // E5 Note
-    statusText: 'STANDBY // PHASE 3 INTEGRATION'
+    frequency: 659.25, // E5 harmonic
+    statusText: 'PORT_03 · 659.2MHz'
   },
   {
     id: 4,
@@ -86,8 +89,9 @@ const COLLECTIVE_MACHINE_DATA = [
     fullName: 'Nguyễn Anh Thư',
     displayName: 'Thư',
     symbol: 'Th',
-    channel: 'CH.04',
-    focus: 'Web Foundation · Sẵn sàng tích hợp Phase 3',
+    port: 'PORT_04',
+    rank: 'NODE 04 // STANDBY',
+    focus: 'Khung giao diện sẵn sàng tích hợp đồng bộ trong giai đoạn Phase 3.',
     role: '[CẦN XÁC NHẬN]',
     strengths: ['Web Foundation', 'UI Design', 'Frontend'],
     strengthsMatrix: [
@@ -100,8 +104,8 @@ const COLLECTIVE_MACHINE_DATA = [
     avatarUrl: '',
     hasRealAvatar: false,
     isLinked: false,
-    frequency: 783.99, // G5 Note
-    statusText: 'STANDBY // PHASE 3 INTEGRATION'
+    frequency: 783.99, // G5 harmonic
+    statusText: 'PORT_04 · 784.0MHz'
   },
   {
     id: 5,
@@ -109,13 +113,14 @@ const COLLECTIVE_MACHINE_DATA = [
     fullName: 'Nguyễn Phạm Ý Huỳnh',
     displayName: 'Huỳnh',
     symbol: 'Hy',
-    channel: 'CH.05',
-    focus: 'Web Foundation · Sẵn sàng tích hợp Phase 3',
+    port: 'PORT_05',
+    rank: 'NODE 05 // STANDBY',
+    focus: 'Cấu trúc logic module sẵn sàng tích hợp đồng bộ trong giai đoạn Phase 3.',
     role: '[CẦN XÁC NHẬN]',
     strengths: ['Web Foundation', 'Logic Modules'],
     strengthsMatrix: [
       { label: 'Logic', val: 80 },
-      { label: 'Web Core', val: 78 }
+      { label: 'Web', val: 78 }
     ],
     github: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
     githubHandle: 'Group Contributor',
@@ -123,8 +128,8 @@ const COLLECTIVE_MACHINE_DATA = [
     avatarUrl: '',
     hasRealAvatar: false,
     isLinked: false,
-    frequency: 880.00, // A5 Note
-    statusText: 'STANDBY // PHASE 3 INTEGRATION'
+    frequency: 880.0, // A5 harmonic
+    statusText: 'PORT_05 · 880.0MHz'
   },
   {
     id: 6,
@@ -132,13 +137,14 @@ const COLLECTIVE_MACHINE_DATA = [
     fullName: 'Nguyễn Thị Thảo Như',
     displayName: 'Như',
     symbol: 'Nh',
-    channel: 'CH.06',
-    focus: 'Web Foundation · Sẵn sàng tích hợp Phase 3',
+    port: 'PORT_06',
+    rank: 'NODE 06 // STANDBY',
+    focus: 'Thành phần truyền thông số sẵn sàng tích hợp đồng bộ trong giai đoạn Phase 3.',
     role: '[CẦN XÁC NHẬN]',
     strengths: ['Web Foundation', 'Creative Media'],
     strengthsMatrix: [
-      { label: 'Creative', val: 84 },
-      { label: 'Web Styling', val: 80 }
+      { label: 'Media', val: 82 },
+      { label: 'Web', val: 78 }
     ],
     github: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
     githubHandle: 'Group Contributor',
@@ -146,577 +152,721 @@ const COLLECTIVE_MACHINE_DATA = [
     avatarUrl: '',
     hasRealAvatar: false,
     isLinked: false,
-    frequency: 987.77, // B5 Note
-    statusText: 'STANDBY // PHASE 3 INTEGRATION'
+    frequency: 987.77, // B5 harmonic
+    statusText: 'PORT_06 · 987.8MHz'
   }
 ];
 
 // -------------------------------------------------------------
-// 2. TACTILE AUDIO SYNTHESIZER (WEB AUDIO API)
+// 2. GLOBAL SYSTEM STATE
 // -------------------------------------------------------------
-class MachineAudioFeedback {
-  constructor() {
-    this.ctx = null;
-    this.enabled = false;
-  }
+const SystemState = {
+  activeNodeId: 1,
+  audioEnabled: false,
+  searchQuery: '',
+  activeFilter: 'all',
+  matchedNodeIds: [1, 2, 3, 4, 5, 6]
+};
 
-  init() {
-    if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      this.ctx = new AudioCtx();
+// -------------------------------------------------------------
+// 3. UTILITY: COMPREHENSIVE VIETNAMESE NORMALIZATION
+// -------------------------------------------------------------
+function removeVietnameseTones(str) {
+  if (!str) return '';
+  str = str.toLowerCase();
+  str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
+  str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
+  str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
+  str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
+  str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
+  str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
+  str = str.replace(/đ/g, 'd');
+  // Combine accents removal
+  str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return str;
+}
+
+// -------------------------------------------------------------
+// 4. WEB AUDIO API SYNTHESIZER (OPTIC FEEDBACK CHIRP)
+// -------------------------------------------------------------
+let audioCtx = null;
+
+function initAudioContext() {
+  if (!audioCtx) {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) {
+      audioCtx = new AudioContext();
     }
   }
-
-  toggle() {
-    this.init();
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
-    }
-    this.enabled = !this.enabled;
-    return this.enabled;
-  }
-
-  playBlip(freq = 440, type = 'sine', duration = 0.08) {
-    if (!this.enabled || !this.ctx) return;
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-
-      gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
-
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-
-      osc.start();
-      osc.stop(this.ctx.currentTime + duration);
-    } catch {
-      // Ignore audio context errors gracefully
-    }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
   }
 }
 
-const audioFX = new MachineAudioFeedback();
+function playOpticChirp(freq = 440, duration = 0.08) {
+  if (!SystemState.audioEnabled || !audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + duration);
+    
+    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  } catch (err) {
+    console.warn('Audio playback inhibited:', err);
+  }
+}
 
 // -------------------------------------------------------------
-// 3. REACT BITS: SPLIT TEXT COMPONENT
+// 5. REACT BITS INTEGRATION 1: SPLIT-TEXT COMPONENT
 // -------------------------------------------------------------
 function initReactBitsSplitText() {
-  const elements = document.querySelectorAll('[data-react-bits="split-text"]');
-  elements.forEach((el) => {
-    const rawText = el.textContent.trim();
-    el.innerHTML = '';
+  const headline = document.querySelector('[data-react-bits="split-text"]');
+  if (!headline) return;
+
+  const rawText = headline.innerText.trim();
+  headline.innerHTML = '';
+  
+  // Split into words, then letters to maintain proper wrapping
+  const words = rawText.split(' ');
+  words.forEach((word, wIdx) => {
+    const wordSpan = document.createElement('span');
+    wordSpan.style.display = 'inline-block';
+    wordSpan.style.whiteSpace = 'nowrap';
     
-    // Split into words and characters to preserve layout wrapping
-    const words = rawText.split(' ');
-    let charIndex = 0;
-
-    words.forEach((word, wIdx) => {
-      const wordSpan = document.createElement('span');
-      wordSpan.style.display = 'inline';
-
-      for (let i = 0; i < word.length; i++) {
-        const charSpan = document.createElement('span');
-        charSpan.className = 'split-char';
-        charSpan.textContent = word[i];
-        charSpan.style.transitionDelay = `${charIndex * 28}ms`;
-        wordSpan.appendChild(charSpan);
-        charIndex++;
-      }
-
-      el.appendChild(wordSpan);
-
-      // Add space between words
-      if (wIdx < words.length - 1) {
-        const space = document.createTextNode(' ');
-        el.appendChild(space);
-      }
-    });
-
-    // Trigger reveal sequence
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        el.classList.add('split-text-loaded');
-      }, 80);
-    });
+    for (let char of word) {
+      const charSpan = document.createElement('span');
+      charSpan.className = 'split-char';
+      charSpan.textContent = char;
+      wordSpan.appendChild(charSpan);
+    }
+    
+    headline.appendChild(wordSpan);
+    if (wIdx < words.length - 1) {
+      headline.appendChild(document.createTextNode(' '));
+    }
   });
 }
 
 // -------------------------------------------------------------
-// 4. REACT BITS: MAGNET POINTER EFFECT
+// 6. REACT BITS INTEGRATION 2: MAGNET COMPONENT
 // -------------------------------------------------------------
 function initReactBitsMagnet() {
   const magnetButtons = document.querySelectorAll('[data-react-bits="magnet"]');
   
-  // Disable magnet on touch devices
-  if (window.matchMedia('(pointer: coarse)').matches) return;
+  // Check if reduced motion is requested
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
 
   magnetButtons.forEach((btn) => {
-    btn.addEventListener('pointermove', (e) => {
+    btn.addEventListener('mousemove', (e) => {
       const rect = btn.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const deltaX = (e.clientX - centerX) * 0.22;
-      const deltaY = (e.clientY - centerY) * 0.22;
-
-      btn.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
+      const btnCenterX = rect.left + rect.width / 2;
+      const btnCenterY = rect.top + rect.height / 2;
+      
+      const deltaX = (e.clientX - btnCenterX) * 0.28;
+      const deltaY = (e.clientY - btnCenterY) * 0.28;
+      
+      btn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     });
 
-    btn.addEventListener('pointerleave', () => {
-      btn.style.transform = 'translate3d(0, 0, 0)';
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0px, 0px)';
     });
   });
 }
 
 // -------------------------------------------------------------
-// 5. CRT OSCILLOSCOPE WAVEFORM ENGINE
+// 7. REACT BITS INTEGRATION 3: ANIMATED-CONTENT TRANSITIONS
 // -------------------------------------------------------------
-class OscilloscopeEngine {
+function triggerAnimatedContent(element) {
+  if (!element) return;
+  element.style.opacity = '0';
+  element.style.transform = 'translateY(10px)';
+  
+  requestAnimationFrame(() => {
+    element.style.transition = 'opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
+    element.style.opacity = '1';
+    element.style.transform = 'translateY(0px)';
+  });
+}
+
+// -------------------------------------------------------------
+// 8. CONSTELLATION NEXUS CANVAS (INTERACTIVE 6-NODE MESH)
+// -------------------------------------------------------------
+class ConstellationCanvas {
+  constructor(canvasId) {
+    this.canvas = document.getElementById(canvasId);
+    if (!this.canvas) return;
+    this.ctx = this.canvas.getContext('2d');
+    this.nodes = [];
+    this.mouse = { x: -1000, y: -1000, isHovering: false };
+    this.animId = null;
+
+    this.initNodes();
+    this.bindEvents();
+    this.resize();
+    this.loop();
+  }
+
+  initNodes() {
+    // 6 Orbital Nodes arranged harmoniously across 2D plane
+    const basePositions = [
+      { x: 0.16, y: 0.45, memberId: 1, label: 'Trường' },
+      { x: 0.30, y: 0.70, memberId: 2, label: 'Hiếu' },
+      { x: 0.48, y: 0.35, memberId: 3, label: 'Châu' },
+      { x: 0.65, y: 0.65, memberId: 4, label: 'Thư' },
+      { x: 0.78, y: 0.30, memberId: 5, label: 'Huỳnh' },
+      { x: 0.90, y: 0.60, memberId: 6, label: 'Như' }
+    ];
+
+    this.nodes = basePositions.map((pos) => ({
+      ...pos,
+      cx: 0,
+      cy: 0,
+      currentX: 0,
+      currentY: 0,
+      vx: 0,
+      vy: 0,
+      radius: pos.memberId === 1 ? 14 : 11,
+      pulse: Math.random() * Math.PI
+    }));
+  }
+
+  resize() {
+    if (!this.canvas) return;
+    const rect = this.canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    this.canvas.width = rect.width * dpr;
+    this.canvas.height = rect.height * dpr;
+    this.ctx.scale(dpr, dpr);
+    this.width = rect.width;
+    this.height = rect.height;
+
+    // Recalculate target positions
+    this.nodes.forEach((n) => {
+      n.cx = n.x * this.width;
+      n.cy = n.y * this.height;
+      if (n.currentX === 0) {
+        n.currentX = n.cx;
+        n.currentY = n.cy;
+      }
+    });
+  }
+
+  bindEvents() {
+    window.addEventListener('resize', () => this.resize());
+
+    this.canvas.addEventListener('mousemove', (e) => {
+      const rect = this.canvas.getBoundingClientRect();
+      this.mouse.x = e.clientX - rect.left;
+      this.mouse.y = e.clientY - rect.top;
+      this.mouse.isHovering = true;
+    });
+
+    this.canvas.addEventListener('mouseleave', () => {
+      this.mouse.x = -1000;
+      this.mouse.y = -1000;
+      this.mouse.isHovering = false;
+    });
+
+    this.canvas.addEventListener('click', (e) => {
+      const rect = this.canvas.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+
+      // Detect node click
+      for (let n of this.nodes) {
+        const dist = Math.hypot(clickX - n.currentX, clickY - n.currentY);
+        if (dist <= n.radius + 14) {
+          syncActiveNode(n.memberId);
+          break;
+        }
+      }
+    });
+  }
+
+  loop() {
+    this.update();
+    this.render();
+    this.animId = requestAnimationFrame(() => this.loop());
+  }
+
+  update() {
+    this.nodes.forEach((n) => {
+      n.pulse += 0.04;
+
+      // Spring physics to base center
+      const dx = n.cx - n.currentX;
+      const dy = n.cy - n.currentY;
+      n.vx += dx * 0.05;
+      n.vy += dy * 0.05;
+
+      // Mouse repulsion
+      if (this.mouse.isHovering) {
+        const mdx = n.currentX - this.mouse.x;
+        const mdy = n.currentY - this.mouse.y;
+        const mdist = Math.hypot(mdx, mdy);
+        if (mdist < 100 && mdist > 0) {
+          const force = (100 - mdist) / 100;
+          n.vx += (mdx / mdist) * force * 3;
+          n.vy += (mdy / mdist) * force * 3;
+        }
+      }
+
+      // Damping
+      n.vx *= 0.85;
+      n.vy *= 0.85;
+
+      n.currentX += n.vx;
+      n.currentY += n.vy;
+    });
+  }
+
+  render() {
+    this.ctx.clearRect(0, 0, this.width, this.height);
+
+    // Draw connection lines between nodes
+    for (let i = 0; i < this.nodes.length; i++) {
+      for (let j = i + 1; j < this.nodes.length; j++) {
+        const n1 = this.nodes[i];
+        const n2 = this.nodes[j];
+        const dist = Math.hypot(n1.currentX - n2.currentX, n1.currentY - n2.currentY);
+
+        if (dist < 260) {
+          const alpha = (1 - dist / 260) * 0.35;
+          const isConnectedToActive = n1.memberId === SystemState.activeNodeId || n2.memberId === SystemState.activeNodeId;
+
+          this.ctx.beginPath();
+          this.ctx.moveTo(n1.currentX, n1.currentY);
+          this.ctx.lineTo(n2.currentX, n2.currentY);
+          
+          if (isConnectedToActive) {
+            this.ctx.strokeStyle = `rgba(0, 240, 255, ${alpha * 1.5})`;
+            this.ctx.lineWidth = 1.6;
+          } else {
+            this.ctx.strokeStyle = `rgba(121, 40, 202, ${alpha})`;
+            this.ctx.lineWidth = 1.0;
+          }
+          this.ctx.stroke();
+        }
+      }
+    }
+
+    // Draw each node
+    this.nodes.forEach((n) => {
+      const isActive = n.memberId === SystemState.activeNodeId;
+
+      // Outer Pulse Ring for active node
+      if (isActive) {
+        const pulseR = n.radius + 8 + Math.sin(n.pulse) * 4;
+        this.ctx.beginPath();
+        this.ctx.arc(n.currentX, n.currentY, pulseR, 0, Math.PI * 2);
+        this.ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+        this.ctx.lineWidth = 1.5;
+        this.ctx.stroke();
+      }
+
+      // Core Node Body
+      this.ctx.beginPath();
+      this.ctx.arc(n.currentX, n.currentY, n.radius, 0, Math.PI * 2);
+      this.ctx.fillStyle = isActive ? '#00F0FF' : '#0E1424';
+      this.ctx.fill();
+      this.ctx.strokeStyle = isActive ? '#FFFFFF' : '#7928CA';
+      this.ctx.lineWidth = 2;
+      this.ctx.stroke();
+
+      // Node Label
+      this.ctx.font = `600 ${isActive ? '11px' : '10px'} "IBM Plex Mono", monospace`;
+      this.ctx.fillStyle = isActive ? '#00F0FF' : '#8A99AD';
+      this.ctx.textAlign = 'center';
+      this.ctx.fillText(`N.0${n.memberId} ${n.label}`, n.currentX, n.currentY + n.radius + 16);
+    });
+  }
+}
+
+// -------------------------------------------------------------
+// 9. OPTICAL SPECTRUM CANVAS (HARMONIC OSCILLOSCOPE)
+// -------------------------------------------------------------
+class OpticalSpectrumVisualizer {
   constructor(canvasId) {
     this.canvas = document.getElementById(canvasId);
     if (!this.canvas) return;
     this.ctx = this.canvas.getContext('2d');
     this.phase = 0;
-    this.frequency = 440;
-    this.targetFrequency = 440;
     this.animId = null;
+
     this.resize();
     window.addEventListener('resize', () => this.resize());
-    this.render = this.render.bind(this);
-    this.start();
+    this.loop();
   }
 
   resize() {
     if (!this.canvas) return;
-    this.canvas.width = this.canvas.parentElement.clientWidth || 560;
-    this.canvas.height = this.canvas.parentElement.clientHeight || 200;
+    const rect = this.canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    this.canvas.width = rect.width * dpr;
+    this.canvas.height = rect.height * dpr;
+    this.ctx.scale(dpr, dpr);
+    this.width = rect.width;
+    this.height = rect.height;
   }
 
-  setFrequency(freq) {
-    this.targetFrequency = freq;
-  }
-
-  start() {
-    if (!this.animId) {
-      this.animId = requestAnimationFrame(this.render);
-    }
+  loop() {
+    this.render();
+    this.phase += 0.05;
+    this.animId = requestAnimationFrame(() => this.loop());
   }
 
   render() {
-    if (!this.ctx || !this.canvas) return;
-    const w = this.canvas.width;
-    const h = this.canvas.height;
+    this.ctx.clearRect(0, 0, this.width, this.height);
 
-    // Smoothly interpolate frequency
-    this.frequency += (this.targetFrequency - this.frequency) * 0.08;
-    this.phase += 0.04;
+    const activeMember = NEXUS_MEMBERS_DATA.find((m) => m.id === SystemState.activeNodeId) || NEXUS_MEMBERS_DATA[0];
+    const baseFreq = (activeMember.frequency || 440) / 140;
 
-    // Fade trail
-    this.ctx.fillStyle = 'rgba(11, 7, 18, 0.25)';
-    this.ctx.fillRect(0, 0, w, h);
+    const midY = this.height / 2;
+    const points = 120;
+    const step = this.width / points;
 
-    // Center baseline
-    const midY = h / 2;
-
-    // Draw main harmonic wave
+    // Harmonic Wave 1 (Primary Cyan)
     this.ctx.beginPath();
-    this.ctx.lineWidth = 2.5;
-    this.ctx.strokeStyle = '#D8FF3E'; // Acid lime glow
-    this.ctx.shadowColor = '#D8FF3E';
-    this.ctx.shadowBlur = 8;
-
-    const cycles = (this.frequency / 120);
-    const amplitude = h * 0.32;
-
-    for (let x = 0; x < w; x++) {
-      const normX = x / w;
-      // Harmonic wave formula with modulation
-      const y = midY + Math.sin(normX * Math.PI * 2 * cycles + this.phase) * amplitude * Math.sin(normX * Math.PI);
-      if (x === 0) {
-        this.ctx.moveTo(x, y);
-      } else {
-        this.ctx.lineTo(x, y);
-      }
+    for (let i = 0; i <= points; i++) {
+      const x = i * step;
+      const angle = (i / points) * Math.PI * baseFreq + this.phase;
+      const y = midY + Math.sin(angle) * (this.height * 0.28);
+      if (i === 0) this.ctx.moveTo(x, y);
+      else this.ctx.lineTo(x, y);
     }
+    this.ctx.strokeStyle = '#00F0FF';
+    this.ctx.lineWidth = 2;
     this.ctx.stroke();
 
-    // Reset shadow
-    this.ctx.shadowBlur = 0;
-
-    this.animId = requestAnimationFrame(this.render);
+    // Harmonic Wave 2 (Ultraviolet Secondary Phase)
+    this.ctx.beginPath();
+    for (let i = 0; i <= points; i++) {
+      const x = i * step;
+      const angle = (i / points) * Math.PI * (baseFreq * 1.5) - this.phase * 0.8;
+      const y = midY + Math.cos(angle) * (this.height * 0.16);
+      if (i === 0) this.ctx.moveTo(x, y);
+      else this.ctx.lineTo(x, y);
+    }
+    this.ctx.strokeStyle = 'rgba(157, 78, 221, 0.7)';
+    this.ctx.lineWidth = 1.5;
+    this.ctx.stroke();
   }
 }
 
 // -------------------------------------------------------------
-// 6. VIETNAMESE DIACRITIC-INSENSITIVE STRING NORMALIZATION
+// 10. SYNCHRONIZED NODE SWITCHING CONTROLLER
 // -------------------------------------------------------------
-function normalizeVietnamese(str = '') {
-  return str
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[đĐ]/g, 'd')
-    .replace(/[ưƯ]/g, 'u')
-    .replace(/[ơƠ]/g, 'o')
-    .toLowerCase()
-    .trim();
-}
+function syncActiveNode(nodeId) {
+  const member = NEXUS_MEMBERS_DATA.find((m) => m.id === Number(nodeId));
+  if (!member) return;
 
-// -------------------------------------------------------------
-// 7. SYSTEM INTERACTIVE ENGINE (SELECTION, SEARCH & TELEMETRY)
-// -------------------------------------------------------------
-class CollectiveMachineController {
-  constructor() {
-    this.activeMemberId = 1;
-    this.currentFilter = 'all';
-    this.searchQuery = '';
-    this.oscilloscope = new OscilloscopeEngine('oscilloscopeCanvas');
-    this.initDOM();
-    this.bindEvents();
-    this.updateSystemState(1);
+  SystemState.activeNodeId = member.id;
+  playOpticChirp(member.frequency || 440);
+
+  // 1. Update Hero Quick Buttons
+  document.querySelectorAll('.node-btn').forEach((btn) => {
+    const isTarget = Number(btn.getAttribute('data-node')) === member.id;
+    btn.classList.toggle('active', isTarget);
+    btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+  });
+
+  // 2. Update Hero Badge
+  const heroBadge = document.getElementById('activeNodeBadge');
+  if (heroBadge) {
+    heroBadge.textContent = `FOCUSED: N.0${member.id} [${member.displayName}]`;
   }
 
-  initDOM() {
-    // Sequencer
-    this.sequencerSteps = document.getElementById('sequencerSteps');
-    this.sequencerDisplay = document.getElementById('sequencerDisplay');
-
-    // Modules Rack
-    this.modulesGrid = document.getElementById('modulesGrid');
-    this.moduleCards = document.querySelectorAll('.hardware-module');
-
-    // Telemetry Panel Elements
-    this.telemetryActiveTag = document.getElementById('telemetryActiveTag');
-    this.crtFreqDisplay = document.getElementById('crtFreqDisplay');
-    this.crtAvatarFrame = document.getElementById('crtAvatarFrame');
-    this.crtAvatarImg = document.getElementById('crtAvatarImg');
-    this.crtAvatarTitle = document.getElementById('crtAvatarTitle');
-    this.crtAvatarSub = document.getElementById('crtAvatarSub');
-
-    this.telChannelNum = document.getElementById('telChannelNum');
-    this.telChannelName = document.getElementById('telChannelName');
-    this.telChannelRole = document.getElementById('telChannelRole');
-    this.telSymbol = document.getElementById('telSymbol');
-    this.telPath = document.getElementById('telPath');
-    this.telGroupRole = document.getElementById('telGroupRole');
-    this.telGithub = document.getElementById('telGithub');
-    this.telMeters = document.getElementById('telMeters');
-    this.telLaunchBtn = document.getElementById('telLaunchBtn');
-    this.telGithubBtn = document.getElementById('telGithubBtn');
-
-    // Search & Filter
-    this.routerSearchInput = document.getElementById('routerSearchInput');
-    this.clearSearchBtn = document.getElementById('clearSearchBtn');
-    this.filterButtons = document.querySelectorAll('.filter-btn');
-    this.resetSignalBtn = document.getElementById('resetSignalBtn');
-    this.routerMatchCounter = document.getElementById('routerMatchCounter');
-    this.routerAriaLive = document.getElementById('routerAriaLive');
-    this.routerEmptyState = document.getElementById('routerEmptyState');
-    this.emptyResetBtn = document.getElementById('emptyResetBtn');
-
-    // Header Controls
-    this.audioToggleBtn = document.getElementById('audioToggleBtn');
-    this.mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    this.mobileDrawer = document.getElementById('mobileDrawer');
-  }
-
-  bindEvents() {
-    // 1. Sequencer step buttons
-    if (this.sequencerSteps) {
-      this.sequencerSteps.addEventListener('click', (e) => {
-        const btn = e.target.closest('.seq-step-btn');
-        if (btn) {
-          const channel = parseInt(btn.dataset.channel, 10);
-          audioFX.playBlip(300 + channel * 80, 'sine');
-          this.updateSystemState(channel);
-        }
-      });
+  // 3. Update Member Terminal Cards
+  document.querySelectorAll('.identity-terminal').forEach((term) => {
+    const isTarget = Number(term.getAttribute('data-member-id')) === member.id;
+    term.classList.toggle('active', isTarget);
+    
+    const syncBtn = term.querySelector('.btn-sync');
+    if (syncBtn) {
+      syncBtn.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
+      const label = syncBtn.querySelector('.sync-label');
+      if (label) label.textContent = isTarget ? 'ACTIVE NODE' : 'SYNC NODE';
     }
+  });
 
-    // 2. Hardware Module Rack activation buttons
-    this.moduleCards.forEach((card) => {
-      card.addEventListener('click', (e) => {
-        // If clicking inside a direct anchor link, let browser navigate
-        if (e.target.closest('a')) return;
+  // 4. Update Spatial Telemetry Readouts
+  const telSection = document.getElementById('telemetry');
+  const telActiveCallsign = document.getElementById('telActiveCallsign');
+  const apertureCoord = document.getElementById('apertureCoord');
+  const hudAvatarImg = document.getElementById('hudAvatarImg');
+  const hudAvatarTitle = document.getElementById('hudAvatarTitle');
+  const hudAvatarSub = document.getElementById('hudAvatarSub');
+  const telNodeNum = document.getElementById('telNodeNum');
+  const telFullName = document.getElementById('telFullName');
+  const telFocus = document.getElementById('telFocus');
+  const telSymbol = document.getElementById('telSymbol');
+  const telPath = document.getElementById('telPath');
+  const telRole = document.getElementById('telRole');
+  const telGithub = document.getElementById('telGithub');
+  const telLaunchBtn = document.getElementById('telLaunchBtn');
+  const telGithubBtn = document.getElementById('telGithubBtn');
+  const telBars = document.getElementById('telBars');
 
-        const id = parseInt(card.dataset.memberId, 10);
-        audioFX.playBlip(320 + id * 70, 'triangle');
-        this.updateSystemState(id);
-      });
-    });
-
-    // 3. Search input real-time handler
-    if (this.routerSearchInput) {
-      this.routerSearchInput.addEventListener('input', (e) => {
-        this.searchQuery = e.target.value;
-        this.applyFilterAndSearch();
-      });
-    }
-
-    // 4. Clear search button
-    if (this.clearSearchBtn) {
-      this.clearSearchBtn.addEventListener('click', () => {
-        this.routerSearchInput.value = '';
-        this.searchQuery = '';
-        this.routerSearchInput.focus();
-        this.applyFilterAndSearch();
-      });
-    }
-
-    // 5. Filter tag buttons
-    this.filterButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        this.filterButtons.forEach((b) => {
-          b.classList.remove('active');
-          b.setAttribute('aria-pressed', 'false');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-pressed', 'true');
-        this.currentFilter = btn.dataset.filter;
-        audioFX.playBlip(550, 'sine', 0.05);
-        this.applyFilterAndSearch();
-      });
-    });
-
-    // 6. Reset Signal button
-    if (this.resetSignalBtn) {
-      this.resetSignalBtn.addEventListener('click', () => this.resetAllFilters());
-    }
-    if (this.emptyResetBtn) {
-      this.emptyResetBtn.addEventListener('click', () => this.resetAllFilters());
-    }
-
-    // 7. Audio FX button
-    if (this.audioToggleBtn) {
-      this.audioToggleBtn.addEventListener('click', () => {
-        const isEnabled = audioFX.toggle();
-        this.audioToggleBtn.classList.toggle('active', isEnabled);
-        this.audioToggleBtn.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
-        this.audioToggleBtn.querySelector('.audio-label').textContent = isEnabled ? 'FX: ON' : 'FX: OFF';
-        if (isEnabled) {
-          audioFX.playBlip(880, 'sine', 0.1);
-        }
-      });
-    }
-
-    // 8. Mobile Menu Drawer
-    if (this.mobileMenuBtn && this.mobileDrawer) {
-      this.mobileMenuBtn.addEventListener('click', () => {
-        const isOpen = this.mobileDrawer.classList.toggle('open');
-        this.mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        this.mobileDrawer.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-      });
-
-      // Close mobile drawer on link click
-      this.mobileDrawer.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          this.mobileDrawer.classList.remove('open');
-          this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          this.mobileDrawer.setAttribute('aria-hidden', 'true');
-        });
-      });
-    }
-  }
-
-  updateSystemState(memberId) {
-    const member = COLLECTIVE_MACHINE_DATA.find((m) => m.id === memberId) || COLLECTIVE_MACHINE_DATA[0];
-    this.activeMemberId = member.id;
-
-    // 1. Update Sequencer UI
-    if (this.sequencerSteps) {
-      const stepButtons = this.sequencerSteps.querySelectorAll('.seq-step-btn');
-      stepButtons.forEach((btn) => {
-        const isActive = parseInt(btn.dataset.channel, 10) === member.id;
-        btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      });
-    }
-    if (this.sequencerDisplay) {
-      this.sequencerDisplay.textContent = `ACTIVE: ${member.channel} [${member.displayName.toUpperCase()}]`;
-    }
-
-    // 2. Update Module Rack
-    this.moduleCards.forEach((card) => {
-      const isActive = parseInt(card.dataset.memberId, 10) === member.id;
-      card.classList.toggle('active', isActive);
-      
-      const toggleBtn = card.querySelector('.module-toggle-btn');
-      if (toggleBtn) {
-        toggleBtn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        const label = toggleBtn.querySelector('.toggle-label');
-        if (label) {
-          label.textContent = isActive ? 'CIRCUIT: ACTIVE' : 'ENGAGE';
-        }
-      }
-
-      const ledStateText = card.querySelector('.led-state-text');
-      if (ledStateText) {
-        ledStateText.textContent = isActive ? 'PATCHED' : 'STANDBY';
-      }
-    });
-
-    // 3. React Bits AnimatedContent transition for Telemetry Panel
-    const telemetryConsole = document.querySelector('[data-react-bits="animated-content"]');
-    if (telemetryConsole) {
-      telemetryConsole.style.opacity = '0.4';
-      telemetryConsole.style.transform = 'translateY(6px)';
-      telemetryConsole.style.transition = 'opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
-      
-      setTimeout(() => {
-        this.renderTelemetryData(member);
-        telemetryConsole.style.opacity = '1';
-        telemetryConsole.style.transform = 'translateY(0)';
-      }, 120);
+  if (telActiveCallsign) telActiveCallsign.textContent = `NODE_0${member.id} CONNECTED`;
+  if (apertureCoord) apertureCoord.textContent = member.statusText;
+  
+  if (hudAvatarImg) {
+    if (member.hasRealAvatar) {
+      hudAvatarImg.src = member.avatarUrl;
+      hudAvatarImg.alt = `Ảnh chân dung màu thực tế của ${member.fullName}`;
     } else {
-      this.renderTelemetryData(member);
-    }
-
-    // 4. Update Oscilloscope Frequency
-    if (this.oscilloscope) {
-      this.oscilloscope.setFrequency(member.frequency);
-    }
-    if (this.crtFreqDisplay) {
-      this.crtFreqDisplay.textContent = `${member.frequency.toFixed(1)} Hz`;
+      // Clean SVG vector fallback for members without photographic asset
+      hudAvatarImg.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100%" height="100%" fill="%230E1424"/><text x="50%" y="54%" font-family="monospace" font-size="28" fill="%2300F0FF" text-anchor="middle" dominant-baseline="middle" font-weight="bold">${member.symbol}</text></svg>`;
+      hudAvatarImg.alt = `Biểu trưng số của ${member.fullName}`;
     }
   }
 
-  renderTelemetryData(member) {
-    if (this.telemetryActiveTag) {
-      this.telemetryActiveTag.textContent = `CIRCUIT: ${member.channel} CONNECTED`;
-    }
-    if (this.telChannelNum) this.telChannelNum.textContent = `CHANNEL 0${member.id}`;
-    if (this.telChannelName) this.telChannelName.textContent = member.fullName;
-    if (this.telChannelRole) this.telChannelRole.textContent = member.focus;
-    if (this.telSymbol) this.telSymbol.textContent = member.symbol;
-    if (this.telPath) this.telPath.textContent = member.portfolioUrl;
-    if (this.telGroupRole) this.telGroupRole.textContent = member.role;
-    if (this.telGithub) this.telGithub.textContent = member.githubHandle;
+  if (hudAvatarTitle) hudAvatarTitle.textContent = member.fullName.toUpperCase();
+  if (hudAvatarSub) hudAvatarSub.textContent = `UTH K24 SE · ${member.port}`;
+  if (telNodeNum) telNodeNum.textContent = `NODE 0${member.id}`;
+  if (telFullName) telFullName.textContent = member.fullName;
+  if (telFocus) telFocus.textContent = member.focus;
+  if (telSymbol) telSymbol.textContent = member.symbol;
+  if (telPath) telPath.textContent = member.portfolioUrl;
+  if (telRole) telRole.textContent = member.role;
+  if (telGithub) telGithub.textContent = member.githubHandle;
 
-    // Avatar Viewport Handling (ALWAYS 100% REAL NATURAL COLOR!)
-    if (this.crtAvatarImg) {
-      if (member.hasRealAvatar && member.avatarUrl) {
-        this.crtAvatarImg.src = member.avatarUrl;
-        this.crtAvatarImg.alt = `Ảnh chân dung màu thực tế của ${member.fullName}`;
-        this.crtAvatarImg.style.display = 'block';
-      } else {
-        // Fallback for members without real image yet
-        this.crtAvatarImg.src = './members/le-nguyen-nhat-truong/images/avatar.png'; // Verified safe asset
-        this.crtAvatarImg.alt = `Chế độ chờ module ${member.fullName}`;
-      }
-    }
-    if (this.crtAvatarTitle) {
-      this.crtAvatarTitle.textContent = `${member.channel} // ${member.fullName.toUpperCase()}`;
-    }
-    if (this.crtAvatarSub) {
-      this.crtAvatarSub.textContent = member.hasRealAvatar
-        ? 'UTH K24 SE · AUTHENTICATED PORTRAIT'
-        : 'FOUNDATION READY · STANDBY FOR PHASE 3';
-    }
-
-    // Strengths Matrix Bars
-    if (this.telMeters && member.strengthsMatrix) {
-      this.telMeters.innerHTML = member.strengthsMatrix
-        .map(
-          (item) => `
-        <div class="meter-item font-mono">
-          <span class="meter-label">${item.label}</span>
-          <div class="meter-bar-track">
-            <div class="meter-bar-fill" style="width: ${item.val}%;"></div>
-          </div>
-          <span class="meter-val">${item.val}%</span>
-        </div>
-      `
-        )
-        .join('');
-    }
-
-    // Action Buttons
-    if (this.telLaunchBtn) {
-      this.telLaunchBtn.href = member.portfolioUrl;
-      this.telLaunchBtn.querySelector('span:first-child').textContent = member.isLinked
-        ? 'TRUY CẬP PORTFOLIO CHI TIẾT'
-        : 'XEM KHUNG FOUNDATION';
-    }
-    if (this.telGithubBtn) {
-      this.telGithubBtn.href = member.github;
-    }
+  if (telLaunchBtn) {
+    telLaunchBtn.href = member.portfolioUrl;
+    telLaunchBtn.querySelector('span:first-child').textContent = member.isLinked 
+      ? 'TRUY CẬP PORTFOLIO CHI TIẾT' 
+      : 'XEM KHUNG SẴN SÀNG PHASE 3';
   }
 
-  applyFilterAndSearch() {
-    const normQuery = normalizeVietnamese(this.searchQuery);
-    let matchCount = 0;
+  if (telGithubBtn) {
+    telGithubBtn.href = member.github;
+  }
 
-    this.moduleCards.forEach((card) => {
-      const id = parseInt(card.dataset.memberId, 10);
-      const member = COLLECTIVE_MACHINE_DATA.find((m) => m.id === id);
-      if (!member) return;
+  // Render Radar Progress Bars
+  if (telBars && member.strengthsMatrix) {
+    telBars.innerHTML = member.strengthsMatrix.map((item) => `
+      <div class="radar-row font-mono">
+        <span class="r-label">${item.label}</span>
+        <div class="r-track"><div class="r-fill" style="width: ${item.val}%;"></div></div>
+        <span class="r-val">${item.val}%</span>
+      </div>
+    `).join('');
+  }
 
-      // 1. Text Search matching (Name, Focus, Strengths)
-      const textToSearch = `${member.fullName} ${member.displayName} ${member.focus} ${member.strengths.join(' ')}`;
-      const matchesSearch = !normQuery || normalizeVietnamese(textToSearch).includes(normQuery);
+  // Trigger React Bits AnimatedContent smooth transition
+  const stage = document.querySelector('.telemetry-stage');
+  triggerAnimatedContent(stage);
+}
 
-      // 2. Tag Filter matching
-      let matchesFilter = true;
-      if (this.currentFilter !== 'all') {
-        const normFilter = normalizeVietnamese(this.currentFilter);
-        const cardStrengths = card.dataset.strengths ? card.dataset.strengths.toLowerCase() : '';
-        matchesFilter = cardStrengths.includes(normFilter);
-      }
+// -------------------------------------------------------------
+// 11. MULTI-VECTOR SIGNAL ROUTER (SEARCH & FILTER ENGINE)
+// -------------------------------------------------------------
+function filterNodes() {
+  const queryNormalized = removeVietnameseTones(SystemState.searchQuery.trim());
+  const activeTag = SystemState.activeFilter.toLowerCase();
 
-      // AND Logic
-      const isVisible = matchesSearch && matchesFilter;
-      card.classList.toggle('filtered-out', !isVisible);
+  const matched = NEXUS_MEMBERS_DATA.filter((member) => {
+    // 1. Text Search matching
+    let matchesSearch = true;
+    if (queryNormalized.length > 0) {
+      const nameNorm = removeVietnameseTones(member.fullName);
+      const dispNorm = removeVietnameseTones(member.displayName);
+      const focusNorm = removeVietnameseTones(member.focus);
+      const strengthsNorm = member.strengths.map(removeVietnameseTones).join(' ');
+      const searchBlob = `${nameNorm} ${dispNorm} ${focusNorm} ${strengthsNorm}`;
+      
+      matchesSearch = searchBlob.includes(queryNormalized);
+    }
 
-      if (isVisible) {
-        matchCount++;
-      }
+    // 2. Vector Tag matching (AND logic)
+    let matchesTag = true;
+    if (activeTag !== 'all') {
+      const memberStrengthsLower = member.strengths.map((s) => s.toLowerCase());
+      matchesTag = memberStrengthsLower.some((s) => s.includes(activeTag));
+    }
+
+    return matchesSearch && matchesTag;
+  });
+
+  SystemState.matchedNodeIds = matched.map((m) => m.id);
+
+  // Update DOM Cards Visibility
+  const terminals = document.querySelectorAll('.identity-terminal');
+  terminals.forEach((term) => {
+    const termId = Number(term.getAttribute('data-member-id'));
+    const isVisible = SystemState.matchedNodeIds.includes(termId);
+    term.style.display = isVisible ? 'flex' : 'none';
+  });
+
+  // Update Readout Display
+  const matchDisplay = document.getElementById('routerMatchDisplay');
+  const hudStatusReadout = document.getElementById('hudStatusReadout');
+  const ariaLive = document.getElementById('routerAriaLive');
+  const emptyState = document.getElementById('routerEmptyState');
+
+  const countStr = `MATCHES: ${matched.length} / 6 NODES`;
+  if (matchDisplay) matchDisplay.textContent = countStr;
+  if (hudStatusReadout) hudStatusReadout.textContent = `${matched.length} NODES SYNCHRONIZED`;
+  if (ariaLive) ariaLive.textContent = `Tìm thấy ${matched.length} trên 6 node thành viên.`;
+
+  if (emptyState) {
+    emptyState.hidden = matched.length > 0;
+  }
+
+  // If active node is hidden by filter, sync to first visible match
+  if (matched.length > 0 && !SystemState.matchedNodeIds.includes(SystemState.activeNodeId)) {
+    syncActiveNode(matched[0].id);
+  }
+}
+
+// -------------------------------------------------------------
+// 12. EVENT LISTENERS INITIALIZATION
+// -------------------------------------------------------------
+function initEventListeners() {
+  // 1. Hero Quick Node Buttons
+  document.querySelectorAll('.node-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const targetId = Number(btn.getAttribute('data-node'));
+      syncActiveNode(targetId);
     });
+  });
 
-    // Update Counter & ARIA live
-    if (this.routerMatchCounter) {
-      this.routerMatchCounter.textContent = `KẾT QUẢ: ${matchCount} / 6 MODULES`;
-    }
-    if (this.routerAriaLive) {
-      this.routerAriaLive.textContent = `Đã tìm thấy ${matchCount} module phù hợp với bộ lọc tín hiệu.`;
-    }
+  // 2. Member Terminal Sync Buttons
+  document.querySelectorAll('.btn-sync').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const targetId = Number(btn.getAttribute('data-target'));
+      syncActiveNode(targetId);
+    });
+  });
 
-    // Empty state
-    if (this.routerEmptyState) {
-      this.routerEmptyState.hidden = matchCount > 0;
-    }
+  // 3. Member Terminal Card Click
+  document.querySelectorAll('.identity-terminal').forEach((term) => {
+    term.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return; // Allow natural navigation
+      const targetId = Number(term.getAttribute('data-member-id'));
+      syncActiveNode(targetId);
+    });
+  });
+
+  // 4. Router Search Input
+  const searchInput = document.getElementById('routerSearchInput');
+  const clearBtn = document.getElementById('clearSearchBtn');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      SystemState.searchQuery = e.target.value;
+      filterNodes();
+    });
+  }
+  if (clearBtn && searchInput) {
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      SystemState.searchQuery = '';
+      filterNodes();
+      searchInput.focus();
+    });
   }
 
-  resetAllFilters() {
-    if (this.routerSearchInput) {
-      this.routerSearchInput.value = '';
-    }
-    this.searchQuery = '';
-    this.currentFilter = 'all';
+  // 5. Router Tag Filter Buttons
+  document.querySelectorAll('.tag-filter-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tag-filter-btn').forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
 
-    this.filterButtons.forEach((b) => {
-      const isAll = b.dataset.filter === 'all';
+      SystemState.activeFilter = btn.getAttribute('data-filter') || 'all';
+      playOpticChirp(600, 0.05);
+      filterNodes();
+    });
+  });
+
+  // 6. Router Reset Buttons
+  const resetBtn = document.getElementById('resetSignalBtn');
+  const emptyResetBtn = document.getElementById('emptyResetBtn');
+  const resetRouter = () => {
+    if (searchInput) searchInput.value = '';
+    SystemState.searchQuery = '';
+    SystemState.activeFilter = 'all';
+
+    document.querySelectorAll('.tag-filter-btn').forEach((b) => {
+      const isAll = b.getAttribute('data-filter') === 'all';
       b.classList.toggle('active', isAll);
       b.setAttribute('aria-pressed', isAll ? 'true' : 'false');
     });
 
-    audioFX.playBlip(440, 'sine', 0.08);
-    this.applyFilterAndSearch();
+    filterNodes();
+  };
+  if (resetBtn) resetBtn.addEventListener('click', resetRouter);
+  if (emptyResetBtn) emptyResetBtn.addEventListener('click', resetRouter);
+
+  // 7. Audio FX Toggle Button
+  const audioToggle = document.getElementById('audioToggleBtn');
+  if (audioToggle) {
+    audioToggle.addEventListener('click', () => {
+      initAudioContext();
+      SystemState.audioEnabled = !SystemState.audioEnabled;
+      audioToggle.setAttribute('aria-pressed', SystemState.audioEnabled ? 'true' : 'false');
+      
+      const label = audioToggle.querySelector('.audio-status-label');
+      if (label) label.textContent = SystemState.audioEnabled ? 'FX: ON' : 'FX: OFF';
+      
+      if (SystemState.audioEnabled) {
+        playOpticChirp(880, 0.12);
+      }
+    });
+  }
+
+  // 8. Mobile Navigation Drawer
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  if (mobileMenuBtn && mobileDrawer) {
+    mobileMenuBtn.addEventListener('click', () => {
+      const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+      mobileDrawer.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
+    });
+
+    mobileDrawer.querySelectorAll('.mobile-nav-item').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileDrawer.setAttribute('aria-hidden', 'true');
+      });
+    });
   }
 }
 
 // -------------------------------------------------------------
-// 8. INITIALIZATION ON DOM READY
+// 13. BOOTSTRAP INITIALIZATION
 // -------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Init SplitText Component
+  // 1. Initialize React Bits Features
   initReactBitsSplitText();
-
-  // 2. Init Magnet Pointer Component
   initReactBitsMagnet();
 
-  // 3. Init Machine Controller
-  window.collectiveMachine = new CollectiveMachineController();
+  // 2. Initialize Interactive Visualizers
+  new ConstellationCanvas('constellationCanvas');
+  new OpticalSpectrumVisualizer('spectrumCanvas');
+
+  // 3. Bind UI Interactivity
+  initEventListeners();
+
+  // 4. Sync Initial Node (Node 01: Trường)
+  syncActiveNode(1);
+
+  console.info('NEXUS-06 // Neo-Futuristic Digital System initialized successfully.');
 });
