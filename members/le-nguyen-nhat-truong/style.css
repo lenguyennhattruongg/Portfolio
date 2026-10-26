@@ -1,39 +1,27 @@
 /* ==========================================================================
-   PORTFOLIO LÊ NGUYỄN NHẬT TRƯỜNG — CONCEPT TUYẾN METRO SÀI GÒN (UTH)
-   Design System & Bespoke CSS (No generic templates, WCAG AA compliant)
+   PORTFOLIO LÊ NGUYỄN NHẬT TRƯỜNG — BẢN SẮC TUYẾN METRO SÀI GÒN (UTH)
+   Tuân thủ nghiêm ngặt BƯỚC 2 (Những thứ bị cấm) & BƯỚC 3 của Prompt AI.
+   - Nền giấy xi-măng ấm #F6F5F0.
+   - Màu chữ đen than #18181B.
+   - Đúng 1 màu nhấn duy nhất: Cam Metro #FF4D00.
+   - Không glassmorphism, không gradient tím-xanh, không hero 2 cột đối xứng.
    ========================================================================== */
 
 :root {
-  --bg-deep: #080A0F;
-  --bg-surface: #10141E;
-  --bg-card: #161D2B;
-  --bg-card-hover: #1E273A;
+  /* Bảng màu chuẩn mực (Đúng 3 màu cơ bản + 1 màu nhấn duy nhất) */
+  --bg-cement: #F6F5F0;
+  --bg-card: #FFFFFF;
+  --text-main: #18181B;
+  --text-muted: #52525B;
   
-  --metro-orange: #FF5500;
-  --metro-orange-glow: rgba(255, 85, 0, 0.25);
-  --metro-blue: #0077FF;
-  --metro-blue-glow: rgba(0, 119, 255, 0.2);
-  --metro-cyan: #00D8F6;
-  --metro-green: #00E599;
+  --metro-orange: #FF4D00; /* Màu nhấn duy nhất đại diện tuyến Metro */
   
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
+  --border-ink: #18181B;
+  --border-line: #E4E4E7;
   
-  --border-subtle: #20293A;
-  --border-bright: #334155;
-  --border-accent: rgba(255, 85, 0, 0.4);
-  
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Space Mono', SFMono-Regular, Consolas, 'Liberation Mono', monospace;
-  
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-full: 9999px;
-  
-  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --font-display: 'Bricolage Grotesque', -apple-system, sans-serif;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono: 'Space Mono', Consolas, monospace;
 }
 
 /* Reset & Box Sizing */
@@ -46,1244 +34,943 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  color-scheme: dark;
+  background-color: var(--bg-cement);
+  color: var(--text-main);
 }
 
 body {
-  background-color: var(--bg-deep);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
+  background-color: var(--bg-cement);
+  color: var(--text-main);
+  font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
 }
 
-/* Background Texture Pattern - Lưới tọa độ bản vẽ kỹ thuật ngầm */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Top Progress Bar - Thanh ray tiến trình cuộn trang */
-.metro-progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(90deg, var(--metro-blue), var(--metro-orange), var(--metro-cyan));
-  z-index: 1000;
-  transition: width 0.1s ease-out;
-  box-shadow: 0 0 10px var(--metro-orange);
-}
-
 /* ==========================================================================
-   HEADER & METRO NAVIGATION
+   TƯƠNG TÁC CHỮ KÝ: THANH RAY TIẾN TRÌNH TUYẾN TÀU METRO (SIGNATURE TRACK)
    ========================================================================== */
-.metro-header {
+.metro-track-rail {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  height: 70px;
-  background: rgba(8, 10, 15, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-subtle);
-  z-index: 100;
+  width: 100%;
+  height: 6px;
+  background: var(--border-line);
+  z-index: 1000;
+  border-bottom: 1px solid var(--border-ink);
 }
 
-.header-container {
-  max-width: 1280px;
-  margin: 0 auto;
+.metro-track-fill {
   height: 100%;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.metro-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.metro-badge {
+  width: 0%;
   background: var(--metro-orange);
-  color: #FFFFFF;
+  transition: width 0.08s linear;
+}
+
+.metro-train-indicator {
+  position: absolute;
+  top: 8px;
+  right: 16px;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  background: var(--bg-cement);
+  border: 1px solid var(--border-ink);
+  padding: 2px 8px;
   letter-spacing: 0.05em;
 }
 
-.route-id {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-muted);
+/* ==========================================================================
+   TOP BAR
+   ========================================================================== */
+.metro-top-bar {
+  border-bottom: 2px solid var(--border-ink);
+  background: var(--bg-cement);
+  padding: 16px 0;
+  margin-top: 6px;
 }
 
-.metro-nav {
-  display: none;
+.top-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-@media (min-width: 900px) {
-  .metro-nav {
-    display: block;
+@media (min-width: 640px) {
+  .top-bar-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
-.nav-stations {
-  display: flex;
-  list-style: none;
-  gap: 20px;
-  align-items: center;
-}
-
-.nav-link {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
+.metro-line-tag {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-fast);
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
 }
 
-.nav-link .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: var(--radius-full);
-  background: var(--border-bright);
-  transition: var(--transition-fast);
-}
-
-.nav-link:hover, .nav-link.active {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.nav-link.active .dot {
+.line-badge {
   background: var(--metro-orange);
-  box-shadow: 0 0 8px var(--metro-orange);
+  color: #FFFFFF;
+  font-weight: 700;
+  padding: 4px 8px;
+  letter-spacing: 0.05em;
 }
 
-.btn-group-hub {
+.station-route {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.nav-back-hub {
+  color: var(--text-main);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border: 1px solid var(--border-ink);
+  background: #FFFFFF;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  color: var(--text-primary);
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 600;
-  padding: 8px 14px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-bright);
-  border-radius: var(--radius-md);
-  transition: var(--transition-fast);
+  gap: 6px;
+  transition: all 0.15s ease;
 }
 
-.btn-group-hub:hover {
-  background: var(--bg-card);
-  border-color: var(--metro-blue);
-  color: var(--metro-cyan);
+.nav-back-hub:hover {
+  background: var(--text-main);
+  color: #FFFFFF;
 }
 
 /* ==========================================================================
-   METRO RAIL INDICATOR (DESKTOP ASIDE)
+   CONTAINER & STATIONS
    ========================================================================== */
-.metro-rail-indicator {
-  display: none;
-  position: fixed;
-  left: 32px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 50;
-  flex-direction: column;
-  align-items: center;
-}
-
-@media (min-width: 1200px) {
-  .metro-rail-indicator {
-    display: flex;
-  }
-}
-
-.rail-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--border-subtle);
-  border-radius: var(--radius-full);
-}
-
-.rail-train {
-  width: 7px;
-  height: 24px;
-  background: var(--metro-orange);
-  position: absolute;
-  left: -2px;
-  top: 0;
-  border-radius: var(--radius-sm);
-  box-shadow: 0 0 10px var(--metro-orange);
-  transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.rail-nodes {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
-  position: relative;
-  z-index: 1;
-}
-
-.rail-node {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-full);
-  background: var(--bg-surface);
-  border: 2px solid var(--border-bright);
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  transition: var(--transition-fast);
-  cursor: pointer;
-}
-
-.rail-node.active {
-  background: var(--bg-deep);
-  border-color: var(--metro-orange);
-  color: var(--metro-orange);
-  box-shadow: 0 0 12px var(--metro-orange-glow);
-}
-
-/* ==========================================================================
-   MAIN LAYOUT & STATIONS
-   ========================================================================== */
-.metro-main {
-  max-width: 1120px;
+.metro-page-container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 110px 24px 80px 24px;
-  position: relative;
-  z-index: 1;
+  padding: 40px 24px 80px 24px;
 }
 
-@media (min-width: 1200px) {
-  .metro-main {
-    padding-left: 90px;
-  }
-}
-
-.metro-station {
+.metro-station-block {
   padding: 60px 0;
-  border-bottom: 1px dashed var(--border-subtle);
-  position: relative;
+  border-bottom: 2px solid var(--border-ink);
 }
 
-.metro-station:last-of-type {
+.metro-station-block:last-of-type {
   border-bottom: none;
 }
 
-.station-meta {
+.station-stamp {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
   font-family: var(--font-mono);
-}
-
-.station-code {
-  color: var(--metro-orange);
   font-size: 0.8125rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  margin-bottom: 28px;
 }
 
-.station-name-vi {
-  color: var(--text-muted);
-  font-size: 0.8125rem;
-  font-weight: 600;
+.stamp-id {
+  background: var(--text-main);
+  color: #FFFFFF;
+  padding: 4px 8px;
 }
 
-/* Section Headings */
-.section-heading {
+.stamp-title {
+  color: var(--metro-orange);
+  text-transform: uppercase;
+}
+
+/* Section Headers */
+.editorial-section-header {
   margin-bottom: 40px;
 }
 
-.section-heading h2 {
-  font-size: 2rem;
+.section-big-title {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--text-primary);
+  line-height: 1.15;
   margin-bottom: 8px;
 }
 
-.section-heading .subtitle {
-  color: var(--text-secondary);
+@media (min-width: 768px) {
+  .section-big-title {
+    font-size: 3rem;
+  }
+}
+
+.section-sub {
+  color: var(--text-muted);
   font-size: 1.0625rem;
-  max-width: 680px;
+  max-width: 650px;
 }
 
 /* ==========================================================================
-   GA 01: HERO SECTION
+   GA 01: HERO BẤT ĐỐI XỨNG (PHÁ LƯỚI - CHỮ KHỔNG LỒ)
    ========================================================================== */
-.hero-content-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 48px;
-  align-items: center;
+.editorial-hero {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 40px;
+  margin-bottom: 48px;
 }
 
 @media (min-width: 900px) {
-  .hero-content-grid {
-    grid-template-columns: 1.2fr 0.8fr;
+  .editorial-hero {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    align-items: flex-start;
   }
 }
 
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: rgba(0, 119, 255, 0.08);
-  border: 1px solid rgba(0, 119, 255, 0.25);
-  border-radius: var(--radius-full);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--metro-cyan);
-  margin-bottom: 20px;
-}
-
-.pulsing-led {
-  width: 8px;
-  height: 8px;
-  border-radius: var(--radius-full);
-  background: var(--metro-green);
-  box-shadow: 0 0 8px var(--metro-green);
-  animation: pulseLed 2s infinite;
-}
-
-@keyframes pulseLed {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-
-.hero-name {
-  font-size: 2.75rem;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  margin-bottom: 12px;
-}
-
-@media (min-width: 600px) {
-  .hero-name {
-    font-size: 3.5rem;
-  }
-}
-
-.accent-text {
-  color: var(--metro-orange);
-  position: relative;
-}
-
-.hero-role-tag {
-  font-size: 1.25rem;
-  color: var(--text-secondary);
-  margin-bottom: 20px;
-}
-
-.hero-manifesto {
-  font-size: 1.0625rem;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin-bottom: 32px;
-  line-height: 1.7;
-}
-
-.highlight {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.hero-cta-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-
-/* Button Styles */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px 24px;
-  font-size: 0.9375rem;
-  font-weight: 700;
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  cursor: pointer;
-  transition: var(--transition-fast);
-  border: none;
-  min-height: 48px;
-}
-
-.btn-metro-primary {
-  background: var(--metro-orange);
-  color: #FFFFFF;
-  box-shadow: 0 4px 20px var(--metro-orange-glow);
-}
-
-.btn-metro-primary:hover {
-  background: #E64D00;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(255, 85, 0, 0.4);
-}
-
-.btn-metro-outline {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-bright);
-}
-
-.btn-metro-outline:hover {
-  border-color: var(--metro-blue);
-  color: var(--metro-cyan);
-  background: rgba(0, 119, 255, 0.05);
-  transform: translateY(-2px);
-}
-
-/* Quick Stats */
-.hero-quick-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  max-width: 480px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.stat-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.stat-number {
+.classification-kicker {
   font-family: var(--font-mono);
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: var(--metro-cyan);
-}
-
-.stat-label {
   font-size: 0.8125rem;
-  color: var(--text-muted);
+  font-weight: 700;
+  color: var(--metro-orange);
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
 }
 
-/* Hero Visual & Ticket Mockup */
-.hero-visual {
-  display: flex;
-  justify-content: center;
+.giant-headline {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
 }
 
-.avatar-ticket-wrapper {
-  background: var(--bg-surface);
-  border: 2px solid var(--border-bright);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  position: relative;
-  max-width: 340px;
-  width: 100%;
+@media (min-width: 768px) {
+  .giant-headline {
+    font-size: 5.5rem;
+  }
 }
 
-.avatar-ticket-wrapper::before,
-.avatar-ticket-wrapper::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: var(--bg-deep);
-  border-radius: var(--radius-full);
-  top: 72%;
-}
-
-.avatar-ticket-wrapper::before {
-  left: -11px;
-  border-right: 2px solid var(--border-bright);
-}
-
-.avatar-ticket-wrapper::after {
-  right: -11px;
-  border-left: 2px solid var(--border-bright);
-}
-
-.avatar-frame {
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--bg-card);
-  margin-bottom: 20px;
-  border: 1px solid var(--border-subtle);
-}
-
-.avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.accent-stroke {
+  color: var(--metro-orange);
   display: block;
 }
 
-.boarding-tag {
-  border-top: 1px dashed var(--border-bright);
-  padding-top: 16px;
+.hero-target-lead {
+  font-size: 1.25rem;
+  color: var(--text-main);
+  line-height: 1.5;
+  max-width: 620px;
+}
+
+/* Ảnh Polaroid cắt khung lệch theo Bước 3 */
+.hero-avatar-polaroid {
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (min-width: 900px) {
+  .hero-avatar-polaroid {
+    justify-content: flex-end;
+  }
+}
+
+.polaroid-frame {
+  background: #FFFFFF;
+  border: 2px solid var(--border-ink);
+  padding: 14px 14px 24px 14px;
+  box-shadow: 6px 6px 0 var(--border-ink);
+  max-width: 290px;
+  width: 100%;
+  transform: rotate(-2deg);
+  transition: transform 0.2s ease;
+}
+
+.polaroid-frame:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.polaroid-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--border-ink);
+  margin-bottom: 12px;
+}
+
+.polaroid-caption {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
   color: var(--text-muted);
 }
 
-.barcode {
-  letter-spacing: 4px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--text-secondary);
+/* Khối giới thiệu Về Tôi */
+.editorial-about-strip {
+  border-top: 2px solid var(--border-ink);
+  padding-top: 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
-.tag-details {
+@media (min-width: 768px) {
+  .editorial-about-strip {
+    grid-template-columns: 240px 1fr;
+  }
+}
+
+.strip-label {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--metro-orange);
+}
+
+.strip-content .about-quote {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--text-main);
+  margin-bottom: 20px;
+}
+
+.student-vitals {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  border-top: 1px dashed var(--border-line);
+  padding-top: 16px;
+}
+
+.student-vitals a {
+  color: var(--metro-orange);
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 /* ==========================================================================
-   GA 02: SKILLS GRID
+   GA 02: TECHNICAL MATRIX
    ========================================================================== */
-.skills-metro-grid {
+.technical-matrix {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
 @media (min-width: 640px) {
-  .skills-metro-grid {
+  .technical-matrix {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  .skills-metro-grid {
+  .technical-matrix {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.skill-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+.matrix-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-ink);
   padding: 24px;
-  position: relative;
-  transition: var(--transition-normal);
   display: flex;
   flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.skill-card:hover {
-  background: var(--bg-card);
-  border-color: var(--border-bright);
-  transform: translateY(-4px);
+.matrix-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 var(--border-ink);
 }
 
-.skill-card.featured {
-  border-color: rgba(255, 85, 0, 0.4);
-  background: linear-gradient(180deg, rgba(255, 85, 0, 0.05) 0%, var(--bg-surface) 100%);
+.matrix-card.highlight-card {
+  border-color: var(--metro-orange);
+  background: #FFFDF9;
 }
 
-.card-rail-badge {
+.card-rail-index {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: 700;
   color: var(--text-muted);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
-.card-rail-badge.accent {
+.matrix-card.highlight-card .card-rail-index {
   color: var(--metro-orange);
 }
 
-.skill-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border-bright);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--metro-cyan);
-  margin-bottom: 16px;
+.matrix-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 10px;
 }
 
-.skill-icon.accent {
-  color: var(--metro-orange);
-  border-color: var(--metro-orange);
-}
-
-.skill-card h3 {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--text-primary);
-}
-
-.skill-desc {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
+.matrix-card p {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.6;
   margin-bottom: 20px;
   flex-grow: 1;
 }
 
-.skill-tags {
+.spec-pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
-.tag {
+.spec-pills span {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-deep);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-}
-
-.tag.accent {
-  background: rgba(255, 85, 0, 0.1);
-  border-color: rgba(255, 85, 0, 0.3);
-  color: var(--metro-orange);
+  background: var(--bg-cement);
+  border: 1px solid var(--border-line);
+  padding: 3px 8px;
+  font-weight: 600;
 }
 
 /* ==========================================================================
-   GA 03: PROJECTS (METRO TICKETS)
+   GA 03: VÉ TÀU METRO (METRO PASS ITEMS)
    ========================================================================== */
-.project-filters {
+.ticket-filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 32px;
 }
 
-.filter-btn {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-bright);
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
+.metro-filter-tab {
+  background: var(--bg-card);
+  border: 2px solid var(--border-ink);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 10px 18px;
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition: all 0.15s ease;
   min-height: 44px;
 }
 
-.filter-btn:hover, .filter-btn.active {
-  background: var(--metro-blue);
-  border-color: var(--metro-blue);
+.metro-filter-tab:hover, .metro-filter-tab.active {
+  background: var(--metro-orange);
   color: #FFFFFF;
+  border-color: var(--metro-orange);
 }
 
-.projects-metro-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+.metro-tickets-list {
+  display: flex;
+  flex-direction: column;
   gap: 32px;
 }
 
-@media (min-width: 900px) {
-  .projects-metro-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.metro-ticket-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-bright);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: var(--transition-normal);
-  position: relative;
-}
-
-.metro-ticket-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--metro-orange);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
-}
-
-.ticket-header {
-  padding: 16px 20px;
+.metro-pass-item {
   background: var(--bg-card);
-  border-bottom: 1px dashed var(--border-bright);
+  border: 2px solid var(--border-ink);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 var(--border-ink);
+}
+
+/* Đục lỗ thẻ vé tàu (Notches) */
+.ticket-notch {
+  position: absolute;
+  top: 52px;
+  width: 24px;
+  height: 24px;
+  background: var(--bg-cement);
+  border-radius: 50%;
+  border: 2px solid var(--border-ink);
+  z-index: 2;
+}
+
+.notch-left {
+  left: -13px;
+}
+
+.notch-right {
+  right: -13px;
+}
+
+.pass-header {
+  background: var(--bg-cement);
+  border-bottom: 2px dashed var(--border-ink);
+  padding: 16px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
-.ticket-type {
+.pass-series {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-muted);
 }
 
-.ticket-status-pill {
+.pass-route-badge {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
-  background: rgba(0, 229, 255, 0.1);
-  color: var(--metro-cyan);
+  background: var(--text-main);
+  color: #FFFFFF;
+  padding: 4px 10px;
 }
 
-.ticket-status-pill.oop {
-  background: rgba(255, 85, 0, 0.1);
+.pass-main {
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 900px) {
+  .pass-main {
+    grid-template-columns: 1fr 240px;
+    align-items: center;
+  }
+}
+
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
   color: var(--metro-orange);
 }
 
-.ticket-status-pill.web {
-  background: rgba(0, 229, 153, 0.1);
-  color: var(--metro-green);
+.pass-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 4px 0 12px 0;
 }
 
-.ticket-body {
-  padding: 20px;
-  flex-grow: 1;
+.pass-brief {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.pass-field {
+  margin-bottom: 10px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.field-title {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: inline-block;
+  min-width: 130px;
+}
+
+.field-content.highlight {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* Cột mã vạch vé tàu */
+.pass-barcode-col {
+  border-top: 1px dashed var(--border-line);
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  align-items: center;
 }
 
-.project-thumbnail {
+@media (min-width: 900px) {
+  .pass-barcode-col {
+    border-top: none;
+    border-left: 2px dashed var(--border-line);
+    padding-top: 0;
+    padding-left: 24px;
+  }
+}
+
+.barcode-graphic {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 3px;
+  color: var(--text-main);
+  font-weight: 700;
+  text-align: center;
+}
+
+.pass-actions {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 160px;
-  border-radius: var(--radius-md);
-  background: var(--bg-deep);
-  border: 1px solid var(--border-subtle);
-  overflow: hidden;
-  margin-bottom: 16px;
+  gap: 10px;
+}
+
+.btn-pass-github {
+  background: var(--text-main);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  text-align: center;
+  border: 2px solid var(--text-main);
+  transition: all 0.15s ease;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.project-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition-normal);
-}
-
-.metro-ticket-card:hover .project-thumbnail img {
-  transform: scale(1.05);
-}
-
-.project-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: var(--text-primary);
-}
-
-.project-desc {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-
-.project-meta-box {
-  background: var(--bg-deep);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 12px;
-  font-size: 0.8125rem;
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.meta-row {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.meta-key {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-}
-
-.meta-val {
-  color: var(--text-secondary);
-}
-
-.meta-val.highlight {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.ticket-footer {
-  padding: 16px 20px;
-  border-top: 1px dashed var(--border-bright);
-  background: var(--bg-surface);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.btn-ticket-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-primary);
-  text-decoration: none;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  transition: var(--transition-fast);
-}
-
-.btn-ticket-link:hover {
-  color: var(--metro-cyan);
-}
-
-.btn-ticket-detail {
-  background: transparent;
-  border: 1px solid var(--border-bright);
-  color: var(--text-secondary);
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.btn-ticket-detail:hover {
+.btn-pass-github:hover {
+  background: var(--metro-orange);
   border-color: var(--metro-orange);
-  color: var(--metro-orange);
+}
+
+.btn-pass-detail {
+  background: #FFFFFF;
+  border: 2px solid var(--border-ink);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 44px;
+}
+
+.btn-pass-detail:hover {
+  background: var(--bg-cement);
 }
 
 /* ==========================================================================
-   GA 04: MINDSET & TRACEROUTE
+   GA 04: PLEDGE EDITORIAL BOX
    ========================================================================== */
-.mindset-metro-layout {
+.pledge-editorial-box {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
-}
-
-@media (min-width: 900px) {
-  .mindset-metro-layout {
-    grid-template-columns: 1.2fr 0.8fr;
-  }
-}
-
-.packet-traceroute-box {
-  background: #06080C;
-  border: 1px solid var(--border-bright);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-}
-
-.box-header {
-  background: var(--bg-surface);
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.terminal-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: var(--radius-full);
-}
-
-.terminal-dot.red { background: #FF5F56; }
-.terminal-dot.yellow { background: #FFBD2E; }
-.terminal-dot.green { background: #27C93F; }
-
-.terminal-title {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-left: 8px;
-}
-
-.traceroute-body {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
   gap: 20px;
 }
 
-.trace-hop {
-  border-left: 2px solid var(--border-bright);
-  padding-left: 16px;
-  position: relative;
+@media (min-width: 768px) {
+  .pledge-editorial-box {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-.trace-hop::before {
-  content: '';
-  position: absolute;
-  left: -6px;
-  top: 4px;
-  width: 10px;
-  height: 10px;
-  border-radius: var(--radius-full);
-  background: var(--border-bright);
+.pledge-entry {
+  background: var(--bg-card);
+  border: 2px solid var(--border-ink);
+  padding: 24px;
 }
 
-.trace-hop.highlight {
-  border-left-color: var(--metro-orange);
-}
-
-.trace-hop.highlight::before {
-  background: var(--metro-orange);
-  box-shadow: 0 0 8px var(--metro-orange);
-}
-
-.hop-num {
+.entry-index {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 800;
   color: var(--metro-orange);
-  font-weight: 700;
-  margin-right: 8px;
+  display: block;
+  margin-bottom: 8px;
 }
 
-.hop-name {
-  font-weight: 700;
+.pledge-entry h4 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.pledge-entry p {
   font-size: 0.9375rem;
-  color: var(--text-primary);
-}
-
-.hop-latency {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  padding: 2px 6px;
-  background: var(--bg-surface);
-  border-radius: var(--radius-sm);
-  color: var(--metro-cyan);
-  margin-left: 8px;
-}
-
-.hop-desc {
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-
-.pledge-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-bright);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-}
-
-.pledge-card h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: var(--text-primary);
-}
-
-.pledge-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.pledge-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
-.pledge-list li strong {
-  color: var(--text-primary);
-}
-
 /* ==========================================================================
-   GA 05: CONTACT & QUICK FORM
+   GA 05: CONTACT EDITORIAL LAYOUT & MAILTO FORM
    ========================================================================== */
-.contact-metro-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-bright);
-  border-radius: var(--radius-lg);
-  padding: 36px 28px;
+.contact-editorial-layout {
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
 }
 
 @media (min-width: 900px) {
-  .contact-metro-card {
+  .contact-editorial-layout {
     grid-template-columns: 1fr 1fr;
-    padding: 48px;
+    gap: 48px;
   }
 }
 
-.contact-info-col h2 {
-  font-size: 1.875rem;
+.contact-huge-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
   font-weight: 800;
+  line-height: 1.1;
   margin-bottom: 16px;
-  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
-.contact-lead {
-  color: var(--text-secondary);
-  font-size: 1rem;
+.contact-desc {
+  font-size: 1.0625rem;
+  color: var(--text-muted);
   line-height: 1.7;
   margin-bottom: 32px;
 }
 
-.contact-channels {
+.contact-card-box {
+  background: var(--bg-card);
+  border: 2px solid var(--border-ink);
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
-.channel-item {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.channel-label {
+.item-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
   color: var(--text-muted);
-  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
 }
 
-.copy-email-box {
+.email-copy-wrap {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.email-link {
+.direct-email-link {
   font-family: var(--font-mono);
-  font-size: 1rem;
-  color: var(--metro-cyan);
-  text-decoration: none;
-  font-weight: 600;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--metro-orange);
+  text-decoration: underline;
 }
 
-.btn-copy-email {
-  background: var(--bg-card);
-  border: 1px solid var(--border-bright);
-  color: var(--text-secondary);
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.btn-copy-action {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--bg-cement);
+  border: 1px solid var(--border-ink);
+  padding: 4px 10px;
   cursor: pointer;
   position: relative;
-  transition: var(--transition-fast);
 }
 
-.btn-copy-email:hover {
-  color: var(--metro-orange);
-  border-color: var(--metro-orange);
+.btn-copy-action:hover {
+  background: var(--text-main);
+  color: #FFFFFF;
 }
 
-.copy-tooltip {
+.copy-alert {
   position: absolute;
-  top: -32px;
+  top: -28px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--metro-green);
-  color: #000000;
+  background: var(--text-main);
+  color: #FFFFFF;
   font-size: 0.6875rem;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  white-space: nowrap;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
-  white-space: nowrap;
 }
 
-.copy-tooltip.show {
+.copy-alert.visible {
   opacity: 1;
 }
 
-.channel-link {
+.link-mono {
   font-family: var(--font-mono);
-  color: var(--text-primary);
-  text-decoration: none;
   font-size: 0.9375rem;
-  font-weight: 500;
-  transition: var(--transition-fast);
+  font-weight: 600;
+  color: var(--text-main);
+  text-decoration: none;
 }
 
-.channel-link:hover {
+.link-mono:hover {
   color: var(--metro-orange);
 }
 
-.channel-text {
+.text-mono {
+  font-family: var(--font-mono);
   font-size: 0.9375rem;
-  color: var(--text-secondary);
+  color: var(--text-main);
 }
 
-/* Form Styles */
-.metro-quick-form {
+/* Form Mailto */
+.contact-editorial-form {
   background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 24px;
+  border: 2px solid var(--border-ink);
+  padding: 28px;
+  box-shadow: 6px 6px 0 var(--border-ink);
 }
 
-.metro-quick-form h3 {
-  font-size: 1.125rem;
+.form-title-bar {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   font-weight: 700;
+  background: var(--bg-cement);
+  border: 1px solid var(--border-ink);
+  padding: 6px 12px;
   margin-bottom: 20px;
-  color: var(--text-primary);
+  letter-spacing: 0.05em;
 }
 
-.form-group {
+.form-row {
   margin-bottom: 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
-.form-group label {
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-  font-weight: 600;
+.form-row label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
-.form-group input,
-.form-group textarea {
+.form-row .req {
+  color: var(--metro-orange);
+}
+
+.form-row input,
+.form-row textarea {
   width: 100%;
-  padding: 10px 14px;
-  background: var(--bg-deep);
-  border: 1px solid var(--border-bright);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
-  transition: var(--transition-fast);
+  padding: 10px 12px;
+  background: var(--bg-cement);
+  border: 2px solid var(--border-ink);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.form-row input:focus,
+.form-row textarea:focus {
   outline: none;
-  border-color: var(--metro-blue);
-  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.2);
+  border-color: var(--metro-orange);
+  background: #FFFFFF;
 }
 
-.btn.full-width {
+.err-msg {
+  font-size: 0.75rem;
+  color: var(--metro-orange);
+  font-weight: 600;
+  min-height: 16px;
+}
+
+.btn-metro-submit {
   width: 100%;
+  background: var(--metro-orange);
+  color: #FFFFFF;
+  border: 2px solid var(--border-ink);
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  padding: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.15s ease;
+  margin-top: 8px;
+  min-height: 48px;
+}
+
+.btn-metro-submit:hover {
+  background: var(--text-main);
+}
+
+.form-help-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+  line-height: 1.4;
 }
 
 /* ==========================================================================
    FOOTER
    ========================================================================== */
-.metro-footer {
-  border-top: 1px solid var(--border-subtle);
-  padding: 32px 24px;
-  background: var(--bg-deep);
+.metro-editorial-footer {
+  border-top: 2px solid var(--border-ink);
+  background: var(--bg-cement);
+  padding: 32px 0;
   font-size: 0.8125rem;
-  color: var(--text-muted);
 }
 
-.footer-container {
-  max-width: 1120px;
+.footer-inner {
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  align-items: center;
-  text-align: center;
 }
 
 @media (min-width: 768px) {
-  .footer-container {
+  .footer-inner {
     flex-direction: row;
     justify-content: space-between;
-    text-align: left;
+    align-items: center;
   }
 }
 
-.footer-hub-link {
-  color: var(--metro-cyan);
-  text-decoration: none;
-  font-weight: 600;
-  margin-right: 20px;
+.footer-credits p {
+  color: var(--text-main);
 }
 
-.footer-hub-link:hover {
+.footer-credits .footer-note {
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hub-return-btn {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--metro-orange);
   text-decoration: underline;
 }
 
-.btn-top {
-  color: var(--text-secondary);
-  text-decoration: none;
+.top-anchor {
   font-family: var(--font-mono);
-  font-weight: 600;
-}
-
-.btn-top:hover {
-  color: var(--metro-orange);
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
 }
 
 /* ==========================================================================
-   MODAL DIALOG
+   MODAL (ACCESSIBILITY WCAG AA - HỖ TRỢ ESC)
    ========================================================================== */
-.metro-modal {
+.metro-ticket-modal {
   position: fixed;
   inset: 0;
   z-index: 2000;
@@ -1293,61 +980,64 @@ body::before {
   padding: 20px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
 }
 
-.metro-modal.open {
+.metro-ticket-modal.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-.modal-backdrop {
+.modal-dim-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.65);
 }
 
-.modal-window {
+.modal-card-box {
   position: relative;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-bright);
-  border-radius: var(--radius-lg);
-  max-width: 640px;
+  background: var(--bg-cement);
+  border: 3px solid var(--border-ink);
+  max-width: 650px;
   width: 100%;
   max-height: 85vh;
   overflow-y: auto;
-  padding: 32px;
+  padding: 36px 32px;
   z-index: 1;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
-  transform: translateY(20px);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 8px 8px 0 var(--border-ink);
 }
 
-.metro-modal.open .modal-window {
-  transform: translateY(0);
-}
-
-.modal-close-btn {
+.modal-close-trigger {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: transparent;
-  border: none;
-  font-size: 1.75rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  line-height: 1;
+  background: #FFFFFF;
+  border: 2px solid var(--border-ink);
+  font-size: 1.5rem;
+  font-weight: 700;
   width: 36px;
   height: 36px;
-  border-radius: var(--radius-sm);
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition-fast);
+  line-height: 1;
 }
 
-.modal-close-btn:hover {
-  color: var(--text-primary);
-  background: var(--bg-card);
+.modal-close-trigger:hover {
+  background: var(--metro-orange);
+  color: #FFFFFF;
+  border-color: var(--metro-orange);
+}
+
+/* Accessibility: Tôn trọng prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
