@@ -1,17 +1,20 @@
 # Group Portfolio Website — Lập Trình Web (UTH)
 
-Dự án website portfolio nhóm phục vụ học phần **Lập trình Web** tại Trường Đại học Giao thông Vận tải TP.HCM (UTH). Hệ thống bao gồm 01 Trang chủ nhóm (Group Landing Page) và 06 trang Portfolio cá nhân riêng biệt, kết nối thống nhất qua kiến trúc đa trang (Multi-Page Application) với Vite.
+> 🌌 **Nhánh tính năng:** [`feature/portfolio-truong`](https://github.com/nguyenxuanhieu2903/portfolio-group/tree/feature/portfolio-truong)  
+> 🛸 **Thành viên phụ trách:** **Lê Nguyễn Nhật Trường** (K24 CNTT, ĐH Giao thông Vận tải TP.HCM — UTH)  
+> 🌐 **Deploy Trang Chủ Nhóm (Vũ Trụ 3D):** **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)**  
+> 🧑‍🚀 **Deploy Portfolio Cá Nhân (Lê Nguyễn Nhật Trường):** **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)**
 
 ---
 
 ## 🌐 Đường Dẫn Trực Tuyến & Triển Khai (Live Deployment Links)
 
-| Nền tảng | Địa chỉ truy cập trực tiếp | Ghi chú kỹ thuật |
+| Nền tảng / Hạng mục | Địa chỉ truy cập trực tiếp | Ghi chú kỹ thuật |
 |---|---|---|
-| **Portfolio Cá Nhân (Lê Nguyễn Nhật Trường)** | 🚀 [https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/) | Triển khai từ nhánh `gh-pages` trên repo cá nhân |
-| **Portfolio Nhóm 06 (UTH)** | 🛸 [https://nguyenxuanhieu2903.github.io/portfolio-group/](https://nguyenxuanhieu2903.github.io/portfolio-group/) | Triển khai từ nhánh `gh-pages` trên repo nhóm |
-| **Nhánh Mã Nguồn Vũ Trụ 3D (Cosmic)** | 🌌 [`cosmic` (Repo Cá Nhân)](https://github.com/lenguyennhattruongg/Portfolio/tree/cosmic) · [`cosmic` (Repo Nhóm)](https://github.com/nguyenxuanhieu2903/portfolio-group/tree/cosmic) | Chứa toàn bộ hiệu ứng 3D WebGL, Coronal Flares, Hyper-Warp và Asteroid Belt |
-| **Máy chủ xem trước cục bộ (Local Preview)** | 💻 [http://127.0.0.1:3000/](http://127.0.0.1:3000/) | Môi trường preview Vite Production |
+| 🌌 **Trang Chủ Nhóm (Vũ Trụ 3D WebGL)** | 🚀 **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)** | Không gian vũ trụ 3D tương tác: Lỗ đen Kerr, Nhật hoa Coronal Flares, Vành đai 2.200 tiểu hành tinh, Hyper-Warp Dolly Zoom |
+| 🧑‍🚀 **Portfolio Cá Nhân (Lê Nguyễn Nhật Trường)** | 🚅 **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)** | Giao diện UTH Metro & Trạm Radar Cyber 3D độc lập |
+| 🛸 **Trang Chủ Nhóm (Mirror Repo)** | 🔗 [https://nguyenxuanhieu2903.github.io/portfolio-group/](https://nguyenxuanhieu2903.github.io/portfolio-group/) | Triển khai từ nhánh `gh-pages` trên repo nhóm |
+| 💻 **Máy chủ xem trước cục bộ (Local Preview)** | 🖥️ [http://127.0.0.1:3000/](http://127.0.0.1:3000/) | Môi trường preview Vite Production (Port 3000) |
 
 ---
 
