@@ -3,875 +3,257 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nguyễn Thị Thảo Như | Personal Portfolio</title>
+  <meta name="description" content="Nhóm 06 — Hệ Mặt Trời 3D kết nối 6 thành viên sinh viên Trường Đại học Giao thông Vận tải TP.HCM (UTH).">
+  <meta name="author" content="Nhóm 06 — UTH">
   
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Personal portfolio of Nguyễn Thị Thảo Như, Information Technology student and aspiring Backend Developer.">
-  <meta name="keywords" content="Nguyễn Thị Thảo Như, Backend Developer, Portfolio, Sinh viên IT, Đại học Giao thông Vận tải TP.HCM, C++, Python, SQL">
-  <meta name="author" content="Nguyễn Thị Thảo Như">
-  
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Nguyễn Thị Thảo Như | Personal Portfolio">
-  <meta property="og:description" content="Personal portfolio of Nguyễn Thị Thảo Như, Information Technology student and aspiring Backend Developer.">
+  <title>Nhóm 06 — Hệ Mặt Trời 3D</title>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Nhóm 06 — Hệ Mặt Trời 3D">
+  <meta property="og:description" content="Không gian mô phỏng 3D Hệ Mặt Trời kết nối 6 thành viên Nhóm 06, Trường Đại học Giao thông Vận tải TP.HCM.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://nhuthinguyen.github.io/profile/">
-  <meta property="og:image" content="./images/3x4.jpg">
 
-  <!-- Favicon (Inline SVG Icon - Soft Rose) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%23fff1f2' stroke='%23f472b6' stroke-width='5'/><text x='50' y='67' font-size='48' font-family='sans-serif' font-weight='bold' fill='%23db2777' text-anchor='middle'>TN</text></svg>">
-
-  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <!-- Phông chữ Google Fonts (Outfit, Plus Jakarta Sans, JetBrains Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome Icons CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./group.css">
 
-  <!-- Stylesheet (Relative Path for GitHub Pages) -->
-  <link rel="stylesheet" href="./style.css">
 </head>
-<body>
+<body class="spatial-viewport-body">
 
-  <!-- ==================== HEADER & NAVBAR ==================== -->
-  <header class="header" id="header">
-    <div class="container nav-container">
-      <!-- Logo -->
-      <a href="#home" class="logo">
-        Nguyễn Thị Thảo Như
-      </a>
-
-      <!-- Desktop Navigation Menu -->
-      <nav class="nav-menu" id="navMenu">
-        <ul class="nav-list">
-          <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
-          <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
-          <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
-          <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
-          <li class="nav-item"><a href="#activities" class="nav-link">Activities</a></li>
-          <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
-
-      <!-- CTA & Mobile Toggle Button -->
-      <div class="nav-actions">
-        <!-- Theme Mode Toggle (Sáng / Tối) -->
-        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Chuyển đổi giao diện Sáng / Tối" title="Chuyển đổi giao diện Sáng / Tối">
-          <i class="fa-solid fa-moon"></i>
-        </button>
-        <a href="#contact" class="btn btn-outline btn-sm nav-cta">Let's Connect</a>
-        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
+  <!-- MÀN HÌNH CHỜ VIỄN TRẮC SCI-FI (SCI-FI ASSET PRELOADER) -->
+  <div class="sci-fi-preloader font-mono" id="sciFiPreloader" role="progressbar" aria-label="Đang nạp dữ liệu viễn trắc Hệ Mặt Trời">
+    <div class="preloader-content">
+      <div class="preloader-radar">
+        <div class="radar-circle radar-circle-outer"></div>
+        <div class="radar-circle radar-circle-mid"></div>
+        <div class="radar-circle radar-circle-inner"></div>
+        <div class="radar-blip"></div>
+        <div class="radar-core-symbol">☉</div>
+      </div>
+      <div class="preloader-text-group">
+        <div class="preloader-header-tag">MẠNG LƯỚI VIỄN TRẮC KHÔNG GIAN // KHỞI TẠO CẢM BIẾN</div>
+        <div class="preloader-percent-row">
+          <span class="preloader-percent-num font-heading" id="preloaderPercent">00%</span>
+          <span class="preloader-status-badge">NASA 2K TELEMETRY</span>
+        </div>
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-bar" id="preloaderFillBar"></div>
+        </div>
+        <div class="preloader-asset-name" id="preloaderItemText">Đang khởi tạo lõi không gian WebGL 3D...</div>
       </div>
     </div>
-  </header>
+  </div>
 
-  <!-- ==================== HERO / HOME SECTION ==================== -->
-  <section class="hero section" id="home">
-    <div class="container hero-container">
-      <!-- Hero Content Left -->
-      <div class="hero-content reveal">
-        <div class="badge-status">
-          <span class="status-dot"></span>
-          <span>Sẵn sàng cho vị trí Backend Intern</span>
+  <!-- VẠCH QUÉT RADAR KHÔNG GIAN (RADAR SCANLINE) -->
+  <div class="radar-scanline-layer" aria-hidden="true"></div>
+
+  <!-- CANVAS 3D WEBGL TOÀN MÀN HÌNH -->
+  <canvas id="webglCanvas" class="spatial-webgl-canvas"></canvas>
+
+  <!-- LỚP NHÃN THIÊN VĂN AR ĐƯỢC CHIẾU TỪ TỌA ĐỘ 3D LÊN MÀN HÌNH (PROJECTED LABELS) -->
+  <div id="spatialLabels" class="spatial-labels-layer" aria-hidden="true"></div>
+
+  <!-- GIAO DIỆN ĐIỀU KHIỂN KHÔNG GIAN (SPATIAL HUD OVERLAY) -->
+  <div class="spatial-hud-overlay" id="hudOverlay">
+
+    <!-- THANH HUD TRÊN CÙNG (TOP TELEMETRY BAR) -->
+    <header class="hud-top-bar spatial-hud-element">
+      <div class="hud-brand">
+        <span class="hud-brand-symbol">☉</span>
+        <div class="hud-brand-text">
+          <span class="hud-brand-title font-heading">Nhóm 06</span>
+          <span class="hud-brand-sub font-mono">Hệ Mặt Trời 3D</span>
         </div>
+      </div>
 
-        <h1 class="hero-title">
-          Xin chào, tôi là <br>
-          <span class="text-gradient">NGUYỄN THỊ THẢO NHƯ</span>
-        </h1>
+      <!-- CỤM HIỂN THỊ TRẠNG THÁI KHÓA MỤC TIÊU (TELEMETRY READOUT) -->
+      <div class="hud-telemetry-cluster" aria-live="polite">
+        <div id="currentFocusReadout" class="hud-telemetry-pill font-mono">
+          HỆ MẶT TRỜI // TOÀN CẢNH QUỸ ĐẠO
+        </div>
+      </div>
+      <!-- DUAL-PERSPECTIVE KINEMATIC SWITCH -->
+      <div class="hud-perspective-switch font-mono" id="hudPerspectiveSwitch">
+        <button type="button" class="btn-perspective active" id="btnModeOrbit" title="Góc nhìn quỹ đạo 360° bao quát Hệ Mặt Trời [Q]">
+          <span class="perspective-dot orbit-dot"></span> [Q] Quỹ đạo 360°
+        </button>
+        <button type="button" class="btn-perspective" id="btnModeWarp" title="Chế độ du hành không gian xuyên quỹ đạo [W]">
+          <span class="perspective-dot warp-dot"></span> [W] Du hành siêu tốc
+        </button>
+      </div>
 
-        <h2 class="hero-subtitle">
-          Information Technology Student &amp; <br>
-          <span class="typing-text-wrapper">
-            <span class="typing-text" id="typingText"></span>
-            <span class="cursor">|</span>
+      <!-- Điều hướng góc phải -->
+      <div class="hud-top-actions">
+        <!-- NÚT TRỢ GIÚP ĐIỀU KHIỂN -->
+        <button type="button" class="hud-action-btn hud-help-btn font-mono" id="btnHelpGuide" title="Kéo chuột: Xoay 360° · Cuộn: Thu phóng · Nhấp: Xem thiên thể" aria-label="Hướng dẫn điều khiển">?</button>
+
+        <!-- NÚT BẬT / TẮT ÂM THANH KHÔNG GIAN (SPATIAL AUDIO TOGGLE) -->
+        <button type="button" class="hud-action-btn hud-audio-btn font-mono" id="btnAudioToggle" aria-pressed="false" title="Bật / tắt âm thanh vũ trụ 3D (Web Audio API)">
+          <span class="audio-bars-icon" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
           </span>
-        </h2>
-
-        <p class="hero-description">
-          Sinh viên Công nghệ Thông tin yêu thích lập trình, phát triển sản phẩm và tìm hiểu công nghệ mới. Định hướng phát triển chuyên sâu theo mảng Backend.
-        </p>
-
-        <!-- CTA Buttons -->
-        <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary">
-            <i class="fa-solid fa-code-fork"></i> View My Projects
-          </a>
-          <a href="#contact" class="btn btn-secondary">
-            <i class="fa-regular fa-envelope"></i> Contact Me
-          </a>
-        </div>
-
-        <!-- Quick Meta Info -->
-        <div class="hero-meta">
-          <div class="meta-item">
-            <i class="fa-solid fa-graduation-cap"></i>
-            <span>Đại học GTVT TP.HCM</span>
-          </div>
-          <div class="meta-item">
-            <i class="fa-solid fa-calendar-check"></i>
-            <span>2024 – 2028</span>
-          </div>
-          <div class="meta-item">
-            <i class="fa-solid fa-server"></i>
-            <span>Future Backend Developer</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hero Avatar Right -->
-      <div class="hero-image-wrapper reveal">
-        <div class="avatar-glow-ring"></div>
-        <div class="avatar-box">
-          <img src="./images/3x4.jpg" alt="Nguyễn Thị Thảo Như - Avatar" class="hero-avatar" id="heroAvatar" loading="lazy">
-        </div>
-        <!-- Decorative Floating Badges -->
-        <div class="floating-badge badge-cplus">
-          <i class="fa-solid fa-code"></i> C++ / C#
-        </div>
-        <div class="floating-badge badge-python">
-          <i class="fa-brands fa-python"></i> Python
-        </div>
-        <div class="floating-badge badge-sql">
-          <i class="fa-solid fa-database"></i> SQL
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== ABOUT ME SECTION ==================== -->
-  <section class="about section" id="about">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge">Giới thiệu</span>
-        <h2 class="section-title">About Me</h2>
-        <p class="section-subtitle">Nền tảng học thuật, đam mê công nghệ và định hướng phát triển bản thân</p>
-      </div>
-
-      <div class="about-grid">
-        <!-- Cột 1: Thông tin tóm tắt cá nhân -->
-        <div class="about-card-info reveal">
-          <div class="info-header">
-            <div class="info-avatar-mini">
-              <img src="./images/3x4.jpg" alt="Nguyễn Thị Thảo Như">
-            </div>
-            <div>
-              <h3 class="info-name">Nguyễn Thị Thảo Như</h3>
-              <p class="info-role">Backend Developer Aspirant</p>
-            </div>
-          </div>
-
-          <div class="info-details-list">
-            <div class="info-detail-item">
-              <span class="info-label"><i class="fa-regular fa-user"></i> Name:</span>
-              <span class="info-value">Nguyễn Thị Thảo Như</span>
-            </div>
-            <div class="info-detail-item">
-              <span class="info-label"><i class="fa-solid fa-laptop-code"></i> Major:</span>
-              <span class="info-value">Công nghệ Thông tin</span>
-            </div>
-            <div class="info-detail-item">
-              <span class="info-label"><i class="fa-solid fa-building-columns"></i> University:</span>
-              <span class="info-value">Đại học Giao thông Vận tải TP.HCM</span>
-            </div>
-            <div class="info-detail-item">
-              <span class="info-label"><i class="fa-regular fa-calendar-alt"></i> Period:</span>
-              <span class="info-value">2024 – 2028</span>
-            </div>
-            <div class="info-detail-item">
-              <span class="info-label"><i class="fa-solid fa-bullseye"></i> Career Goal:</span>
-              <span class="info-value text-accent">Backend Developer</span>
-            </div>
-            <div class="info-detail-item">
-              <span class="info-label"><i class="fa-regular fa-envelope"></i> Email:</span>
-              <a href="mailto:nguyenthithaonhu.9a7@gmail.com" class="info-value link-accent">nguyenthithaonhu.9a7@gmail.com</a>
-            </div>
-            <div class="info-detail-item">
-              <span class="info-label"><i class="fa-solid fa-phone"></i> Phone:</span>
-              <a href="tel:0375590009" class="info-value link-accent">0375590009</a>
-            </div>
-            <div class="info-detail-item">
-              <span class="info-label"><i class="fa-solid fa-location-dot"></i> Address:</span>
-              <span class="info-value">257/80/123, xã Đông Thạnh, TP.HCM</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cột 2: Nội dung giới thiệu chi tiết -->
-        <div class="about-card-text reveal">
-          <h3 class="about-heading">Hành trình &amp; Tinh thần học tập</h3>
-          <p class="about-paragraph highlight-quote">
-            "Tôi là sinh viên Công nghệ Thông tin tại Đại học Giao thông Vận tải TP.HCM, yêu thích lập trình, phát triển sản phẩm và thiết kế giao diện web. Tôi có nền tảng về HTML, CSS, JavaScript, C++, C#, Python và SQL, cùng kiến thức về Lập trình hướng đối tượng (OOP), Phân tích và thiết kế hệ thống và Phân tích thiết kế giải thuật. Tôi có khả năng tự học công nghệ mới, tinh thần học hỏi và tiếp thu feedback, đồng thời có khả năng làm việc nhóm và quản lý thời gian. Hiện tại, tôi đang định hướng phát triển theo Backend Developer và mong muốn tìm kiếm cơ hội Backend Intern để học hỏi, trải nghiệm môi trường thực tế và phát triển chuyên môn."
-          </p>
-
-          <div class="strengths-grid">
-            <div class="strength-item">
-              <div class="strength-icon"><i class="fa-solid fa-brain"></i></div>
-              <div class="strength-text">
-                <h4>Khả năng tự học</h4>
-                <p>Chủ động tìm hiểu tài liệu, nghiên cứu công nghệ và giải thuật mới.</p>
-              </div>
-            </div>
-
-            <div class="strength-item">
-              <div class="strength-icon"><i class="fa-solid fa-comments"></i></div>
-              <div class="strength-text">
-                <h4>Cầu tiến &amp; Tiếp thu</h4>
-                <p>Lắng nghe phản hồi từ giảng viên, bạn bè để liên tục cải thiện mã nguồn.</p>
-              </div>
-            </div>
-
-            <div class="strength-item">
-              <div class="strength-icon"><i class="fa-solid fa-users"></i></div>
-              <div class="strength-text">
-                <h4>Làm việc nhóm</h4>
-                <p>Phối hợp nhịp nhàng, tôn trọng tiến độ và giao tiếp cởi mở trong đồ án.</p>
-              </div>
-            </div>
-
-            <div class="strength-item">
-              <div class="strength-icon"><i class="fa-solid fa-clock"></i></div>
-              <div class="strength-text">
-                <h4>Quản lý thời gian</h4>
-                <p>Cân bằng hiệu quả giữa việc học trên trường và các dự án cá nhân.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== EDUCATION SECTION ==================== -->
-  <section class="education section" id="education">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge">Học vấn</span>
-        <h2 class="section-title">Education</h2>
-        <p class="section-subtitle">Chặng đường đào tạo chính quy và tích lũy kiến thức chuyên ngành</p>
-      </div>
-
-      <!-- Timeline Structure -->
-      <div class="timeline-container">
-        <div class="timeline-item reveal">
-          <div class="timeline-dot">
-            <i class="fa-solid fa-graduation-cap"></i>
-          </div>
-          <div class="timeline-content">
-            <div class="timeline-header">
-              <span class="timeline-date">2024 – 2028</span>
-              <span class="timeline-tag">Đang theo học</span>
-            </div>
-            <h3 class="timeline-school">Đại học Giao thông Vận tải TP.HCM</h3>
-            <h4 class="timeline-major">Ngành: Công nghệ Thông tin</h4>
-            <p class="timeline-desc">
-              "Trong quá trình học tập, tôi tập trung xây dựng nền tảng về lập trình, cơ sở dữ liệu, lập trình hướng đối tượng, giải thuật, phân tích thiết kế hệ thống và phát triển phần mềm."
-            </p>
-            
-            <div class="timeline-focus-tags">
-              <span class="tag-pill"><i class="fa-solid fa-check"></i> Cấu trúc dữ liệu &amp; Giải thuật</span>
-              <span class="tag-pill"><i class="fa-solid fa-check"></i> Cơ sở dữ liệu &amp; SQL</span>
-              <span class="tag-pill"><i class="fa-solid fa-check"></i> OOP (Lập trình hướng đối tượng)</span>
-              <span class="tag-pill"><i class="fa-solid fa-check"></i> Phân tích thiết kế hệ thống</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== SKILLS SECTION ==================== -->
-  <section class="skills section" id="skills">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge">Kỹ năng kỹ thuật</span>
-        <h2 class="section-title">Skills</h2>
-        <p class="section-subtitle">Các ngôn ngữ, công cụ và nền tảng khoa học máy tính đã và đang trau dồi</p>
-      </div>
-
-      <div class="skills-wrapper">
-        <!-- Nhóm 1: Programming Languages -->
-        <div class="skill-category-card reveal">
-          <div class="category-header">
-            <div class="category-icon"><i class="fa-solid fa-code"></i></div>
-            <h3 class="category-title">Programming Languages</h3>
-          </div>
-          <div class="skill-badges-grid">
-            <div class="skill-badge">
-              <i class="fa-solid fa-c"></i>
-              <span>C++</span>
-            </div>
-            <div class="skill-badge">
-              <i class="fa-solid fa-hashtag"></i>
-              <span>C#</span>
-            </div>
-            <div class="skill-badge">
-              <i class="fa-brands fa-python"></i>
-              <span>Python</span>
-            </div>
-            <div class="skill-badge">
-              <i class="fa-brands fa-js"></i>
-              <span>JavaScript</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Nhóm 2: Web Development -->
-        <div class="skill-category-card reveal">
-          <div class="category-header">
-            <div class="category-icon"><i class="fa-solid fa-globe"></i></div>
-            <h3 class="category-title">Web Development</h3>
-          </div>
-          <div class="skill-badges-grid">
-            <div class="skill-badge">
-              <i class="fa-brands fa-html5"></i>
-              <span>HTML</span>
-            </div>
-            <div class="skill-badge">
-              <i class="fa-brands fa-css3-alt"></i>
-              <span>CSS</span>
-            </div>
-            <div class="skill-badge">
-              <i class="fa-brands fa-js"></i>
-              <span>JavaScript</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Nhóm 3: Database -->
-        <div class="skill-category-card reveal">
-          <div class="category-header">
-            <div class="category-icon"><i class="fa-solid fa-database"></i></div>
-            <h3 class="category-title">Database</h3>
-          </div>
-          <div class="skill-badges-grid">
-            <div class="skill-badge">
-              <i class="fa-solid fa-table"></i>
-              <span>SQL</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Nhóm 4: Tools -->
-        <div class="skill-category-card reveal">
-          <div class="category-header">
-            <div class="category-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-            <h3 class="category-title">Tools</h3>
-          </div>
-          <div class="skill-badges-grid">
-            <div class="skill-badge">
-              <i class="fa-brands fa-docker"></i>
-              <span>Docker – Basic</span>
-            </div>
-            <div class="skill-badge">
-              <i class="fa-brands fa-jira"></i>
-              <span>JIRA</span>
-            </div>
-            <div class="skill-badge">
-              <i class="fa-brands fa-git-alt"></i>
-              <span>GitHub</span> 
-            </div>
-          </div>
-        </div>
-
-        <!-- Nhóm 5: Computer Science -->
-        <div class="skill-category-card reveal">
-          <div class="category-header">
-            <div class="category-icon"><i class="fa-solid fa-microchip"></i></div>
-            <h3 class="category-title">Computer Science</h3>
-          </div>
-          <div class="skill-badges-grid">
-            <div class="skill-badge cs-badge">
-              <i class="fa-solid fa-cubes"></i>
-              <span>OOP</span>
-            </div>
-            <div class="skill-badge cs-badge">
-              <i class="fa-solid fa-diagram-project"></i>
-              <span>Phân tích và thiết kế hệ thống</span>
-            </div>
-            <div class="skill-badge cs-badge">
-              <i class="fa-solid fa-network-wired"></i>
-              <span>Phân tích thiết kế giải thuật</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== PROJECTS SECTION ==================== -->
-  <section class="projects section" id="projects">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge">Dự án tiêu biểu</span>
-        <h2 class="section-title">Projects</h2>
-        <p class="section-subtitle">Các dự án cá nhân và sản phẩm thực hành áp dụng tư duy thuật toán &amp; kỹ thuật lập trình</p>
-      </div>
-
-      <div class="projects-grid">
-        <!-- PROJECT 1: Trekking & Leo núi -->
-        <div class="project-card reveal" data-project-id="p1">
-          <div class="project-image-box">
-            <img src="./images/project-trekking.svg" alt="Trekking &amp; Leo núi" loading="lazy">
-            <div class="project-overlay">
-              <button class="btn btn-sm btn-primary open-modal-btn" data-project="p1">
-                <i class="fa-solid fa-circle-info"></i> View Details
-              </button>
-            </div>
-          </div>
-          <div class="project-content">
-            <div class="project-type-tag">Outdoor &amp; Web Application</div>
-            <h3 class="project-name">Trekking &amp; Leo núi</h3>
-            <p class="project-desc">
-              Ứng dụng hỗ trợ lên kế hoạch trekking và leo núi, khám phá các cung đường dã ngoại, quản lý lịch trình và trang bị an toàn.
-            </p>
-            <div class="project-tech-stack">
-              <span>HTML</span>
-              <span>CSS</span>
-              <span>JavaScript</span>
-            </div>
-            <div class="project-card-footer">
-              <button class="btn btn-outline btn-xs open-modal-btn" data-project="p1">
-                <i class="fa-solid fa-circle-info"></i> Details
-              </button>
-              <div class="project-links">
-                <a href="https://github.com/NhuThiNguyen" target="_blank" rel="noopener noreferrer" class="icon-link" title="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="#" class="icon-link" title="Live Preview">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PROJECT 3: Interactive Love Website -->
-        <div class="project-card reveal" data-project-id="p3">
-          <div class="project-image-box">
-            <img src="./images/project-love.svg" alt="Interactive Love Website" loading="lazy">
-            <div class="project-overlay">
-              <button class="btn btn-sm btn-primary open-modal-btn" data-project="p3">
-                <i class="fa-solid fa-circle-info"></i> View Details
-              </button>
-            </div>
-          </div>
-          <div class="project-content">
-            <div class="project-type-tag">Web Interactio
-              n &amp; UI</div>
-            <h3 class="project-name">Interactive Love Website</h3>
-            <p class="project-desc">
-              Website tương tác được xây dựng với mục đích tạo trải nghiệm web cá nhân hóa, sử dụng animation, hình ảnh, hiệu ứng và các tương tác JavaScript.
-            </p>
-            <div class="project-tech-stack">
-              <span>HTML</span>
-              <span>CSS</span>
-              <span>JavaScript</span>
-            </div>
-            <div class="project-card-footer">
-              <button class="btn btn-outline btn-xs open-modal-btn" data-project="p3">
-                <i class="fa-solid fa-circle-info"></i> Details
-              </button>
-              <div class="project-links">
-                <a href="https://github.com/NhuThiNguyen/love-web" target="_blank" rel="noopener noreferrer" class="icon-link" title="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="https://github.com/NhuThiNguyen/love-web" target="_blank" rel="noopener noreferrer" class="icon-link" title="Repository">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PROJECT 4: Placeholder Card (Dễ dàng thêm dự án mới sau này) -->
-        <div class="project-card project-placeholder-card reveal">
-          <div class="placeholder-inner">
-            <div class="placeholder-icon">
-              <i class="fa-solid fa-circle-plus"></i>
-            </div>
-            <h3 class="placeholder-title">Dự án mới sắp ra mắt</h3>
-            <p class="placeholder-desc">
-              Đang trong quá trình nghiên cứu và phát triển các hệ thống Backend API, quản lý cơ sở dữ liệu và xử lý nghiệp vụ thực tế.
-            </p>
-            <span class="placeholder-tag">In Progress</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== ACTIVITIES & LEARNING SECTION ==================== -->
-  <section class="activities section" id="activities">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge">Hoạt động &amp; Quá trình phát triển</span>
-        <h2 class="section-title">Activities &amp; Learning</h2>
-        <p class="section-subtitle">Chủ động nâng cao kỹ năng lập trình, tư duy giải quyết vấn đề và năng lực cá nhân</p>
-      </div>
-
-      <div class="activities-grid">
-        <div class="activity-card reveal">
-          <div class="activity-icon"><i class="fa-solid fa-laptop-file"></i></div>
-          <div class="activity-content">
-            <h3>Thực hiện các dự án cá nhân</h3>
-            <p>Tự mình lên ý tưởng, thiết kế cơ sở dữ liệu, viết code và kiểm thử các tính năng để áp dụng kiến thức đã học vào thực tế.</p>
-          </div>
-        </div>
-
-        <div class="activity-card reveal">
-          <div class="activity-icon"><i class="fa-solid fa-people-group"></i></div>
-          <div class="activity-content">
-            <h3>Thực hiện project nhóm trong quá trình học tập</h3>
-            <p>Tham gia phân chia công việc, trao đổi giải pháp kỹ thuật, sử dụng Git để quản lý phiên bản mã nguồn trong các môn chuyên ngành.</p>
-          </div>
-        </div>
-
-        <div class="activity-card reveal">
-          <div class="activity-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-          <div class="activity-content">
-            <h3>Tìm hiểu công nghệ mới</h3>
-            <p>Khám phá kiến trúc Backend hiện đại, containerization với Docker, các giao thức mạng và quy chuẩn viết clean code.</p>
-          </div>
-        </div>
-
-        <div class="activity-card reveal">
-          <div class="activity-icon"><i class="fa-solid fa-terminal"></i></div>
-          <div class="activity-content">
-            <h3>Rèn luyện kỹ năng lập trình</h3>
-            <p>Thực hành viết code sạch, chuẩn hóa quy ước đặt tên và phân chia module rõ ràng với C++, C#, Python và JavaScript.</p>
-          </div>
-        </div>
-
-        <div class="activity-card reveal">
-          <div class="activity-icon"><i class="fa-solid fa-tree"></i></div>
-          <div class="activity-content">
-            <h3>Học thuật toán và cấu trúc dữ liệu</h3>
-            <p>Rèn luyện tư duy tối ưu độ phức tạp thời gian/không gian qua các thuật toán tìm kiếm, sắp xếp, quy hoạch động và đồ thị.</p>
-          </div>
-        </div>
-
-        <div class="activity-card reveal">
-          <div class="activity-icon"><i class="fa-solid fa-diagram-successor"></i></div>
-          <div class="activity-content">
-            <h3>Học phân tích và thiết kế hệ thống</h3>
-            <p>Nghiên cứu mô hình hóa sơ đồ Use Case, Class Diagram, ERD cơ sở dữ liệu để hiểu sâu cách một hệ thống phần mềm vận hành.</p>
-          </div>
-        </div>
-
-        <div class="activity-card reveal">
-          <div class="activity-icon"><i class="fa-solid fa-handshake-angle"></i></div>
-          <div class="activity-content">
-            <h3>Rèn luyện kỹ năng làm việc nhóm</h3>
-            <p>Trau dồi văn hóa giao tiếp, lắng nghe đóng góp, giải quyết bất đồng quan điểm kỹ thuật một cách tích cực và hiệu quả.</p>
-          </div>
-        </div>
-
-        <div class="activity-card reveal">
-          <div class="activity-icon"><i class="fa-solid fa-book-bookmark"></i></div>
-          <div class="activity-content">
-            <h3>Tự học và nghiên cứu công nghệ</h3>
-            <p>Chủ động đọc tài liệu chính thống (official docs), xem video bài giảng và giải bài tập trên các nền tảng lập trình trực tuyến.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== CAREER GOAL SECTION ==================== -->
-  <section class="career-goal-section section">
-    <div class="container">
-      <div class="career-goal-card reveal">
-        <div class="goal-header">
-          <div class="goal-icon"><i class="fa-solid fa-compass"></i></div>
-          <div>
-            <span class="goal-badge">Định hướng tương lai</span>
-            <h3 class="goal-title">Career Goal</h3>
-          </div>
-        </div>
-        <p class="goal-text">
-          "Tôi đang định hướng phát triển theo Backend Developer và mong muốn tìm kiếm cơ hội Backend Intern để được làm việc trong môi trường thực tế, học hỏi từ các anh chị có kinh nghiệm, nâng cao kỹ năng lập trình và từng bước xây dựng nền tảng chuyên môn vững chắc."
-        </p>
-        <div class="goal-footer">
-          <a href="#contact" class="btn btn-sm btn-primary">
-            <i class="fa-solid fa-paper-plane"></i> Liên hệ cơ hội thực tập
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== INTERESTS SECTION ==================== -->
-  <section class="interests section" id="interests">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge">Đời sống &amp; Sở thích</span>
-        <h2 class="section-title">Interests</h2>
-        <p class="section-subtitle">Những hoạt động giúp cân bằng cuộc sống và khơi nguồn cảm hứng sáng tạo</p>
-      </div>
-
-      <div class="interests-grid">
-        <div class="interest-card reveal">
-          <div class="interest-icon-box">
-            <i class="fa-solid fa-pen-ruler"></i>
-          </div>
-          <h4 class="interest-title">Thiết kế giao diện web</h4>
-          <p class="interest-desc">Thích sáng tạo bố cục gọn gàng, phối màu hài hòa và mang lại trải nghiệm thân thiện cho người dùng.</p>
-        </div>
-
-        <div class="interest-card reveal">
-          <div class="interest-icon-box">
-            <i class="fa-solid fa-microchip"></i>
-          </div>
-          <h4 class="interest-title">Tìm hiểu công nghệ mới</h4>
-          <p class="interest-desc">Đam mê cập nhật các xu hướng công nghệ mới, tìm hiểu các giải pháp kiến trúc phần mềm hiện đại.</p>
-        </div>
-
-        <div class="interest-card reveal">
-          <div class="interest-icon-box">
-            <i class="fa-solid fa-volleyball"></i>
-          </div>
-          <h4 class="interest-title">Chơi thể thao</h4>
-          <p class="interest-desc">Rèn luyện thể lực, duy trì tinh thần sảng khoái và tính kiên trì sau những giờ tập trung viết code.</p>
-        </div>
-
-        <div class="interest-card reveal">
-          <div class="interest-icon-box">
-            <i class="fa-solid fa-headphones"></i>
-          </div>
-          <h4 class="interest-title">Nghe nhạc</h4>
-          <p class="interest-desc">Thưởng thức những giai điệu yêu thích giúp kích thích tư duy logic và tập trung cao độ khi làm việc.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== CONTACT SECTION ==================== -->
-  <section class="contact section" id="contact">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge">Kết nối</span>
-        <h2 class="section-title">Contact Me</h2>
-        <p class="section-subtitle">Đừng ngần ngại liên hệ với tôi để trao đổi về cơ hội thực tập hoặc chia sẻ kinh nghiệm</p>
-      </div>
-
-      <div class="contact-grid">
-        <!-- Thông tin liên hệ -->
-        <div class="contact-info-card reveal">
-          <h3 class="contact-card-title">Thông tin liên hệ trực tiếp</h3>
-          <p class="contact-card-desc">
-            Tôi luôn sẵn sàng đón nhận những cơ hội học hỏi tại vị trí Backend Intern và các dự án phát triển công nghệ.
-          </p>
-
-          <div class="contact-items-list">
-            <a href="tel:0375590009" class="contact-item">
-              <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
-              <div class="contact-meta">
-                <span class="label">Phone:</span>
-                <span class="value">0375590009</span>
-              </div>
-            </a>
-
-            <a href="mailto:nguyenthithaonhu.9a7@gmail.com" class="contact-item">
-              <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
-              <div class="contact-meta">
-                <span class="label">Email:</span>
-                <span class="value">nguyenthithaonhu.9a7@gmail.com</span>
-              </div>
-            </a>
-
-            <div class="contact-item">
-              <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
-              <div class="contact-meta">
-                <span class="label">Address:</span>
-                <span class="value">257/80/123, xã Đông Thạnh, TP.HCM</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick Action Buttons -->
-          <div class="contact-quick-actions">
-            <a href="#contactForm" class="btn btn-primary btn-sm" title="Chuyển đến biểu mẫu gửi tin nhắn">
-              <i class="fa-solid fa-paper-plane"></i> Gửi tin nhắn cho tôi
-            </a>
-            <button type="button" class="btn btn-outline btn-sm" id="copyEmailBtn" data-email="nguyenthithaonhu.9a7@gmail.com" title="Sao chép địa chỉ email">
-              <i class="fa-regular fa-copy"></i> Sao chép email
-            </button>
-            <a href="https://github.com/NhuThiNguyen" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="Mở trang GitHub cá nhân">
-              <i class="fa-brands fa-github"></i> Xem GitHub
-            </a>
-          </div>
-
-          <!-- Social Links -->
-          <div class="social-links-box">
-            <span class="social-title">Mạng xã hội &amp; Mã nguồn:</span>
-            <div class="social-icons">
-              <!-- Liên kết GitHub cá nhân -->
-              <a href="https://github.com/NhuThiNguyen" target="_blank" rel="noopener noreferrer" class="social-btn" title="GitHub Profile">
-                <i class="fa-brands fa-github"></i>
-                <span>GitHub</span>
-              </a>
-              <a href="www.linkedin.com/in/như-nguyễn-thị-thảo-329865338" target="_blank" rel="noopener noreferrer" class="social-btn" title="LinkedIn Profile">
-                <i class="fa-brands fa-linkedin-in"></i>
-                <span>LinkedIn</span>
-              </a>
-              <a href="https://www.facebook.com/share/1HShWBbbvn/" target="_blank" rel="noopener noreferrer" class="social-btn" title="Facebook Profile">
-                <i class="fa-brands fa-facebook-f"></i>
-                <span>Facebook</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Form kiểm tra dữ liệu và mở ứng dụng email -->
-        <div class="contact-form-card reveal">
-          <h3 class="contact-card-title">Gửi tin nhắn cho tôi</h3>
-          <form id="contactForm" class="contact-form" novalidate>
-            <div class="form-group">
-              <label for="formName" class="form-label">Họ và tên <span class="required">*</span></label>
-              <input type="text" id="formName" name="name" class="form-control" placeholder="Ví dụ: Nguyễn Văn A" required>
-              <span class="form-error" id="nameError">Vui lòng nhập họ và tên của bạn</span>
-            </div>
-
-            <div class="form-group">
-              <label for="formEmail" class="form-label">Email liên hệ <span class="required">*</span></label>
-              <input type="email" id="formEmail" name="email" class="form-control" placeholder="name@example.com" required>
-              <span class="form-error" id="emailError">Vui lòng nhập đúng định dạng email</span>
-            </div>
-
-            <div class="form-group">
-              <label for="formSubject" class="form-label">Tiêu đề <span class="required">*</span></label>
-              <input type="text" id="formSubject" name="subject" class="form-control" placeholder="Ví dụ: Trao đổi về vị trí Backend Intern" required>
-              <span class="form-error" id="subjectError">Vui lòng nhập tiêu đề tin nhắn</span>
-            </div>
-
-            <div class="form-group">
-              <label for="formMessage" class="form-label">Nội dung tin nhắn <span class="required">*</span></label>
-              <textarea id="formMessage" name="message" rows="5" class="form-control" placeholder="Nội dung bạn muốn trao đổi..." required></textarea>
-              <span class="form-error" id="messageError">Vui lòng nhập nội dung tin nhắn</span>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
-              <i class="fa-solid fa-paper-plane"></i> Mở email để gửi
-            </button>
-            <p class="form-note">Ứng dụng email sẽ mở với nội dung đã điền sẵn. Hãy nhấn Gửi trong ứng dụng để gửi tin nhắn.</p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="footer">
-    <div class="container footer-container">
-      <div class="footer-left">
-        <a href="#home" class="logo">
-          Nguyễn Thị Thảo Như
-        </a>
-        <p class="footer-quote">"Kiên trì học hỏi mỗi ngày, từng bước xây dựng nền tảng Backend vững chắc và tạo ra giá trị qua từng dòng mã."</p>
-        <p class="footer-copy">© 2026 Nguyễn Thị Thảo Như. All Rights Reserved.</p>
-      </div>
-
-      <div class="footer-links">
-        <a href="mailto:nguyenthithaonhu.9a7@gmail.com" class="footer-link"><i class="fa-regular fa-envelope"></i> Email</a>
-        <a href="https://github.com/NhuThiNguyen" target="_blank" rel="noopener noreferrer" class="footer-link"><i class="fa-brands fa-github"></i> GitHub</a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-link"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-link"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
-      </div>
-
-      <div class="footer-right">
-        <button id="backToTopBtn" class="back-to-top" title="Cuộn lên đầu trang">
-          <i class="fa-solid fa-arrow-up"></i>
+          <span id="audioStatusText" class="audio-status-label">ÂM THANH: TẮT</span>
         </button>
-      </div>
-    </div>
-  </footer>
 
-  <!-- ==================== PROJECT DETAIL MODAL ==================== -->
-  <div class="modal-backdrop" id="projectModal" aria-hidden="true" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <div class="modal-title-box">
-          <span class="modal-badge" id="modalBadge">Project Category</span>
-          <h3 class="modal-title" id="modalTitle">Project Name</h3>
-        </div>
-        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Đóng modal">&times;</button>
-      </div>
+        <!-- NÚT CHẾ ĐỘ ẢNH / TOÀN CẢNH (CLEAN PHOTO MODE) -->
+        <button type="button" class="hud-action-btn font-mono" id="btnPhotoMode" title="Ẩn giao diện HUD để chiêm ngưỡng / chụp ảnh toàn cảnh [H]">
+          <span aria-hidden="true">📷</span> <span class="btn-text">Toàn cảnh</span> <span class="key-shortcut">[H]</span>
+        </button>
 
-      <div class="modal-body">
-        <!-- Overview -->
-        <div class="modal-section">
-          <h4 class="modal-section-title"><i class="fa-solid fa-circle-info"></i> Overview</h4>
-          <p id="modalOverview" class="modal-section-text"></p>
-        </div>
-
-        <!-- Problem & Solution Grid -->
-        <div class="modal-grid-2">
-          <div class="modal-section">
-            <h4 class="modal-section-title"><i class="fa-solid fa-triangle-exclamation"></i> Problem</h4>
-            <p id="modalProblem" class="modal-section-text"></p>
-          </div>
-          <div class="modal-section">
-            <h4 class="modal-section-title"><i class="fa-solid fa-lightbulb"></i> Solution</h4>
-            <p id="modalSolution" class="modal-section-text"></p>
-          </div>
-        </div>
-
-        <!-- Technologies & Algorithms -->
-        <div class="modal-grid-2">
-          <div class="modal-section">
-            <h4 class="modal-section-title"><i class="fa-solid fa-code"></i> Technologies</h4>
-            <div id="modalTechnologies" class="modal-tags-container"></div>
-          </div>
-          <div class="modal-section">
-            <h4 class="modal-section-title"><i class="fa-solid fa-gears"></i> Algorithms</h4>
-            <div id="modalAlgorithms" class="modal-tags-container"></div>
-          </div>
-        </div>
-
-        <!-- Features -->
-        <div class="modal-section">
-          <h4 class="modal-section-title"><i class="fa-solid fa-list-check"></i> Key Features</h4>
-          <ul id="modalFeatures" class="modal-list"></ul>
-        </div>
-
-        <!-- Challenges & What I Learned -->
-        <div class="modal-grid-2">
-          <div class="modal-section">
-            <h4 class="modal-section-title"><i class="fa-solid fa-fire"></i> Challenges</h4>
-            <p id="modalChallenges" class="modal-section-text"></p>
-          </div>
-          <div class="modal-section">
-            <h4 class="modal-section-title"><i class="fa-solid fa-graduation-cap"></i> What I Learned</h4>
-            <p id="modalLearned" class="modal-section-text"></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" id="modalGithubLink">
-          <i class="fa-brands fa-github"></i> View GitHub
-        </a>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="modalDemoLink">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+        <button type="button" class="hud-action-btn font-mono" id="btnResetOrbit" title="Trở về góc nhìn toàn cảnh Hệ Mặt Trời">
+          <span class="btn-text">Hệ Mặt Trời</span> <span class="key-shortcut">[Esc]</span>
+        </button>
+        <a href="https://github.com/lenguyennhattruongg/Portfolio" class="hud-action-btn font-mono hud-github-link" target="_blank" rel="noopener noreferrer">
+          GitHub ↗
         </a>
       </div>
+    </header>
+
+    <!-- TRẠM QUAN SÁT THIÊN THỂ CHI TIẾT (AR SPATIAL DETAIL DRAWER) -->
+    <aside class="spatial-detail-panel spatial-hud-element" id="spatialDetailPanel" role="region" aria-labelledby="panelMemberName" aria-live="polite" hidden>
+      <div class="panel-sheet-handle" aria-hidden="true"></div>
+      <div class="panel-inner">
+        
+        <div class="panel-header-row">
+          <span class="panel-seq font-mono" id="panelMemberSeq">THIÊN THỂ // 01</span>
+          <button type="button" class="panel-close-cross font-mono" id="panelCloseBtn" aria-label="Trở về quỹ đạo toàn cảnh (Esc)">
+            &times;
+          </button>
+        </div>
+
+        <div class="panel-identity-block">
+          <div class="panel-avatar-wrap">
+            <img src="" alt="" class="panel-avatar-img" id="panelAvatarImg" hidden>
+            <div class="panel-monogram font-heading" id="panelMonogram">✦</div>
+          </div>
+          <div class="panel-name-col">
+            <h2 class="panel-name font-heading" id="panelMemberName">--</h2>
+            <p class="panel-role font-mono" id="panelMemberRole">--</p>
+          </div>
+        </div>
+
+        <p class="panel-headline font-body" id="panelMemberHeadline">--</p>
+
+        <!-- Lời giải thích phép ẩn dụ trang trí -->
+        <p class="panel-metaphor-note font-mono" id="panelMetaphorNote">✦ Ghi chú: Gắn kết thành viên là phép ẩn dụ thiên văn đại diện dự án.</p>
+
+        <!-- THÔNG SỐ VẬT LÝ THIÊN VĂN -->
+        <div class="panel-telemetry-grid font-mono" id="panelTelemetryGrid">
+          <div class="telemetry-cell">
+            <span class="telemetry-label">BÁN TRỤC LỚN (a)</span>
+            <span class="telemetry-val" id="telemetryA">-- AU</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">VẬN TỐC QUỸ ĐẠO (v)</span>
+            <span class="telemetry-val" id="telemetryV">-- km/s</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">CHU KỲ QUỸ ĐẠO (T)</span>
+            <span class="telemetry-val" id="telemetryT">-- Ngày</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">ĐỘ LỆCH TÂM (e)</span>
+            <span class="telemetry-val" id="telemetryE">--</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">VỆ TINH TỰ NHIÊN</span>
+            <span class="telemetry-val" id="telemetryMoons">--</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">ĐỘ NGHIÊNG QUỸ ĐẠO (i)</span>
+            <span class="telemetry-val" id="telemetryInc">--°</span>
+          </div>
+        </div>
+
+        <!-- Kỹ năng chuyên môn -->
+        <div class="panel-skills-group" id="panelSkillsBlock">
+          <h3 class="panel-skills-title font-mono">NĂNG LỰC KỸ THUẬT ĐÃ XÁC MINH</h3>
+          <div class="panel-tags-box" id="panelTagsList"></div>
+        </div>
+
+        <!-- Các nút liên kết -->
+        <div class="panel-actions-group">
+          <a href="#" class="btn-portal-primary font-body" id="panelPortfolioLink">
+            XEM PORTFOLIO CHI TIẾT ↗
+          </a>
+          <a href="#" class="btn-portal-secondary font-body" id="panelGithubLink" target="_blank" rel="noopener noreferrer" hidden>
+            Trang GitHub Cá Nhân ↗
+          </a>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- TOAST THÔNG BÁO CHẾ ĐỘ QUAN SÁT TOÀN CẢNH / CHỤP ẢNH -->
+    <div class="photo-mode-toast font-mono" id="photoModeToast" role="status" aria-live="polite" hidden>
+      <span class="photo-toast-icon">📷</span>
+      <span class="photo-toast-text">CHẾ ĐỘ TOÀN CẢNH</span>
+      <button type="button" class="btn-exit-photo font-mono" id="btnExitPhoto" aria-label="Thoát chế độ toàn cảnh">
+        ✕ Thoát toàn cảnh
+      </button>
     </div>
+
+    <!-- BẢNG ĐIỀU KHIỂN DÒNG THỜI GIAN VÀ TỐC ĐỘ QUỸ ĐẠO (TIME SCRUBBING HUD) -->
+    <div class="hud-time-controller spatial-hud-element font-mono" id="hudTimeControl" role="group" aria-label="Bảng điều khiển dòng thời gian">
+      <button type="button" class="btn-time-play" id="btnTimeToggle" title="Tạm dừng / Tiếp tục quỹ đạo [Phím Space]">
+        <span id="timePlayIcon" class="time-play-icon">❚❚</span>
+      </button>
+      <div class="time-speeds-box">
+        <span class="time-title">TỐC ĐỘ:</span>
+        <button type="button" class="btn-time-speed" data-speed="0.2" title="Tua chậm 0.2x">0.2x</button>
+        <button type="button" class="btn-time-speed active" data-speed="1.0" title="Thời gian thực 1x">1x</button>
+        <button type="button" class="btn-time-speed" data-speed="3.0" title="Tua nhanh 3x">3x</button>
+        <button type="button" class="btn-time-speed" data-speed="8.0" title="Tua nhanh 8x">8x</button>
+      </div>
+    </div>
+
+    <!-- CỤM ĐIỀU KHIỂN THU PHÓNG VŨ TRỤ (SPATIAL ZOOM HUD CLUSTER) -->
+    <div class="hud-zoom-controls spatial-hud-element font-mono" id="hudZoomControls" role="toolbar" aria-label="Điều khiển thu phóng Hệ Mặt Trời">
+      <button type="button" class="btn-hud-zoom" id="btnZoomIn" title="Phóng to Hệ Mặt Trời (+)">
+        <span class="zoom-icon">+</span>
+      </button>
+      <button type="button" class="btn-hud-zoom" id="btnZoomOut" title="Thu nhỏ Hệ Mặt Trời (−)">
+        <span class="zoom-icon">−</span>
+      </button>
+      <button type="button" class="btn-hud-zoom" id="btnZoomReset" title="Trở về toàn cảnh Hệ Mặt Trời (⟲)">
+        <span class="zoom-icon">⟲</span>
+      </button>
+    </div>
+
+    <!-- THANH HUD DƯỚI CÙNG: THANH ĐIỀU HƯỚNG QUỸ ĐẠO & TÌM KIẾM TỌA ĐỘ -->
+    <footer class="hud-bottom-bar spatial-hud-element" role="contentinfo">
+      
+      <!-- Cụm tìm kiếm tọa độ nhanh (Compact Expandable Search) -->
+      <div class="hud-search-cluster" id="hudSearchCluster">
+        <label for="spatialSearchInput" class="visually-hidden">Tìm kiếm hành tinh hoặc thành viên</label>
+        <div class="hud-search-input-box">
+          <span class="search-icon-symbol" aria-hidden="true">⌕</span>
+          <input type="text" id="spatialSearchInput" class="hud-search-input font-mono" placeholder="Tìm thiên thể, thành viên..." autocomplete="off">
+          <button type="button" class="hud-search-clear" id="spatialSearchClearBtn" aria-label="Xóa tìm kiếm" hidden>&times;</button>
+        </div>
+        <div class="hud-search-empty-box font-mono" id="spatialSearchEmpty" hidden>
+          Không tìm thấy tọa độ thiên thể.
+        </div>
+      </div>
+
+      <!-- Khung cuộn ngang danh sách thiên thể có 2 nút mũi tên -->
+      <div class="hud-pills-scroll-wrapper">
+        <button type="button" class="hud-pills-arrow hud-pills-prev" id="btnPillScrollLeft" aria-label="Cuộn sang trái" title="Cuộn sang trái">&lsaquo;</button>
+        <div class="hud-orbit-pills-row font-mono" id="spatialNavPills" role="tablist" tabindex="0" aria-label="Danh sách thiên thể Hệ Mặt Trời">
+          <!-- Render các nút thiên thể từ JS -->
+        </div>
+        <button type="button" class="hud-pills-arrow hud-pills-next" id="btnPillScrollRight" aria-label="Cuộn sang phải" title="Cuộn sang phải">&rsaquo;</button>
+      </div>
+
+    </footer>
+
   </div>
 
-  <!-- Toast Notification -->
-  <div class="toast" id="toastNotification" role="alert">
-    <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
-    <div class="toast-message" id="toastMessage">Hãy điền biểu mẫu để soạn email.</div>
-  </div>
-
-  <!-- Main Script (Relative Path for GitHub Pages) -->
-  <script src="./script.js"></script>
+  <!-- Tệp logic WebGL 3D (ES6 Module) -->
+  <script type="module" src="./group.js"></script>
 </body>
 </html>
 

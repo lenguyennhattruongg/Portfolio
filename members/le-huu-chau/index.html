@@ -4,19 +4,426 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lê Hữu Châu | Portfolio</title>
-  <link rel="stylesheet" href="./style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <noscript>
+    <style>
+      #loader { display: none; }
+      .fade { opacity: 1; transform: none; }
+    </style>
+  </noscript>
 </head>
 <body>
+
+  <a class="skip" href="#main">Bỏ qua menu, tới nội dung chính</a>
+
+  <div id="loader" role="status" aria-label="Đang tải">
+    <div class="ld-name">Lê Hữu Châu</div>
+    <div class="ld-bar"><i></i></div>
+  </div>
+
+  <div class="bg" aria-hidden="true">
+    <div class="bg-img"></div>
+    <canvas id="gl"></canvas>
+    <img id="bgsrc" alt="" hidden>
+  </div>
+
   <header>
-    <h1>Lê Hữu Châu</h1>
-    <a href="../../index.html">&larr; Về trang chủ nhóm</a>
+    <nav aria-label="Menu chính">
+      <a class="logo" href="#top">✦ Lê Hữu Châu</a>
+
+      <button class="burger" id="burger" aria-label="Mở menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul id="menu">
+        <li><a href="#top">Trang chủ</a></li>
+        <li><a href="#about">Về tôi</a></li>
+        <li><a href="#goal">Mục tiêu</a></li>
+        <li><a href="#skills">Kỹ năng</a></li>
+        <li><a href="#projects">Dự án</a></li>
+        <li><a href="#experience">Kinh nghiệm</a></li>
+        <li><a href="#certificates">Chứng chỉ</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+      </ul>
+    </nav>
   </header>
-  <main>
-    <section>
-      <h2>Portfolio Foundation</h2>
-      <p>Khung sẵn sàng tích hợp.</p>
+
+  <main id="main">
+
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-in has-frame">
+
+        <div class="hero-txt">
+          <p class="hi">— Xin chào, tôi là —</p>
+          <h1 id="hero-title">Lê Hữu Châu</h1>
+          <p class="role">Sinh viên Công nghệ thông tin — mỗi dự án tôi làm là một nét cọ, kể câu chuyện của riêng mình.</p>
+
+          <div class="cta">
+            <a class="btn fill" href="#projects">Xem dự án</a>
+            <a class="btn" href="#contact">Liên hệ tôi</a>
+          </div>
+
+          <ul class="links2">
+            <li><a href="https://github.com/lechau06" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.facebook.com/share/1DyEvTfZRe/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
+          </ul>
+        </div>
+
+        <div class="lan" id="lan">
+          <div class="nail" aria-hidden="true"></div>
+          <figure class="hang" id="hang" tabindex="0" role="group"
+                  aria-label="Khung tranh treo tường. Kéo hoặc dùng phím mũi tên để đẩy lên, xuống, qua trái, qua phải">
+            <div class="pframe">
+              <div class="mat">
+                <img class="ph" src="images/swirl.jpg" alt="Ảnh chân dung (thay bằng ảnh của bạn)" draggable="false">
+              </div>
+            </div>
+            <figcaption class="plate">
+              <b>Lê Hữu Châu</b>
+              <small>Sinh viên Công nghệ thông tin</small>
+            </figcaption>
+          </figure>
+          <p class="lan-tip">✦ Kéo khung tranh lên xuống, qua lại ✦</p>
+        </div>
+      </div>
+      <div class="down" aria-hidden="true">↓</div>
     </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <header>
+        <h2 class="t" id="about-title">Về tôi</h2>
+        <div class="rule"></div>
+      </header>
+
+      <div class="about fade">
+        <figure class="frame">
+          <img class="ph" src="images/swirl.jpg" alt="Ảnh chân dung của Lê Hữu Châu">
+        </figure>
+
+        <div class="glass">
+          <dl class="info">
+            <dt>Họ và tên</dt><dd>Lê Hữu Châu</dd>
+            <dt>Ngành học</dt><dd>Công nghệ thông tin</dd>
+            <dt>Định hướng</dt><dd>Khoa Học Dữ Liệu</dd>
+          </dl>
+          
+          <p>Hiện tôi đang học HTML, CSS, JavaScript và muốn tích lũy kinh nghiệm qua các dự án thực tế.</p>
+
+          <blockquote class="quote">“Tôi mơ về những bức tranh, rồi tôi vẽ giấc mơ của mình.” — Vincent van Gogh</blockquote>
+
+          <ul class="facts">
+            <li><strong data-n="3" data-s="">3</strong><span>Năm học lập trình</span></li>
+            <li><strong data-n="2" data-s="">2</strong><span>Dự án</span></li>
+            <li><strong data-n="0" data-s="">0</strong><span>Chứng chỉ</span></li>
+          </ul>
+
+          <h3 class="sub">Học vấn</h3>
+          <ul class="edu">
+            <li class="it">
+              <div class="ic" aria-hidden="true">🎓</div>
+              <div><b>Đại Học Giao Thông Vận Tải / UTH</b><small>Công nghệ thông tin · 2023 – 2026</small></div>
+            </li>
+            <li class="it">
+              <div class="ic" aria-hidden="true">🎓</div>
+              <div><b>THPT Hàm Thuận Bắc</b><small>  2020 – 2023</small></div>
+            </li>
+          </ul>
+
+          <h3 class="sub">Sở thích</h3>
+          <ul class="interests">
+            <li class="chip">Đọc sách</li>
+            <li class="chip">Nghe nhạc</li>
+            <li class="chip">Chơi game</li>
+            <li class="chip">Vẽ phác thảo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="goal" aria-labelledby="goal-title">
+      <header>
+        <h2 class="t" id="goal-title">Mục tiêu nghề nghiệp</h2>
+        <div class="rule"></div>
+      </header>
+
+      <div class="glass fade">
+        <p class="lead">Trở thành Kỹ sư Dữ liệu</p>
+      </div>
+
+      <ul class="goals">
+        <li class="glass goal fade">
+          <span class="when">Ngắn hạn · 1 năm</span>
+          <h3>Vững nền tảng</h3>
+          <p>Thành thạo Python, SQL; hoàn thành ít nhất 3 dự án ETL cá nhân và đưa lên GitHub.</p>
+        </li>
+        <li class="glass goal fade">
+          <span class="when">Trung hạn · 2–3 năm</span>
+          <h3>Làm việc thực tế</h3>
+          <p>Học Spark, Airflow và một nền tảng đám mây; thực tập hoặc làm tại công ty dữ liệu để tích lũy kinh nghiệm.</p>
+        </li>
+        <li class="glass goal fade">
+          <span class="when">Dài hạn · 5 năm</span>
+          <h3>Phát triển chuyên sâu</h3>
+          <p>Trở thành Data Engineer có kinh nghiệm, thiết kế hệ thống dữ liệu lớn.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-title">
+      <header>
+        <h2 class="t" id="skills-title">Bảng kỹ năng</h2>
+        <div class="rule"></div>
+      </header>
+
+      <div class="fade">
+        <div class="tabs" role="tablist" aria-label="Lọc kỹ năng" data-target="#skgrid">
+          <button class="tab on" role="tab" aria-selected="true" data-filter="Tất cả">Tất cả</button>
+          <button class="tab" role="tab" aria-selected="false" data-filter="Chuyên môn">Chuyên môn</button>
+          <button class="tab" role="tab" aria-selected="false" data-filter="Công cụ">Công cụ</button>
+          <button class="tab" role="tab" aria-selected="false" data-filter="Khác">Khác</button>
+        </div>
+
+        <ul class="skgrid" id="skgrid">
+          <li class="glass sk" data-cat="Chuyên môn"><em>Chuyên môn</em>
+            <div class="bar"><span>HTML5 <b>70%</b></span><i style="--v:70%"></i></div></li>
+          <li class="glass sk" data-cat="Chuyên môn"><em>Chuyên môn</em>
+            <div class="bar"><span>CSS3 <b>65%</b></span><i style="--v:65%"></i></div></li>
+          <li class="glass sk" data-cat="Chuyên môn"><em>Chuyên môn</em>
+            <div class="bar"><span>JavaScript <b>60%</b></span><i style="--v:60%"></i></div></li>
+          <li class="glass sk" data-cat="Chuyên môn"><em>Chuyên môn</em>
+            <div class="bar"><span>Python <b>75%</b></span><i style="--v:75%"></i></div></li>
+          <li class="glass sk" data-cat="Chuyên môn"><em>Chuyên môn</em>
+            <div class="bar"><span>Java <b>55%</b></span><i style="--v:55%"></i></div></li>
+          <li class="glass sk" data-cat="Công cụ"><em>Công cụ</em>
+            <div class="bar"><span>Git &amp; GitHub</span></div></li>
+          <li class="glass sk" data-cat="Công cụ"><em>Công cụ</em>
+            <div class="bar"><span>VS Code</span></div></li>
+          <li class="glass sk" data-cat="Công cụ"><em>Công cụ</em>
+            <div class="bar"><span>Claude</span></div></li>
+          <li class="glass sk" data-cat="Công cụ"><em>Công cụ</em>
+            <div class="bar"><span>Docker</span></div></li>
+          <li class="glass sk" data-cat="Khác"><em>Khác</em>
+            <div class="bar"><span>Tiếng Anh <b>50%</b></span><i style="--v:50%"></i></div></li>
+        </ul>
+
+        <div class="glass soft">
+          <h3>Kỹ năng mềm</h3>
+          <ul class="chips">
+            <li class="chip">Làm việc nhóm</li>
+            <li class="chip">Sáng tạo</li>
+            <li class="chip">Giao tiếp</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" aria-labelledby="projects-title">
+      <header>
+        <h2 class="t" id="projects-title">Tác phẩm của tôi</h2>
+        <div class="rule"></div>
+      </header>
+
+      <div>
+        <div class="tabs" role="tablist" aria-label="Lọc dự án" data-target="#project-list">
+          <button class="tab on" role="tab" aria-selected="true" data-filter="Tất cả">Tất cả</button>
+          <button class="tab" role="tab" aria-selected="false" data-filter="Cá nhân">Dự án cá nhân</button>
+          <button class="tab" role="tab" aria-selected="false" data-filter="Nhóm">Dự án nhóm</button>
+        </div>
+
+        <div class="projects" id="project-list">
+
+          <!-- Dự án cá nhân -->
+          <article class="card fade" data-reveal data-project="portfolio-ca-nhan" data-cat="Cá nhân"
+                   tabindex="0" role="button" aria-label="Xem chi tiết Website Portfolio cá nhân">
+            <canvas class="paint-layer" aria-hidden="true"></canvas>
+            <figure><img class="thumb" src="images/portfolio.jpg" alt="Ảnh minh họa dự án Website Portfolio cá nhân" loading="lazy"></figure>
+            <div class="in">
+              <h3>Website Portfolio cá nhân</h3>
+              <p class="tag">2026 · Dự án cá nhân · Thiết kế &amp; lập trình</p>
+              <p>Trang giới thiệu bản thân lấy cảm hứng từ bức tranh Đêm đầy sao, có nền chuyển động và khung tranh kéo thả.</p>
+              <ul class="chips">
+                <li class="chip">HTML5</li><li class="chip">CSS3</li><li class="chip">JavaScript</li>
+              </ul>
+              <span class="more">Xem chi tiết →</span>
+            </div>
+            <template>
+              <p class="kick">Dự án cá nhân · 2026</p>
+              <h2 class="t">Website Portfolio cá nhân</h2>
+              <div class="rule"></div>
+              <p class="role">Thiết kế &amp; lập trình</p>
+              <ul class="chips">
+                <li class="chip">HTML5</li><li class="chip">CSS3</li><li class="chip">JavaScript</li>
+              </ul>
+              <div class="glass">
+                <p>Mô tả chi tiết: Đây là trang portfolio đầu tiên của mình, làm khi đang học HTML, CSS và JavaScript.</p>
+                <p>Cách tiếp cận: Mình chia mã nguồn thành nhiều file CSS và JS nhỏ, mỗi file lo một phần công việc.</p>
+              </div>
+              <h3>Tính năng nổi bật</h3>
+              <ul class="feat">
+                <li>Giao diện responsive trên máy tính, máy tính bảng và điện thoại</li>
+                <li>Lọc dự án, lọc kỹ năng, menu di động, nút cuộn lên đầu trang</li>
+                <li>Form liên hệ có kiểm tra dữ liệu bằng JavaScript</li>
+              </ul>
+              <h3>Hình ảnh dự án</h3>
+              <div class="gallery">
+                <figure><img src="images/portfolio.jpg" alt="Dự án portfolio — ảnh 1" loading="lazy"><figcaption>Màn hình trang chủ</figcaption></figure>
+                <figure><img src="images/ảnh kỹ năng.jpg" alt="Dự án portfolio — ảnh 2" loading="lazy"><figcaption>Khu vực kỹ năng</figcaption></figure>
+              </div>
+              <div class="glass">
+                <h3>Kết quả</h3>
+                <p>Hoàn thành trang portfolio đầu tiên, học được cách tổ chức mã nguồn và làm giao diện.</p>
+              </div>
+              <div class="cta">
+                <a class="btn fill" href="https://github.com/lechau06" target="_blank" rel="noopener">Xem mã nguồn</a>
+              </div>
+            </template>
+          </article>
+
+          <article class="card fade" data-reveal data-project="website-trung-tam-thu-y" data-cat="Nhóm"
+                   tabindex="0" role="button" aria-label="Xem chi tiết Website trung tâm thú y (chưa hoàn thiện)">
+            <canvas class="paint-layer" aria-hidden="true"></canvas>
+            <figure><img class="thumb" src="images/thú y.jpg" alt="Ảnh minh họa dự án Website trung tâm thú y" loading="lazy"></figure>
+            <div class="in">
+              <span class="status">Chưa hoàn thiện</span>
+              <h3>Website trung tâm thú y</h3>
+              <p class="tag">2026 · Dự án nhóm · Lập trình viên frontend</p>
+              <p>Website giúp trung tâm thú y quản lý thông tin khách hàng, lịch hẹn và dịch vụ.</p>
+              <ul class="chips">
+                <li class="chip">HTML5</li><li class="chip">CSS3</li><li class="chip">JavaScript</li><li class="chip">Python</li><li class="chip">Docker</li>
+              </ul>
+              <span class="more">Xem chi tiết →</span>
+            </div>
+            <template>
+              <p class="kick">Dự án nhóm · 2026</p>
+              <h2 class="t">Website trung tâm thú y</h2>
+              <div class="rule"></div>
+              <p class="status">Dự án đang trong quá trình thực hiện, một số chức năng và hình ảnh sẽ được cập nhật sau.</p>
+              <p class="role">Lập trình viên frontend</p>
+              <ul class="chips">
+                <li class="chip">HTML5</li><li class="chip">CSS3</li><li class="chip">JavaScript</li><li class="chip">Python</li><li class="chip">Docker</li>
+              </ul>
+              <div class="glass">
+                <p>Mô tả chi tiết: Website trung tâm thú y quản lý thông tin khách hàng, thú cưng, lịch hẹn và các dịch vụ trong một nơi, thay cho việc ghi chép thủ công.</p>
+                <p>Cách tiếp cận: Mình phụ trách phần frontend, sử dụng HTML, CSS và JavaScript để tạo giao diện người dùng.</p>
+              </div>
+              <h3>Tính năng dự kiến</h3>
+              <ul class="feat">
+                <li>Quản lý danh sách khách hàng và thú cưng: xem, thêm, sửa, xóa</li>
+                <li>Đặt lịch hẹn, có kiểm tra ngày giờ hợp lệ</li>
+                <li>Xem và quản lý các dịch vụ của trung tâm</li>
+                <li>Giao diện responsive, dùng được trên máy tính và điện thoại</li>
+              </ul>
+              <div class="cta">
+                <a class="btn fill" href="https://github.com/nguyenxuanhieu2903/veterinary-center-web.git" target="_blank" rel="noopener">Xem mã nguồn</a>
+              </div>
+            </template>
+          </article>
+        </div>
+        <p class="tip" id="project-tip">✦ Rê chuột lên mỗi thẻ để lau lớp sơn, bấm vào để xem chi tiết ✦</p>
+      </div>
+    </section>
+
+    <section id="experience" aria-labelledby="experience-title">
+      <header>
+        <h2 class="t" id="experience-title">Kinh nghiệm &amp; hoạt động</h2>
+        <div class="rule"></div>
+      </header>
+      <ol class="timeline">
+        <li class="tl fade">
+          <article class="glass">
+            <h3>Kinh Nghiệm</h3>
+            <p class="per">2025-2026</p>
+            <ul>
+              <li>Cùng nhóm thực hiện một dự án website.</li>
+            </ul>
+          </article>
+        </li>
+        <li class="tl fade">
+          <article class="glass">
+            <h3>Hoạt động </h3>
+            <ul>
+              <li>Chưa có.</li>
+            </ul>
+          </article>
+        </li>
+      </ol>
+    </section>
+
+    <section id="certificates" aria-labelledby="certificates-title">
+      <header>
+        <h2 class="t" id="certificates-title">Chứng chỉ &amp; giải thưởng</h2>
+        <div class="rule"></div>
+      </header>
+
+      <div class="certs">
+        <article class="glass cert fade">
+          <div class="th" aria-hidden="true">🏅</div>
+          <h3>chứng chỉ </h3>
+          <small>Chưa có</small>
+        </article>
+        <article class="glass cert fade">
+          <div class="th" aria-hidden="true">🏅</div>
+          <h3>Giải Thưởng </h3>
+          <small>Chưa có</small>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contact-title">
+      <header>
+        <h2 class="t" id="contact-title">Cùng vẽ nên điều mới</h2>
+        <div class="rule"></div>
+      </header>
+
+      <div class="glass fade">
+        <p class="contact-mail">Bạn có ý tưởng hoặc cơ hội hợp tác? Hãy gửi cho tôi một lời nhắn.</p>
+
+        <div class="links">
+          <a class="btn fill" href="mailto:chau87193@gmail.com">chau87193@gmail.com</a>
+          <a class="btn" href="https://github.com/lechau06" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://www.facebook.com/share/1DyEvTfZRe/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
+        </div>
+
+        <form class="cform" id="contact-form" data-mailto="chau87193@gmail.com" novalidate>
+          <div class="row">
+            <div class="field">
+              <label class="sr-only" for="cf-name">Tên của bạn</label>
+              <input id="cf-name" name="name" type="text" placeholder="Tên của bạn" autocomplete="name" maxlength="60" aria-describedby="err-name">
+              <small class="err" id="err-name" role="alert"></small>
+            </div>
+            <div class="field">
+              <label class="sr-only" for="cf-email">Email của bạn</label>
+              <input id="cf-email" name="email" type="email" placeholder="Email của bạn" autocomplete="email" maxlength="100" aria-describedby="err-email">
+              <small class="err" id="err-email" role="alert"></small>
+            </div>
+          </div>
+          <div class="field">
+            <label class="sr-only" for="cf-message">Lời nhắn</label>
+            <textarea id="cf-message" name="message" placeholder="Lời nhắn…" maxlength="500" aria-describedby="err-message"></textarea>
+            <small class="err" id="err-message" role="alert"></small>
+            <small class="count" id="count">0/500</small>
+          </div>
+          <button class="btn fill" type="submit">Gửi lời nhắn ✦</button>
+          <p class="form-status" id="form-status" role="status"></p>
+        </form>
+      </div>
+    </section>
+
   </main>
-  <script type="module" src="./script.js"></script>
+
+  <footer>
+    <p>Thanks for watching!</p>
+    <small>lhc</small>
+  </footer>
+
+  <button id="to-top" aria-label="Cuộn lên đầu trang">↑</button>
+
+  <div class="detail" id="detail" role="dialog" aria-modal="true" aria-label="Chi tiết dự án" hidden></div>
+  <script  type="module" src="./script.js"></script>
 </body>
 </html>

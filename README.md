@@ -1,154 +1,147 @@
-# Profile & Developer Portfolio - Nguyễn Thị Thảo Như
+# 🪐 Group Portfolio Website — Nhóm 06 (UTH)
 
-Website Portfolio cá nhân hoàn chỉnh, hiện đại, thanh lịch và chuyên nghiệp dành cho sinh viên Công nghệ Thông tin định hướng phát triển **Backend Developer**.
-
-- **URL Public GitHub Pages**: [https://nhuthinguyen.github.io/profile/](https://nhuthinguyen.github.io/profile/)
-- **GitHub Repository**: [https://github.com/NhuThiNguyen/profile](https://github.com/NhuThiNguyen/profile)
+> **Đồ án môn học Lập trình Web** — Trường Đại học Giao thông Vận tải TP.HCM (UTH)  
+> Kho mã nguồn chính thức của nhóm: [https://github.com/nguyenxuanhieu2903/portfolio-group](https://github.com/nguyenxuanhieu2903/portfolio-group)
 
 ---
 
-## 📁 1. Cấu Trúc Thư Mục Dự Án
+## 🌐 Trực Tiếp Trải Nghiệm (Live Demo)
 
-```
-profile me/
-│
-├── index.html                  # File HTML5 Semantic chuẩn SEO, hỗ trợ Open Graph & Responsive
-├── style.css                   # Định kiểu giao diện Sáng/Tối (CSS Variables, Flexbox, Grid, Animations)
-├── script.js                   # Xử lý tương tác: Gõ chữ, Modal, Menu di động, Form Validation, Sao chép email, Đổi Theme
-│
-├── images/                     # Thư mục hình ảnh & icon vector SVG (Đường dẫn tương đối)
-│   ├── 3x4.jpg                 # Ảnh thẻ chân dung đại diện chính thức của bạn
-│   ├── project-trekking.svg    # Ảnh minh họa Dự án 1: Trekking & Leo núi
-│   ├── project-love.svg        # Ảnh minh họa Dự án 2: Interactive Love Website
-│   └── avatar-placeholder.svg  # Ảnh vector dự phòng
-│
-└── README.md                   # Tài liệu hướng dẫn sử dụng, chỉnh sửa và deploy lên GitHub Pages
-```
+Dự án đã được triển khai trực tiếp trên GitHub Pages, mời thầy cô và các bạn trải nghiệm qua 2 liên kết chính thức:
 
-> **Ghi chú kỹ thuật quan trọng**:
-> - Toàn bộ mã nguồn sử dụng **100% đường dẫn tương đối** (`./style.css`, `./script.js`, `./images/3x4.jpg`,...).
-> - Tuyệt đối không chứa đường dẫn tuyệt đối dạng `C:/Users/...` hay `file:///...`.
-> - Không dùng backend, không PHP, không Node.js, không database -> Hoàn toàn tương thích và chạy tức thì trên GitHub Pages.
+- 🌌 **1. Cổng Thông Tin Nhóm 3D (Cosmic 3D Solar System):**  
+  👉 **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)**  
+  *(Mô phỏng vũ trụ 3D Three.js WebGL, vật liệu PBR 2K, Unreal Bloom, âm thanh không gian và tối ưu điều khiển trên di động).*
+
+- 🌍 **2. Portfolio Cá Nhân — Lê Nguyễn Nhật Trường:**  
+  👉 **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)**  
+  *(Không gian cá nhân phong cách UTH Metro Bespoke, 3 dự án tiêu biểu, đo lường chỉ số động và CV chi tiết).*
 
 ---
 
-## ✨ 2. Các Tính Năng & Điểm Nhấn Của Website
+## 📖 Giới Thiệu Đồ Án
 
-1. **Giao diện hiện đại & Nữ tính (Soft Aesthetic Mode)**:
-   - Tông màu sáng dịu nhẹ với dải màu pastel Rose Blush (`#f472b6`), Soft Lavender (`#a855f7`) và Indigo (`#6366f1`).
-   - Nền trắng ngọc trai êm mắt, thẻ card bo tròn mềm mại và bóng đổ bồng bềnh.
-2. **Nút chuyển đổi giao diện Sáng / Tối (Theme Toggle)**:
-   - Cho phép người xem linh hoạt chuyển đổi giữa giao diện Sáng thanh lịch và giao diện Tối (Developer Dark Mode).
-   - Tự động ghi nhớ tùy chọn của người dùng qua `localStorage`.
-3. **Hero Section sống động**:
-   - Hiệu ứng gõ chữ (typing effect) cho các vị trí: *"Backend Developer"*, *"Web Developer"*, *"IT Student"*.
-   - Khung avatar tròn hiển thị chân dung thật `3x4.jpg` có viền hào quang phát sáng.
-4. **Giới thiệu bản thân & Học vấn (About Me & Education Timeline)**:
-   - Trình bày thông tin chính quy: Đại học Giao thông Vận tải TP.HCM (2024 – 2028), Ngành Công nghệ Thông tin.
-   - Thể hiện rõ các môn học nền tảng: Cấu trúc dữ liệu & Giải thuật, CSDL & SQL, OOP, Phân tích thiết kế hệ thống.
-5. **Kỹ năng chuyên môn (Skills)**:
-   - Phân loại 5 nhóm: Programming Languages, Web Development, Database, Tools, Computer Science.
-   - Hiển thị dạng badge/card trực quan, không dùng thanh % cứng nhắc.
-6. **Dự án thực tế (Projects & Modal Chi Tiết)**:
-   - **Dự án 1**: *Trekking & Leo núi* (Outdoor & Web Application).
-   - **Dự án 2**: *Interactive Love Website* (Đã liên kết trực tiếp tới repository chính thức: `https://github.com/NhuThiNguyen/love-web`).
-   - **Dự án chờ (Placeholder)**: Sẵn sàng mở rộng thêm đồ án Backend.
-   - **Modal Popup**: Cung cấp chi tiết 10 tiêu chí kỹ thuật (Overview, Problem, Solution, Technologies, Features, Algorithms, Challenges, What I Learned, GitHub, Live Demo).
-7. **Khu vực liên hệ (Contact Me)**:
-   - **Nút Gửi tin nhắn cho tôi**: Cuộn đến biểu mẫu gửi tin nhắn trong phần liên hệ.
-   - **Nút Sao chép email**: Click vào sẽ tự động lưu email vào bộ nhớ tạm (Clipboard) và hiển thị thông báo Toast xác nhận `Đã sao chép email vào bộ nhớ tạm! 📋`.
-   - **Nút Mở GitHub cá nhân**: Trỏ thẳng tới `https://github.com/NhuThiNguyen`.
-   - **Biểu mẫu gửi tin nhắn**: Kiểm tra dữ liệu, sau đó mở ứng dụng email mặc định với nội dung đã điền sẵn (`mailto:`). Người gửi cần xác nhận gửi trong ứng dụng email; website tĩnh không tự gửi email.
-8. **Chân trang (Footer)**:
-   - Tên thương hiệu: **Nguyễn Thị Thảo Như**.
-   - Phương châm: *"Kiên trì học hỏi mỗi ngày, từng bước xây dựng nền tảng Backend vững chắc và tạo ra giá trị qua từng dòng mã."*
-   - Bản quyền `© 2026 Nguyễn Thị Thảo Như. All Rights Reserved.`.
-   - Nút quay lại đầu trang (Back to top) mượt mà.
+Chào mừng thầy cô và các bạn đã ghé thăm website Portfolio của **Nhóm 06**. 
+
+Trong học phần Lập trình Web, nhóm chúng mình đặt mục tiêu không chỉ tạo ra một trang danh sách thông thường, mà xây dựng một **Cổng thông tin không gian 3D (3D Solar System)** sống động kết nối với **6 không gian portfolio cá nhân độc lập**. 
+
+Tại đây, mỗi thành viên trong nhóm đóng vai trò như một thiên thể trong Hệ Mặt Trời, vừa kết nối chặt chẽ trong một tập thể, vừa có không gian riêng để thỏa sức sáng tạo về phong cách giao diện, giới thiệu dự án, kỹ năng chuyên môn và định hướng nghề nghiệp của bản thân.
 
 ---
 
-## 🚀 3. HƯỚNG DẪN TỪNG BƯỚC ĐƯA WEBSITE LÊN GITHUB PAGES (PUBLIC)
+## 👥 Danh Sách Thành Viên & Phân Công
 
-Để có một đường link công khai dạng `https://nhuthinguyen.github.io/profile/` để gửi cho nhà tuyển dụng hoặc bạn bè mở được ngay trên điện thoại và máy tính, bạn làm theo các bước đơn giản sau:
-
-### Bước 1: Tạo Repository mới trên GitHub
-1. Truy cập [github.com](https://github.com) và đăng nhập vào tài khoản của bạn (**NhuThiNguyen**).
-2. Nhấp vào dấu **`+`** ở góc trên bên phải ➔ chọn **New repository** (hoặc truy cập `https://github.com/new`).
-3. Điền thông tin:
-   - **Repository name**: Nhập `profile` (hoặc tên bạn muốn).
-   - **Description**: `Personal Portfolio of Nguyễn Thị Thảo Như` (tùy chọn).
-   - **Public / Private**: Chọn **Public** (Bắt buộc chọn Public để GitHub Pages hoạt động miễn phí).
-   - Các mục *"Add a README file"*, *".gitignore"*, *"license"*: **Bỏ tích** (Không tích chọn, vì chúng ta đã có sẵn file trên máy).
-4. Bấm nút màu xanh **Create repository**.
+| STT | Họ và tên | Vai trò | Thiên thể đại diện | Thư mục mã nguồn |
+| :---: | :--- | :---: | :---: | :--- |
+| 1 | **Nguyễn Xuân Hiếu** | Trưởng nhóm | 🔴 Sao Hỏa (*Mars*) | `members/nguyen-xuan-hieu/` |
+| 2 | **Lê Nguyễn Nhật Trường** | Thành viên | 🌍 Trái Đất (*Earth*) | `members/le-nguyen-nhat-truong/` |
+| 3 | **Nguyễn Thị Thảo Như** | Thành viên | ♀️ Sao Kim (*Venus*) | `members/nguyen-thi-thao-nhu/` |
+| 4 | **Nguyễn Phạm Y Huỳnh** | Thành viên | ☿️ Sao Thủy (*Mercury*) | `members/nguyen-pham-y-huynh/` |
+| 5 | **Lê Hữu Châu** | Thành viên | ♃ Sao Mộc (*Jupiter*) | `members/le-huu-chau/` |
+| 6 | **Nguyễn Anh Thư** | Thành viên | ♄ Sao Thổ (*Saturn*) | `members/nguyen-anh-thu/` |
 
 ---
 
-### Bước 2: Đẩy (Push) toàn bộ mã nguồn lên GitHub bằng VS Code
+## ✨ Điểm Nổi Bật Của Website
 
-1. Mở phần mềm **Visual Studio Code**.
-2. Chọn menu **File** ➔ **Open Folder...** ➔ Chọn thư mục `profile me` tại đường dẫn máy bạn:  
-   `c:\Users\nhu\OneDrive\Máy tính\profile me`
-3. Mở Terminal trong VS Code bằng cách nhấn tổ hợp phím **`Ctrl + \``** (hoặc vào menu **Terminal** ➔ **New Terminal**).
-4. Lần lượt sao chép và dán từng lệnh sau vào Terminal rồi nhấn Enter:
+### 1. Cổng Thông Tin Nhóm 3D (Solar System Engine)
+* **Mô phỏng 3D WebGL với Three.js:** Mô phỏng quỹ đạo thực tế của Hệ Mặt Trời, sử dụng bộ texture PBR 2K equirectangular, vầng hào quang rực rỡ và hiệu ứng hậu kỳ Unreal Bloom.
+* **Âm thanh không gian (3D Spatial Audio):** Tích hợp Web Audio API phát ra giai điệu synthwave không gian dịu nhẹ, tần số tự động điều chế nhẹ nhàng theo quỹ đạo quay và có nút bật/tắt tiện lợi.
+* **Thanh tua thời gian (Time Scrubbing):** Cho phép người xem tăng tốc, làm chậm hoặc quay ngược thời gian để quan sát chuyển động của các hành tinh.
+* **Chế độ toàn cảnh (Photo Mode):** Ẩn các thanh công cụ để chiêm ngưỡng vũ trụ toàn màn hình.
+* **Tối ưu trải nghiệm trên di động (Mobile UX):** Thiết kế drawer kéo vuốt mượt mà, nút thoát toàn cảnh dạng capsule nổi dễ bấm và tự động ẩn các thanh điều khiển khi xem thông tin chi tiết.
+
+### 2. Không Gian Portfolio Cá Nhân
+* **Kiến trúc đa trang (Multi-Page Application):** Mỗi thành viên toàn quyền quản lý mã nguồn trong thư mục `members/<slug>/` với file HTML, CSS và JavaScript riêng biệt.
+* **Portfolio Nhật Trường:** Phong cách *UTH Metro Bespoke* với bảng màu Cyan & Deep Space, tích hợp 3 dự án tiêu biểu (FreshVend, Remote Desktop, Portfolio Group), bảng đo lường chỉ số động và CV chi tiết.
+* **Portfolio Xuân Hiếu:** Điểm nhấn thẻ sinh viên UTH Lanyard có hiệu ứng đàn hồi vật lý tương tác chuột, thư viện ảnh chụp giao diện và sơ đồ kiến trúc hệ thống.
+
+---
+
+## 🛠️ Công Nghệ Sử Dụng
+
+Dự án được xây dựng dựa trên nền tảng web tiêu chuẩn, đề cao tính ổn định, tốc độ và trải nghiệm người dùng:
+
+* **Ngôn ngữ cốt lõi:** HTML5 (chuẩn ngữ nghĩa Semantic), Modern CSS3 (CSS Grid, Flexbox, Animation), Vanilla JavaScript (ES6+).
+* **Đồ họa 3D & Âm thanh:** [Three.js](https://threejs.org/) (WebGL), OrbitControls, EffectComposer (UnrealBloomPass), Web Audio API.
+* **Giao diện & Biểu tượng:** Bootstrap 5 (Grid System), Bootstrap Icons.
+* **Công cụ đóng gói (Build Tool):** [Vite](https://vitejs.dev/) — Hỗ trợ phát triển nhanh với HMR và cơ chế quét tự động mọi trang HTML (`getHtmlEntries`) để đóng gói chuẩn tĩnh.
+* **Tự động hóa & Triển khai:** Git, GitHub Actions, GitHub Pages.
+
+---
+
+## 🚀 Hướng Dẫn Cài Đặt & Chạy Thử Local
+
+Nếu muốn chạy thử dự án trên máy cá nhân, bạn chỉ cần thực hiện theo các bước đơn giản sau:
+
+### 1. Yêu cầu hệ thống
+* Đã cài đặt **Git** và **Node.js** (khuyến nghị phiên bản LTS v20.x hoặc v22.x).
+
+### 2. Các bước khởi chạy
 
 ```bash
-# 1. Khởi tạo kho lưu trữ Git cục bộ
-git init
+# 1. Clone repository về máy
+git clone https://github.com/nguyenxuanhieu2903/portfolio-group.git
+cd portfolio-group
 
-# 2. Thêm tất cả các file vào Git
-git add .
+# 2. Cài đặt các thư viện cần thiết
+npm install
+# (Nếu bạn dùng Windows PowerShell gặp chặn script, hãy dùng: npm.cmd install)
 
-# 3. Tạo commit đầu tiên
-git commit -m "Initial commit: Complete Profile Portfolio Website"
-
-# 4. Đặt tên nhánh chính là main
-git branch -M main
-
-# 5. Liên kết kho lưu trữ trên máy với GitHub của bạn
-git remote add origin https://github.com/NhuThiNguyen/profile.git
-
-# 6. Đẩy toàn bộ mã nguồn lên GitHub
-git push -u origin main
+# 3. Khởi chạy máy chủ phát triển (Dev Server)
+npm run dev
+# (Hoặc: npm.cmd run dev)
 ```
 
-*(Nếu Terminal yêu cầu đăng nhập tài khoản GitHub, bạn chỉ cần chọn Đăng nhập bằng trình duyệt để xác thực là xong).*
+Trình duyệt sẽ tự động mở trang web tại địa chỉ: `http://localhost:3000/`.
+
+### 3. Kiểm tra đóng gói (Build Production)
+
+```bash
+npm run build
+# (Hoặc: npm.cmd run build)
+```
+Mã nguồn sẽ được biên dịch sạch sẽ vào thư mục `dist/` với 100% đường dẫn tương đối (`base: './'`), sẵn sàng đưa lên bất kỳ máy chủ tĩnh nào.
 
 ---
 
-### Bước 3: Kích hoạt GitHub Pages để xuất bản Website
+## 📁 Cấu Trúc Thư Mục Dự Án
 
-1. Trên trình duyệt, truy cập vào Repository bạn vừa tạo: `https://github.com/NhuThiNguyen/profile`.
-2. Bấm vào tab **Settings** (biểu tượng bánh răng ⚙️ ở menu trên cùng của repository).
-3. Ở cột danh mục bên trái, cuộn xuống tìm và nhấp vào mục **Pages** (mục con của Code and automation).
-4. Tại phần **Build and deployment**:
-   - **Source**: Giữ nguyên chọn `Deploy from a branch`.
-   - **Branch**: Ở ô chọn nhánh đang là `None`, bạn nhấp chọn **`main`**.
-   - Ở ô thư mục bên cạnh, giữ nguyên **`/(root)`**.
-   - Bấm nút **Save** màu trắng cạnh đó.
-5. GitHub Pages sẽ bắt đầu tự động triển khai website (mất khoảng từ 1 đến 2 phút).
-6. Tải lại trang Settings ➔ Pages, bạn sẽ thấy xuất hiện một hộp thông báo màu xanh lá cây với dòng chữ:  
-   **"Your site is live at https://nhuthinguyen.github.io/profile/"**
+```text
+portfolio-group/
+├── .github/workflows/          # Cấu hình GitHub Actions tự động deploy lên Pages
+├── index.html                  # Trang chủ Cổng thông tin 3D Hệ Mặt Trời của nhóm
+├── group.js                    # Engine Three.js 3D, âm thanh không gian & tương tác UI
+├── group.css                   # Định kiểu giao diện không gian, HUD và responsive mobile
+├── members.data.js             # Dữ liệu danh sách thành viên và cấu hình hành tinh
+├── public/                     # Tài nguyên tĩnh công cộng
+│   ├── avatars/                # Ảnh chân dung của các thành viên
+│   └── planets/                # Bộ texture PBR 2K và biểu tượng SVG các hành tinh
+├── members/                    # Không gian portfolio độc lập của 6 thành viên
+│   ├── nguyen-xuan-hieu/       # Portfolio của Nguyễn Xuân Hiếu
+│   ├── le-nguyen-nhat-truong/  # Portfolio của Lê Nguyễn Nhật Trường
+│   ├── nguyen-thi-thao-nhu/    # Portfolio của Nguyễn Thị Thảo Như
+│   ├── nguyen-pham-y-huynh/    # Portfolio của Nguyễn Phạm Y Huỳnh
+│   ├── le-huu-chau/            # Portfolio của Lê Hữu Châu
+│   └── nguyen-anh-thu/         # Portfolio của Nguyễn Anh Thư
+├── package.json                # Quản lý dependencies và scripts chạy
+├── vite.config.js              # Cấu hình đa trang (MPA) tự động nhận diện entrypoints
+└── README.md                   # Tài liệu giới thiệu và hướng dẫn đồ án
+```
 
 ---
 
-### Bước 4: Kiểm tra và chia sẻ Website
+## 🤝 Quy Trình Làm Việc Nhóm Trên Git
 
-1. **Mở trên máy tính**: Nhấp trực tiếp vào đường link [https://nhuthinguyen.github.io/profile/](https://nhuthinguyen.github.io/profile/).
-2. **Mở trên điện thoại di động**: 
-   - Sao chép đường link trên gửi qua Zalo, Messenger hoặc gõ vào trình duyệt điện thoại (Safari, Chrome).
-   - Website sẽ tự động hiển thị hoàn hảo ở chế độ Mobile (menu hamburger trượt mượt mà, layout 1 cột gọn gàng, không bị tràn thanh cuộn ngang).
-3. **Đính kèm vào CV**: Bạn có thể chèn link này vào mục **Portfolio / Website cá nhân** trong CV xin thực tập Backend Intern!
+Để đảm bảo các thành viên làm việc mượt mà và không bao giờ xảy ra xung đột mã nguồn:
+
+1. Mỗi thành viên làm việc độc lập trên nhánh tính năng riêng: `feature/portfolio-<ten-thanh-vien>`.
+2. Mọi thay đổi về nội dung cá nhân chỉ thực hiện bên trong thư mục `members/<slug-cua-ban>/`.
+3. Khi hoàn thiện, chạy thử `npm run build` để đảm bảo 0 lỗi.
+4. Mở Pull Request từ nhánh cá nhân vào nhánh `main` để Trưởng nhóm review và merge.
+5. Sau khi merge vào `main`, GitHub Actions sẽ tự động cập nhật bản mới nhất lên GitHub Pages trong vòng 1-2 phút!
 
 ---
 
-## 🛠️ 4. Hướng Dẫn Tùy Biến Khi Cần Sau Này
+*Cảm ơn thầy cô và các bạn đã dành thời gian theo dõi đồ án của Nhóm 06!* ✨
 
-- **Đổi lại thông tin cá nhân**: Mở file `index.html` và chỉnh sửa các văn bản tương ứng.
-- **Thêm dự án mới**: Tham khảo cấu trúc `<div class="project-card">` của Dự án 1 trong file `index.html` và thêm dữ liệu vào biến `projectsData` trong file `script.js`.
-- **Cập nhật code sau khi chỉnh sửa**:
-  ```bash
-  git add .
-  git commit -m "Cập nhật nội dung website"
-  git push
-  ```
-  GitHub Pages sẽ tự động làm mới website chỉ sau khoảng 1 phút!

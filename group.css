@@ -1,557 +1,1673 @@
 /* =========================================================
-   GROUP PORTFOLIO — EDITORIAL / DIGITAL STUDIO STYLESHEET
-   Aesthetic: Architectural, Typographic, Editorial, Restrained
-   Color Tokens: Paper (#F5F2EC), Ink (#242321), Crimson (#8E2435), Stone (#DDD7CE)
+   TRUE 3D WEBGL SPATIAL UNIVERSE — SCI-FI BRUTALISM HUD
+   Nhóm 06 — Đại học Giao thông Vận tải TP.HCM (UTH)
+   Thiết kế: Fullscreen WebGL Viewport + Floating AR Projected HUD
+   Chuẩn mực Awwwards: Chiều sâu không gian 3D, tối ưu 60 FPS, không dùng card 2D
    ========================================================= */
 
 :root {
-  /* Editorial Color System */
-  --color-paper: #F5F2EC;
-  --color-paper-light: #FAF8F5;
-  --color-paper-subtle: #ECE7DE;
+  /* Bảng màu Không gian sâu (Deep Cosmic Space) */
+  --bg-deep-space: #080B16;
+  --bg-hud-surface: rgba(16, 23, 42, 0.84);
+  --bg-hud-surface-hover: rgba(22, 32, 58, 0.95);
   
-  --color-ink: #242321;
-  --color-ink-muted: #66635D;
-  --color-ink-light: #9B978F;
+  --ink-primary: #F3F5FA;
+  --ink-secondary: #A6B0C3;
+  --ink-muted: #64748B;
   
-  --color-crimson: #8E2435;
-  --color-crimson-hover: #721C2A;
-  --color-crimson-subtle: rgba(142, 36, 53, 0.08);
-  
-  --color-stone: #DDD7CE;
-  --color-stone-dark: #C9C2B7;
-  
-  /* Contrast Dark Surface (For Rubric / Academic Context) */
-  --color-dark-paper: #1A1918;
-  --color-dark-surface: #232220;
-  --color-dark-text: #F5F2EC;
-  --color-dark-muted: #A39E93;
-  --color-dark-border: rgba(221, 215, 206, 0.15);
-  
-  /* Typography Tokens */
-  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
-  
-  /* Transition Tokens */
-  --transition-fast: 0.18s ease;
-  --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --border-chart: rgba(41, 52, 77, 0.85);
+  --border-highlight: rgba(142, 156, 255, 0.5);
+  --accent-gold: #F0C879;
+  --accent-gold-glow: rgba(240, 200, 121, 0.45);
+  --accent-cosmic: #8E9CFF;
+  --accent-cosmic-glow: rgba(142, 156, 255, 0.35);
+
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
 }
 
-/* =========================================================
-   GLOBAL RESET & DEFAULTS
-   ========================================================= */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 85px;
-}
-
-body {
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  line-height: 1.65;
-  overflow-x: hidden;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: var(--bg-deep-space);
+  color: var(--ink-primary);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  touch-action: manipulation;
 }
 
-/* Typography Utilities */
-.font-serif {
-  font-family: var(--font-serif);
+/* ---------------------------------------------------------
+   0. VẠCH QUÉT RADAR THIÊN VĂN KHÔNG GIAN (RADAR SCANLINE)
+   --------------------------------------------------------- */
+.radar-scanline-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.04;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 48%,
+    rgba(142, 156, 255, 0.5) 50%,
+    transparent 52%,
+    transparent 100%
+  );
+  animation: radarSweep 8s linear infinite;
+  mix-blend-mode: screen;
 }
 
-.font-sans {
-  font-family: var(--font-sans);
+@keyframes radarSweep {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100%); }
 }
 
-.italic-accent {
-  font-style: italic;
-  font-weight: 500;
-  color: var(--color-crimson);
+/* ---------------------------------------------------------
+   1. CANVAS WEBGL TOÀN MÀN HÌNH
+   --------------------------------------------------------- */
+.spatial-webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 0;
+  display: block;
+  touch-action: none;
 }
 
-.text-ink {
-  color: var(--color-ink) !important;
+/* ---------------------------------------------------------
+   2. LỚP NHÃN KHÔNG GIAN AR (PROJECTED SPATIAL LABELS)
+   Neo theo tọa độ vector 3D của từng thiên thể
+   --------------------------------------------------------- */
+.spatial-labels-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.3s ease;
 }
 
-.text-ink-muted {
-  color: var(--color-ink-muted) !important;
+.spatial-node-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(8, 11, 22, 0.9);
+  border: 1px solid var(--border-chart);
+  border-left: 3px solid var(--accent-gold);
+  border-radius: 4px;
+  color: var(--ink-primary);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  transform: translate3d(-9999px, -9999px, 0);
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
 }
 
-.text-ink-light {
-  color: var(--color-ink-light) !important;
+.spatial-node-tag:hover,
+.spatial-node-tag.tag-hovered {
+  border-color: var(--accent-gold);
+  background: rgba(22, 32, 58, 0.95);
+  box-shadow: 0 0 20px var(--accent-gold-glow);
 }
 
-.text-crimson {
-  color: var(--color-crimson) !important;
+.tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 10px currentColor;
 }
 
-.very-small {
-  font-size: 0.75rem;
+.tag-title {
+  font-weight: 700;
 }
 
-/* Hairline Dividers */
-.border-bottom-hairline {
-  border-bottom: 1px solid var(--color-stone) !important;
+/* ---------------------------------------------------------
+   3. GIAO DIỆN ĐIỀU KHIỂN KHÔNG GIAN (SPATIAL HUD OVERLAY)
+   --------------------------------------------------------- */
+.spatial-hud-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
 }
 
-.border-top-hairline {
-  border-top: 1px solid var(--color-stone) !important;
+.spatial-hud-element {
+  pointer-events: auto;
 }
 
-.border-end-hairline {
-  border-right: 1px solid var(--color-stone) !important;
-}
-
-.border-hairline {
-  border: 1px solid var(--color-stone) !important;
-}
-
-.border-dark-hairline {
-  border: 1px solid var(--color-dark-border) !important;
-}
-
-/* Background Variations */
-.bg-paper {
-  background-color: var(--color-paper) !important;
-}
-
-.bg-paper-light {
-  background-color: var(--color-paper-light) !important;
-}
-
-.bg-dark-paper {
-  background-color: var(--color-dark-paper) !important;
-}
-
-.text-dark-paper {
-  color: var(--color-dark-text) !important;
-}
-
-.text-dark-muted {
-  color: var(--color-dark-muted) !important;
-}
-
-/* =========================================================
-   MASTHEAD / NAVIGATION BAR
-   ========================================================= */
-.editorial-navbar {
-  background-color: var(--color-paper);
-  border-bottom: 1px solid var(--color-stone);
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  transition: background-color var(--transition-smooth), box-shadow var(--transition-smooth), padding var(--transition-smooth);
-}
-
-.editorial-navbar.scrolled {
-  background-color: rgba(245, 242, 236, 0.94);
+/* ---------------------------------------------------------
+   3.1. THANH HUD TRÊN CÙNG (TOP TELEMETRY BAR)
+   --------------------------------------------------------- */
+.hud-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--bg-hud-surface);
+  border: 1px solid var(--border-chart);
+  border-radius: 6px;
+  padding: 12px 20px;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 4px 20px rgba(36, 35, 33, 0.05);
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
-.brand-monogram {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--color-crimson);
-  line-height: 1;
+.hud-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.brand-title {
-  font-weight: 800;
-  font-size: 1.05rem;
-  letter-spacing: -0.5px;
-  color: var(--color-ink);
-}
-
-.brand-sub {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--color-ink-muted);
-}
-
-.navbar-nav .nav-link {
-  color: var(--color-ink-muted);
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0.5rem 0.85rem;
-  transition: color var(--transition-fast);
-  position: relative;
-}
-
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-  color: var(--color-ink);
-}
-
-.navbar-nav .nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0.85rem;
-  right: 0.85rem;
-  height: 2px;
-  background-color: var(--color-crimson);
-}
-
-/* Button & CTA Tokens */
-.btn-crimson {
-  background-color: var(--color-crimson);
-  color: #ffffff !important;
-  border: 1px solid var(--color-crimson);
-  border-radius: 4px;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
-}
-
-.btn-crimson:hover {
-  background-color: var(--color-crimson-hover);
-  border-color: var(--color-crimson-hover);
-  transform: translateY(-1px);
-}
-
-.btn-crimson-outline {
-  background-color: transparent;
-  color: var(--color-crimson) !important;
-  border: 1px solid var(--color-crimson);
-  border-radius: 4px;
-  transition: all var(--transition-fast);
-}
-
-.btn-crimson-outline:hover {
-  background-color: var(--color-crimson);
-  color: #ffffff !important;
-}
-
-.btn-editorial-text {
-  background: transparent;
-  border: none;
-  color: var(--color-ink);
-  transition: color var(--transition-fast), transform var(--transition-fast);
-  text-decoration: none;
-}
-
-.btn-editorial-text:hover {
-  color: var(--color-crimson);
-  transform: translateX(3px);
-}
-
-.btn-editorial-link {
-  text-decoration: none;
-  transition: transform var(--transition-fast), color var(--transition-fast);
-}
-
-.btn-editorial-link i {
-  transition: transform var(--transition-fast);
-}
-
-.btn-editorial-link:hover i {
-  transform: translateX(4px);
-}
-
-/* =========================================================
-   HERO SECTION
-   ========================================================= */
-.hero-editorial {
-  padding-top: 110px;
-  padding-bottom: 50px;
-}
-
-.editorial-tag {
-  background-color: var(--color-crimson-subtle);
-  color: var(--color-crimson);
-  border: 1px solid rgba(142, 36, 53, 0.2);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  padding: 0.25rem 0.65rem;
-  border-radius: 2px;
-}
-
-.hero-headline {
-  font-size: clamp(2.35rem, 5vw, 3.85rem);
-  line-height: 1.15;
-  letter-spacing: -1.2px;
-}
-
-.hero-lead {
-  font-size: clamp(1.05rem, 1.8vw, 1.2rem);
-  line-height: 1.7;
-}
-
-.editorial-spec-card {
-  background-color: var(--color-paper-light);
-  border: 1px solid var(--color-stone);
-}
-
-.badge-editorial-crimson {
-  background-color: var(--color-crimson);
-  color: #ffffff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 0.2rem 0.5rem;
-  border-radius: 2px;
-  font-family: monospace;
-}
-
-.metric-col {
-  background-color: var(--color-paper);
-}
-
-.metric-num {
-  font-size: clamp(2.2rem, 3.5vw, 3rem);
-  line-height: 1;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  display: block;
-}
-
-/* =========================================================
-   SECTION HEADINGS & LABELS
-   ========================================================= */
-.section-num {
-  font-size: 1.15rem;
-  font-weight: 600;
-  font-style: italic;
-}
-
-.section-tag {
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-}
-
-/* =========================================================
-   MEMBERS SHOWCASE — EDITORIAL LIST
-   ========================================================= */
-.editorial-search-wrap {
-  min-width: 300px;
-  max-width: 380px;
-}
-
-.editorial-input-group {
-  background-color: var(--color-paper);
-  border: 1px solid var(--color-stone);
-  border-radius: 4px;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.editorial-input-group:focus-within {
-  border-color: var(--color-crimson);
-  box-shadow: 0 0 0 3px rgba(142, 36, 53, 0.12);
-}
-
-.editorial-kbd {
-  background-color: var(--color-paper-subtle);
-  color: var(--color-ink-muted);
-  border: 1px solid var(--color-stone);
-  font-size: 0.7rem;
-  padding: 0.1rem 0.35rem;
-  border-radius: 3px;
-}
-
-.member-row {
-  background-color: transparent;
-  transition: background-color var(--transition-fast);
-}
-
-.member-row:hover {
-  background-color: var(--color-paper-subtle);
-}
-
-.member-index {
-  font-size: 1.35rem;
-  font-style: italic;
-  font-weight: 600;
-  min-width: 28px;
-}
-
-.avatar-editorial {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: 1px solid var(--color-stone);
-  background-color: var(--color-paper-subtle);
-  color: var(--color-ink);
+.hud-brand-symbol {
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 0.95rem;
-  flex-shrink: 0;
-  letter-spacing: 0.5px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(142, 156, 255, 0.2), rgba(240, 200, 121, 0.2));
+  border: 1px solid var(--accent-cosmic);
+  color: var(--accent-gold);
+  font-size: 1.1rem;
+  box-shadow: 0 0 12px var(--accent-cosmic-glow);
 }
 
-.avatar-frame-crimson {
-  border-color: var(--color-crimson);
-  color: var(--color-crimson);
-  background-color: var(--color-crimson-subtle);
+.hud-brand-text {
+  display: flex;
+  flex-direction: column;
 }
 
-.badge-role-lead {
-  background-color: var(--color-crimson-subtle);
-  color: var(--color-crimson);
-  border: 1px solid rgba(142, 36, 53, 0.25);
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: 2px;
+.hud-brand-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--ink-primary);
 }
 
-.badge-role-neutral {
-  background-color: var(--color-paper-subtle);
-  color: var(--color-ink-muted);
-  border: 1px solid var(--color-stone);
+.hud-brand-sub {
   font-size: 0.7rem;
   font-weight: 600;
-  padding: 0.15rem 0.5rem;
-  border-radius: 2px;
+  color: var(--accent-cosmic);
+  letter-spacing: 0.1em;
 }
 
-.alert-editorial {
-  background-color: var(--color-paper);
-  border: 1px solid var(--color-stone);
+.hud-telemetry-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-telemetry-pill {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold);
+  padding: 5px 14px;
+  background: rgba(8, 11, 22, 0.65);
+  border: 1px solid rgba(240, 200, 121, 0.35);
   border-radius: 4px;
+  box-shadow: inset 0 0 10px rgba(240, 200, 121, 0.1);
 }
 
-/* =========================================================
-   TECH STACK
-   ========================================================= */
-.tech-editorial-box {
-  background-color: var(--color-paper-light);
-  border: 1px solid var(--color-stone);
+.hud-guide-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--accent-cosmic);
+  opacity: 0.85;
+}
+
+/* GEMINI 4 ARGON REMAKE: DUAL-PERSPECTIVE KINEMATIC SWITCH */
+.hud-perspective-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(8, 12, 24, 0.75);
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid rgba(142, 156, 255, 0.25);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
+}
+
+.btn-perspective {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-secondary);
+  background: transparent;
+  border: 1px solid transparent;
   border-radius: 4px;
-  transition: transform var(--transition-fast), border-color var(--transition-fast);
+  cursor: pointer;
+  transition: all 0.22s ease;
+  white-space: nowrap;
 }
 
-.tech-editorial-box:hover {
-  transform: translateY(-2px);
-  border-color: var(--color-stone-dark);
+.btn-perspective:hover {
+  color: #FFFFFF;
+  border-color: rgba(240, 200, 121, 0.4);
+  background: rgba(240, 200, 121, 0.08);
 }
 
-/* =========================================================
-   COURSE / RUBRIC SECTION (DARK CONTRAST STRIP)
-   ========================================================= */
-.table-dark-editorial {
-  --bs-table-bg: transparent;
-  --bs-table-color: var(--color-dark-text);
-  border-color: var(--color-dark-border);
+.btn-perspective.active {
+  color: #FFFFFF;
+  background: rgba(142, 156, 255, 0.18);
+  border-color: var(--accent-cosmic);
+  box-shadow: 0 0 12px var(--accent-cosmic-glow);
 }
 
-.table-dark-editorial th,
-.table-dark-editorial td {
-  padding: 0.9rem 0.75rem;
-  border-bottom: 1px solid var(--color-dark-border);
+.btn-perspective#btnModeWarp.active {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: #F59E0B;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.45);
+  color: #FDE68A;
 }
 
-.rubric-table-card {
-  background-color: var(--color-dark-surface);
-  border: 1px solid var(--color-dark-border);
+.perspective-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
-.spec-note-dark {
-  background-color: rgba(255, 255, 255, 0.04);
+.orbit-dot {
+  background: #38BDF8;
+  box-shadow: 0 0 8px #38BDF8;
 }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
-.editorial-footer {
-  background-color: var(--color-paper);
+.warp-dot {
+  background: #F97316;
+  box-shadow: 0 0 8px #F97316;
 }
 
-.footer-heading {
-  letter-spacing: 0.8px;
+.hud-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.footer-nav-links li {
-  margin-bottom: 0.45rem;
-}
-
-.footer-nav-links a {
-  color: var(--color-ink-muted);
+.hud-action-btn {
+  font-family: var(--font-mono);
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid var(--border-chart);
+  border-radius: 4px;
+  background: rgba(8, 11, 22, 0.65);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
   text-decoration: none;
-  transition: color var(--transition-fast);
 }
 
-.footer-nav-links a:hover {
-  color: var(--color-crimson);
+.hud-action-btn:hover {
+  border-color: var(--accent-gold);
+  color: #FFFFFF;
+  background: rgba(240, 200, 121, 0.12);
+  box-shadow: 0 0 12px var(--accent-gold-glow);
+}
+
+.hud-help-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 50%;
+}
+
+/* Nút điều khiển âm thanh vũ trụ Web Audio API */
+.hud-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 23, 42, 0.75);
+  border-color: var(--accent-cosmic);
+  color: var(--accent-cosmic);
+}
+
+.hud-audio-btn:hover {
+  border-color: var(--accent-gold);
+  color: #FFFFFF;
+  background: rgba(142, 156, 255, 0.15);
+}
+
+.audio-bars-icon {
+  display: inline-flex;
+  align-items: flex-end;
+  height: 14px;
+  gap: 2px;
+}
+
+.audio-bars-icon i {
+  display: block;
+  width: 2.5px;
+  height: 4px;
+  background: var(--accent-gold);
+  border-radius: 1px;
+  box-shadow: 0 0 6px var(--accent-gold-glow);
+  animation: audioBarsPulse 0.7s infinite alternate ease-in-out;
+}
+
+.audio-bars-icon i:nth-child(1) { animation-delay: 0s; height: 6px; }
+.audio-bars-icon i:nth-child(2) { animation-delay: -0.25s; height: 12px; }
+.audio-bars-icon i:nth-child(3) { animation-delay: -0.45s; height: 9px; }
+.audio-bars-icon i:nth-child(4) { animation-delay: -0.15s; height: 14px; }
+
+.hud-audio-btn.audio-muted .audio-bars-icon i {
+  animation: none;
+  height: 2px;
+  opacity: 0.35;
+  background: var(--ink-muted);
+  box-shadow: none;
+}
+
+.hud-audio-btn.audio-muted {
+  opacity: 0.7;
+  border-color: var(--border-chart);
+  color: var(--ink-muted);
+}
+
+@keyframes audioBarsPulse {
+  0% { height: 3px; }
+  100% { height: 14px; }
+}
+
+/* ---------------------------------------------------------
+   3.2. TRẠM QUAN SÁT THIÊN THỂ CHI TIẾT (AR SPATIAL DRAWER)
+   --------------------------------------------------------- */
+.spatial-detail-panel {
+  position: fixed;
+  top: 86px;
+  right: 24px;
+  width: min(420px, calc(100vw - 48px));
+  max-height: calc(100vh - 165px);
+  overflow-y: auto;
+  background: rgba(10, 15, 28, 0.94);
+  border: 1px solid rgba(142, 156, 255, 0.3);
+  border-top: 3px solid var(--accent-gold);
+  border-radius: 8px;
+  padding: 22px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.75),
+    0 0 20px rgba(240, 200, 121, 0.1);
+  transform: translateX(25px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  z-index: 25;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(142, 156, 255, 0.3) transparent;
+}
+
+.spatial-detail-panel.panel-open,
+.spatial-detail-panel.panel-active {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.spatial-detail-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.spatial-detail-panel::-webkit-scrollbar-thumb {
+  background: rgba(142, 156, 255, 0.3);
+  border-radius: 4px;
+}
+
+.panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-chart);
+  padding-bottom: 12px;
+}
+
+.panel-seq {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold);
+}
+
+.panel-close-cross {
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--ink-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.panel-close-cross:hover {
+  color: var(--accent-gold);
+  background: rgba(240, 200, 121, 0.15);
+}
+
+.panel-identity-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.panel-avatar-wrap {
+  width: 68px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid var(--accent-gold);
+  background: rgba(8, 11, 22, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 14px var(--accent-gold-glow);
+}
+
+.panel-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panel-monogram {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+}
+
+.panel-name-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.panel-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ink-primary);
+}
+
+.panel-role {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-cosmic);
+}
+
+.panel-headline {
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--ink-secondary);
+}
+
+.panel-metaphor-note {
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  line-height: 1.45;
+  padding: 6px 10px;
+  background: rgba(16, 23, 42, 0.6);
+  border-left: 2px solid var(--accent-gold);
+  border-radius: 0 4px 4px 0;
+  margin-top: -4px;
+}
+
+/* ---------------------------------------------------------
+   AR CELESTIAL TELEMETRY GRID
+   --------------------------------------------------------- */
+.panel-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 12px;
+  background: rgba(8, 11, 24, 0.75);
+  border: 1px solid var(--border-chart);
+  border-left: 3px solid var(--accent-cosmic);
+  border-radius: 6px;
+}
+
+.telemetry-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 8px;
+  background: rgba(16, 23, 42, 0.55);
+  border-radius: 4px;
+}
+
+.telemetry-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.telemetry-val {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.panel-skills-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--border-chart);
+  padding-top: 14px;
+}
+
+.panel-skills-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.panel-tags-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-tag, .panel-skill-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  background: rgba(142, 156, 255, 0.12);
+  border: 1px solid rgba(142, 156, 255, 0.3);
+  color: var(--ink-primary);
+  border-radius: 4px;
+}
+
+.panel-actions-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.btn-portal-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 18px;
+  background: linear-gradient(135deg, #F0C879, #D4A853);
+  color: #080B16;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(240, 200, 121, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-portal-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(240, 200, 121, 0.55);
+}
+
+.btn-portal-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 16px;
+  background: rgba(8, 11, 22, 0.75);
+  border: 1px solid var(--border-chart);
+  color: var(--ink-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-portal-secondary:hover {
+  border-color: var(--accent-cosmic);
+  color: #FFFFFF;
+}
+
+/* ---------------------------------------------------------
+   3.3. THANH HUD DƯỚI CÙNG (BOTTOM NAVIGATION & SEARCH — MILESTONE A)
+   --------------------------------------------------------- */
+.hud-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--bg-hud-surface);
+  border: 1px solid var(--border-chart);
+  border-radius: 8px;
+  padding: 8px 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+  min-height: 52px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 /* =========================================================
-   ACCESSIBILITY & FOCUS
+   THANH TÌM KIẾM CO GIÃN THÔNG MINH (COMPACT EXPANDABLE SEARCH)
    ========================================================= */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--color-crimson) !important;
-  outline-offset: 2px !important;
+.hud-search-cluster {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 36px; /* Mặc định thu gọn bằng kích thước 1 icon */
+  height: 36px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 6;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  
-  *,
-  *::before,
-  *::after {
-    transition: none !important;
-    animation: none !important;
-  }
+/* Khi bấm vào hoặc đang có chữ thì tự động mở rộng */
+.hud-search-cluster:focus-within,
+.hud-search-cluster.is-active {
+  width: 240px;
 }
 
-/* =========================================================
-   RESPONSIVE LAYOUT QUERIES
-   ========================================================= */
-@media (max-width: 991.98px) {
-  .hero-editorial {
-    padding-top: 100px;
-  }
-
-  .navbar-collapse {
-    background-color: var(--color-paper);
-    border: 1px solid var(--color-stone);
-    border-radius: 4px;
-    padding: 1.25rem;
-    margin-top: 0.75rem;
-    box-shadow: 0 10px 30px rgba(36, 35, 33, 0.08);
-  }
-
-  .border-end-hairline {
-    border-right: none !important;
-  }
-
-  .metric-col:nth-child(odd) {
-    border-right: 1px solid var(--color-stone) !important;
-  }
-
-  .metric-col:nth-child(1),
-  .metric-col:nth-child(2) {
-    border-bottom: 1px solid var(--color-stone) !important;
-  }
-  
-  .editorial-search-wrap {
-    max-width: 100%;
-    width: 100%;
-  }
+.hud-search-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-@media (max-width: 767.98px) {
-  .hero-headline {
-    font-size: 2.25rem;
-  }
-  
-  .member-row {
-    padding: 1rem !important;
-  }
-  
-  .member-statement {
+.search-icon-symbol {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-gold);
+  font-size: 1.1rem;
+  pointer-events: none;
+  z-index: 2;
+  transition: color 0.2s ease;
+}
+
+.hud-search-input {
+  width: 100%;
+  height: 36px;
+  min-width: 0; /* Bỏ giới hạn 16rem cũ để không bị tràn */
+  padding: 0 30px 0 36px;
+  background: rgba(8, 11, 24, 0.85);
+  border: 1px solid var(--border-chart);
+  border-radius: 6px;
+  color: var(--ink-primary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Khi chưa focus: ẩn placeholder, trong suốt để hiện nút kính lúp gọn gàng */
+.hud-search-cluster:not(:focus-within):not(.is-active) .hud-search-input {
+  color: transparent;
+  background: rgba(16, 23, 42, 0.85);
+  border-color: rgba(142, 156, 255, 0.3);
+}
+
+.hud-search-cluster:not(:focus-within):not(.is-active) .hud-search-input::placeholder {
+  color: transparent;
+}
+
+.hud-search-cluster:focus-within .hud-search-input,
+.hud-search-cluster.is-active .hud-search-input {
+  cursor: text;
+  background: rgba(8, 11, 24, 0.95);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 14px rgba(240, 200, 121, 0.25);
+}
+
+.hud-search-clear {
+  position: absolute;
+  right: 6px;
+  color: var(--ink-muted);
+  background: none;
+  border: none;
+  font-size: 1.15rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+  z-index: 3;
+}
+
+.hud-search-clear:hover {
+  color: var(--accent-gold);
+}
+
+.hud-search-empty-box {
+  position: absolute;
+  bottom: 44px;
+  left: 0;
+  padding: 6px 12px;
+  background: rgba(16, 23, 42, 0.96);
+  border: 1px solid var(--accent-gold);
+  border-radius: 6px;
+  font-size: 0.72rem;
+  color: var(--accent-gold);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+/* Nút mũi tên cuộn hàng chip */
+.hud-pills-arrow {
+  background: rgba(16, 23, 42, 0.85);
+  border: 1px solid var(--border-chart);
+  color: var(--ink-secondary);
+  border-radius: 4px;
+  width: 26px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+.hud-pills-arrow:hover {
+  border-color: var(--accent-gold);
+  color: #FFFFFF;
+  background: rgba(240, 200, 121, 0.15);
+}
+
+/* Khung cuộn ngang có chỉ báo thị giác (Horizontal Scroll Mask) */
+.hud-pills-scroll-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 18px, black calc(100% - 18px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18px, black calc(100% - 18px), transparent 100%);
+}
+
+.hud-orbit-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  width: 100%;
+  padding: 4px 10px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hud-orbit-pills-row::-webkit-scrollbar {
+  display: none;
+}
+
+.orbit-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  border: 1px solid var(--border-chart);
+  border-radius: 6px;
+  background: rgba(8, 11, 24, 0.85);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.orbit-pill:hover {
+  border-color: var(--accent-cosmic);
+  color: #FFFFFF;
+  background: rgba(142, 156, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.orbit-pill:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+.orbit-pill.active-pill {
+  border-color: var(--accent-gold);
+  color: #080B16;
+  background: var(--accent-gold);
+  box-shadow: 0 0 14px var(--accent-gold-glow);
+  transform: translateY(-1px);
+}
+
+.orbit-pill-symbol {
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--accent-gold);
+}
+
+.orbit-pill.active-pill .orbit-pill-symbol {
+  color: #080B16;
+}
+
+.orbit-pill-member {
+  font-size: 0.65rem;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgba(142, 156, 255, 0.2);
+  color: var(--accent-cosmic);
+  margin-left: 2px;
+}
+
+.orbit-pill.active-pill .orbit-pill-member {
+  background: rgba(0, 0, 0, 0.25);
+  color: #080B16;
+}
+
+/* Ký hiệu Thiên văn học phóng to trong ngăn chi tiết */
+.panel-astro-symbol-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-gold);
+  background: rgba(240, 200, 121, 0.12);
+  color: var(--accent-gold);
+  font-size: 1.4rem;
+  box-shadow: 0 0 15px var(--accent-gold-glow);
+}
+
+/* Nhãn hành tinh trên AR viewport — Tinh gọn, Micro-refined, Không che khuất thiên thể */
+.spatial-ar-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(-9999px, -9999px, 0) translate(-50%, -100%);
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
+.spatial-ar-label:hover .ar-label-marker {
+  transform: scale(1.08) translateY(-2px);
+  border-color: var(--accent-gold);
+  background: rgba(16, 23, 42, 0.95);
+  box-shadow: 0 0 16px var(--accent-gold-glow);
+}
+
+.ar-label-marker {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  background: rgba(8, 11, 22, 0.82);
+  border: 1px solid rgba(142, 156, 255, 0.4);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.ar-label-symbol {
+  font-size: 0.78rem;
+  line-height: 1;
+  color: var(--accent-gold);
+}
+
+.ar-label-name {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.spatial-ar-label:hover .ar-label-marker {
+  border-color: var(--accent-gold);
+  background: rgba(16, 23, 42, 0.95);
+  box-shadow: 0 0 14px var(--accent-gold-glow);
+}
+
+.spatial-ar-label.active-ar-label {
+  z-index: 22;
+  transform: translate(-50%, -100%) scale(1.05);
+}
+
+.spatial-ar-label.active-ar-label .ar-label-marker {
+  border-color: var(--accent-gold);
+  background: rgba(16, 23, 42, 0.96);
+  box-shadow: 0 0 16px var(--accent-gold-glow);
+}
+
+.spatial-ar-label.active-ar-label .ar-label-symbol {
+  color: #FFFFFF;
+  text-shadow: 0 0 8px var(--accent-gold);
+}
+
+.spatial-ar-label.active-ar-label .ar-label-name {
+  color: var(--accent-gold);
+  font-weight: 800;
+}
+
+/* ---------------------------------------------------------
+   BỘ ĐIỀU KHIỂN THU PHÓNG VŨ TRỤ (SPATIAL ZOOM HUD CLUSTER)
+   --------------------------------------------------------- */
+.hud-zoom-controls {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 25;
+  pointer-events: auto;
+}
+
+.btn-hud-zoom {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--bg-hud-surface);
+  border: 1px solid var(--border-chart);
+  color: var(--ink-primary);
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.btn-hud-zoom:hover {
+  background: rgba(22, 32, 58, 0.95);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  transform: scale(1.08);
+  box-shadow: 0 0 16px var(--accent-gold-glow);
+}
+
+.btn-hud-zoom:active {
+  transform: scale(0.94);
+}
+
+.btn-hud-zoom .zoom-icon {
+  line-height: 1;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE DESIGN (DESKTOP, LAPTOP, TABLET, MOBILE) — MILESTONE A
+   --------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .hud-guide-pill {
     display: none;
   }
+  .hud-search-cluster {
+    width: 240px;
+  }
+}
+
+@media (max-width: 992px) {
+  .spatial-hud-overlay {
+    padding: 16px;
+  }
+  .hud-telemetry-cluster {
+    display: none;
+  }
+  .spatial-detail-panel {
+    width: 380px;
+    top: 80px;
+    right: 16px;
+    max-height: calc(100vh - 150px);
+  }
+  .hud-zoom-controls {
+    right: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .spatial-hud-overlay {
+    padding: 8px 10px;
+  }
+  .hud-top-bar {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  .hud-brand {
+    gap: 6px;
+  }
+  .hud-brand-symbol {
+    width: 28px;
+    height: 28px;
+    font-size: 0.88rem;
+  }
+  .hud-brand-title {
+    font-size: 0.88rem;
+  }
+  .hud-brand-sub {
+    display: none;
+  }
+  .btn-perspective {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+  }
+  .hud-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hud-action-btn {
+    padding: 5px 8px;
+    font-size: 0.68rem;
+    min-height: 32px;
+  }
+  .hud-action-btn .key-shortcut {
+    display: none;
+  }
+
+  /* NÚT ÂM THANH TRÊN MOBILE: Hiển thị dạng icon sống động, không ẩn */
+  .hud-audio-btn {
+    display: inline-flex !important;
+    padding: 5px 8px !important;
+    min-width: 34px !important;
+    height: 32px !important;
+    justify-content: center !important;
+  }
+  .audio-status-label {
+    display: none !important;
+  }
+
+  /* NÚT CUỘN PILLS: Ẩn trên mobile để người dùng vuốt cảm ứng trực tiếp */
+  .btn-pill-scroll {
+    display: none !important;
+  }
+
+  /* THANH ĐIỀU HƯỚNG DƯỚI CÙNG */
+  .hud-bottom-bar {
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 8px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+    gap: 6px;
+    min-height: 48px;
+  }
+
+  .hud-search-cluster {
+    width: 34px;
+    height: 34px;
+  }
+
+  .hud-search-cluster:focus-within,
+  .hud-search-cluster.is-active {
+    width: 155px;
+  }
+
+  .hud-search-input {
+    height: 34px;
+    font-size: 0.72rem;
+  }
+
+  .hud-pills-scroll-wrapper {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .hud-orbit-pills-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 2px 4px;
+    gap: 5px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .orbit-pill {
+    height: 34px;
+    padding: 0 10px;
+    font-size: 0.70rem;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  /* DRAWER CHI TIẾT TRÊN MOBILE — NATIVE BOTTOM SHEET */
+  .panel-sheet-handle {
+    display: block;
+    width: 38px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(142, 156, 255, 0.45);
+    margin: 0 auto 10px;
+  }
+
+  .panel-close-cross {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding: 0;
+  }
+
+  .spatial-detail-panel {
+    top: auto;
+    bottom: 68px;
+    right: 8px;
+    left: 8px;
+    width: calc(100vw - 16px);
+    max-height: 64vh;
+    padding: 12px 14px 18px;
+    border-radius: 14px 14px 6px 6px;
+    transform: translateY(20px);
+    box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.85);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .spatial-detail-panel.panel-open,
+  .spatial-detail-panel.panel-active {
+    transform: translateY(0);
+  }
+
+  /* CỤM ĐIỀU KHIỂN DÒNG THỜI GIAN & THU PHÓNG TRÊN MOBILE: KHÔNG CHỒNG LÊN NHAU */
+  .hud-time-controller {
+    bottom: 64px;
+    left: 8px;
+    padding: 3px 6px;
+    gap: 4px;
+    z-index: 20;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .time-title {
+    display: none;
+  }
+
+  .btn-time-play {
+    width: 28px;
+    height: 28px;
+    font-size: 0.72rem;
+  }
+
+  .btn-time-speed {
+    padding: 2px 5px;
+    font-size: 0.65rem;
+  }
+
+  .hud-zoom-controls {
+    right: 8px;
+    top: auto;
+    bottom: 64px;
+    flex-direction: row;
+    gap: 4px;
+    z-index: 20;
+    transform: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .btn-hud-zoom {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    font-size: 0.95rem;
+    border-radius: 6px;
+  }
+
+  /* KHI DRAWER CHI TIẾT MỞ: Ẩn Time Controller và Zoom Controls để tránh đè lên Bottom Sheet */
+  body.detail-panel-open .hud-time-controller,
+  body.detail-panel-open .hud-zoom-controls {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(15px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hud-perspective-switch {
+    display: none;
+  }
+  .hud-github-link {
+    display: none;
+  }
+  .panel-telemetry-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 8px;
+  }
+}
+
+/* =========================================================
+   TIỆN ÍCH TRỢ NĂNG & NHÃN THÀNH VIÊN AR 3D
+   ========================================================= */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ar-label-member {
+  font-size: 0.58rem;
+  font-family: var(--font-body);
+  color: var(--accent-gold);
+  background: rgba(240, 200, 121, 0.15);
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-left: 2px;
+}
+
+/* =========================================================
+   14. MÀN HÌNH CHỜ VIỄN TRẮC KHÔNG GIAN (SCI-FI ASSET PRELOADER)
+   ========================================================= */
+.sci-fi-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: radial-gradient(circle at center, #0B1124 0%, #04060E 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.75s ease;
+}
+
+.sci-fi-preloader.preloader-fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  max-width: 440px;
+  width: 90%;
+  text-align: center;
+}
+
+.preloader-radar {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radar-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(142, 156, 255, 0.35);
+}
+
+.radar-circle-outer {
+  inset: 0;
+  animation: radarSpin 14s linear infinite;
+  border-color: rgba(240, 200, 121, 0.45);
+}
+
+.radar-circle-mid {
+  inset: 15px;
+  border-style: solid;
+  border-color: rgba(142, 156, 255, 0.25);
+  animation: radarSpinRev 9s linear infinite;
+}
+
+.radar-circle-inner {
+  inset: 30px;
+  border: 1px dotted rgba(56, 189, 248, 0.5);
+}
+
+.radar-core-symbol {
+  font-size: 1.6rem;
+  color: var(--accent-gold);
+  text-shadow: 0 0 16px var(--accent-gold-glow);
+  animation: corePulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes radarSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes radarSpinRev {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes corePulse {
+  0% { transform: scale(0.92); opacity: 0.8; }
+  100% { transform: scale(1.12); opacity: 1.0; }
+}
+
+.preloader-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.preloader-header-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-cosmic);
+}
+
+.preloader-percent-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.preloader-percent-num {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(142, 156, 255, 0.4);
+}
+
+.preloader-status-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold);
+  background: rgba(240, 200, 121, 0.12);
+  border: 1px solid rgba(240, 200, 121, 0.35);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.preloader-progress-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(142, 156, 255, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+.preloader-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #38BDF8, #8E9CFF, #F0C879);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
+  transition: width 0.25s ease-out;
+}
+
+.preloader-asset-name {
+  font-size: 0.70rem;
+  color: var(--ink-secondary);
+  letter-spacing: 0.05em;
+  min-height: 1.2em;
+}
+
+/* =========================================================
+   15. BẢNG ĐIỀU KHIỂN DÒNG THỜI GIAN (TIME SCRUBBING HUD)
+   ========================================================= */
+.hud-time-controller {
+  position: fixed;
+  left: 24px;
+  bottom: 74px;
+  z-index: 24;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: var(--bg-hud-surface);
+  border: 1px solid var(--border-chart);
+  border-radius: 8px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
+  transition: all 0.25s ease;
+}
+
+.btn-time-play {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(142, 156, 255, 0.15);
+  border: 1px solid var(--accent-cosmic);
+  border-radius: 6px;
+  color: #FFFFFF;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-time-play:hover {
+  background: rgba(240, 200, 121, 0.2);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold-glow);
+}
+
+.btn-time-play.is-paused {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: #F59E0B;
+  color: #FDE68A;
+}
+
+.time-speeds-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.time-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  margin-right: 2px;
+}
+
+.btn-time-speed {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--ink-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  font-weight: 600;
+  padding: 4px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-time-speed:hover {
+  color: #FFFFFF;
+  background: rgba(142, 156, 255, 0.1);
+  border-color: rgba(142, 156, 255, 0.3);
+}
+
+.btn-time-speed.active {
+  background: rgba(142, 156, 255, 0.22);
+  border-color: var(--accent-cosmic);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 0 8px var(--accent-cosmic-glow);
+}
+
+/* =========================================================
+   16. CHẾ ĐỘ QUAN SÁT TOÀN CẢNH / CHỤP ẢNH (CLEAN PHOTO MODE)
+   ========================================================= */
+.photo-mode-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  background: rgba(8, 12, 24, 0.94);
+  border: 1px solid var(--accent-gold);
+  border-radius: 30px;
+  padding: 6px 10px 6px 18px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent-gold);
+  box-shadow: 0 4px 25px rgba(240, 200, 121, 0.4), 0 0 15px rgba(0, 0, 0, 0.8);
+  pointer-events: auto !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+  animation: toastFloat 3s ease-in-out infinite alternate;
+}
+
+.photo-mode-toast:hover {
+  background: rgba(16, 23, 42, 0.98);
+  box-shadow: 0 6px 30px rgba(240, 200, 121, 0.6);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.photo-toast-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.photo-toast-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  white-space: nowrap;
+}
+
+.btn-exit-photo {
+  background: var(--accent-gold);
+  color: #080B16;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 34px;
+  box-shadow: 0 2px 10px rgba(240, 200, 121, 0.4);
+  transition: all 0.2s ease;
+  pointer-events: auto !important;
+}
+
+.btn-exit-photo:hover, .btn-exit-photo:active {
+  background: #FFFFFF;
+  color: #080B16;
+  transform: scale(1.04);
+}
+
+@keyframes toastFloat {
+  0% { transform: translate(-50%, 0); }
+  100% { transform: translate(-50%, -4px); }
+}
+
+body.hud-photo-mode .spatial-hud-overlay > *:not(#photoModeToast),
+body.hud-photo-mode .spatial-labels-layer,
+body.hud-photo-mode .radar-scanline-layer {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.35s ease !important;
+}
+
+body.hud-photo-mode #photoModeToast {
+  display: flex !important;
 }
