@@ -10,11 +10,11 @@
 Dự án đã được triển khai tự động trực tiếp trên GitHub Pages, mời thầy cô và các bạn trải nghiệm qua 2 liên kết chính:
 
 - 🌌 **1. Cổng Thông Tin Nhóm 3D (Cosmic 3D Solar System):**  
-  👉 **[https://nguyenxuanhieu2903.github.io/portfolio-group/](https://nguyenxuanhieu2903.github.io/portfolio-group/)**  
+  👉 ** **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)**  
   *(Mô phỏng vũ trụ 3D Three.js WebGL, vật liệu PBR 2K, Unreal Bloom, âm thanh không gian và tối ưu điều khiển trên di động).*
 
 - 🌍 **2. Portfolio Cá Nhân — Lê Nguyễn Nhật Trường:**  
-  👉 **[https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/)**  
+  👉 ** **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html]
   *(Không gian cá nhân phong cách UTH Metro Bespoke, 3 dự án tiêu biểu, đo lường chỉ số động và CV chi tiết).*
 
 *(Link dự phòng tại repository cá nhân: [Cosmic 3D](https://lenguyennhattruongg.github.io/Portfolio/) | [Portfolio Nhật Trường](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html))*
