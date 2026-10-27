@@ -12,6 +12,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { MEMBERS, normalizeText } from './members.data.js';
+import truongAvatarUrl from './members/le-nguyen-nhat-truong/images/avatar.png';
 
 // ============================================================================
 // 1. DATA CONTRACT: 10 THIÊN THỂ HỆ MẶT TRỜI & 6 THÀNH VIÊN NHÓM 06
@@ -24,6 +25,7 @@ const MEMBERS_DATA = MEMBERS.map((m, idx) => ({
   seq: `THÀNH VIÊN // 0${idx + 1}`,
   portfolio: m.portfolio,
   github: m.github || 'https://github.com/lenguyennhattruongg/Portfolio',
+  avatar: m.avatar || (m.slug === 'le-nguyen-nhat-truong' ? truongAvatarUrl : null),
   tags: Array.isArray(m.tags) ? m.tags : []
 }));
 
@@ -383,12 +385,12 @@ class SpaceAudioSystem {
     this.ctx = null;
     this.masterGain = null;
     this.stereoPanner = null;
-    this.subBassOsc = null;
-    this.subBassFilter = null;
-    this.subBassGain = null;
-    this.etherealOsc1 = null;
-    this.etherealOsc2 = null;
-    this.etherealGain = null;
+    this.droneOsc = null;
+    this.droneFilter = null;
+    this.droneGain = null;
+    this.shimmerOsc1 = null;
+    this.shimmerOsc2 = null;
+    this.shimmerGain = null;
     this.hasStarted = false;
     const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('solar_audio_enabled') : null;
     this.isMuted = saved === 'true' ? false : true;
@@ -401,7 +403,7 @@ class SpaceAudioSystem {
       if (AudioCtx) {
         this.ctx = new AudioCtx();
         this.masterGain = this.ctx.createGain();
-        this.masterGain.gain.setValueAtTime(this.isMuted ? 0.0001 : 0.08, this.ctx.currentTime);
+        this.masterGain.gain.setValueAtTime(this.isMuted ? 0.0001 : 0.45, this.ctx.currentTime);
 
         if (this.ctx.createStereoPanner) {
           this.stereoPanner = this.ctx.createStereoPanner();
@@ -426,42 +428,42 @@ class SpaceAudioSystem {
     try {
       const now = this.ctx.currentTime;
 
-      // 1. Tần số trầm Sub-Bass (48Hz) qua bộ lọc Lowpass
-      this.subBassOsc = this.ctx.createOscillator();
-      this.subBassOsc.type = 'sine';
-      this.subBassOsc.frequency.setValueAtTime(48, now);
+      // 1. Tần số vũ trụ ấm áp (C3 - 130.81Hz + bộ lọc Lowpass 450Hz)
+      this.droneOsc = this.ctx.createOscillator();
+      this.droneOsc.type = 'triangle';
+      this.droneOsc.frequency.setValueAtTime(130.81, now);
 
-      this.subBassFilter = this.ctx.createBiquadFilter();
-      this.subBassFilter.type = 'lowpass';
-      this.subBassFilter.frequency.setValueAtTime(110, now);
-      this.subBassFilter.Q.setValueAtTime(2.2, now);
+      this.droneFilter = this.ctx.createBiquadFilter();
+      this.droneFilter.type = 'lowpass';
+      this.droneFilter.frequency.setValueAtTime(450, now);
+      this.droneFilter.Q.setValueAtTime(2.0, now);
 
-      this.subBassGain = this.ctx.createGain();
-      this.subBassGain.gain.setValueAtTime(0.05, now);
+      this.droneGain = this.ctx.createGain();
+      this.droneGain.gain.setValueAtTime(0.20, now);
 
-      this.subBassOsc.connect(this.subBassFilter);
-      this.subBassFilter.connect(this.subBassGain);
-      this.subBassGain.connect(this.masterGain);
+      this.droneOsc.connect(this.droneFilter);
+      this.droneFilter.connect(this.droneGain);
+      this.droneGain.connect(this.masterGain);
 
-      // 2. Hợp âm dải ngân hà huyền ảo (110Hz + 164.81Hz)
-      this.etherealOsc1 = this.ctx.createOscillator();
-      this.etherealOsc1.type = 'sine';
-      this.etherealOsc1.frequency.setValueAtTime(110, now);
+      // 2. Hợp âm dải ngân hà huyền ảo ngân vang (G3 - 196.00Hz + E4 - 329.63Hz)
+      this.shimmerOsc1 = this.ctx.createOscillator();
+      this.shimmerOsc1.type = 'sine';
+      this.shimmerOsc1.frequency.setValueAtTime(196.00, now);
 
-      this.etherealOsc2 = this.ctx.createOscillator();
-      this.etherealOsc2.type = 'triangle';
-      this.etherealOsc2.frequency.setValueAtTime(164.81, now);
+      this.shimmerOsc2 = this.ctx.createOscillator();
+      this.shimmerOsc2.type = 'sine';
+      this.shimmerOsc2.frequency.setValueAtTime(329.63, now);
 
-      this.etherealGain = this.ctx.createGain();
-      this.etherealGain.gain.setValueAtTime(0.025, now);
+      this.shimmerGain = this.ctx.createGain();
+      this.shimmerGain.gain.setValueAtTime(0.14, now);
 
-      this.etherealOsc1.connect(this.etherealGain);
-      this.etherealOsc2.connect(this.etherealGain);
-      this.etherealGain.connect(this.masterGain);
+      this.shimmerOsc1.connect(this.shimmerGain);
+      this.shimmerOsc2.connect(this.shimmerGain);
+      this.shimmerGain.connect(this.masterGain);
 
-      this.subBassOsc.start(now);
-      this.etherealOsc1.start(now);
-      this.etherealOsc2.start(now);
+      this.droneOsc.start(now);
+      this.shimmerOsc1.start(now);
+      this.shimmerOsc2.start(now);
     } catch (_) {}
   }
 
@@ -469,8 +471,8 @@ class SpaceAudioSystem {
     if (this.isMuted || !this.ctx || !this.hasStarted) return;
     const now = this.ctx.currentTime;
 
-    // A. Biến thiên tần số trầm khi camera áp sát Mặt Trời hoặc Sao Mộc
-    if (this.subBassFilter && this.subBassGain && camera) {
+    // A. Biến thiên độ mở tần số khi camera áp sát Mặt Trời hoặc Sao Mộc
+    if (this.droneFilter && this.droneGain && camera) {
       let minDistance = 2000;
       if (sunMesh) {
         minDistance = Math.min(minDistance, camera.position.distanceTo(sunMesh.position));
@@ -481,11 +483,11 @@ class SpaceAudioSystem {
       }
 
       const t = Math.max(0, Math.min(1, (900 - minDistance) / 750));
-      const targetFreq = 80 + t * 180;
-      const targetGain = 0.025 + t * 0.075;
+      const targetFreq = 350 + t * 450;
+      const targetGain = 0.16 + t * 0.12;
 
-      this.subBassFilter.frequency.setTargetAtTime(targetFreq, now, 0.15);
-      this.subBassGain.gain.setTargetAtTime(targetGain, now, 0.15);
+      this.droneFilter.frequency.setTargetAtTime(targetFreq, now, 0.15);
+      this.droneGain.gain.setTargetAtTime(targetGain, now, 0.15);
     }
 
     // B. Đảo kênh trái/phải không gian theo vị trí màn hình của thiên thể
@@ -500,13 +502,15 @@ class SpaceAudioSystem {
 
       if (targetPos) {
         const proj = this.tempVec.copy(targetPos).project(camera);
-        const panVal = Math.max(-0.85, Math.min(0.85, proj.x));
-        this.stereoPanner.pan.setTargetAtTime(panVal, now, 0.1);
+        if (Number.isFinite(proj.x)) {
+          const panVal = Math.max(-0.85, Math.min(0.85, proj.x));
+          this.stereoPanner.pan.setTargetAtTime(panVal, now, 0.1);
+        }
       }
     }
   }
 
-  playCelestialChime(freq = 440) {
+  playCelestialChime(freq = 523) {
     if (this.isMuted) return;
     this.ensureContext();
     if (!this.ctx) return;
@@ -520,7 +524,7 @@ class SpaceAudioSystem {
       osc.frequency.setValueAtTime(freq, now);
       osc.frequency.exponentialRampToValueAtTime(freq * 1.5, now + 0.35);
 
-      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.setValueAtTime(0.24, now);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
 
       osc.connect(gain);
@@ -528,6 +532,33 @@ class SpaceAudioSystem {
 
       osc.start(now);
       osc.stop(now + 0.85);
+    } catch (_) {}
+  }
+
+  playWelcomeChime() {
+    if (this.isMuted || !this.ctx) return;
+    try {
+      const notes = [523.25, 659.25, 783.99]; // Hợp âm Đô trưởng vũ trụ (C5 -> E5 -> G5)
+      const now = this.ctx.currentTime;
+      notes.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const startTime = now + idx * 0.12;
+        const duration = 0.55;
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, startTime);
+
+        gain.gain.setValueAtTime(0.0001, startTime);
+        gain.gain.linearRampToValueAtTime(0.22, startTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain || this.ctx.destination);
+
+        osc.start(startTime);
+        osc.stop(startTime + duration);
+      });
     } catch (_) {}
   }
 
@@ -542,21 +573,25 @@ class SpaceAudioSystem {
       const gain = this.ctx.createGain();
 
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(80, now);
-      osc.frequency.exponentialRampToValueAtTime(480, now + 0.6);
+      osc.frequency.setValueAtTime(120, now);
+      osc.frequency.exponentialRampToValueAtTime(640, now + 0.55);
 
-      gain.gain.setValueAtTime(0.09, now);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.65);
 
       osc.connect(gain);
       gain.connect(this.masterGain || this.ctx.destination);
 
       osc.start(now);
-      osc.stop(now + 0.7);
+      osc.stop(now + 0.65);
     } catch (_) {}
   }
 
   toggleMute() {
+    this.ensureContext();
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
     this.isMuted = !this.isMuted;
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('solar_audio_enabled', String(!this.isMuted));
@@ -564,8 +599,9 @@ class SpaceAudioSystem {
     if (!this.isMuted) {
       this.startAmbience();
       if (this.masterGain && this.ctx) {
-        this.masterGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+        this.masterGain.gain.setValueAtTime(0.45, this.ctx.currentTime);
       }
+      this.playWelcomeChime();
     } else {
       if (this.masterGain && this.ctx) {
         this.masterGain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
@@ -2642,12 +2678,32 @@ class MilkyWaySolarSystemEngine {
     const monogramEl = document.getElementById('panelMonogram');
 
     if (avatarImg && mem) {
-      avatarImg.src = `./members/${mem.id}/images/avatar.png`;
+      // Xác định nguồn ảnh đại diện an toàn đa tầng (Vite bundle asset -> Public avatars -> Relative member path -> SVG fallback -> Monogram)
+      const primaryAvatar = (mem.id === 'le-nguyen-nhat-truong')
+        ? (truongAvatarUrl || mem.avatar || './avatars/le-nguyen-nhat-truong.png')
+        : (mem.avatar || `./avatars/${mem.id}.png`);
+
+      avatarImg.src = primaryAvatar;
       avatarImg.alt = mem.name;
       avatarImg.hidden = false;
       if (monogramEl) monogramEl.hidden = true;
 
+      const fallbackList = [
+        `./avatars/${mem.id}.png`,
+        `./members/${mem.id}/images/avatar.png`,
+        `./members/${mem.id}/images/avatar.svg`,
+        `./avatars/${mem.id}.svg`
+      ];
+      let fallbackIndex = 0;
+
       avatarImg.onerror = () => {
+        while (fallbackIndex < fallbackList.length) {
+          const nextSrc = fallbackList[fallbackIndex++];
+          if (nextSrc !== avatarImg.src) {
+            avatarImg.src = nextSrc;
+            return;
+          }
+        }
         avatarImg.hidden = true;
         if (monogramEl) {
           monogramEl.hidden = false;

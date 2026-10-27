@@ -32,7 +32,7 @@ export const MEMBERS = [
     headline: null,
     tags: [],
     github: null,
-    avatar: null,
+    avatar: './avatars/le-nguyen-nhat-truong.png',
     portfolio: './members/le-nguyen-nhat-truong/index.html',
     portfolioStatus: 'live'
   },
