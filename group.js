@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * Nhóm 06 — Hệ Mặt Trời 3D (Milky Way & Solar System Engine)
+ * Nhóm 02 — Hệ Mặt Trời 3D (Milky Way & Solar System Engine)
  * Trường Đại học Giao thông Vận tải TP.HCM (UTH)
  * ============================================================================
  */
@@ -16,7 +16,7 @@ import truongAvatarUrl from './members/le-nguyen-nhat-truong/images/avatar.png';
 import hieuAvatarUrl from './members/nguyen-xuan-hieu/images/avatar.jpg';
 
 // ============================================================================
-// 1. DATA CONTRACT: 10 THIÊN THỂ HỆ MẶT TRỜI & 6 THÀNH VIÊN NHÓM 06
+// 1. DATA CONTRACT: 10 THIÊN THỂ HỆ MẶT TRỜI & 6 THÀNH VIÊN NHÓM 02
 // ============================================================================
 const MEMBERS_DATA = MEMBERS.map((m, idx) => ({
   id: m.slug,

@@ -1,4 +1,4 @@
-# 🪐 Portfolio Nhóm 06 — Hệ Mặt Trời 3D (Cosmic 3D Portfolio)
+# 🪐 Portfolio Nhóm 02 — Hệ Mặt Trời 3D (Cosmic 3D Portfolio)
 
 <div align="center">
 
@@ -13,14 +13,14 @@
 ![UTH](https://img.shields.io/badge/UTH-Khoa%20CNTT-008080?style=for-the-badge)
 
 <p align="center">
-  <b>Đồ án môn học Lập trình Web — Trường Đại học Giao thông Vận tải TP.HCM (UTH)</b><br>
+  <b>Đồ án môn học Lập trình Web — Nhóm 02 — Trường Đại học Giao thông Vận tải TP.HCM (UTH)</b><br>
   <i>Một không gian mô phỏng vũ trụ 3D viễn tưởng thời gian thực, kết nối 6 thiên thể đại diện cho 6 thành viên sinh viên UTH thông qua kiến trúc Multi-Page Application tân tiến.</i>
 </p>
 
 [🌐 Trực Tiếp Trải Nghiệm (Live Demo)](#-trực-tiếp-trải-nghiệm-live-demo) •
 [✨ Tính Năng Nổi Bật](#-tính-năng-nổi-bật-key-features) •
 [📁 Cấu Trúc Dự Án](#-cấu-trúc-thư-mục-dự-án) •
-[👥 Danh Sách Thành Viên](#-bảng-trạng-thái-thành-viên-team-roster--status-table) •
+[👥 Danh Sách Thành Viên](#-bảng-trạng-thái-thành-viên--nhóm-02-team-roster--status-table) •
 [🚀 Cài Đặt Local](#-hướng-dẫn-cài-đặt--khởi-chạy-local) •
 [🤝 Quy Trình Gộp Code](#-quy-trình-đóng-góp--gộp-nhánh-contribution-guidelines)
 
@@ -51,7 +51,7 @@ Dự án được xây dựng và triển khai tự động qua **GitHub Actions
 
 ## 📖 Giới Thiệu Đồ Án
 
-Thay vì đi theo khuôn mẫu danh sách thẻ thành viên 2D truyền thống, đồ án **Portfolio Nhóm 06 — UTH** được kiến tạo như một **Trạm điều khiển không gian (Spatial Cockpit)**:
+Thay vì đi theo khuôn mẫu danh sách thẻ thành viên 2D truyền thống, đồ án **Portfolio Nhóm 02 — UTH** được kiến tạo như một **Trạm điều khiển không gian (Spatial Cockpit)**:
 
 1. **Ý tưởng trung tâm:** Toàn bộ nhóm được quy tụ thành một **Hệ Mặt Trời 3D**. Mặt Trời tượng trưng cho năng lượng tri thức chung, trong khi **6 hành tinh** tương ứng với 6 thành viên trong nhóm.
 2. **Triết lý kiến trúc:** Kết hợp giữa vẻ đẹp công nghệ viễn tưởng (Sci-Fi HUD, WebGL Three.js) và nền tảng kỹ thuật vững chắc: **Vite Multi-Page Application (MPA)**. Mỗi thành viên được thỏa sức tự do sáng tạo không gian riêng biệt trong thư mục cá nhân mà không làm phá vỡ sự ổn định của hệ thống lõi.
@@ -107,7 +107,7 @@ portfolio-group/
 │   └── planets/                    # Bộ texture độ phân giải cao 2K (Sun, Earth, Mars...)
 ├── group.css                       # Hệ thống định kiểu HUD viễn tưởng, Drawer và Responsive
 ├── group.js                        # Engine 3D Three.js, xử lý quỹ đạo, Shader Bloom & Web Audio
-├── index.html                      # Trang chủ Cổng thông tin vũ trụ 3D Hệ Mặt Trời
+├── index.html                      # Trang chủ Cổng thông tin vũ trụ 3D Hệ Mặt Trời (Nhóm 02)
 ├── members.data.js                 # Single Source of Truth (SSOT): Dữ liệu thành viên & hành tinh
 ├── package.json                    # Khai báo dependencies (Three.js, Vite) và scripts chạy
 ├── package-lock.json               # Khóa phiên bản gói thư viện chuẩn hóa CI/CD
@@ -117,7 +117,7 @@ portfolio-group/
 
 ---
 
-## 👥 Bảng Trạng Thái Thành Viên (Team Roster & Status Table)
+## 👥 Bảng Trạng Thái Thành Viên — Nhóm 02 (Team Roster & Status Table)
 
 | STT | Họ và Tên | Thiên Thể Đại Diện | Vai Trò / Định Hướng Kỹ Thuật | Thư Mục Mã Nguồn | Trạng Thái Gộp Nhánh |
 | :---: | :--- | :---: | :--- | :--- | :---: |
@@ -228,7 +228,7 @@ Nhằm đảm bảo quá trình tích hợp mã nguồn của 3 thành viên cò
 
 <div align="center">
 
-**ĐỒ ÁN MÔN HỌC LẬP TRÌNH WEB — HỌC KỲ II**  
+**ĐỒ ÁN MÔN HỌC LẬP TRÌNH WEB — NHÓM 02 — HỌC KỲ II**  
 **Trường Đại học Giao thông Vận tải TP.HCM (UTH)**  
 *Dành tặng thầy cô và các bạn yêu thích công nghệ lập trình Web & đồ họa không gian 3D.* ✨
 

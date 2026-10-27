@@ -1,5 +1,5 @@
 /**
- * members.data.js — Nguồn dữ liệu duy nhất và chính xác cho 6 thành viên Nhóm 06
+ * members.data.js — Nguồn dữ liệu duy nhất và chính xác cho 6 thành viên Nhóm 02
  * Quy tắc: Các trường chưa xác minh để null hoặc mảng rỗng [], tuyệt đối KHÔNG điền phỏng đoán.
  */
 
