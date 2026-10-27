@@ -1104,41 +1104,68 @@ html, body {
 
 @media (max-width: 768px) {
   .spatial-hud-overlay {
-    padding: 12px;
+    padding: 8px 10px;
   }
   .hud-top-bar {
-    padding: 8px 12px;
-    gap: 10px;
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  .hud-brand {
+    gap: 6px;
   }
   .hud-brand-symbol {
-    width: 30px;
-    height: 30px;
-    font-size: 0.95rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.88rem;
   }
   .hud-brand-title {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
   }
   .hud-brand-sub {
-    font-size: 0.62rem;
+    display: none;
   }
   .btn-perspective {
     padding: 4px 8px;
     font-size: 0.68rem;
   }
-  .hud-action-btn {
-    padding: 5px 9px;
-    font-size: 0.68rem;
+  .hud-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
-  .hud-audio-btn {
-    display: none; /* Rút gọn trên mobile để không tràn thanh top */
+  .hud-action-btn {
+    padding: 5px 8px;
+    font-size: 0.68rem;
+    min-height: 32px;
+  }
+  .hud-action-btn .key-shortcut {
+    display: none;
   }
 
-  /* Giữ nguyên 1 hàng duy nhất trên mobile, không ngắt thành 2 tầng */
+  /* NÚT ÂM THANH TRÊN MOBILE: Hiển thị dạng icon sống động, không ẩn */
+  .hud-audio-btn {
+    display: inline-flex !important;
+    padding: 5px 8px !important;
+    min-width: 34px !important;
+    height: 32px !important;
+    justify-content: center !important;
+  }
+  .audio-status-label {
+    display: none !important;
+  }
+
+  /* NÚT CUỘN PILLS: Ẩn trên mobile để người dùng vuốt cảm ứng trực tiếp */
+  .btn-pill-scroll {
+    display: none !important;
+  }
+
+  /* THANH ĐIỀU HƯỚNG DƯỚI CÙNG */
   .hud-bottom-bar {
     flex-direction: row;
     align-items: center;
-    padding: 6px 10px;
-    gap: 8px;
+    padding: 6px 8px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+    gap: 6px;
     min-height: 48px;
   }
 
@@ -1147,77 +1174,144 @@ html, body {
     height: 34px;
   }
 
-  /* Khi người dùng chạm tìm kiếm trên mobile, trượt rộng vừa phải */
   .hud-search-cluster:focus-within,
   .hud-search-cluster.is-active {
-    width: 170px;
+    width: 155px;
   }
 
   .hud-search-input {
     height: 34px;
     font-size: 0.72rem;
   }
+
   .hud-pills-scroll-wrapper {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
   }
+
   .hud-orbit-pills-row {
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding: 2px 8px;
-    gap: 6px;
+    padding: 2px 4px;
+    gap: 5px;
     scroll-snap-type: x mandatory;
-  }
-  .orbit-pill {
-    height: 32px;
-    padding: 0 10px;
-    font-size: 0.7rem;
-    scroll-snap-align: start;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Drawer chi tiết đóng vai trò Bottom Sheet trên mobile */
+  .orbit-pill {
+    height: 34px;
+    padding: 0 10px;
+    font-size: 0.70rem;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  /* DRAWER CHI TIẾT TRÊN MOBILE — NATIVE BOTTOM SHEET */
+  .panel-sheet-handle {
+    display: block;
+    width: 38px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(142, 156, 255, 0.45);
+    margin: 0 auto 10px;
+  }
+
+  .panel-close-cross {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding: 0;
+  }
+
   .spatial-detail-panel {
     top: auto;
-    bottom: 86px;
-    right: 12px;
-    left: 12px;
-    width: calc(100vw - 24px);
-    max-height: 60vh;
-    padding: 16px;
+    bottom: 68px;
+    right: 8px;
+    left: 8px;
+    width: calc(100vw - 16px);
+    max-height: 64vh;
+    padding: 12px 14px 18px;
+    border-radius: 14px 14px 6px 6px;
     transform: translateY(20px);
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.85);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
+
   .spatial-detail-panel.panel-open,
   .spatial-detail-panel.panel-active {
     transform: translateY(0);
   }
 
-  /* Cụm Zoom dịch sang phải trên drawer */
-  .hud-zoom-controls {
-    right: 12px;
-    top: auto;
-    bottom: 155px;
-    transform: none;
-    gap: 6px;
+  /* CỤM ĐIỀU KHIỂN DÒNG THỜI GIAN & THU PHÓNG TRÊN MOBILE: KHÔNG CHỒNG LÊN NHAU */
+  .hud-time-controller {
+    bottom: 64px;
+    left: 8px;
+    padding: 3px 6px;
+    gap: 4px;
+    z-index: 20;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
+
+  .time-title {
+    display: none;
+  }
+
+  .btn-time-play {
+    width: 28px;
+    height: 28px;
+    font-size: 0.72rem;
+  }
+
+  .btn-time-speed {
+    padding: 2px 5px;
+    font-size: 0.65rem;
+  }
+
+  .hud-zoom-controls {
+    right: 8px;
+    top: auto;
+    bottom: 64px;
+    flex-direction: row;
+    gap: 4px;
+    z-index: 20;
+    transform: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
   .btn-hud-zoom {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    min-height: 44px;
-    font-size: 1.15rem;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    font-size: 0.95rem;
     border-radius: 6px;
+  }
+
+  /* KHI DRAWER CHI TIẾT MỞ: Ẩn Time Controller và Zoom Controls để tránh đè lên Bottom Sheet */
+  body.detail-panel-open .hud-time-controller,
+  body.detail-panel-open .hud-zoom-controls {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(15px) !important;
   }
 }
 
 @media (max-width: 480px) {
   .hud-perspective-switch {
-    display: none; /* Chuyển sang nút gạt tối giản */
+    display: none;
   }
-  .hud-top-actions a.hud-action-btn {
+  .hud-github-link {
     display: none;
   }
   .panel-telemetry-grid {
     grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 8px;
   }
 }
 
@@ -1492,21 +1586,73 @@ html, body {
    ========================================================= */
 .photo-mode-toast {
   position: fixed;
-  top: 24px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 100;
-  background: rgba(8, 12, 24, 0.88);
+  z-index: 99999;
+  background: rgba(8, 12, 24, 0.94);
   border: 1px solid var(--accent-gold);
-  border-radius: 20px;
-  padding: 8px 18px;
+  border-radius: 30px;
+  padding: 6px 10px 6px 18px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent-gold);
+  box-shadow: 0 4px 25px rgba(240, 200, 121, 0.4), 0 0 15px rgba(0, 0, 0, 0.8);
+  pointer-events: auto !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+  animation: toastFloat 3s ease-in-out infinite alternate;
+}
+
+.photo-mode-toast:hover {
+  background: rgba(16, 23, 42, 0.98);
+  box-shadow: 0 6px 30px rgba(240, 200, 121, 0.6);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.photo-toast-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.photo-toast-text {
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
   color: var(--accent-gold);
-  box-shadow: 0 0 20px rgba(240, 200, 121, 0.35);
-  pointer-events: none;
-  animation: toastFloat 3s ease-in-out infinite alternate;
+  white-space: nowrap;
+}
+
+.btn-exit-photo {
+  background: var(--accent-gold);
+  color: #080B16;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 34px;
+  box-shadow: 0 2px 10px rgba(240, 200, 121, 0.4);
+  transition: all 0.2s ease;
+  pointer-events: auto !important;
+}
+
+.btn-exit-photo:hover, .btn-exit-photo:active {
+  background: #FFFFFF;
+  color: #080B16;
+  transform: scale(1.04);
 }
 
 @keyframes toastFloat {
@@ -1523,22 +1669,5 @@ body.hud-photo-mode .radar-scanline-layer {
 }
 
 body.hud-photo-mode #photoModeToast {
-  display: block !important;
-}
-
-/* Responsive cho Time Scrubbing */
-@media (max-width: 768px) {
-  .hud-time-controller {
-    bottom: 64px;
-    left: 14px;
-    padding: 4px 8px;
-    gap: 6px;
-  }
-  .time-title {
-    display: none;
-  }
-  .btn-time-speed {
-    padding: 3px 5px;
-    font-size: 0.65rem;
-  }
+  display: flex !important;
 }

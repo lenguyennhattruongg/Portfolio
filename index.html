@@ -97,18 +97,18 @@
           <span class="audio-bars-icon" aria-hidden="true">
             <i></i><i></i><i></i><i></i>
           </span>
-          <span id="audioStatusText">ÂM THANH: TẮT</span>
+          <span id="audioStatusText" class="audio-status-label">ÂM THANH: TẮT</span>
         </button>
 
         <!-- NÚT CHẾ ĐỘ ẢNH / TOÀN CẢNH (CLEAN PHOTO MODE) -->
         <button type="button" class="hud-action-btn font-mono" id="btnPhotoMode" title="Ẩn giao diện HUD để chiêm ngưỡng / chụp ảnh toàn cảnh [H]">
-          <span aria-hidden="true">📷</span> [H] Toàn cảnh
+          <span aria-hidden="true">📷</span> <span class="btn-text">Toàn cảnh</span> <span class="key-shortcut">[H]</span>
         </button>
 
         <button type="button" class="hud-action-btn font-mono" id="btnResetOrbit" title="Trở về góc nhìn toàn cảnh Hệ Mặt Trời">
-          Hệ Mặt Trời [Esc]
+          <span class="btn-text">Hệ Mặt Trời</span> <span class="key-shortcut">[Esc]</span>
         </button>
-        <a href="https://github.com/lenguyennhattruongg/Portfolio" class="hud-action-btn font-mono" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/lenguyennhattruongg/Portfolio" class="hud-action-btn font-mono hud-github-link" target="_blank" rel="noopener noreferrer">
           GitHub ↗
         </a>
       </div>
@@ -116,6 +116,7 @@
 
     <!-- TRẠM QUAN SÁT THIÊN THỂ CHI TIẾT (AR SPATIAL DETAIL DRAWER) -->
     <aside class="spatial-detail-panel spatial-hud-element" id="spatialDetailPanel" role="region" aria-labelledby="panelMemberName" aria-live="polite" hidden>
+      <div class="panel-sheet-handle" aria-hidden="true"></div>
       <div class="panel-inner">
         
         <div class="panel-header-row">
@@ -188,9 +189,13 @@
       </div>
     </aside>
 
-    <!-- TOAST THÔNG BÁO CHẾ ĐỘ QUAN SÁT TOÀN CẢNH -->
-    <div class="photo-mode-toast font-mono" id="photoModeToast" hidden>
-      ✦ CHẾ ĐỘ QUAN SÁT TOÀN CẢNH [H] — BẤM [H] HOẶC [ESC] ĐỂ HIỂN THỊ LẠI GIAO DIỆN
+    <!-- TOAST THÔNG BÁO CHẾ ĐỘ QUAN SÁT TOÀN CẢNH / CHỤP ẢNH -->
+    <div class="photo-mode-toast font-mono" id="photoModeToast" role="status" aria-live="polite" hidden>
+      <span class="photo-toast-icon">📷</span>
+      <span class="photo-toast-text">CHẾ ĐỘ TOÀN CẢNH</span>
+      <button type="button" class="btn-exit-photo font-mono" id="btnExitPhoto" aria-label="Thoát chế độ toàn cảnh">
+        ✕ Thoát toàn cảnh
+      </button>
     </div>
 
     <!-- BẢNG ĐIỀU KHIỂN DÒNG THỜI GIAN VÀ TỐC ĐỘ QUỸ ĐẠO (TIME SCRUBBING HUD) -->

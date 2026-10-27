@@ -822,6 +822,7 @@ const dom = {
   preloaderItemText: document.getElementById('preloaderItemText'),
   btnPhotoMode: document.getElementById('btnPhotoMode'),
   photoModeToast: document.getElementById('photoModeToast'),
+  btnExitPhoto: document.getElementById('btnExitPhoto'),
   hudTimeControl: document.getElementById('hudTimeControl'),
   btnTimeToggle: document.getElementById('btnTimeToggle'),
   timePlayIcon: document.getElementById('timePlayIcon'),
@@ -2653,6 +2654,7 @@ class MilkyWaySolarSystemEngine {
     dom.detailPanel.hidden = false;
     dom.detailPanel.classList.add('panel-active');
     dom.detailPanel.classList.add('panel-open');
+    document.body.classList.add('detail-panel-open');
 
     const mem = MEMBERS_DATA.find((m) => m.id === data.memberId);
 
@@ -2795,6 +2797,7 @@ class MilkyWaySolarSystemEngine {
       dom.detailPanel.classList.remove('panel-active');
       dom.detailPanel.classList.remove('panel-open');
     }
+    document.body.classList.remove('detail-panel-open');
 
     // Chuyển động lùi camera góc rộng toàn cảnh mềm mại (Cinematic Pull-back Arc)
     this.transStartCam.copy(this.camera.position);
@@ -3046,12 +3049,23 @@ class MilkyWaySolarSystemEngine {
     });
 
     window.addEventListener('pointerup', (e) => {
+      // 1. Nếu đang trong chế độ toàn cảnh (Photo mode), chạm nhẹ vào màn hình là thoát ngay
+      if (this.isPhotoMode) {
+        const deltaX = Math.abs(e.clientX - pointerStartX);
+        const deltaY = Math.abs(e.clientY - pointerStartY);
+        if (deltaX < 15 && deltaY < 15) {
+          this.togglePhotoMode();
+          return;
+        }
+      }
+
       if (e.target.closest('#hudOverlay') || e.target.closest('.spatial-ar-label') || e.target.closest('#hudZoomControls')) return;
 
-      // Nếu kéo di chuyển quá 6px thì đó là thao tác xoay camera, không kích hoạt focus
+      // Độ nhạy chạm cảm ứng thông minh: ngón tay cảm ứng cho phép xê dịch 16px, chuột là 6px
+      const maxDelta = (e.pointerType === 'touch') ? 16 : 6;
       const deltaX = Math.abs(e.clientX - pointerStartX);
       const deltaY = Math.abs(e.clientY - pointerStartY);
-      if (deltaX > 6 || deltaY > 6) return;
+      if (deltaX > maxDelta || deltaY > maxDelta) return;
 
       this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -3067,11 +3081,33 @@ class MilkyWaySolarSystemEngine {
         if (obj && obj.userData.data) {
           this.focusPlanet(obj.userData.data.id);
         }
+      } else {
+        // Chạm vào khoảng trống vũ trụ khi panel chi tiết đang mở -> Đóng panel trở về toàn cảnh
+        if (this.focusedPlanet) {
+          this.resetToOverview();
+        }
       }
     });
 
     if (dom.panelCloseBtn) {
       dom.panelCloseBtn.addEventListener('click', () => this.resetToOverview());
+    }
+
+    // Hỗ trợ cử chỉ vuốt xuống trên màn hình cảm ứng để đóng Drawer chi tiết
+    if (dom.detailPanel) {
+      let touchSheetStartY = 0;
+      dom.detailPanel.addEventListener('touchstart', (e) => {
+        touchSheetStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      dom.detailPanel.addEventListener('touchend', (e) => {
+        const touchSheetEndY = e.changedTouches[0].clientY;
+        const delta = touchSheetEndY - touchSheetStartY;
+        // Vuốt xuống hơn 55px từ mép trên panel -> Đóng panel trở về toàn cảnh
+        if (delta > 55 && dom.detailPanel.scrollTop <= 5) {
+          this.resetToOverview();
+        }
+      }, { passive: true });
     }
 
     if (dom.btnResetOrbit) {
@@ -3271,6 +3307,17 @@ class MilkyWaySolarSystemEngine {
     // Chế độ quan sát toàn cảnh / Chụp ảnh (Clean Photo Mode [H])
     if (dom.btnPhotoMode) {
       dom.btnPhotoMode.addEventListener('click', () => this.togglePhotoMode());
+    }
+
+    if (dom.btnExitPhoto) {
+      dom.btnExitPhoto.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.togglePhotoMode();
+      });
+    }
+
+    if (dom.photoModeToast) {
+      dom.photoModeToast.addEventListener('click', () => this.togglePhotoMode());
     }
 
     window.addEventListener('click', () => audio.startAmbience(), { once: true });
