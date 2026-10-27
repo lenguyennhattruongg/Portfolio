@@ -166,7 +166,7 @@ const SOLAR_SYSTEM_DATA = [
     incAmp: 9.5,
     color: 0xf97316,
     glowColor: 0xc2410c,
-    textureFile: './planets/mars.png',
+    textureFile: './planets/mars.jpg',
     title: 'Hành Tinh Đỏ — Tiền Đồn Thám Hiểm (Sao Hỏa)',
     headline: 'Hành tinh đất đá giàu oxit sắt với hẻm vực Valles Marineris và ngọn núi lửa Olympus Mons cao nhất Hệ Mặt Trời. Đại diện thiên văn cho Nguyễn Xuân Hiếu (Trưởng nhóm).',
     telemetry: {
@@ -1438,16 +1438,16 @@ class MilkyWaySolarSystemEngine {
           // View Space Limb Darkening (Tự phát sáng, không có nửa tối)
           vec3 viewDir = normalize(vViewPosition);
           float NdotV = clamp(dot(normalize(vNormal), viewDir), 0.0, 1.0);
-          float limb = pow(NdotV, 0.40);
+          float limb = pow(NdotV, 0.38);
 
           vec4 texColor = texture2D(uSunTex, vUv);
-          vec3 coreHot = vec3(1.0, 0.98, 0.92) * 1.5;
-          vec3 midSun = vec3(1.0, 0.68, 0.12) * 1.3;
-          vec3 limbSun = vec3(0.95, 0.38, 0.04) * 0.95;
+          vec3 coreHot = vec3(1.0, 0.96, 0.88);
+          vec3 midSun = vec3(1.0, 0.72, 0.20);
+          vec3 limbSun = vec3(0.85, 0.32, 0.05);
 
-          vec3 baseSun = mix(midSun, coreHot, gran * 0.45);
-          vec3 finalColor = mix(limbSun, baseSun, limb);
-          finalColor *= texColor.rgb * 1.5;
+          vec3 baseSun = mix(midSun, coreHot, gran * 0.35);
+          vec3 solarGrad = mix(limbSun, baseSun, limb);
+          vec3 finalColor = solarGrad * texColor.rgb * 1.35;
 
           gl_FragColor = vec4(finalColor, 1.0);
         }
@@ -1462,9 +1462,14 @@ class MilkyWaySolarSystemEngine {
     // Tải ảnh thực tế NASA từ thư mục public/planets/sun.jpg
     this.textureLoader.load('./planets/sun.jpg', (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.ClampToEdgeWrapping;
       tex.minFilter = THREE.LinearMipmapLinearFilter;
       tex.magFilter = THREE.LinearFilter;
       tex.generateMipmaps = true;
+      if (this.renderer) {
+        tex.anisotropy = Math.min(16, this.renderer.capabilities.getMaxAnisotropy());
+      }
       sunUniforms.uSunTex.value = tex;
     });
 
@@ -1572,49 +1577,37 @@ class MilkyWaySolarSystemEngine {
       const planetGeom = new THREE.SphereGeometry(data.size, 96, 96);
       const fallbackTex = createSmoothVectorTexture(data.id, data.color, data.glowColor);
 
-      // Tinh chỉnh PBR khoa học cho từng hành tinh
+      // Tinh chỉnh PBR khoa học cho từng hành tinh với kết cấu 2K Equirectangular
       let roughness = 0.45;
-      let metalness = 0.04;
-      let bumpScale = 0.0;
-      let bumpMap = null;
-      let roughnessMap = null;
+      let metalness = 0.02;
 
       if (data.id === 'mercury') {
-        roughness = 0.88;
-        metalness = 0.06;
-        bumpScale = 0.42;
-        bumpMap = createTerrainBumpMap('mercury');
-      } else if (data.id === 'venus') {
-        roughness = 0.65;
-        metalness = 0.02;
-      } else if (data.id === 'earth') {
-        roughness = 0.45;
-        metalness = 0.04;
-        roughnessMap = createEarthRoughnessMap();
-        bumpScale = 0.35;
-        bumpMap = createTerrainBumpMap('earth');
-      } else if (data.id === 'mars') {
-        roughness = 0.78;
-        metalness = 0.08;
-        bumpScale = 0.48;
-        bumpMap = createTerrainBumpMap('mars');
-      } else if (data.id === 'jupiter') {
-        roughness = 0.35;
-        metalness = 0.02;
-      } else if (data.id === 'saturn') {
-        roughness = 0.38;
-        metalness = 0.03;
-      } else if (data.id === 'uranus') {
-        roughness = 0.42;
-        metalness = 0.02;
-      } else if (data.id === 'neptune') {
-        roughness = 0.40;
-        metalness = 0.02;
-      } else if (data.id === 'pluto') {
-        roughness = 0.80;
+        roughness = 0.90;
         metalness = 0.05;
-        bumpScale = 0.38;
-        bumpMap = createTerrainBumpMap('pluto');
+      } else if (data.id === 'venus') {
+        roughness = 0.72;
+        metalness = 0.01;
+      } else if (data.id === 'earth') {
+        roughness = 0.48;
+        metalness = 0.03;
+      } else if (data.id === 'mars') {
+        roughness = 0.82;
+        metalness = 0.05;
+      } else if (data.id === 'jupiter') {
+        roughness = 0.38;
+        metalness = 0.01;
+      } else if (data.id === 'saturn') {
+        roughness = 0.40;
+        metalness = 0.01;
+      } else if (data.id === 'uranus') {
+        roughness = 0.46;
+        metalness = 0.01;
+      } else if (data.id === 'neptune') {
+        roughness = 0.44;
+        metalness = 0.01;
+      } else if (data.id === 'pluto') {
+        roughness = 0.82;
+        metalness = 0.04;
       }
 
       // Không dùng emissive màu phẳng để tạo đường phân cách sáng/tối sắc nét như không gian thực
@@ -1622,9 +1615,6 @@ class MilkyWaySolarSystemEngine {
         map: fallbackTex,
         roughness,
         metalness,
-        bumpMap,
-        bumpScale,
-        roughnessMap,
         emissive: new THREE.Color(0x000000)
       });
 
@@ -1632,42 +1622,56 @@ class MilkyWaySolarSystemEngine {
       planetMesh.userData = { isPlanet: true, data };
       tiltGroup.add(planetMesh);
 
-      // Nạp ảnh chụp NASA thực tế từ thư mục public/planets/
+      // Nạp ảnh chụp NASA 2K thực tế từ thư mục public/planets/ với Anisotropic Filtering
       if (data.textureFile) {
         this.textureLoader.load(data.textureFile, (tex) => {
           tex.colorSpace = THREE.SRGBColorSpace;
+          tex.wrapS = THREE.RepeatWrapping;
+          tex.wrapT = THREE.ClampToEdgeWrapping;
           tex.minFilter = THREE.LinearMipmapLinearFilter;
           tex.magFilter = THREE.LinearFilter;
           tex.generateMipmaps = true;
+          if (this.renderer) {
+            tex.anisotropy = Math.min(16, this.renderer.capabilities.getMaxAnisotropy());
+          }
           planetMat.map = tex;
           planetMat.needsUpdate = true;
         });
       }
 
-      // 5. Lớp đèn đêm, Mây độc lập & Hào quang Rayleigh cho Trái Đất
+      // 5. Mây khí quyển độc lập 2K & Hào quang tán xạ Rayleigh cho Trái Đất
       if (data.id === 'earth') {
-        // a. Đèn đêm thành phố mặt tối (Night-side City Lights)
-        planetMat.emissiveMap = createEarthNightTexture();
-        planetMat.emissive = new THREE.Color(0xffd166);
-        planetMat.emissiveIntensity = 0.95;
-
-        // b. Lớp mây xoáy độc lập (Earth Cloud Sphere)
-        const cloudGeom = new THREE.SphereGeometry(data.size * 1.018, 64, 64);
-        const cloudTex = createEarthCloudTexture();
+        // a. Lớp mây xoáy độc lập (Earth Cloud Sphere) dùng kết cấu 2K thực tế
+        const cloudGeom = new THREE.SphereGeometry(data.size * 1.014, 64, 64);
         const cloudMat = new THREE.MeshStandardMaterial({
-          map: cloudTex,
           transparent: true,
-          opacity: 0.88,
-          roughness: 0.95,
+          opacity: 0.90,
+          roughness: 0.92,
           metalness: 0.0,
           depthWrite: false,
           blending: THREE.NormalBlending
         });
+
+        this.textureLoader.load('./planets/earth_clouds.jpg', (cTex) => {
+          cTex.colorSpace = THREE.SRGBColorSpace;
+          cTex.wrapS = THREE.RepeatWrapping;
+          cTex.wrapT = THREE.ClampToEdgeWrapping;
+          cTex.minFilter = THREE.LinearMipmapLinearFilter;
+          cTex.magFilter = THREE.LinearFilter;
+          cTex.generateMipmaps = true;
+          if (this.renderer) {
+            cTex.anisotropy = Math.min(16, this.renderer.capabilities.getMaxAnisotropy());
+          }
+          cloudMat.map = cTex;
+          cloudMat.alphaMap = cTex;
+          cloudMat.needsUpdate = true;
+        });
+
         const cloudMesh = new THREE.Mesh(cloudGeom, cloudMat);
         tiltGroup.add(cloudMesh);
         this.earthCloudMesh = cloudMesh;
 
-        // c. Hào quang tán xạ khí quyển Rayleigh (Atmospheric Rim Glow)
+        // b. Hào quang tán xạ khí quyển Rayleigh (Atmospheric Rim Glow)
         const atmoGeom = new THREE.SphereGeometry(data.size * 1.045, 64, 64);
         const atmoMat = createAtmosphereShaderMaterial(0x38bdf8, 0.95, 2.2);
         const atmoMesh = new THREE.Mesh(atmoGeom, atmoMat);
@@ -1791,12 +1795,27 @@ class MilkyWaySolarSystemEngine {
           const moonGeom = new THREE.SphereGeometry(m.size, 32, 32);
           const moonMat = new THREE.MeshStandardMaterial({
             color: m.color,
-            roughness: m.name === 'Europa' ? 0.20 : 0.85,
+            roughness: m.name === 'Europa' ? 0.20 : 0.88,
             metalness: 0.04,
-            bumpMap: createTerrainBumpMap('moon'),
-            bumpScale: 0.28,
             emissive: new THREE.Color(0x000000)
           });
+
+          if (m.name === 'Mặt Trăng') {
+            this.textureLoader.load('./planets/moon.jpg', (mTex) => {
+              mTex.colorSpace = THREE.SRGBColorSpace;
+              mTex.wrapS = THREE.RepeatWrapping;
+              mTex.wrapT = THREE.ClampToEdgeWrapping;
+              mTex.minFilter = THREE.LinearMipmapLinearFilter;
+              mTex.magFilter = THREE.LinearFilter;
+              mTex.generateMipmaps = true;
+              if (this.renderer) {
+                mTex.anisotropy = Math.min(16, this.renderer.capabilities.getMaxAnisotropy());
+              }
+              moonMat.map = mTex;
+              moonMat.needsUpdate = true;
+            });
+          }
+
           const moonMesh = new THREE.Mesh(moonGeom, moonMat);
           moonMesh.position.set(m.dist, 0, 0);
           moonPivot.add(moonMesh);
@@ -2370,6 +2389,9 @@ class MilkyWaySolarSystemEngine {
 
       if (p.planetMesh) {
         p.planetMesh.rotation.y += dt * (p.data.rotationSpeed || 0.4);
+      }
+      if (p.data.id === 'earth' && this.earthCloudMesh) {
+        this.earthCloudMesh.rotation.y += dt * ((p.data.rotationSpeed || 0.4) * 1.15);
       }
 
       // Vệ tinh tự quay quanh hành tinh mẹ
