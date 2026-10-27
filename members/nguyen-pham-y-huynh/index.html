@@ -1,22 +1,282 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nguyễn Phạm Y Huỳnh | Portfolio</title>
-  <link rel="stylesheet" href="./style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nguyễn Phạm Y Huỳnh – Frontend Developer & UI/UX</title>
+<meta name="description" content="Portfolio cá nhân của Nguyễn Phạm Y Huỳnh – sinh viên CNTT, Frontend Developer và UI/UX Enthusiast.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;800&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Nguyễn Phạm Y Huỳnh</h1>
-    <a href="../../index.html">&larr; Về trang chủ nhóm</a>
-  </header>
-  <main>
-    <section>
-      <h2>Portfolio Foundation</h2>
-      <p>Khung sẵn sàng tích hợp.</p>
-    </section>
-  </main>
-  <script type="module" src="./script.js"></script>
+<a class="back-group" href="../../index.html">&larr; Về trang chủ nhóm</a>
+<a class="back-group" href="../../index.html">&larr; Về trang chủ nhóm</a>
+
+<!-- Animated gradient background behind the main content sections -->
+<div class="bg" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<header>
+  <div class="wrap">
+    <nav class="glass" aria-label="Điều hướng chính">
+      <a href="#home" class="logo">YHuynh<i>.dev</i></a>
+      <button class="burger" aria-label="Mở menu" aria-expanded="false">☰</button>
+      <ul class="menu">
+        <li><a href="#home" class="active">Trang chủ</a></li>
+        <li><a href="#skills">Kỹ năng</a></li>
+        <li><a href="#projects">Dự án</a></li>
+        <li><a href="#experience">Kinh nghiệm</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+      </ul>
+          <div class="tools">
+        <button class="tool" id="theme-btn" type="button"></button>
+        <div class="lang" id="lang">
+          <button class="tool lang-btn" id="lang-btn" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="flag" id="lang-flag"></span> <span class="nm" id="lang-name">Tiếng Việt</span> <span class="caret">▾</span></button>
+          <ul class="lang-list" role="listbox" hidden>
+            <li role="option" tabindex="0" data-lang="vi"><span class="flag" data-flag="vi"></span>Tiếng Việt</li>
+            <li role="option" tabindex="0" data-lang="en"><span class="flag" data-flag="en"></span>English</li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- Home hero section with a 3D whale animation and a liquid-glass SVG displacement filter -->
+<section id="home">
+  <canvas id="c"></canvas>
+  <!-- SVG displacement filter used to create the liquid-glass distortion effect -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="liquid" filterUnits="userSpaceOnUse" x="0" y="0" width="600" height="500" color-interpolation-filters="sRGB">
+        <feImage id="dispMap" x="0" y="0" width="600" height="500" preserveAspectRatio="none" result="map"/>
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="120" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="hero-container">
+    <div class="glass tilt hero-card">
+      <span class="role">Frontend Engineer · UI/UX Developer</span>
+      
+      <h1>Xin chào, tôi là <span class="wave">
+        <span>N</span><span>g</span><span>u</span><span>y</span><span>ễ</span><span>n</span> 
+        <span>P</span><span>h</span><span>ạ</span><span>m</span> 
+        <span>Y</span> 
+        <span>H</span><span>u</span><span>ỳ</span><span>n</span><span>h</span><span>.</span>
+      </span></h1>
+
+      <p>Sinh viên Công nghệ Thông tin định hướng phát triển Web Front-End. Chuyên xây dựng giao diện tối ưu trải nghiệm người dùng (UX), đảm bảo tính tương thích đa thiết bị và chuyển đổi thiết kế thành các sản phẩm web hiện đại.</p>
+      <div class="cta">
+        <a class="btn" href="#contact">Liên hệ</a>
+      </div>
+    </div>
+    <div class="glass tilt avatar">
+      <img src="images/avatar.jpg" alt="Nguyễn Phạm Y Huỳnh">
+    </div>
+  </div>
+
+  <!-- Scrolling marquee displayed below the hero section -->
+  <div class="hero-marquee-wrapper" id="hero-marquee">
+    <div class="marquee" id="marquee-single" tabindex="0" aria-label="Thông tin cá nhân"><div class="track"></div></div>
+  </div>
+</section>
+
+<div class="main-content">
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <h2>Kỹ năng & công cụ</h2>
+      <!-- Infinite-scrolling strip of technology logo items -->
+      <div class="marquee-container">
+        <div class="marquee-track">
+          <!-- First set of technology logo items -->
+          <div class="marquee-item">HTML5</div>
+          <div class="marquee-item">CSS3</div>
+          <div class="marquee-item">JavaScript</div>
+          <div class="marquee-item">C++</div>
+          <div class="marquee-item">SQL</div>
+          <div class="marquee-item">Git & GitHub</div>
+          <div class="marquee-item">Figma</div>
+          <div class="marquee-item">VS Code</div>
+          
+          <!-- Duplicate set for seamless marquee looping -->
+          <div class="marquee-item">HTML5</div>
+          <div class="marquee-item">CSS3</div>
+          <div class="marquee-item">JavaScript</div>
+          <div class="marquee-item">C++</div>
+          <div class="marquee-item">SQL</div>
+          <div class="marquee-item">Git & GitHub</div>
+          <div class="marquee-item">Figma</div>
+          <div class="marquee-item">VS Code</div>
+        </div>
+      </div>
+      <div class="tabs" data-filter="skills">
+        <button class="tab on" data-f="all">Tất cả</button>
+        <button class="tab" data-f="core">Core Tech</button>
+        <button class="tab" data-f="tools">Công cụ & môi trường</button>
+        <button class="tab" data-f="soft">Kỹ năng mềm & kiểm thử</button>
+      </div>
+      <div class="grid" id="skills-grid">
+        <article class="glass tilt card" data-cat="core"><h3>HTML5</h3><p class="lead" style="margin:0">Semantic, accessible</p><div class="bar"><i data-w="90"></i></div></article>
+        <article class="glass tilt card" data-cat="core"><h3>CSS3</h3><p class="lead" style="margin:0">Flex, Grid, animation</p><div class="bar"><i data-w="88"></i></div></article>
+        <article class="glass tilt card" data-cat="core"><h3>JavaScript (ES6+)</h3><p class="lead" style="margin:0">DOM, async, module</p><div class="bar"><i data-w="78"></i></div></article>
+        <article class="glass tilt card" data-cat="core"><h3>C++</h3><p class="lead" style="margin:0">OOP, thuật toán</p><div class="bar"><i data-w="72"></i></div></article>
+        <article class="glass tilt card" data-cat="core"><h3>SQL</h3><p class="lead" style="margin:0">Truy vấn, thiết kế CSDL</p><div class="bar"><i data-w="75"></i></div></article>
+        <article class="glass tilt card" data-cat="tools"><h3>VS Code</h3><p class="lead" style="margin:0">Snippet, debug, Live Server</p><div class="bar"><i data-w="92"></i></div></article>
+        <article class="glass tilt card" data-cat="tools"><h3>Git / GitHub</h3><p class="lead" style="margin:0">Branch, PR, issue</p><div class="bar"><i data-w="76"></i></div></article>
+        <article class="glass tilt card" data-cat="tools"><h3>MySQL Workbench</h3><p class="lead" style="margin:0">ERD, query</p><div class="bar"><i data-w="70"></i></div></article>
+        <article class="glass tilt card" data-cat="tools"><h3>Figma</h3><p class="lead" style="margin:0">Wireframe, prototype</p><div class="bar"><i data-w="80"></i></div></article>
+        <article class="glass tilt card" data-cat="soft"><h3>Kỹ năng mềm</h3><p class="lead" style="margin:0">Làm việc nhóm, thuyết trình, quản lý thời gian</p><div class="chips"><span class="chip">Teamwork</span><span class="chip">Giao tiếp</span><span class="chip">Tự học</span></div></article>
+        <article class="glass tilt card" data-cat="soft"><h3>Quy trình kiểm thử</h3><p class="lead" style="margin:0">Test case, kiểm thử thủ công, DevTools, kiểm tra responsive</p><div class="chips"><span class="chip">Test case</span><span class="chip">Bug report</span><span class="chip">Lighthouse</span></div></article>
+      </div>
+    </div>
+  </section>
+  <section id="projects">
+    <div class="wrap">
+      <h2>Dự án & sản phẩm</h2>
+      <p class="lead">Các dự án cá nhân và học thuật được phát triển trong quá trình học tập cùng nhóm trong môi trường đại học.</p>
+
+      <div class="tabs" data-filter="projects">
+    
+      </div>
+
+      <div class="grid carousel" id="projects-grid" tabindex="0" aria-label="Danh sách dự án">
+        <!-- PROJECT 1: MULTI-FILE DOWNLOADER -->
+        <article class="glass tilt card" data-cat="web">
+          <div class="thumb" style="background:linear-gradient(135deg,#85b2e9,#3b6cff)">🌐</div>
+          <h3>Multi-File Downloader</h3>
+          <span class="role-tag">Vai trò: Thiết kế Frontend & lập trình</span>
+          <p class="lead" style="margin:8px 0 0">Công cụ tải nhiều tệp, hỗ trợ xử lý các tác vụ tải xuống.</p>
+          <div class="chips">
+            <span class="chip">JavaScript</span>
+            <span class="chip">Frontend</span>
+          </div>
+          <div class="links">
+            <a class="btn sm" href="https://github.com/BobananaGH/multi-file-downloader" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </article>
+
+        <!-- PROJECT 2: PROFILE -->
+        <article class="glass tilt card" data-cat="web">
+          <div class="thumb" style="background:linear-gradient(135deg,#ffd27a,#ff7a7a)">👤</div>
+          <h3>Profile</h3>
+          <span class="role-tag">Dự án cá nhân</span>
+          <p class="lead" style="margin:8px 0 0">Trang web cá nhân giới thiệu thông tin bản thân, kinh nghiệm và dự án.</p>
+          <div class="chips">
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">JavaScript</span>
+          </div>
+          <div class="links">
+            <a class="btn sm" href="https://github.com/yhuynh06/Profile" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </article>
+
+        <!-- PROJECT 3: CNPM FLASK API -->
+        <article class="glass tilt card" data-cat="web">
+          <div class="thumb" style="background:linear-gradient(135deg,#6a5cff,#42e6d4)">⚙️</div>
+          <h3>CNPM Flask API</h3>
+          <span class="role-tag">Dự án học tập</span>
+          <p class="lead" style="margin:8px 0 0">Dự án liên quan đến phát triển API bằng Flask.</p>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">Flask</span>
+            <span class="chip">API</span>
+          </div>
+          <div class="links">
+            <a class="btn sm" href="https://github.com/PhuongHuyN/cnpm-flaskapi" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </article>
+
+        <!-- PROJECT 4: VETERINARY CENTER WEB -->
+        <article class="glass tilt card" data-cat="web">
+          <div class="thumb" style="background:linear-gradient(135deg,#6a5cff,#42e6d4)">🐾</div>
+          <h3>Veterinary Center Web</h3>
+          <span class="role-tag">Đang phát triển</span>
+          <p class="lead" style="margin:8px 0 0">Website trung tâm thú y, đang trong quá trình xây dựng và hoàn thiện.</p>
+          <div class="chips">
+            <span class="chip">Web Development</span>
+          </div>
+          <div class="links">
+            <a class="btn sm" href="https://github.com/nguyenxuanhieu2903/veterinary-center-web" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </article>
+
+      </div><!-- /grid -->
+        <div class="car-nav">
+        <button class="btn sm" id="car-prev" type="button" aria-label="Dự án trước">‹</button>
+        <span id="car-count">1 / 4</span>
+        <button class="btn sm" id="car-next" type="button" aria-label="Dự án sau">›</button>
+      </div>
+    </div><!-- /wrap -->
+  </section>
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <h2>Kinh nghiệm</h2>
+      <p class="lead">Hoạt động nhóm, nghiên cứu và đồ án đã hoàn thành.</p>
+    <div class="timeline">
+        <article class="glass tilt tl">
+          <time>2026</time>
+          <h3>Thiết kế & Quản trị CSDL Hệ thống Quản lý Thư viện</h3>
+          <p>Xây dựng sơ đồ ERD chuẩn hóa gồm 12+ bảng dữ liệu quan hệ, viết các truy vấn SQL phức tạp phục vụ thống kê mượn trả sách.</p>
+        </article>
+          <article class="glass tilt tl">
+          <time>2025</time>
+          <h3>Lập trình Hướng đối tượng (OOP)</h3>
+          <p>Áp dụng thành thạo 4 tính chất OOP (Đóng gói, Kế thừa, Đa hình, Trừu tượng), quản lý bộ nhớ và thao tác đọc/ghi file dữ liệu.</p>
+        </article>
+
+        <article class="glass tilt tl">
+          <time>2024</time>
+          <h3>CLB Lập trình – Ban Truyền thông</h3>
+          <p>Thiết kế ấn phẩm và tổ chức workshop HTML/CSS.</p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <h2>Liên hệ</h2>
+      <p class="lead">Có cơ hội thực tập hoặc muốn hợp tác? Gửi tin nhắn, tôi sẽ phản hồi trong 24 giờ.</p>
+      <div class="contact">
+        <div class="glass tilt info">
+            <a href="#home"><span>🏠</span>Quê quán: Châu Phú, An Giang</a>
+            <a href="https://maps.google.com" target="_blank" rel="noopener"><span>📍</span>TP. Hồ Chí Minh, Việt Nam</a>
+          <a href="mailto:nguyenphammyquynh@gmail.com"><span>✉️</span>nguyenphammyquynh@gmail.com</a>
+          <a href="tel:0329217992"><span>📞</span>0329 217 992</a>
+          <div class="socials">
+          <a href="https://zalo.me/0329217992" aria-label="Zalo" target="_blank" rel="noopener">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.13 2 11.23c0 2.91 1.46 5.51 3.74 7.17-.16.96-.65 2.57-1.42 3.63 1.54 0 3.19-.57 4.38-1.34.84.23 1.74.36 2.67.36 5.52 0 10-4.13 10-9.23S17.52 2 12 2zm-1.88 12.18h-2.5v-1.12l1.64-2.19h-1.64v-.96h2.5v1.07l-1.66 2.24h1.66v.96zm2.38 0h-1.07v-4.32h1.07v4.32zm2.84 0c-1.15 0-1.95-.81-1.95-2.16 0-1.35.8-2.16 1.95-2.16s1.95.81 1.95 2.16c0 1.35-.8 2.16-1.95 2.16z"/>
+            </svg>
+          </a>
+            <a href="https://github.com/" aria-label="GitHub" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg></a>
+            <a href="https://linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11.5H3V9.75Zm6.5 0h3.83v1.57h.06c.53-1 1.84-2.07 3.78-2.07 4.05 0 4.8 2.66 4.8 6.12v5.88h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75v5.29h-4V9.75Z"/></svg></a>
+          </div>
+        </div>
+        <form class="glass" id="contact-form" novalidate>
+          <label>Họ và tên<input name="name" type="text" placeholder="Nguyễn Văn A" required></label>
+          <label>Email<input name="email" type="email" placeholder="ban@email.com" required></label>
+          <label>Tin nhắn<textarea name="msg" rows="4" placeholder="Bạn muốn trao đổi điều gì?" required></textarea></label>
+          <button class="btn primary" type="submit">Gửi tin nhắn</button>
+          <p class="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Nguyễn Phạm Y Huỳnh. Thiết kế và code bằng HTML, CSS, JavaScript thuần.</footer>
+</div>
+</main>
+
+<script type="module" src="./script.js"></script>
 </body>
 </html>
