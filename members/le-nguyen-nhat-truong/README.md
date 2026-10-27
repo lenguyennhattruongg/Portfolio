@@ -8,11 +8,13 @@
 
 ---
 
-## 🌐 ĐƯỜNG DẪN TRẢI NGHIỆM TRỰC TIẾP (LIVE DEPLOY CÁ NHÂN)
+## 🌐 ĐƯỜNG DẪN TRẢI NGHIỆM TRỰC TIẾP (LIVE DEPLOY)
 
-Truy cập website Portfolio cá nhân chính thức tại GitHub Pages:
+- 🌟 **Hệ thống chính thức của Nhóm 06:**  
+  👉 **[https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/)**
 
-👉 **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)** 👈
+- 🚀 **Repository cá nhân dự phòng:**  
+  👉 **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)**
 
 *(Trang web được tối ưu hóa hiển thị 100% responsive từ thiết bị di động đến màn hình máy tính lớn, tương thích chuẩn mực với cả Chrome, Firefox, Safari và Edge).*
 
@@ -35,8 +37,8 @@ Truy cập website Portfolio cá nhân chính thức tại GitHub Pages:
 ## 🎨 Điểm Nhấn Thiết Kế & Trải Nghiệm (Concept Tuyến Metro Sài Gòn)
 
 Khác biệt hoàn toàn với các khuôn mẫu template sinh viên thông thường, portfolio được kiến tạo theo ý tưởng **Tuyến T24 Metro UTH** độc bản:
-- **Thanh ray dẫn đường dọc (Metro Rail Sidebar):** Mô phỏng sơ đồ các ga dừng (Ga Trung Tâm, Ga Kỹ Năng, Ga Dự Án, Ga Liên Hệ) tự động kích hoạt ánh sáng ray theo tiến trình cuộn trang.
-- **Bảng điện tử ga trung tâm (Terminal Display):** Đồng hồ thời gian thực kỹ thuật số, lịch vận hành tuyến T24 và thẻ trạng thái tuyến sẵn sàng.
+- **Thanh ray dẫn đường dọc (Metro Rail Sidebar):** Mô phỏng sơ đồ các ga dừng (Ga Chính, Ga Kỹ Năng, Ga Dự Án, Ga Liên Hệ) tự động kích hoạt ánh sáng ray theo tiến trình cuộn trang.
+- **Bảng điện tử ga chính (Terminal Display):** Đồng hồ thời gian thực kỹ thuật số, lịch vận hành tuyến T24 và thẻ trạng thái tuyến sẵn sàng.
 - **Thẻ vé Metro tương tác (Interactive Metro Ticket):** Cho phép xem thông số kỹ thuật, chuyên môn chi tiết qua modal giao diện vé tàu điện.
 - **Bảng mã màu & Typography:** Phông chữ kiến trúc Bricolage Grotesque (tiêu đề), IBM Plex Sans (nội dung) và JetBrains Mono (thông số kỹ thuật).
 
@@ -65,9 +67,9 @@ Khác biệt hoàn toàn với các khuôn mẫu template sinh viên thông thư
 - **Công nghệ:** C++ (OOP Architecture), Quản lý bộ nhớ động, Cấu trúc dữ liệu & Thuật toán, Xử lý tệp tin cấu hình.
 - **Đặc điểm:** Phân bổ ngăn tủ tự động theo kích thước kiện hàng, mã hóa mã PIN bảo mật giao nhận.
 
-### 3. TechGroup.UTH Hub
-- **Mô tả:** Cổng kết nối trang chủ nhóm sinh viên UTH theo kiến trúc Đa trang (Multi-Page Application — MPA).
-- **Công nghệ:** HTML5, CSS3, Vanilla JS, Vite MPA.
+### 3. Portfolio Group — Cổng Không Gian 3D Hệ Mặt Trời
+- **Mô tả:** Cổng kết nối trang chủ nhóm sinh viên UTH theo kiến trúc Đa trang (Multi-Page Application — MPA) kết hợp đồ họa 3D Three.js.
+- **Công nghệ:** HTML5, CSS3, Vanilla JS, Three.js WebGL, Vite MPA.
 
 ---
 
