@@ -17,7 +17,7 @@ export const MEMBERS = [
     headline: null,
     tags: [],
     github: null,
-    avatar: null,
+    avatar: './avatars/nguyen-xuan-hieu.jpg',
     portfolio: './members/nguyen-xuan-hieu/index.html',
     portfolioStatus: 'live'
   },

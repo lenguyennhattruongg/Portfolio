@@ -13,6 +13,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { MEMBERS, normalizeText } from './members.data.js';
 import truongAvatarUrl from './members/le-nguyen-nhat-truong/images/avatar.png';
+import hieuAvatarUrl from './members/nguyen-xuan-hieu/images/avatar.jpg';
 
 // ============================================================================
 // 1. DATA CONTRACT: 10 THIÊN THỂ HỆ MẶT TRỜI & 6 THÀNH VIÊN NHÓM 06
@@ -25,7 +26,7 @@ const MEMBERS_DATA = MEMBERS.map((m, idx) => ({
   seq: `THÀNH VIÊN // 0${idx + 1}`,
   portfolio: m.portfolio,
   github: m.github || 'https://github.com/lenguyennhattruongg/Portfolio',
-  avatar: m.avatar || (m.slug === 'le-nguyen-nhat-truong' ? truongAvatarUrl : null),
+  avatar: m.avatar || (m.slug === 'le-nguyen-nhat-truong' ? truongAvatarUrl : (m.slug === 'nguyen-xuan-hieu' ? hieuAvatarUrl : null)),
   tags: Array.isArray(m.tags) ? m.tags : []
 }));
 
@@ -2683,7 +2684,9 @@ class MilkyWaySolarSystemEngine {
       // Xác định nguồn ảnh đại diện an toàn đa tầng (Vite bundle asset -> Public avatars -> Relative member path -> SVG fallback -> Monogram)
       const primaryAvatar = (mem.id === 'le-nguyen-nhat-truong')
         ? (truongAvatarUrl || mem.avatar || './avatars/le-nguyen-nhat-truong.png')
-        : (mem.avatar || `./avatars/${mem.id}.png`);
+        : (mem.id === 'nguyen-xuan-hieu')
+          ? (hieuAvatarUrl || mem.avatar || './avatars/nguyen-xuan-hieu.jpg')
+          : (mem.avatar || `./avatars/${mem.id}.png`);
 
       avatarImg.src = primaryAvatar;
       avatarImg.alt = mem.name;
@@ -2692,7 +2695,9 @@ class MilkyWaySolarSystemEngine {
 
       const fallbackList = [
         `./avatars/${mem.id}.png`,
+        `./avatars/${mem.id}.jpg`,
         `./members/${mem.id}/images/avatar.png`,
+        `./members/${mem.id}/images/avatar.jpg`,
         `./members/${mem.id}/images/avatar.svg`,
         `./avatars/${mem.id}.svg`
       ];
