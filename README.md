@@ -5,21 +5,19 @@
 
 ---
 
-## 🌐 Trải Nghiệm Trực Tuyến (Live Deploy)
+## 🌐 Trực Tiếp Trải Nghiệm (Live Demo)
 
-Trang web đã được thiết lập quy trình tự động triển khai (CI/CD) qua GitHub Actions và vận hành trực tiếp trên GitHub Pages. Bạn có thể xem ngay tại các đường dẫn dưới đây:
+Dự án đã được triển khai tự động trực tiếp trên GitHub Pages, mời thầy cô và các bạn trải nghiệm qua 2 liên kết chính:
 
-| Mục tiêu | Liên kết truy cập trực tiếp | Ghi chú |
-| :--- | :--- | :--- |
-| 🌌 **Trang Chủ Nhóm (3D Cosmos)** | **[Xem Trang Chủ Nhóm](https://nguyenxuanhieu2903.github.io/portfolio-group/)** | Hệ mặt trời 3D WebGL Three.js, âm thanh không gian & tối ưu mobile |
-| 🌍 **Portfolio Lê Nguyễn Nhật Trường** | **[Xem Portfolio Nhật Trường](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/)** | Giao diện UTH Metro Bespoke, 3 dự án tiêu biểu & CV |
-| 🔴 **Portfolio Nguyễn Xuân Hiếu** | **[Xem Portfolio Xuân Hiếu](https://nguyenxuanhieu2903.github.io/portfolio-group/members/nguyen-xuan-hieu/)** | Thẻ sinh viên tương tác vật lý (Elastic Lanyard), sơ đồ kiến trúc & CV |
-| 🪐 **Portfolio Nguyễn Thị Thảo Như** | **[Xem Portfolio Thảo Như](https://nguyenxuanhieu2903.github.io/portfolio-group/members/nguyen-thi-thao-nhu/)** | Đại diện hành tinh Sao Kim (Venus) |
-| ☿️ **Portfolio Nguyễn Phạm Y Huỳnh** | **[Xem Portfolio Y Huỳnh](https://nguyenxuanhieu2903.github.io/portfolio-group/members/nguyen-pham-y-huynh/)** | Đại diện hành tinh Sao Thủy (Mercury) |
-| ♃ **Portfolio Lê Hữu Châu** | **[Xem Portfolio Hữu Châu](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-huu-chau/)** | Đại diện hành tinh Sao Mộc (Jupiter) |
-| ♄ **Portfolio Nguyễn Anh Thư** | **[Xem Portfolio Anh Thư](https://nguyenxuanhieu2903.github.io/portfolio-group/members/nguyen-anh-thu/)** | Đại diện hành tinh Sao Thổ (Saturn) |
+- 🌌 **1. Cổng Thông Tin Nhóm 3D (Cosmic 3D Solar System):**  
+  👉 **[https://nguyenxuanhieu2903.github.io/portfolio-group/](https://nguyenxuanhieu2903.github.io/portfolio-group/)**  
+  *(Mô phỏng vũ trụ 3D Three.js WebGL, vật liệu PBR 2K, Unreal Bloom, âm thanh không gian và tối ưu điều khiển trên di động).*
 
-*Link dự phòng tại repository cá nhân (Trường):* [https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)
+- 🌍 **2. Portfolio Cá Nhân — Lê Nguyễn Nhật Trường:**  
+  👉 **[https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/)**  
+  *(Không gian cá nhân phong cách UTH Metro Bespoke, 3 dự án tiêu biểu, đo lường chỉ số động và CV chi tiết).*
+
+*(Link dự phòng tại repository cá nhân: [Cosmic 3D](https://lenguyennhattruongg.github.io/Portfolio/) | [Portfolio Nhật Trường](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html))*
 
 ---
 
