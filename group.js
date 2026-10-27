@@ -7,6 +7,10 @@
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { MEMBERS, normalizeText } from './members.data.js';
 
 // ============================================================================
@@ -20,7 +24,7 @@ const MEMBERS_DATA = MEMBERS.map((m, idx) => ({
   seq: `THÀNH VIÊN // 0${idx + 1}`,
   portfolio: m.portfolio,
   github: m.github || 'https://github.com/lenguyennhattruongg/Portfolio',
-  tags: m.tags && m.tags.length > 0 ? m.tags : ['Frontend', 'JavaScript', 'HTML5/CSS3', 'WebGL', 'UI/UX']
+  tags: Array.isArray(m.tags) ? m.tags : []
 }));
 
 const SOLAR_SYSTEM_DATA = [
@@ -377,17 +381,36 @@ const SOLAR_SYSTEM_DATA = [
 class SpaceAudioSystem {
   constructor() {
     this.ctx = null;
-    this.ambienceGain = null;
+    this.masterGain = null;
+    this.stereoPanner = null;
+    this.subBassOsc = null;
+    this.subBassFilter = null;
+    this.subBassGain = null;
+    this.etherealOsc1 = null;
+    this.etherealOsc2 = null;
+    this.etherealGain = null;
     this.hasStarted = false;
-    // Lỗi 10: Mặc định TẮT. Đọc lựa chọn từ localStorage
     const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('solar_audio_enabled') : null;
     this.isMuted = saved === 'true' ? false : true;
+    this.tempVec = new THREE.Vector3();
   }
 
   ensureContext() {
     if (!this.ctx) {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (AudioCtx) this.ctx = new AudioCtx();
+      if (AudioCtx) {
+        this.ctx = new AudioCtx();
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.setValueAtTime(this.isMuted ? 0.0001 : 0.08, this.ctx.currentTime);
+
+        if (this.ctx.createStereoPanner) {
+          this.stereoPanner = this.ctx.createStereoPanner();
+          this.masterGain.connect(this.stereoPanner);
+          this.stereoPanner.connect(this.ctx.destination);
+        } else {
+          this.masterGain.connect(this.ctx.destination);
+        }
+      }
     }
     if (this.ctx && this.ctx.state === 'suspended') {
       this.ctx.resume();
@@ -395,30 +418,92 @@ class SpaceAudioSystem {
   }
 
   startAmbience() {
-    if (this.hasStarted || this.isMuted) return;
+    if (this.hasStarted) return;
     this.ensureContext();
     if (!this.ctx) return;
     this.hasStarted = true;
 
     try {
-      this.ambienceGain = this.ctx.createGain();
-      this.ambienceGain.gain.setValueAtTime(0.04, this.ctx.currentTime);
-      this.ambienceGain.connect(this.ctx.destination);
+      const now = this.ctx.currentTime;
 
-      const osc1 = this.ctx.createOscillator();
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(55, this.ctx.currentTime);
+      // 1. Tần số trầm Sub-Bass (48Hz) qua bộ lọc Lowpass
+      this.subBassOsc = this.ctx.createOscillator();
+      this.subBassOsc.type = 'sine';
+      this.subBassOsc.frequency.setValueAtTime(48, now);
 
-      const osc2 = this.ctx.createOscillator();
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(110, this.ctx.currentTime);
+      this.subBassFilter = this.ctx.createBiquadFilter();
+      this.subBassFilter.type = 'lowpass';
+      this.subBassFilter.frequency.setValueAtTime(110, now);
+      this.subBassFilter.Q.setValueAtTime(2.2, now);
 
-      osc1.connect(this.ambienceGain);
-      osc2.connect(this.ambienceGain);
+      this.subBassGain = this.ctx.createGain();
+      this.subBassGain.gain.setValueAtTime(0.05, now);
 
-      osc1.start();
-      osc2.start();
+      this.subBassOsc.connect(this.subBassFilter);
+      this.subBassFilter.connect(this.subBassGain);
+      this.subBassGain.connect(this.masterGain);
+
+      // 2. Hợp âm dải ngân hà huyền ảo (110Hz + 164.81Hz)
+      this.etherealOsc1 = this.ctx.createOscillator();
+      this.etherealOsc1.type = 'sine';
+      this.etherealOsc1.frequency.setValueAtTime(110, now);
+
+      this.etherealOsc2 = this.ctx.createOscillator();
+      this.etherealOsc2.type = 'triangle';
+      this.etherealOsc2.frequency.setValueAtTime(164.81, now);
+
+      this.etherealGain = this.ctx.createGain();
+      this.etherealGain.gain.setValueAtTime(0.025, now);
+
+      this.etherealOsc1.connect(this.etherealGain);
+      this.etherealOsc2.connect(this.etherealGain);
+      this.etherealGain.connect(this.masterGain);
+
+      this.subBassOsc.start(now);
+      this.etherealOsc1.start(now);
+      this.etherealOsc2.start(now);
     } catch (_) {}
+  }
+
+  updateSpatial(camera, focusedMesh, sunMesh) {
+    if (this.isMuted || !this.ctx || !this.hasStarted) return;
+    const now = this.ctx.currentTime;
+
+    // A. Biến thiên tần số trầm khi camera áp sát Mặt Trời hoặc Sao Mộc
+    if (this.subBassFilter && this.subBassGain && camera) {
+      let minDistance = 2000;
+      if (sunMesh) {
+        minDistance = Math.min(minDistance, camera.position.distanceTo(sunMesh.position));
+      }
+      if (focusedMesh) {
+        focusedMesh.getWorldPosition(this.tempVec);
+        minDistance = Math.min(minDistance, camera.position.distanceTo(this.tempVec));
+      }
+
+      const t = Math.max(0, Math.min(1, (900 - minDistance) / 750));
+      const targetFreq = 80 + t * 180;
+      const targetGain = 0.025 + t * 0.075;
+
+      this.subBassFilter.frequency.setTargetAtTime(targetFreq, now, 0.15);
+      this.subBassGain.gain.setTargetAtTime(targetGain, now, 0.15);
+    }
+
+    // B. Đảo kênh trái/phải không gian theo vị trí màn hình của thiên thể
+    if (this.stereoPanner && camera) {
+      let targetPos = null;
+      if (focusedMesh) {
+        focusedMesh.getWorldPosition(this.tempVec);
+        targetPos = this.tempVec;
+      } else if (sunMesh) {
+        targetPos = sunMesh.position;
+      }
+
+      if (targetPos) {
+        const proj = this.tempVec.copy(targetPos).project(camera);
+        const panVal = Math.max(-0.85, Math.min(0.85, proj.x));
+        this.stereoPanner.pan.setTargetAtTime(panVal, now, 0.1);
+      }
+    }
   }
 
   playCelestialChime(freq = 440) {
@@ -439,7 +524,7 @@ class SpaceAudioSystem {
       gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
 
       osc.connect(gain);
-      gain.connect(this.ctx.destination);
+      gain.connect(this.masterGain || this.ctx.destination);
 
       osc.start(now);
       osc.stop(now + 0.85);
@@ -464,7 +549,7 @@ class SpaceAudioSystem {
       gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
 
       osc.connect(gain);
-      gain.connect(this.ctx.destination);
+      gain.connect(this.masterGain || this.ctx.destination);
 
       osc.start(now);
       osc.stop(now + 0.7);
@@ -478,12 +563,12 @@ class SpaceAudioSystem {
     }
     if (!this.isMuted) {
       this.startAmbience();
-      if (this.ambienceGain && this.ctx) {
-        this.ambienceGain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+      if (this.masterGain && this.ctx) {
+        this.masterGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
       }
     } else {
-      if (this.ambienceGain && this.ctx) {
-        this.ambienceGain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
+      if (this.masterGain && this.ctx) {
+        this.masterGain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
       }
     }
     return this.isMuted;
@@ -491,6 +576,168 @@ class SpaceAudioSystem {
 }
 
 const audio = new SpaceAudioSystem();
+
+// ============================================================================
+// 2.1 HỆ THỐNG SAO CHỔI ĐỊNH KỲ (PERIODIC COMET EVENT — 45s CYCLE)
+// ============================================================================
+class CosmicCometSystem {
+  constructor(scene) {
+    this.scene = scene;
+    this.isActive = false;
+    this.progress = 0;
+    this.speed = 0.08;
+    this.lastTriggerTime = 10;
+    this.triggerInterval = 45;
+
+    // Lõi sao chổi
+    const nucleusGeom = new THREE.SphereGeometry(2.4, 16, 16);
+    const nucleusMat = new THREE.MeshBasicMaterial({
+      color: 0xecfeff,
+      toneMapped: false
+    });
+    this.nucleus = new THREE.Mesh(nucleusGeom, nucleusMat);
+    this.nucleus.visible = false;
+    this.scene.add(this.nucleus);
+
+    this.light = new THREE.PointLight(0x38bdf8, 3.0, 150);
+    this.nucleus.add(this.light);
+
+    // Đuôi bụi ion hạt vi mô (Particle Dust Tail)
+    this.particleCount = 180;
+    this.tailGeom = new THREE.BufferGeometry();
+    this.tailPositions = new Float32Array(this.particleCount * 3);
+    this.tailAlphas = new Float32Array(this.particleCount);
+    this.history = [];
+
+    this.tailGeom.setAttribute('position', new THREE.BufferAttribute(this.tailPositions, 3));
+    this.tailGeom.setAttribute('alpha', new THREE.BufferAttribute(this.tailAlphas, 1));
+
+    this.tailMat = new THREE.ShaderMaterial({
+      uniforms: {
+        uColor: { value: new THREE.Color(0x38bdf8) },
+        uCoreColor: { value: new THREE.Color(0xffffff) }
+      },
+      vertexShader: `
+        attribute float alpha;
+        varying float vAlpha;
+        void main() {
+          vAlpha = alpha;
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = (14.0 * alpha + 2.0) * (300.0 / -mvPosition.z);
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uColor;
+        uniform vec3 uCoreColor;
+        varying float vAlpha;
+        void main() {
+          float d = length(gl_PointCoord - vec2(0.5));
+          if (d > 0.5) discard;
+          float strength = pow(1.0 - d * 2.0, 1.6) * vAlpha;
+          vec3 col = mix(uColor, uCoreColor, strength * 0.6);
+          gl_FragColor = vec4(col * 1.6, strength);
+        }
+      `,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+
+    this.tailPoints = new THREE.Points(this.tailGeom, this.tailMat);
+    this.tailPoints.visible = false;
+    this.scene.add(this.tailPoints);
+
+    this.startPos = new THREE.Vector3();
+    this.perihelionPos = new THREE.Vector3();
+    this.endPos = new THREE.Vector3();
+    this.tempAway = new THREE.Vector3();
+  }
+
+  triggerComet() {
+    this.isActive = true;
+    this.progress = 0;
+    this.nucleus.visible = true;
+    this.tailPoints.visible = true;
+    this.history = [];
+
+    const angle = Math.random() * Math.PI * 2;
+    const periDist = 80 + Math.random() * 60;
+    const height = (Math.random() - 0.5) * 140;
+
+    this.startPos.set(Math.cos(angle) * 1400, height + 160, Math.sin(angle) * 1400);
+    this.perihelionPos.set(Math.cos(angle + Math.PI * 0.72) * periDist, height * 0.2, Math.sin(angle + Math.PI * 0.72) * periDist);
+    this.endPos.set(Math.cos(angle + Math.PI * 1.45) * 1500, height - 160, Math.sin(angle + Math.PI * 1.45) * 1500);
+
+    if (audio && audio.playCelestialChime) {
+      audio.playCelestialChime(580);
+    }
+  }
+
+  update(dt, elapsedTime) {
+    if (!this.isActive) {
+      if (elapsedTime - this.lastTriggerTime > this.triggerInterval) {
+        this.lastTriggerTime = elapsedTime;
+        this.triggerComet();
+      }
+      return;
+    }
+
+    const distToMid = Math.abs(this.progress - 0.5);
+    const speedFactor = 1.0 + (0.5 - distToMid) * 2.2;
+    this.progress += dt * this.speed * speedFactor;
+
+    if (this.progress >= 1.0) {
+      this.isActive = false;
+      this.nucleus.visible = false;
+      this.tailPoints.visible = false;
+      this.lastTriggerTime = elapsedTime;
+      return;
+    }
+
+    const p = this.progress;
+    const inv = 1 - p;
+    const currentX = inv * inv * this.startPos.x + 2 * inv * p * this.perihelionPos.x + p * p * this.endPos.x;
+    const currentY = inv * inv * this.startPos.y + 2 * inv * p * this.perihelionPos.y + p * p * this.endPos.y;
+    const currentZ = inv * inv * this.startPos.z + 2 * inv * p * this.perihelionPos.z + p * p * this.endPos.z;
+
+    this.nucleus.position.set(currentX, currentY, currentZ);
+
+    this.tempAway.set(currentX, currentY, currentZ).normalize();
+    this.history.unshift({
+      x: currentX + (Math.random() - 0.5) * 1.8,
+      y: currentY + (Math.random() - 0.5) * 1.8,
+      z: currentZ + (Math.random() - 0.5) * 1.8,
+      age: 0
+    });
+
+    if (this.history.length > this.particleCount) {
+      this.history.pop();
+    }
+
+    for (let i = 0; i < this.particleCount; i++) {
+      if (i < this.history.length) {
+        const item = this.history[i];
+        item.age += dt * 1.5;
+        item.x += this.tempAway.x * dt * 40;
+        item.y += this.tempAway.y * dt * 40;
+        item.z += this.tempAway.z * dt * 40;
+
+        this.tailPositions[i * 3] = item.x;
+        this.tailPositions[i * 3 + 1] = item.y;
+        this.tailPositions[i * 3 + 2] = item.z;
+        this.tailAlphas[i] = Math.max(0, 1.0 - (i / this.particleCount) * 1.15);
+      } else {
+        this.tailPositions[i * 3] = currentX;
+        this.tailPositions[i * 3 + 1] = currentY;
+        this.tailPositions[i * 3 + 2] = currentZ;
+        this.tailAlphas[i] = 0;
+      }
+    }
+    this.tailGeom.attributes.position.needsUpdate = true;
+    this.tailGeom.attributes.alpha.needsUpdate = true;
+  }
+}
 
 // ============================================================================
 // 3. CACHED DOM ELEMENTS
@@ -530,7 +777,19 @@ const dom = {
   btnResetOrbit: document.getElementById('btnResetOrbit'),
   btnZoomIn: document.getElementById('btnZoomIn'),
   btnZoomOut: document.getElementById('btnZoomOut'),
-  btnZoomReset: document.getElementById('btnZoomReset')
+  btnZoomReset: document.getElementById('btnZoomReset'),
+
+  // Các phần tử mới nâng cấp
+  preloader: document.getElementById('sciFiPreloader'),
+  preloaderPercent: document.getElementById('preloaderPercent'),
+  preloaderFillBar: document.getElementById('preloaderFillBar'),
+  preloaderItemText: document.getElementById('preloaderItemText'),
+  btnPhotoMode: document.getElementById('btnPhotoMode'),
+  photoModeToast: document.getElementById('photoModeToast'),
+  hudTimeControl: document.getElementById('hudTimeControl'),
+  btnTimeToggle: document.getElementById('btnTimeToggle'),
+  timePlayIcon: document.getElementById('timePlayIcon'),
+  timeSpeedButtons: document.querySelectorAll('.btn-time-speed')
 };
 
 // ============================================================================
@@ -1079,7 +1338,40 @@ class MilkyWaySolarSystemEngine {
     this.arLabels = new Map();
     this.arLabelEntries = [];
     this.clock = new THREE.Clock();
-    this.textureLoader = new THREE.TextureLoader();
+
+    // Điều khiển dòng thời gian & Chế độ Chụp ảnh
+    this.timeScale = 1.0;
+    this.isPaused = false;
+    this.sunShaderTime = 0.0;
+    this.isPhotoMode = false;
+
+    // Loading Manager cho Sci-Fi Telemetry Preloader
+    this.loadingManager = new THREE.LoadingManager(
+      () => {
+        if (dom.preloader) {
+          if (dom.preloaderPercent) dom.preloaderPercent.textContent = '100%';
+          if (dom.preloaderFillBar) dom.preloaderFillBar.style.width = '100%';
+          if (dom.preloaderItemText) dom.preloaderItemText.textContent = 'ĐÃ ĐỒNG BỘ TOÀN DIỆN THIÊN VĂN // SẴN SÀNG';
+          setTimeout(() => {
+            dom.preloader.classList.add('preloader-fade-out');
+            setTimeout(() => { dom.preloader.hidden = true; }, 800);
+          }, 350);
+        }
+      },
+      (url, itemsLoaded, itemsTotal) => {
+        const pct = Math.round((itemsLoaded / itemsTotal) * 100);
+        if (dom.preloaderPercent) dom.preloaderPercent.textContent = `${pct.toString().padStart(2, '0')}%`;
+        if (dom.preloaderFillBar) dom.preloaderFillBar.style.width = `${pct}%`;
+        const filename = url.split('/').pop() || url;
+        if (dom.preloaderItemText) dom.preloaderItemText.textContent = `NẠP DỮ LIỆU VIỄN TRẮC: ${filename}`;
+      }
+    );
+    this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+
+    // Unreal Bloom Post-Processing Pipeline & Comet
+    this.composer = null;
+    this.bloomPass = null;
+    this.cometSystem = null;
 
     // Camera-attached objects
     this.cameraFillLight = null;
@@ -1124,6 +1416,22 @@ class MilkyWaySolarSystemEngine {
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.15;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    // 3.1 Unreal Bloom Post-Processing Pipeline (Threshold 0.85 giữ sắc đen sâu thẳm Ngân Hà)
+    const renderScene = new RenderPass(this.scene, this.camera);
+    this.bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      0.68, // Strength: vầng plasma rực rỡ nhưng không chói lóa
+      0.35, // Radius
+      0.85  // Threshold > 0.85: chỉ phát quang các nguồn năng lượng cực đại
+    );
+    const outputPass = new OutputPass();
+
+    this.composer = new EffectComposer(this.renderer);
+    this.composer.addPass(renderScene);
+    this.composer.addPass(this.bloomPass);
+    this.composer.addPass(outputPass);
+    this.composer.setPixelRatio(this.currentDpr);
 
     // 4. Controls (Smooth Damping & 100% Free Mouse Zoom & Touch Normalization)
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -1180,6 +1488,9 @@ class MilkyWaySolarSystemEngine {
     this.buildAsteroidBelt();
     this.buildCameraWarpTunnel();
     this.buildWarpSpline();
+
+    // 7.1 Hệ thống Sao chổi Định kỳ (Cosmic Comet Event — 45s cycle)
+    this.cometSystem = new CosmicCometSystem(this.scene);
 
     // 8. Giao diện HUD và sự kiện
     this.buildHUDNavigationPills();
@@ -1580,19 +1891,29 @@ class MilkyWaySolarSystemEngine {
       // Tinh chỉnh PBR khoa học cho từng hành tinh với kết cấu 2K Equirectangular
       let roughness = 0.45;
       let metalness = 0.02;
+      let bumpScale = 0.0;
+      let bumpMap = null;
+      let roughnessMap = null;
 
       if (data.id === 'mercury') {
         roughness = 0.90;
         metalness = 0.05;
+        bumpScale = 0.38;
+        bumpMap = createTerrainBumpMap('mercury');
       } else if (data.id === 'venus') {
         roughness = 0.72;
         metalness = 0.01;
       } else if (data.id === 'earth') {
         roughness = 0.48;
         metalness = 0.03;
+        roughnessMap = createEarthRoughnessMap();
+        bumpScale = 0.32;
+        bumpMap = createTerrainBumpMap('earth');
       } else if (data.id === 'mars') {
         roughness = 0.82;
         metalness = 0.05;
+        bumpScale = 0.42;
+        bumpMap = createTerrainBumpMap('mars');
       } else if (data.id === 'jupiter') {
         roughness = 0.38;
         metalness = 0.01;
@@ -1608,6 +1929,8 @@ class MilkyWaySolarSystemEngine {
       } else if (data.id === 'pluto') {
         roughness = 0.82;
         metalness = 0.04;
+        bumpScale = 0.35;
+        bumpMap = createTerrainBumpMap('pluto');
       }
 
       // Không dùng emissive màu phẳng để tạo đường phân cách sáng/tối sắc nét như không gian thực
@@ -1615,6 +1938,9 @@ class MilkyWaySolarSystemEngine {
         map: fallbackTex,
         roughness,
         metalness,
+        bumpMap,
+        bumpScale,
+        roughnessMap,
         emissive: new THREE.Color(0x000000)
       });
 
@@ -1797,6 +2123,8 @@ class MilkyWaySolarSystemEngine {
             color: m.color,
             roughness: m.name === 'Europa' ? 0.20 : 0.88,
             metalness: 0.04,
+            bumpMap: createTerrainBumpMap('moon'),
+            bumpScale: 0.25,
             emissive: new THREE.Color(0x000000)
           });
 
@@ -2101,11 +2429,12 @@ class MilkyWaySolarSystemEngine {
       pill.className = 'orbit-pill font-mono';
       pill.setAttribute('data-id', data.id);
 
-      const memberBadge = data.memberName ? ` • ${data.memberName.split(' ').pop()}` : '';
+      const memberBadge = data.memberName ? `<span class="orbit-pill-member">${data.memberName.split(' ').pop()}</span>` : '';
 
       pill.innerHTML = `
-        <span class="pill-symbol">${data.symbol}</span>
-        <span class="pill-name">${data.vnName}${memberBadge}</span>
+        <span class="orbit-pill-symbol">${data.symbol}</span>
+        <span class="orbit-pill-name">${data.vnName}</span>
+        ${memberBadge}
       `;
 
       pill.addEventListener('click', () => {
@@ -2135,6 +2464,65 @@ class MilkyWaySolarSystemEngine {
     camToTarget.setLength(newDist);
     this.camera.position.copy(this.controls.target).add(camToTarget);
     this.controls.update();
+  }
+
+  /**
+   * Tạm dừng / Tiếp tục dòng thời gian Hệ Mặt Trời (Spacebar Orbit Pause)
+   */
+  togglePause() {
+    this.isPaused = !this.isPaused;
+    if (dom.btnTimeToggle) {
+      dom.btnTimeToggle.classList.toggle('is-paused', this.isPaused);
+    }
+    if (dom.timePlayIcon) {
+      dom.timePlayIcon.textContent = this.isPaused ? '▶' : '❚❚';
+    }
+    if (dom.currentFocusReadout) {
+      if (this.isPaused) {
+        dom.currentFocusReadout.textContent = 'DÒNG THỜI GIAN // TẠM DỪNG QUỸ ĐẠO [SPACE]';
+      } else {
+        dom.currentFocusReadout.textContent = this.focusedPlanet
+          ? `${this.focusedPlanet.name.toUpperCase()} // KHÓA MỤC TIÊU // ${this.timeScale}x`
+          : `HỆ MẶT TRỜI // TOÀN CẢNH QUỸ ĐẠO // ${this.timeScale}x`;
+      }
+    }
+    audio.playCelestialChime(this.isPaused ? 320 : 520);
+  }
+
+  /**
+   * Thay đổi tốc độ mô phỏng thiên văn (Time Scrubbing 0.2x – 8x)
+   */
+  setTimeScale(scale) {
+    this.timeScale = Math.max(0.1, Math.min(10.0, scale));
+    if (this.isPaused) {
+      this.isPaused = false;
+      if (dom.btnTimeToggle) dom.btnTimeToggle.classList.remove('is-paused');
+      if (dom.timePlayIcon) dom.timePlayIcon.textContent = '❚❚';
+    }
+    if (dom.timeSpeedButtons) {
+      dom.timeSpeedButtons.forEach((btn) => {
+        const s = parseFloat(btn.dataset.speed);
+        btn.classList.toggle('active', Math.abs(s - this.timeScale) < 0.05);
+      });
+    }
+    if (dom.currentFocusReadout) {
+      dom.currentFocusReadout.textContent = this.focusedPlanet
+        ? `${this.focusedPlanet.name.toUpperCase()} // TỐC ĐỘ: ${this.timeScale}x`
+        : `HỆ MẶT TRỜI // TỐC ĐỘ: ${this.timeScale}x`;
+    }
+    audio.playCelestialChime(380 + this.timeScale * 35);
+  }
+
+  /**
+   * Bật / Tắt chế độ quan sát toàn cảnh không HUD (Clean Photo Mode [H])
+   */
+  togglePhotoMode() {
+    this.isPhotoMode = !this.isPhotoMode;
+    document.body.classList.toggle('hud-photo-mode', this.isPhotoMode);
+    if (dom.photoModeToast) {
+      dom.photoModeToast.hidden = !this.isPhotoMode;
+    }
+    audio.playCelestialChime(this.isPhotoMode ? 600 : 420);
   }
 
   /**
@@ -2250,9 +2638,28 @@ class MilkyWaySolarSystemEngine {
       dom.panelMemberHeadline.textContent = data.headline;
     }
 
-    const monogram = document.getElementById('panelMonogram');
-    if (monogram) {
-      monogram.textContent = data.symbol;
+    const avatarImg = document.getElementById('panelAvatarImg');
+    const monogramEl = document.getElementById('panelMonogram');
+
+    if (avatarImg && mem) {
+      avatarImg.src = `./members/${mem.id}/images/avatar.png`;
+      avatarImg.alt = mem.name;
+      avatarImg.hidden = false;
+      if (monogramEl) monogramEl.hidden = true;
+
+      avatarImg.onerror = () => {
+        avatarImg.hidden = true;
+        if (monogramEl) {
+          monogramEl.hidden = false;
+          monogramEl.textContent = data.symbol;
+        }
+      };
+    } else {
+      if (avatarImg) avatarImg.hidden = true;
+      if (monogramEl) {
+        monogramEl.hidden = false;
+        monogramEl.textContent = data.symbol;
+      }
     }
 
     if (dom.telemetryA) dom.telemetryA.textContent = data.telemetry.a;
@@ -2283,15 +2690,21 @@ class MilkyWaySolarSystemEngine {
       }
     }
 
-    if (dom.panelTagsList) {
+    const panelSkillsBlock = document.getElementById('panelSkillsBlock');
+    if (panelSkillsBlock && dom.panelTagsList) {
       dom.panelTagsList.innerHTML = '';
-      const tags = mem ? mem.tags : ['NASA Observation', 'Astrophysics', 'Orbital Mechanics', 'Milky Way'];
-      tags.forEach((tag) => {
-        const span = document.createElement('span');
-        span.className = 'panel-skill-tag font-mono';
-        span.textContent = tag;
-        dom.panelTagsList.appendChild(span);
-      });
+      const tags = (mem && Array.isArray(mem.tags)) ? mem.tags : [];
+      if (tags.length > 0) {
+        panelSkillsBlock.hidden = false;
+        tags.forEach((tag) => {
+          const span = document.createElement('span');
+          span.className = 'panel-skill-tag font-mono';
+          span.textContent = tag;
+          dom.panelTagsList.appendChild(span);
+        });
+      } else {
+        panelSkillsBlock.hidden = true;
+      }
     }
   }
 
@@ -2353,12 +2766,16 @@ class MilkyWaySolarSystemEngine {
     // 0. Giám sát & Điều tiết hiệu năng thích ứng (Adaptive Performance Sentinel — Milestone E)
     this.evaluateAdaptivePerformance(dt);
 
+    // Thời gian hiệu dụng (Effective Time Delta) do Tạm dừng / Tốc độ quỹ đạo chi phối
+    const effectiveDt = this.isPaused ? 0 : dt * this.timeScale;
+
     // 1. Tự quay Mặt Trời & cập nhật động lực học Plasma nhiệt hạch
     if (this.sunMesh) {
-      this.sunMesh.rotation.y += dt * 0.04;
+      this.sunMesh.rotation.y += effectiveDt * 0.04;
     }
     if (this.sunMat && this.sunMat.uniforms && this.sunMat.uniforms.uTime) {
-      this.sunMat.uniforms.uTime.value = this.clock.getElapsedTime();
+      this.sunShaderTime += effectiveDt;
+      this.sunMat.uniforms.uTime.value = this.sunShaderTime;
     }
 
     // Hiệu ứng thở nhật hoa Mặt Trời (Corona Breathing Pulse)
@@ -2370,37 +2787,48 @@ class MilkyWaySolarSystemEngine {
 
     // Tự quay dạt dào lớp mây Trái Đất (Differential Atmospheric Drift)
     if (this.earthCloudMesh) {
-      this.earthCloudMesh.rotation.y += dt * 0.52;
-      this.earthCloudMesh.rotation.x += dt * 0.012;
+      this.earthCloudMesh.rotation.y += effectiveDt * 0.52;
+      this.earthCloudMesh.rotation.x += effectiveDt * 0.012;
     }
 
     // Tự quay vành đai tiểu hành tinh (Asteroid Belt Drift)
     if (this.asteroidBeltMesh) {
-      this.asteroidBeltMesh.rotation.y += dt * 0.018;
+      this.asteroidBeltMesh.rotation.y += effectiveDt * 0.018;
     }
 
     // 2. Chuyển động quỹ đạo & tự quay chuẩn thiên văn của các hành tinh
     this.planets.forEach((p) => {
-      p.angle += dt * p.data.speed * 0.45;
+      p.angle += effectiveDt * p.data.speed * 0.45;
       const x = Math.cos(p.angle) * p.data.a;
       const z = Math.sin(p.angle) * p.data.a;
       const y = Math.sin(p.angle) * (p.data.incAmp || 0);
       p.anchor.position.set(x, y, z);
 
       if (p.planetMesh) {
-        p.planetMesh.rotation.y += dt * (p.data.rotationSpeed || 0.4);
+        p.planetMesh.rotation.y += effectiveDt * (p.data.rotationSpeed || 0.4);
       }
       if (p.data.id === 'earth' && this.earthCloudMesh) {
-        this.earthCloudMesh.rotation.y += dt * ((p.data.rotationSpeed || 0.4) * 1.15);
+        this.earthCloudMesh.rotation.y += effectiveDt * ((p.data.rotationSpeed || 0.4) * 1.15);
       }
 
       // Vệ tinh tự quay quanh hành tinh mẹ
       p.anchor.children.forEach((child) => {
         if (child.userData && child.userData.speed) {
-          child.rotation.y += dt * child.userData.speed * 0.7;
+          child.rotation.y += effectiveDt * child.userData.speed * 0.7;
         }
       });
     });
+
+    // 2.1 Cập nhật Sao chổi định kỳ (Periodic Comet Event)
+    if (this.cometSystem) {
+      this.cometSystem.update(dt, elapsedTime);
+    }
+
+    // 2.2 Cập nhật Âm thanh Vũ trụ 3D (Spatial 3D Audio Panner & Sub-bass rumble)
+    if (audio && audio.updateSpatial) {
+      const activeMesh = this.focusedPlanet ? this.planetMeshes.get(this.focusedPlanet.id) : null;
+      audio.updateSpatial(this.camera, activeMesh, this.sunMesh);
+    }
 
     // 3. Xử lý bay Du hành siêu tốc (Cinematic Hyper-Warp Spline Flight) hoặc Chuyển cảnh Bezier / Bám hành tinh
     if (this.isWarpMode && this.warpSpline) {
@@ -2461,7 +2889,10 @@ class MilkyWaySolarSystemEngine {
         if (!this.lastTargetPos.equals(this.tempVecA)) {
           this.tempVecB.copy(this.tempVecA).sub(this.lastTargetPos);
           this.camera.position.add(this.tempVecB);
-          this.controls.target.copy(this.tempVecA);
+
+          // Giữ nguyên độ lệch thẩm mỹ, tránh bị giật góc nhìn
+          this.tempVecB.copy(this.tempVecA).add(this.targetLateralOffset);
+          this.controls.target.copy(this.tempVecB);
           this.lastTargetPos.copy(this.tempVecA);
         }
       }
@@ -2510,8 +2941,12 @@ class MilkyWaySolarSystemEngine {
     // 7. Cập nhật nhãn AR
     this.updateARLabels();
 
-    // 8. Render chuẩn trực tiếp qua WebGLRenderer ACESFilmic Tone Mapping
-    this.renderer.render(this.scene, this.camera);
+    // 8. Render chuẩn điện ảnh qua Unreal Bloom Postprocessing EffectComposer
+    if (this.composer) {
+      this.composer.render();
+    } else {
+      this.renderer.render(this.scene, this.camera);
+    }
   }
 
   setupEventListeners() {
@@ -2520,6 +2955,10 @@ class MilkyWaySolarSystemEngine {
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
       this.renderer.setPixelRatio(this.currentDpr);
+      if (this.composer) {
+        this.composer.setSize(window.innerWidth, window.innerHeight);
+        this.composer.setPixelRatio(this.currentDpr);
+      }
       if (!this.focusedPlanet && !this.isTransitioning) {
         this.camera.position.copy(this.getOverviewCameraPosition());
       }
@@ -2542,8 +2981,21 @@ class MilkyWaySolarSystemEngine {
       });
     }
 
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+
     window.addEventListener('pointerdown', (e) => {
+      pointerStartX = e.clientX;
+      pointerStartY = e.clientY;
+    });
+
+    window.addEventListener('pointerup', (e) => {
       if (e.target.closest('#hudOverlay') || e.target.closest('.spatial-ar-label') || e.target.closest('#hudZoomControls')) return;
+
+      // Nếu kéo di chuyển quá 6px thì đó là thao tác xoay camera, không kích hoạt focus
+      const deltaX = Math.abs(e.clientX - pointerStartX);
+      const deltaY = Math.abs(e.clientY - pointerStartY);
+      if (deltaX > 6 || deltaY > 6) return;
 
       this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -2582,11 +3034,46 @@ class MilkyWaySolarSystemEngine {
     }
 
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.resetToOverview();
-      } else if (e.key === '1') {
+      // Bỏ qua nếu đang nhập liệu trong ô tìm kiếm
+      if (document.activeElement === dom.searchInput || (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA'))) {
+        if (e.key === 'Escape') {
+          if (dom.searchInput) dom.searchInput.blur();
+        }
+        return;
+      }
+
+      // Phím tắt nhanh mở tìm kiếm: "/" hoặc Ctrl+K / Cmd+K
+      if (e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) {
+        if (dom.searchInput) {
+          e.preventDefault();
+          dom.searchInput.focus();
+          dom.searchInput.select();
+        }
+        return;
+      }
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        this.togglePause();
+      } else if (e.key.toLowerCase() === 'h' || e.key.toLowerCase() === 'c') {
+        this.togglePhotoMode();
+      } else if (e.key === 'Escape') {
+        if (this.isPhotoMode) {
+          this.togglePhotoMode();
+        } else {
+          this.resetToOverview();
+        }
+      } else if (e.key === '[' || e.key === '<') {
+        const speeds = [0.2, 1.0, 3.0, 8.0];
+        const curIdx = speeds.findIndex((s) => Math.abs(s - this.timeScale) < 0.1);
+        if (curIdx > 0) this.setTimeScale(speeds[curIdx - 1]);
+      } else if (e.key === ']' || e.key === '>') {
+        const speeds = [0.2, 1.0, 3.0, 8.0];
+        const curIdx = speeds.findIndex((s) => Math.abs(s - this.timeScale) < 0.1);
+        if (curIdx !== -1 && curIdx < speeds.length - 1) this.setTimeScale(speeds[curIdx + 1]);
+      } else if (e.key.toLowerCase() === 'q') {
         if (dom.btnModeOrbit) dom.btnModeOrbit.click();
-      } else if (e.key === '2') {
+      } else if (e.key.toLowerCase() === 'w') {
         if (dom.btnModeWarp) dom.btnModeWarp.click();
       } else if (e.key === '+' || e.key === '=') {
         this.zoom(0.70);
@@ -2654,6 +3141,12 @@ class MilkyWaySolarSystemEngine {
     if (dom.searchInput) {
       dom.searchInput.addEventListener('input', (e) => {
         const query = normalizeText(e.target.value.trim().toLowerCase());
+        const searchCluster = dom.searchInput.closest('.hud-search-cluster');
+
+        // Giữ ô tìm kiếm luôn mở rộng nếu đang có từ khóa
+        if (searchCluster) {
+          searchCluster.classList.toggle('is-active', Boolean(query));
+        }
 
         if (dom.searchClearBtn) dom.searchClearBtn.hidden = !query;
 
@@ -2690,15 +3183,38 @@ class MilkyWaySolarSystemEngine {
           dom.searchInput.value = '';
           dom.searchInput.dispatchEvent(new Event('input'));
           dom.searchInput.blur();
+          const searchCluster = dom.searchInput.closest('.hud-search-cluster');
+          if (searchCluster) searchCluster.classList.remove('is-active');
         }
       });
 
+      // Khi nhấn Clear hoặc Esc thì thu gọn lại
       if (dom.searchClearBtn) {
         dom.searchClearBtn.addEventListener('click', () => {
           dom.searchInput.value = '';
           dom.searchInput.dispatchEvent(new Event('input'));
+          const searchCluster = dom.searchInput.closest('.hud-search-cluster');
+          if (searchCluster) searchCluster.classList.remove('is-active');
         });
       }
+    }
+
+    // Điều khiển dòng thời gian (Time Scrubbing & Orbit Pause)
+    if (dom.btnTimeToggle) {
+      dom.btnTimeToggle.addEventListener('click', () => this.togglePause());
+    }
+    if (dom.timeSpeedButtons) {
+      dom.timeSpeedButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const speed = parseFloat(btn.dataset.speed) || 1.0;
+          this.setTimeScale(speed);
+        });
+      });
+    }
+
+    // Chế độ quan sát toàn cảnh / Chụp ảnh (Clean Photo Mode [H])
+    if (dom.btnPhotoMode) {
+      dom.btnPhotoMode.addEventListener('click', () => this.togglePhotoMode());
     }
 
     window.addEventListener('click', () => audio.startAmbience(), { once: true });
@@ -2771,6 +3287,13 @@ class MilkyWaySolarSystemEngine {
       this.renderer.setPixelRatio(this.currentDpr);
       this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
+    if (this.composer) {
+      this.composer.setPixelRatio(this.currentDpr);
+      this.composer.setSize(window.innerWidth, window.innerHeight);
+    }
+    if (this.bloomPass) {
+      this.bloomPass.enabled = (this.qualityTier >= 1);
+    }
   }
 
   /**
@@ -2784,6 +3307,10 @@ class MilkyWaySolarSystemEngine {
 
     if (this.controls) {
       this.controls.dispose();
+    }
+
+    if (this.composer) {
+      this.composer.dispose();
     }
 
     if (this.scene) {

@@ -21,17 +21,32 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="./group.css">
 
-  <!-- Importmap cho trình duyệt trực tiếp (GitHub Pages Standalone Support) -->
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-    }
-  }
-  </script>
 </head>
 <body class="spatial-viewport-body">
+
+  <!-- MÀN HÌNH CHỜ VIỄN TRẮC SCI-FI (SCI-FI ASSET PRELOADER) -->
+  <div class="sci-fi-preloader font-mono" id="sciFiPreloader" role="progressbar" aria-label="Đang nạp dữ liệu viễn trắc Hệ Mặt Trời">
+    <div class="preloader-content">
+      <div class="preloader-radar">
+        <div class="radar-circle radar-circle-outer"></div>
+        <div class="radar-circle radar-circle-mid"></div>
+        <div class="radar-circle radar-circle-inner"></div>
+        <div class="radar-blip"></div>
+        <div class="radar-core-symbol">☉</div>
+      </div>
+      <div class="preloader-text-group">
+        <div class="preloader-header-tag">MẠNG LƯỚI VIỄN TRẮC KHÔNG GIAN // KHỞI TẠO CẢM BIẾN</div>
+        <div class="preloader-percent-row">
+          <span class="preloader-percent-num font-heading" id="preloaderPercent">00%</span>
+          <span class="preloader-status-badge">NASA 2K TELEMETRY</span>
+        </div>
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-bar" id="preloaderFillBar"></div>
+        </div>
+        <div class="preloader-asset-name" id="preloaderItemText">Đang khởi tạo lõi không gian WebGL 3D...</div>
+      </div>
+    </div>
+  </div>
 
   <!-- VẠCH QUÉT RADAR KHÔNG GIAN (RADAR SCANLINE) -->
   <div class="radar-scanline-layer" aria-hidden="true"></div>
@@ -55,13 +70,20 @@
         </div>
       </div>
 
+      <!-- CỤM HIỂN THỊ TRẠNG THÁI KHÓA MỤC TIÊU (TELEMETRY READOUT) -->
+      <div class="hud-telemetry-cluster" aria-live="polite">
+        <div id="currentFocusReadout" class="hud-telemetry-pill font-mono">
+          HỆ MẶT TRỜI // TOÀN CẢNH QUỸ ĐẠO
+        </div>
+      </div>
+
       <!-- DUAL-PERSPECTIVE KINEMATIC SWITCH -->
       <div class="hud-perspective-switch font-mono" id="hudPerspectiveSwitch">
-        <button type="button" class="btn-perspective active" id="btnModeOrbit" title="Góc nhìn quỹ đạo 360° bao quát Hệ Mặt Trời">
-          <span class="perspective-dot orbit-dot"></span> [1] Quỹ đạo 360°
+        <button type="button" class="btn-perspective active" id="btnModeOrbit" title="Góc nhìn quỹ đạo 360° bao quát Hệ Mặt Trời [Q]">
+          <span class="perspective-dot orbit-dot"></span> [Q] Quỹ đạo 360°
         </button>
-        <button type="button" class="btn-perspective" id="btnModeWarp" title="Chế độ du hành không gian xuyên quỹ đạo">
-          <span class="perspective-dot warp-dot"></span> [2] Du hành siêu tốc
+        <button type="button" class="btn-perspective" id="btnModeWarp" title="Chế độ du hành không gian xuyên quỹ đạo [W]">
+          <span class="perspective-dot warp-dot"></span> [W] Du hành siêu tốc
         </button>
       </div>
 
@@ -71,12 +93,18 @@
         <button type="button" class="hud-action-btn hud-help-btn font-mono" id="btnHelpGuide" title="Kéo chuột: Xoay 360° · Cuộn: Thu phóng · Nhấp: Xem thiên thể" aria-label="Hướng dẫn điều khiển">?</button>
 
         <!-- NÚT BẬT / TẮT ÂM THANH KHÔNG GIAN (SPATIAL AUDIO TOGGLE) -->
-        <button type="button" class="hud-action-btn hud-audio-btn font-mono" id="btnAudioToggle" aria-pressed="false" title="Bật / tắt âm thanh vũ trụ (Web Audio API)">
+        <button type="button" class="hud-action-btn hud-audio-btn font-mono" id="btnAudioToggle" aria-pressed="false" title="Bật / tắt âm thanh vũ trụ 3D (Web Audio API)">
           <span class="audio-bars-icon" aria-hidden="true">
             <i></i><i></i><i></i><i></i>
           </span>
           <span id="audioStatusText">ÂM THANH: TẮT</span>
         </button>
+
+        <!-- NÚT CHẾ ĐỘ ẢNH / TOÀN CẢNH (CLEAN PHOTO MODE) -->
+        <button type="button" class="hud-action-btn font-mono" id="btnPhotoMode" title="Ẩn giao diện HUD để chiêm ngưỡng / chụp ảnh toàn cảnh [H]">
+          <span aria-hidden="true">📷</span> [H] Toàn cảnh
+        </button>
+
         <button type="button" class="hud-action-btn font-mono" id="btnResetOrbit" title="Trở về góc nhìn toàn cảnh Hệ Mặt Trời">
           Hệ Mặt Trời [Esc]
         </button>
@@ -160,6 +188,25 @@
       </div>
     </aside>
 
+    <!-- TOAST THÔNG BÁO CHẾ ĐỘ QUAN SÁT TOÀN CẢNH -->
+    <div class="photo-mode-toast font-mono" id="photoModeToast" hidden>
+      ✦ CHẾ ĐỘ QUAN SÁT TOÀN CẢNH [H] — BẤM [H] HOẶC [ESC] ĐỂ HIỂN THỊ LẠI GIAO DIỆN
+    </div>
+
+    <!-- BẢNG ĐIỀU KHIỂN DÒNG THỜI GIAN VÀ TỐC ĐỘ QUỸ ĐẠO (TIME SCRUBBING HUD) -->
+    <div class="hud-time-controller spatial-hud-element font-mono" id="hudTimeControl" role="group" aria-label="Bảng điều khiển dòng thời gian">
+      <button type="button" class="btn-time-play" id="btnTimeToggle" title="Tạm dừng / Tiếp tục quỹ đạo [Phím Space]">
+        <span id="timePlayIcon" class="time-play-icon">❚❚</span>
+      </button>
+      <div class="time-speeds-box">
+        <span class="time-title">TỐC ĐỘ:</span>
+        <button type="button" class="btn-time-speed" data-speed="0.2" title="Tua chậm 0.2x">0.2x</button>
+        <button type="button" class="btn-time-speed active" data-speed="1.0" title="Thời gian thực 1x">1x</button>
+        <button type="button" class="btn-time-speed" data-speed="3.0" title="Tua nhanh 3x">3x</button>
+        <button type="button" class="btn-time-speed" data-speed="8.0" title="Tua nhanh 8x">8x</button>
+      </div>
+    </div>
+
     <!-- CỤM ĐIỀU KHIỂN THU PHÓNG VŨ TRỤ (SPATIAL ZOOM HUD CLUSTER) -->
     <div class="hud-zoom-controls spatial-hud-element font-mono" id="hudZoomControls" role="toolbar" aria-label="Điều khiển thu phóng Hệ Mặt Trời">
       <button type="button" class="btn-hud-zoom" id="btnZoomIn" title="Phóng to Hệ Mặt Trời (+)">
@@ -176,8 +223,8 @@
     <!-- THANH HUD DƯỚI CÙNG: THANH ĐIỀU HƯỚNG QUỸ ĐẠO & TÌM KIẾM TỌA ĐỘ -->
     <footer class="hud-bottom-bar spatial-hud-element" role="contentinfo">
       
-      <!-- Cụm tìm kiếm tọa độ nhanh (Không bị bẻ dòng, min-width chuẩn mực) -->
-      <div class="hud-search-cluster">
+      <!-- Cụm tìm kiếm tọa độ nhanh (Compact Expandable Search) -->
+      <div class="hud-search-cluster" id="hudSearchCluster">
         <label for="spatialSearchInput" class="visually-hidden">Tìm kiếm hành tinh hoặc thành viên</label>
         <div class="hud-search-input-box">
           <span class="search-icon-symbol" aria-hidden="true">⌕</span>

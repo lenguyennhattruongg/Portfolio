@@ -1,6 +1,6 @@
 # Group Portfolio Website — Lập Trình Web (UTH)
 
-> 🌌 **Nhánh tính năng:** [`cosmic-2`](https://github.com/lenguyennhattruongg/Portfolio/tree/cosmic-2) (SNU 3D Universe — Milky Way Solar System Edition)  
+> 🌌 **Nhánh tính năng:** [`cosmic-3`](https://github.com/lenguyennhattruongg/Portfolio/tree/cosmic-3) (Milky Way Solar System 3D Engine — Visual Fidelity 2K & Compact Expandable Search)  
 > 🛸 **Thành viên phụ trách:** **Lê Nguyễn Nhật Trường** (K24 CNTT, ĐH Giao thông Vận tải TP.HCM — UTH)  
 > 🌐 **Deploy Trang Chủ Nhóm (Hệ Mặt Trời 3D):** **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)**  
 > 🧑‍🚀 **Deploy Portfolio Cá Nhân (Lê Nguyễn Nhật Trường):** **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)**
@@ -11,7 +11,7 @@
 
 | Nền tảng / Hạng mục | Địa chỉ truy cập trực tiếp | Ghi chú kỹ thuật |
 |---|---|---|
-| 🌌 **Trang Chủ Nhóm (Hệ Mặt Trời 3D WebGL)** | 🚀 **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)** | Mô phỏng Hệ Mặt Trời theo kiến trúc Seanpm2001 & ChatGPT 5.6: Mặt Trời FBM Plasma, 8 hành tinh + Pluto, vành đai Thổ tinh Cassini, vành đai 1.800 tiểu hành tinh, khí quyển tán xạ Rayleigh |
+| 🌌 **Trang Chủ Nhóm (Hệ Mặt Trời 3D WebGL)** | 🚀 **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)** | Mô phỏng Hệ Mặt Trời chuẩn khoa học 3D: Mặt Trời Plasma Granulation, 8 hành tinh + Pluto texture 2K Equirectangular, vành đai Thổ tinh Cassini, vành đai 2.200 tiểu hành tinh, khí quyển tán xạ Rayleigh, Web Audio API |
 | 🧑‍🚀 **Portfolio Cá Nhân (Lê Nguyễn Nhật Trường)** | 🚅 **[https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/index.html)** | Bản thiết kế Tuyến Metro Sài Gòn (UTH Metro Transit System) nguyên bản độc lập (Socket TCP, Java Core, Ticket Inspection Modal) |
 | 💻 **Máy chủ xem trước cục bộ (Local Preview)** | 🖥️ [http://127.0.0.1:3000/](http://127.0.0.1:3000/) | Môi trường preview Vite Production (Port 3000) |
 
@@ -27,16 +27,16 @@
 
 ## 2. Trạng thái dự án hiện tại
 
-Ghi nhận tại nhánh `feature/group-homepage-redesign`:
+Ghi nhận tại nhánh `cosmic-3`:
 
 | Thành phần | Trạng thái hiện tại | Ghi chú kỹ thuật |
 |---|:---:|---|
-| **Trang chủ nhóm (`index.html`)** | **Sẵn sàng nghiệm thu** | Giao diện theo định hướng **Hệ thống Lõi Dữ Liệu Không Gian 3D (Spatial Cyber Core)**. Tương tác 3D có chọn lọc (Selective 3D Tilt), độ tương phản WCAG AA cao (≥ 4.5:1), touch target ≥ 44px, hỗ trợ phím Esc và focus restoration. Bố cục co giãn 1/3 - 2/3 linh hoạt. Tìm kiếm thời gian thực chuẩn hóa tiếng Việt. |
-| **Dữ liệu thành viên (`members.data.js`)** | **Xác minh 100% (PASS)** | Xóa bỏ toàn bộ dữ liệu suy đoán: không thanh phần trăm kỹ năng ảo, không trạng thái giả lập, không form liên hệ giả, không audio engine. |
+| **Trang chủ nhóm (`index.html`)** | **Sẵn sàng nghiệm thu** | Giao diện **Hệ Mặt Trời 3D WebGL (Three.js)** chuẩn Studio Cinematic: Unreal Bloom Post-processing (`EffectComposer`, `UnrealBloomPass`), Time Scrubbing (`Spacebar` tạm dừng, tua `0.2x` - `8x`), Âm thanh vòm vũ trụ 3D Spatial Audio (`StereoPannerNode` & Sub-bass rumble), Màn hình chờ viễn trắc Sci-Fi (`THREE.LoadingManager`), Chế độ quan sát toàn cảnh (`Clean Photo Mode [H]`), Sao chổi định kỳ (`Cosmic Comet Event` 45s). |
+| **Dữ liệu thành viên (`members.data.js`)** | **Xác minh 100% (PASS)** | Dữ liệu thực tế 100%: bảo tồn thông tin, không gán nhãn kỹ năng phỏng đoán, hiển thị avatar cá nhân hoặc ký hiệu monogram thiên văn. |
 | **06 Thư mục Portfolio cá nhân (`members/`)** | **Bảo toàn nguyên vẹn** | 06 Thư mục Portfolio khung cơ sở (`hieu`, `truong`, `nhu`, `huynh`, `chau`, `thu`). Không chỉnh sửa hay đổi tên bất kỳ file/thư mục nào trong `members/`. |
 | **Kiến trúc phân trang tĩnh** | **Hoạt động ổn định (PASS)** | Hỗ trợ mở trực tiếp tĩnh trên trình duyệt / GitHub Pages (ES Module) và cấu hình sẵn sàng cho đóng gói Vite đa trang (7 HTML entrypoints). |
-| **Tương thích thiết bị di động** | **Đạt chuẩn (PASS)** | Kiểm thử bố cục trên các dải màn hình từ 375px đến 1440px desktop, không tràn thanh cuộn ngang (`overflow-x: hidden`). |
-| **Hệ thống build đa trang (`npm run build`)** | **Xác minh 100% (PASS)** | Đã kiểm thử thực tế trên Vite v5.4.21: Biên dịch 23 modules thành công trong 220ms, xuất đủ 7 file HTML đầu ra và toàn vẹn liên kết tài nguyên hashed assets. |
+| **Tương thích thiết bị di động** | **Đạt chuẩn (PASS)** | Tối ưu responsive 1 hàng ngang duy nhất cho thanh footer điều khiển (375px đến 1440px desktop), không tràn thanh cuộn ngang (`overflow-x: hidden`). |
+| **Hệ thống build đa trang (`npm run build`)** | **Xác minh 100% (PASS)** | Đã kiểm thử thực tế trên Vite v5.4.21: Biên dịch 36 modules thành công, xuất đủ 7 file HTML đầu ra và toàn vẹn liên kết tài nguyên hashed assets. |
 
 ---
 
