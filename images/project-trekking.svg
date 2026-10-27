@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" width="100%" height="100%">
+  <defs>
+    <!-- Soft Pastel Sky Gradient -->
+    <linearGradient id="trekkingSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff1f2" />
+      <stop offset="40%" stop-color="#fdf4ff" />
+      <stop offset="100%" stop-color="#ecfdf5" />
+    </linearGradient>
+
+    <!-- Mountain Layer Gradients -->
+    <linearGradient id="mountainFar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e0e7ff" />
+      <stop offset="100%" stop-color="#c7d2fe" />
+    </linearGradient>
+    <linearGradient id="mountainMid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ddd6fe" />
+      <stop offset="100%" stop-color="#a78bfa" />
+    </linearGradient>
+    <linearGradient id="mountainNear" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a7f3d0" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbcfe8" />
+      <stop offset="100%" stop-color="#f472b6" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="380" rx="20" fill="url(#trekkingSky)" />
+
+  <!-- Rising Pastel Sun -->
+  <circle cx="300" cy="140" r="55" fill="url(#sunGrad)" opacity="0.65" />
+
+  <!-- Mountain Peak 1 (Far left) -->
+  <polygon points="60,280 180,110 300,280" fill="url(#mountainFar)" opacity="0.75" />
+  <!-- Snow / Mist cap on Peak 1 -->
+  <polygon points="180,110 155,145 180,140 205,145" fill="#ffffff" opacity="0.9" />
+
+  <!-- Mountain Peak 2 (Far right) -->
+  <polygon points="280,290 420,130 550,290" fill="url(#mountainFar)" opacity="0.75" />
+  <polygon points="420,130 395,160 420,155 445,160" fill="#ffffff" opacity="0.9" />
+
+  <!-- Mountain Peak Center (Mid layer) -->
+  <polygon points="170,320 310,145 450,320" fill="url(#mountainMid)" opacity="0.85" />
+  <polygon points="310,145 285,180 305,175 320,182 335,180" fill="#ffffff" opacity="0.95" />
+
+  <!-- Foothills & Forest Green Layer -->
+  <path d="M 0 320 Q 90 260 210 290 Q 340 320 460 275 Q 540 260 600 295 L 600 380 L 0 380 Z" fill="url(#mountainNear)" opacity="0.8" />
+  
+  <!-- Foreground Rolling Hills -->
+  <path d="M 0 335 Q 150 300 310 340 Q 450 370 600 330 L 600 380 L 0 380 Z" fill="#059669" opacity="0.9" />
+
+  <!-- Trekking Trail (Dotted Winding Path) -->
+  <path d="M 120 380 Q 200 340 260 350 Q 320 360 360 330 Q 390 305 400 280 Q 405 250 350 220 L 310 145" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-dasharray="6,6" opacity="0.9" />
+
+  <!-- Summit Flag -->
+  <line x1="310" y1="145" x2="310" y2="120" stroke="#f43f5e" stroke-width="2.5" />
+  <polygon points="310,120 335,130 310,140" fill="#f43f5e" />
+
+  <!-- Cute Clouds -->
+  <g fill="#ffffff" opacity="0.8">
+    <ellipse cx="120" cy="70" rx="35" ry="14" />
+    <ellipse cx="140" cy="65" rx="25" ry="18" />
+    <ellipse cx="480" cy="85" rx="40" ry="15" />
+    <ellipse cx="505" cy="80" rx="28" ry="18" />
+  </g>
+
+  <!-- Title Badge Overlay (Light aesthetic) -->
+  <g transform="translate(35, 30)">
+    <rect width="270" height="38" rx="12" fill="#ffffff" stroke="rgba(244, 114, 182, 0.35)" stroke-width="1.5" filter="drop-shadow(0 6px 14px rgba(16, 185, 129, 0.15))" />
+    <!-- Compass Icon SVG -->
+    <circle cx="24" cy="19" r="10" fill="none" stroke="#059669" stroke-width="2" />
+    <polygon points="24,11 27,19 24,17 21,19" fill="#f43f5e" />
+    <polygon points="24,27 27,19 24,21 21,19" fill="#059669" />
+    <text x="44" y="24" fill="#065f46" font-family="'Inter', sans-serif" font-size="13" font-weight="700">TREKKING &amp; LEO NÚI ADVENTURE</text>
+  </g>
+
+  <!-- Tag Pill Right -->
+  <g transform="translate(435, 30)">
+    <rect width="130" height="38" rx="12" fill="#ffffff" stroke="rgba(16, 185, 129, 0.35)" stroke-width="1.5" filter="drop-shadow(0 6px 14px rgba(16, 185, 129, 0.1))" />
+    <text x="65" y="24" fill="#059669" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" text-anchor="middle">🏔️ Outdoor App</text>
+  </g>
+</svg>
+
