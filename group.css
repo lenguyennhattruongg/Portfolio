@@ -40,12 +40,14 @@
 html, body {
   width: 100%;
   height: 100%;
+  height: 100dvh;
   overflow: hidden;
   background-color: var(--bg-deep-space);
   color: var(--ink-primary);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  touch-action: manipulation;
 }
 
 /* ---------------------------------------------------------
@@ -83,8 +85,10 @@ html, body {
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   z-index: 0;
   display: block;
+  touch-action: none;
 }
 
 /* ---------------------------------------------------------
@@ -97,6 +101,7 @@ html, body {
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   pointer-events: none;
   z-index: 10;
   transition: opacity 0.3s ease;
@@ -321,6 +326,7 @@ html, body {
 }
 
 .hud-action-btn {
+  font-family: var(--font-mono);
   padding: 8px 14px;
   font-size: 0.78rem;
   font-weight: 600;
@@ -338,6 +344,18 @@ html, body {
   color: #FFFFFF;
   background: rgba(240, 200, 121, 0.12);
   box-shadow: 0 0 12px var(--accent-gold-glow);
+}
+
+.hud-help-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 50%;
 }
 
 /* Nút điều khiển âm thanh vũ trụ Web Audio API */
@@ -402,35 +420,50 @@ html, body {
    --------------------------------------------------------- */
 .spatial-detail-panel {
   position: fixed;
-  top: 96px;
+  top: 86px;
   right: 24px;
-  width: min(440px, calc(100vw - 48px));
-  max-height: calc(100vh - 190px);
+  width: min(420px, calc(100vw - 48px));
+  max-height: calc(100vh - 165px);
   overflow-y: auto;
-  background: rgba(16, 23, 42, 0.95);
-  border: 1px solid var(--border-chart);
+  background: rgba(10, 15, 28, 0.94);
+  border: 1px solid rgba(142, 156, 255, 0.3);
   border-top: 3px solid var(--accent-gold);
   border-radius: 8px;
-  padding: 24px;
+  padding: 22px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.8),
-    0 0 30px rgba(240, 200, 121, 0.15);
-  transform: translateX(30px);
+    0 20px 45px rgba(0, 0, 0, 0.75),
+    0 0 20px rgba(240, 200, 121, 0.1);
+  transform: translateX(25px);
   opacity: 0;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  z-index: 25;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(142, 156, 255, 0.3) transparent;
 }
 
-.spatial-detail-panel.panel-open {
+.spatial-detail-panel.panel-open,
+.spatial-detail-panel.panel-active {
   transform: translateX(0);
   opacity: 1;
+  pointer-events: auto;
+}
+
+.spatial-detail-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.spatial-detail-panel::-webkit-scrollbar-thumb {
+  background: rgba(142, 156, 255, 0.3);
+  border-radius: 4px;
 }
 
 .panel-inner {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .panel-header-row {
@@ -442,9 +475,9 @@ html, body {
 }
 
 .panel-seq {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--accent-gold);
 }
 
@@ -455,22 +488,25 @@ html, body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
 .panel-close-cross:hover {
   color: var(--accent-gold);
+  background: rgba(240, 200, 121, 0.15);
 }
 
 .panel-identity-block {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .panel-avatar-wrap {
-  width: 74px;
-  height: 74px;
+  width: 68px;
+  height: 68px;
   flex-shrink: 0;
   border-radius: 6px;
   border: 1px solid var(--accent-gold);
@@ -479,7 +515,7 @@ html, body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 0 15px var(--accent-gold-glow);
+  box-shadow: 0 0 14px var(--accent-gold-glow);
 }
 
 .panel-avatar-img {
@@ -489,7 +525,7 @@ html, body {
 }
 
 .panel-monogram {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 800;
   color: var(--accent-gold);
 }
@@ -497,53 +533,64 @@ html, body {
 .panel-name-col {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .panel-name {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--ink-primary);
 }
 
 .panel-role {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--accent-cosmic);
 }
 
 .panel-headline {
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   line-height: 1.55;
   color: var(--ink-secondary);
 }
 
+.panel-metaphor-note {
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  line-height: 1.45;
+  padding: 6px 10px;
+  background: rgba(16, 23, 42, 0.6);
+  border-left: 2px solid var(--accent-gold);
+  border-radius: 0 4px 4px 0;
+  margin-top: -4px;
+}
+
 /* ---------------------------------------------------------
-   AR CELESTIAL TELEMETRY GRID (INSPIRED BY TYCHO & SOLAR-WANDERER)
+   AR CELESTIAL TELEMETRY GRID
    --------------------------------------------------------- */
 .panel-telemetry-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   padding: 12px;
-  background: rgba(8, 11, 22, 0.7);
+  background: rgba(8, 11, 24, 0.75);
   border: 1px solid var(--border-chart);
   border-left: 3px solid var(--accent-cosmic);
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .telemetry-cell {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 3px 6px;
-  background: rgba(16, 23, 42, 0.5);
-  border-radius: 3px;
+  padding: 4px 8px;
+  background: rgba(16, 23, 42, 0.55);
+  border-radius: 4px;
 }
 
 .telemetry-label {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   letter-spacing: 0.08em;
   color: var(--ink-muted);
 }
@@ -563,7 +610,7 @@ html, body {
 }
 
 .panel-skills-title {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--ink-muted);
@@ -575,22 +622,22 @@ html, body {
   gap: 6px;
 }
 
-.skill-tag {
+.skill-tag, .panel-skill-tag {
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  padding: 4px 10px;
-  background: rgba(142, 156, 255, 0.1);
-  border: 1px solid rgba(142, 156, 255, 0.35);
+  padding: 3px 9px;
+  background: rgba(142, 156, 255, 0.12);
+  border: 1px solid rgba(142, 156, 255, 0.3);
   color: var(--ink-primary);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .panel-actions-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 6px;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .btn-portal-primary {
@@ -598,34 +645,34 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 20px;
+  padding: 11px 18px;
   background: linear-gradient(135deg, #F0C879, #D4A853);
   color: #080B16;
   font-weight: 800;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   letter-spacing: 0.04em;
-  border-radius: 4px;
+  border-radius: 6px;
   text-decoration: none;
-  box-shadow: 0 4px 20px rgba(240, 200, 121, 0.4);
+  box-shadow: 0 4px 18px rgba(240, 200, 121, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-portal-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(240, 200, 121, 0.6);
+  box-shadow: 0 6px 24px rgba(240, 200, 121, 0.55);
 }
 
 .btn-portal-secondary {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 16px;
-  background: rgba(8, 11, 22, 0.7);
+  padding: 9px 16px;
+  background: rgba(8, 11, 22, 0.75);
   border: 1px solid var(--border-chart);
   color: var(--ink-secondary);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 6px;
   text-decoration: none;
   transition: all 0.2s ease;
 }
@@ -636,28 +683,32 @@ html, body {
 }
 
 /* ---------------------------------------------------------
-   3.3. THANH HUD DƯỚI CÙNG (BOTTOM NAVIGATION & SEARCH)
+   3.3. THANH HUD DƯỚI CÙNG (BOTTOM NAVIGATION & SEARCH — MILESTONE A)
    --------------------------------------------------------- */
 .hud-bottom-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 16px;
   background: var(--bg-hud-surface);
   border: 1px solid var(--border-chart);
-  border-radius: 6px;
-  padding: 12px 20px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  border-radius: 8px;
+  padding: 8px 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+  min-height: 52px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .hud-search-cluster {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex: 1;
-  max-width: 520px;
+  flex-shrink: 0;
+  min-width: 16rem;
+  width: 280px;
 }
 
 .hud-search-input-box {
@@ -671,68 +722,112 @@ html, body {
   position: absolute;
   left: 12px;
   color: var(--ink-muted);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  pointer-events: none;
 }
 
 .hud-search-input {
   width: 100%;
-  height: 38px;
-  padding: 0 32px 0 36px;
-  background: rgba(8, 11, 22, 0.85);
+  min-width: 16rem;
+  height: 36px;
+  padding: 0 30px 0 34px;
+  background: rgba(8, 11, 24, 0.88);
   border: 1px solid var(--border-chart);
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--ink-primary);
-  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hud-search-input::placeholder {
+  color: var(--ink-muted);
+  opacity: 0.85;
 }
 
 .hud-search-input:focus {
   outline: none;
   border-color: var(--accent-gold);
-  box-shadow: 0 0 15px rgba(240, 200, 121, 0.3);
+  box-shadow: 0 0 12px rgba(240, 200, 121, 0.25);
 }
 
 .hud-search-clear {
   position: absolute;
-  right: 10px;
+  right: 8px;
   color: var(--ink-muted);
   background: none;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
 }
 
 .hud-search-clear:hover {
   color: var(--ink-primary);
 }
 
-.hud-search-status {
+.hud-search-empty-box {
+  position: absolute;
+  bottom: 48px;
+  left: 0;
+  padding: 7px 12px;
+  background: rgba(16, 23, 42, 0.96);
+  border: 1px solid var(--accent-gold);
+  border-radius: 6px;
   font-size: 0.75rem;
-  color: var(--accent-cosmic);
+  color: var(--accent-gold);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   white-space: nowrap;
 }
 
-.hud-search-empty-box {
-  position: absolute;
-  bottom: 54px;
-  left: 0;
-  padding: 8px 14px;
-  background: rgba(16, 23, 42, 0.95);
-  border: 1px solid var(--accent-gold);
+/* Nút mũi tên cuộn hàng chip */
+.hud-pills-arrow {
+  background: rgba(16, 23, 42, 0.85);
+  border: 1px solid var(--border-chart);
+  color: var(--ink-secondary);
   border-radius: 4px;
-  font-size: 0.78rem;
-  color: var(--accent-gold);
+  width: 26px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  z-index: 5;
 }
 
-/* Nút thiên thể chuyển nhanh quỹ đạo Hệ Mặt Trời (Seanpm2001 Inspired) */
+.hud-pills-arrow:hover {
+  border-color: var(--accent-gold);
+  color: #FFFFFF;
+  background: rgba(240, 200, 121, 0.15);
+}
+
+/* Khung cuộn ngang có chỉ báo thị giác (Horizontal Scroll Mask) */
+.hud-pills-scroll-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 18px, black calc(100% - 18px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18px, black calc(100% - 18px), transparent 100%);
+}
+
 .hud-orbit-pills-row {
   display: flex;
   align-items: center;
   gap: 6px;
   overflow-x: auto;
-  max-width: 100%;
-  padding-bottom: 2px;
+  width: 100%;
+  padding: 4px 10px;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .hud-orbit-pills-row::-webkit-scrollbar {
@@ -743,36 +838,43 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 11px;
+  height: 36px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
   font-size: 0.74rem;
-  font-weight: 700;
+  font-weight: 600;
   border: 1px solid var(--border-chart);
-  border-radius: 4px;
-  background: rgba(8, 11, 22, 0.82);
+  border-radius: 6px;
+  background: rgba(8, 11, 24, 0.85);
   color: var(--ink-secondary);
   cursor: pointer;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .orbit-pill:hover {
   border-color: var(--accent-cosmic);
   color: #FFFFFF;
   background: rgba(142, 156, 255, 0.18);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(142, 156, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.orbit-pill:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
 }
 
 .orbit-pill.active-pill {
   border-color: var(--accent-gold);
   color: #080B16;
   background: var(--accent-gold);
-  box-shadow: 0 0 16px var(--accent-gold-glow);
-  transform: translateY(-2px);
+  box-shadow: 0 0 14px var(--accent-gold-glow);
+  transform: translateY(-1px);
 }
 
 .orbit-pill-symbol {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1;
   color: var(--accent-gold);
 }
@@ -784,7 +886,7 @@ html, body {
 .orbit-pill-member {
   font-size: 0.65rem;
   padding: 1px 4px;
-  border-radius: 2px;
+  border-radius: 3px;
   background: rgba(142, 156, 255, 0.2);
   color: var(--accent-cosmic);
   margin-left: 2px;
@@ -813,19 +915,24 @@ html, body {
 /* Nhãn hành tinh trên AR viewport — Tinh gọn, Micro-refined, Không che khuất thiên thể */
 .spatial-ar-label {
   position: absolute;
-  transform: translate(-50%, -100%);
+  top: 0;
+  left: 0;
+  transform: translate3d(-9999px, -9999px, 0) translate(-50%, -100%);
   pointer-events: auto;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  transition: opacity 0.25s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
+  will-change: transform, opacity;
 }
 
-.spatial-ar-label:hover {
-  transform: translate(-50%, -108%) scale(1.1);
+.spatial-ar-label:hover .ar-label-marker {
+  transform: scale(1.08) translateY(-2px);
+  border-color: var(--accent-gold);
+  background: rgba(16, 23, 42, 0.95);
+  box-shadow: 0 0 16px var(--accent-gold-glow);
 }
 
 .ar-label-marker {
@@ -860,6 +967,27 @@ html, body {
   border-color: var(--accent-gold);
   background: rgba(16, 23, 42, 0.95);
   box-shadow: 0 0 14px var(--accent-gold-glow);
+}
+
+.spatial-ar-label.active-ar-label {
+  z-index: 22;
+  transform: translate(-50%, -100%) scale(1.05);
+}
+
+.spatial-ar-label.active-ar-label .ar-label-marker {
+  border-color: var(--accent-gold);
+  background: rgba(16, 23, 42, 0.96);
+  box-shadow: 0 0 16px var(--accent-gold-glow);
+}
+
+.spatial-ar-label.active-ar-label .ar-label-symbol {
+  color: #FFFFFF;
+  text-shadow: 0 0 8px var(--accent-gold);
+}
+
+.spatial-ar-label.active-ar-label .ar-label-name {
+  color: var(--accent-gold);
+  font-weight: 800;
 }
 
 /* ---------------------------------------------------------
@@ -914,25 +1042,142 @@ html, body {
   line-height: 1;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .spatial-hud-overlay {
-    padding: 14px;
+/* ---------------------------------------------------------
+   RESPONSIVE DESIGN (DESKTOP, LAPTOP, TABLET, MOBILE) — MILESTONE A
+   --------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .hud-guide-pill {
+    display: none;
   }
-  .hud-top-bar {
-    padding: 10px 14px;
+  .hud-search-cluster {
+    width: 240px;
+  }
+}
+
+@media (max-width: 992px) {
+  .spatial-hud-overlay {
+    padding: 16px;
   }
   .hud-telemetry-cluster {
     display: none;
   }
+  .spatial-detail-panel {
+    width: 380px;
+    top: 80px;
+    right: 16px;
+    max-height: calc(100vh - 150px);
+  }
+  .hud-zoom-controls {
+    right: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .spatial-hud-overlay {
+    padding: 12px;
+  }
+  .hud-top-bar {
+    padding: 8px 12px;
+    gap: 10px;
+  }
+  .hud-brand-symbol {
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+  }
+  .hud-brand-title {
+    font-size: 0.95rem;
+  }
+  .hud-brand-sub {
+    font-size: 0.62rem;
+  }
+  .btn-perspective {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+  }
+  .hud-action-btn {
+    padding: 5px 9px;
+    font-size: 0.68rem;
+  }
+  .hud-audio-btn {
+    display: none; /* Rút gọn trên mobile để không tràn thanh top */
+  }
+
+  /* Bottom Bar dạng 2 tầng thanh thoát */
   .hud-bottom-bar {
     flex-direction: column;
     align-items: stretch;
-    padding: 12px;
-    gap: 12px;
+    padding: 10px 12px;
+    gap: 8px;
+    min-height: auto;
+  }
+  .hud-search-cluster {
+    width: 100%;
+  }
+  .hud-search-input {
+    height: 34px;
+    font-size: 0.75rem;
+  }
+  .hud-pills-scroll-wrapper {
+    width: 100%;
   }
   .hud-orbit-pills-row {
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 2px 8px;
+    gap: 6px;
+    scroll-snap-type: x mandatory;
+  }
+  .orbit-pill {
+    height: 32px;
+    padding: 0 10px;
+    font-size: 0.7rem;
+    scroll-snap-align: start;
+  }
+
+  /* Drawer chi tiết đóng vai trò Bottom Sheet trên mobile */
+  .spatial-detail-panel {
+    top: auto;
+    bottom: 86px;
+    right: 12px;
+    left: 12px;
+    width: calc(100vw - 24px);
+    max-height: 60vh;
+    padding: 16px;
+    transform: translateY(20px);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+  }
+  .spatial-detail-panel.panel-open,
+  .spatial-detail-panel.panel-active {
+    transform: translateY(0);
+  }
+
+  /* Cụm Zoom dịch sang phải trên drawer */
+  .hud-zoom-controls {
+    right: 12px;
+    top: auto;
+    bottom: 155px;
+    transform: none;
+    gap: 6px;
+  }
+  .btn-hud-zoom {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 1.15rem;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hud-perspective-switch {
+    display: none; /* Chuyển sang nút gạt tối giản */
+  }
+  .hud-top-actions a.hud-action-btn {
+    display: none;
+  }
+  .panel-telemetry-grid {
+    grid-template-columns: 1fr;
   }
 }

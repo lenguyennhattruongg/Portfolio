@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Nhóm 06 — True 3D WebGL Spatial Universe. Hệ thống bản đồ thiên văn số kết nối 6 thiên thể kỹ thuật sinh viên ĐH Giao thông Vận tải TP.HCM (UTH).">
+  <meta name="description" content="Nhóm 06 — Hệ Mặt Trời 3D kết nối 6 thành viên sinh viên Trường Đại học Giao thông Vận tải TP.HCM (UTH).">
   <meta name="author" content="Nhóm 06 — UTH">
 
-  <title>Nhóm 06 | SNU 3D Universe — Milky Way & Solar System (UTH)</title>
+  <title>Nhóm 06 — Hệ Mặt Trời 3D</title>
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Nhóm 06 | SNU 3D Universe — Milky Way & Solar System (UTH)">
-  <meta property="og:description" content="Không gian mô phỏng 3D Hệ Mặt Trời trong dải Ngân Hà kết nối 6 thành viên sinh viên ĐH Giao thông Vận tải TP.HCM.">
+  <meta property="og:title" content="Nhóm 06 — Hệ Mặt Trời 3D">
+  <meta property="og:description" content="Không gian mô phỏng 3D Hệ Mặt Trời kết nối 6 thành viên Nhóm 06, Trường Đại học Giao thông Vận tải TP.HCM.">
   <meta property="og:type" content="website">
 
   <!-- Phông chữ Google Fonts (Outfit, Plus Jakarta Sans, JetBrains Mono) -->
@@ -50,42 +50,35 @@
       <div class="hud-brand">
         <span class="hud-brand-symbol">☉</span>
         <div class="hud-brand-text">
-          <span class="hud-brand-title font-heading">SOLAR SYSTEM 3D</span>
-          <span class="hud-brand-sub font-mono">MILKY WAY // TECHGROUP.06</span>
-        </div>
-      </div>
-
-      <!-- Trạng thái định vị mục tiêu hiện tại -->
-      <div class="hud-telemetry-cluster">
-        <div class="hud-telemetry-pill font-mono" id="currentFocusReadout">
-          SECTOR: MILKY WAY // SOLAR SYSTEM OVERVIEW
-        </div>
-        <div class="hud-guide-pill font-mono">
-          ✦ KÉO CHUỘT: XOAY 360° · CUỘN: ZOOM · CLICK: TIẾP CẬN THIÊN THỂ
+          <span class="hud-brand-title font-heading">Nhóm 06</span>
+          <span class="hud-brand-sub font-mono">Hệ Mặt Trời 3D</span>
         </div>
       </div>
 
       <!-- DUAL-PERSPECTIVE KINEMATIC SWITCH -->
       <div class="hud-perspective-switch font-mono" id="hudPerspectiveSwitch">
-        <button type="button" class="btn-perspective active" id="btnModeOrbit" title="Góc nhìn quỹ đạo 360° tự do bao quát Hệ Mặt Trời">
-          <span class="perspective-dot orbit-dot"></span> [1] 360° ORBIT
+        <button type="button" class="btn-perspective active" id="btnModeOrbit" title="Góc nhìn quỹ đạo 360° bao quát Hệ Mặt Trời">
+          <span class="perspective-dot orbit-dot"></span> [1] Quỹ đạo 360°
         </button>
-        <button type="button" class="btn-perspective" id="btnModeWarp" title="Chế độ du hành siêu tốc Hyper-Warp xuyên quỹ đạo">
-          <span class="perspective-dot warp-dot"></span> [2] HYPER-WARP
+        <button type="button" class="btn-perspective" id="btnModeWarp" title="Chế độ du hành không gian xuyên quỹ đạo">
+          <span class="perspective-dot warp-dot"></span> [2] Du hành siêu tốc
         </button>
       </div>
 
       <!-- Điều hướng góc phải -->
       <div class="hud-top-actions">
+        <!-- NÚT TRỢ GIÚP ĐIỀU KHIỂN -->
+        <button type="button" class="hud-action-btn hud-help-btn font-mono" id="btnHelpGuide" title="Kéo chuột: Xoay 360° · Cuộn: Thu phóng · Nhấp: Xem thiên thể" aria-label="Hướng dẫn điều khiển">?</button>
+
         <!-- NÚT BẬT / TẮT ÂM THANH KHÔNG GIAN (SPATIAL AUDIO TOGGLE) -->
-        <button type="button" class="hud-action-btn hud-audio-btn font-mono" id="btnAudioToggle" title="Bật / tắt âm thanh vũ trụ (Web Audio API)">
+        <button type="button" class="hud-action-btn hud-audio-btn font-mono" id="btnAudioToggle" aria-pressed="false" title="Bật / tắt âm thanh vũ trụ (Web Audio API)">
           <span class="audio-bars-icon" aria-hidden="true">
             <i></i><i></i><i></i><i></i>
           </span>
-          <span id="audioStatusText">AUDIO: ON</span>
+          <span id="audioStatusText">ÂM THANH: TẮT</span>
         </button>
         <button type="button" class="hud-action-btn font-mono" id="btnResetOrbit" title="Trở về góc nhìn toàn cảnh Hệ Mặt Trời">
-          HỆ MẶT TRỜI [ESC]
+          Hệ Mặt Trời [Esc]
         </button>
         <a href="https://github.com/lenguyennhattruongg/Portfolio" class="hud-action-btn font-mono" target="_blank" rel="noopener noreferrer">
           GitHub ↗
@@ -98,7 +91,7 @@
       <div class="panel-inner">
         
         <div class="panel-header-row">
-          <span class="panel-seq font-mono" id="panelMemberSeq">CELESTIAL BODY // 01</span>
+          <span class="panel-seq font-mono" id="panelMemberSeq">THIÊN THỂ // 01</span>
           <button type="button" class="panel-close-cross font-mono" id="panelCloseBtn" aria-label="Trở về quỹ đạo toàn cảnh (Esc)">
             &times;
           </button>
@@ -117,30 +110,33 @@
 
         <p class="panel-headline font-body" id="panelMemberHeadline">--</p>
 
-        <!-- THÔNG SỐ VẬT LÝ THIÊN VĂN (LIVE CELESTIAL TELEMETRY — INSPIRED BY TYCHO & SOLAR-WANDERER) -->
+        <!-- Lời giải thích phép ẩn dụ trang trí -->
+        <p class="panel-metaphor-note font-mono" id="panelMetaphorNote">✦ Ghi chú: Gắn kết thành viên là phép ẩn dụ thiên văn đại diện dự án.</p>
+
+        <!-- THÔNG SỐ VẬT LÝ THIÊN VĂN -->
         <div class="panel-telemetry-grid font-mono" id="panelTelemetryGrid">
           <div class="telemetry-cell">
-            <span class="telemetry-label">SEMI-MAJOR (a)</span>
+            <span class="telemetry-label">BÁN TRỤC LỚN (a)</span>
             <span class="telemetry-val" id="telemetryA">-- AU</span>
           </div>
           <div class="telemetry-cell">
-            <span class="telemetry-label">ORBIT VELOCITY (v)</span>
+            <span class="telemetry-label">VẬN TỐC QUỸ ĐẠO (v)</span>
             <span class="telemetry-val" id="telemetryV">-- km/s</span>
           </div>
           <div class="telemetry-cell">
-            <span class="telemetry-label">PERIOD (T)</span>
-            <span class="telemetry-val" id="telemetryT">-- Days</span>
+            <span class="telemetry-label">CHU KỲ QUỸ ĐẠO (T)</span>
+            <span class="telemetry-val" id="telemetryT">-- Ngày</span>
           </div>
           <div class="telemetry-cell">
-            <span class="telemetry-label">ECCENTRICITY (e)</span>
+            <span class="telemetry-label">ĐỘ LỆCH TÂM (e)</span>
             <span class="telemetry-val" id="telemetryE">--</span>
           </div>
           <div class="telemetry-cell">
-            <span class="telemetry-label">SATELLITES</span>
+            <span class="telemetry-label">VỆ TINH TỰ NHIÊN</span>
             <span class="telemetry-val" id="telemetryMoons">--</span>
           </div>
           <div class="telemetry-cell">
-            <span class="telemetry-label">INCLINATION (i)</span>
+            <span class="telemetry-label">ĐỘ NGHIÊNG QUỸ ĐẠO (i)</span>
             <span class="telemetry-val" id="telemetryInc">--°</span>
           </div>
         </div>
@@ -154,7 +150,7 @@
         <!-- Các nút liên kết -->
         <div class="panel-actions-group">
           <a href="#" class="btn-portal-primary font-body" id="panelPortfolioLink">
-            TIẾN VÀO HỆ QUY CHIẾU 3D ↗
+            XEM PORTFOLIO CHI TIẾT ↗
           </a>
           <a href="#" class="btn-portal-secondary font-body" id="panelGithubLink" target="_blank" rel="noopener noreferrer" hidden>
             Trang GitHub Cá Nhân ↗
@@ -178,25 +174,28 @@
     </div>
 
     <!-- THANH HUD DƯỚI CÙNG: THANH ĐIỀU HƯỚNG QUỸ ĐẠO & TÌM KIẾM TỌA ĐỘ -->
-    <footer class="hud-bottom-bar spatial-hud-element">
+    <footer class="hud-bottom-bar spatial-hud-element" role="contentinfo">
       
-      <!-- Cụm tìm kiếm tọa độ nhanh -->
+      <!-- Cụm tìm kiếm tọa độ nhanh (Không bị bẻ dòng, min-width chuẩn mực) -->
       <div class="hud-search-cluster">
-        <label for="spatialSearchInput" class="visually-hidden">Tìm kiếm tọa độ thành viên</label>
+        <label for="spatialSearchInput" class="visually-hidden">Tìm kiếm hành tinh hoặc thành viên</label>
         <div class="hud-search-input-box">
-          <span class="search-icon-symbol">⌕</span>
-          <input type="text" id="spatialSearchInput" class="hud-search-input font-mono" placeholder="Tìm kiếm hành tinh / thành viên (Trái Đất, Trường, Hiếu, Sao Mộc, Sao Thổ...)" autocomplete="off">
-          <button type="button" class="hud-search-clear" id="spatialSearchClearBtn" hidden>&times;</button>
+          <span class="search-icon-symbol" aria-hidden="true">⌕</span>
+          <input type="text" id="spatialSearchInput" class="hud-search-input font-mono" placeholder="Tìm thiên thể, thành viên..." autocomplete="off">
+          <button type="button" class="hud-search-clear" id="spatialSearchClearBtn" aria-label="Xóa tìm kiếm" hidden>&times;</button>
         </div>
-        <span class="hud-search-status font-mono" id="spatialSearchStatus">✦ Khám phá 10 thiên thể Hệ Mặt Trời & 6 thành viên UTH</span>
         <div class="hud-search-empty-box font-mono" id="spatialSearchEmpty" hidden>
           Không tìm thấy tọa độ thiên thể.
         </div>
       </div>
 
-      <!-- 6 Nút Chuyển Nhanh Quỹ Đạo Thiên Thể (Orbit Navigation Pills) -->
-      <div class="hud-orbit-pills-row" id="spatialNavPills">
-        <!-- Render 6 nút thiên thể từ JS -->
+      <!-- Khung cuộn ngang danh sách thiên thể có 2 nút mũi tên -->
+      <div class="hud-pills-scroll-wrapper">
+        <button type="button" class="hud-pills-arrow hud-pills-prev" id="btnPillScrollLeft" aria-label="Cuộn sang trái" title="Cuộn sang trái">&lsaquo;</button>
+        <div class="hud-orbit-pills-row font-mono" id="spatialNavPills" role="tablist" tabindex="0" aria-label="Danh sách thiên thể Hệ Mặt Trời">
+          <!-- Render các nút thiên thể từ JS -->
+        </div>
+        <button type="button" class="hud-pills-arrow hud-pills-next" id="btnPillScrollRight" aria-label="Cuộn sang phải" title="Cuộn sang phải">&rsaquo;</button>
       </div>
 
     </footer>
