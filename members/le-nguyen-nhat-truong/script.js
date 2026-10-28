@@ -64,7 +64,7 @@ const METRO_CONFIG = {
       course: 'Môn: Lập trình Web',
       category: 'web',
       title: 'Group Portfolio Website Hub',
-      summary: 'Nền tảng website nhóm 6 sinh viên UTH kiến trúc đa trang (Multi-Page Application) tối ưu bằng Vite. Tích hợp thanh tìm kiếm thành viên theo thời gian thực, responsive đa thiết bị và không gian portfolio cá nhân độc lập.',
+      summary: 'Nền tảng website Nhóm 02 (6 sinh viên UTH) kiến trúc đa trang (Multi-Page Application) tối ưu bằng Vite. Tích hợp thanh tìm kiếm thành viên theo thời gian thực, responsive đa thiết bị và không gian portfolio cá nhân độc lập.',
       myRole: '[CẦN SỬA: Ví dụ: Thiết kế và hoàn thiện toàn bộ không gian portfolio cá nhân độc lập, tích hợp form liên hệ và tối ưu responsive]',
       whatILearned: '[CẦN SỬA: Ví dụ: Tư duy cấu trúc đa trang MPA, cách viết CSS thuần kiểm soát bố cục và kỹ thuật bắt sự kiện DOM không phụ thuộc framework]',
       technologies: ['HTML5 Semantic', 'CSS3 Vanilla', 'JavaScript ES6+', 'Vite MPA', 'Bootstrap 5'],
