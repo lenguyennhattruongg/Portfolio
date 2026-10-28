@@ -2239,21 +2239,58 @@ class MilkyWaySolarSystemEngine {
 
   /**
    * Quỹ đạo hành trình Du hành siêu tốc (Cinematic Hyper-Warp Cruise Spline)
+   * Phối hợp thiết kế giữa Đạo diễn Chuyển động (ChatGPT) & Kiến trúc sư Đồ họa (Gemini)
+   * Sử dụng đường xoắn ốc Ngân hà Archimedes 3D (Golden Cosmic Spiral) với chuẩn nội suy Centripetal,
+   * triệt tiêu hoàn toàn góc bẻ cua gập gềnh, đảm bảo góc máy điện ảnh mượt mà và chân trời ổn định.
    */
   buildWarpSpline() {
-    this.warpSpline = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0, 260, 680),       // 0. High cosmic approach
-      new THREE.Vector3(95, 35, 110),       // 1. Mercury flyby & glowing Sun
-      new THREE.Vector3(155, -28, 175),     // 2. Skim past Venus golden cloud deck
-      new THREE.Vector3(230, 34, 240),      // 3. Bank past Earth's azure oceans & Moon
-      new THREE.Vector3(310, -24, 320),     // 4. Dive through red canyon skies of Mars
-      new THREE.Vector3(450, 65, 460),      // 5. Grand sweep past giant Jupiter & Galilean moons
-      new THREE.Vector3(600, -42, 610),     // 6. Thrilling glide directly along the luminous rings of Saturn
-      new THREE.Vector3(740, 70, -360),     // 7. Dive past rolling ice giant Uranus & vertical rings
-      new THREE.Vector3(860, -55, -640),    // 8. Sweep past deep azure storms of Neptune & Triton
-      new THREE.Vector3(970, 85, -840),     // 9. Reach the icy heart of Pluto at Kuiper belt edge
-      new THREE.Vector3(400, 380, 300)      // 10. Rocket up into deep space to loop seamlessly back
-    ], true, 'catmullrom', 0.25);
+    const waypoints = [
+      // 0. Cửa ngõ xuất phát: Tọa độ cao quan sát toàn cảnh vũ trụ (High Cosmic Gateway)
+      new THREE.Vector3(0, 160, 520),
+
+      // 1. Lướt qua cận điểm Sao Thủy & quầng sáng Mặt Trời rực rỡ (Mercury & Solar Core)
+      new THREE.Vector3(105, 38, 75),
+
+      // 2. Lượn êm qua tầng mây vàng Sao Kim (Venus Orbit Deck)
+      new THREE.Vector3(145, 18, -115),
+
+      // 3. Nghiêng cánh bay qua Trái Đất & Mặt Trăng (Earth-Moon Orbital Plane)
+      new THREE.Vector3(-120, 24, -205),
+
+      // 4. Lướt qua hẻm vực đỏ Sao Hỏa (Mars Red Horizon)
+      new THREE.Vector3(-280, 12, -140),
+
+      // 5. Xuyên qua vành đai tiểu hành tinh ánh kim (Asteroid Belt Transition)
+      new THREE.Vector3(-360, 32, 160),
+
+      // 6. Quét vòng cung đại cảnh Sao Mộc & các đại vệ tinh (Jupiter Grand Flyby)
+      new THREE.Vector3(-220, 48, 430),
+
+      // 7. Lượn song song dọc theo vành đai băng Sao Thổ (Saturn Ring Sweep)
+      new THREE.Vector3(260, -12, 560),
+
+      // 8. Chuyển tiếp ra hệ ngoài qua quỹ đạo Sao Thiên Vương (Uranus Ice Verge)
+      new THREE.Vector3(680, 25, 310),
+
+      // 9. Lướt qua bão xanh sâu thẳm Sao Hải Vương (Neptune Deep Veil)
+      new THREE.Vector3(760, -20, -380),
+
+      // 10. Chạm đỉnh rìa ngoài cùng tại Sao Diêm Vương (Pluto Kuiper Edge)
+      new THREE.Vector3(340, 65, -880),
+
+      // 11. Bốc đầu bay vút lên đài quan sát thượng tầng thiên hà (Cosmic Apex Observatory)
+      new THREE.Vector3(-460, 260, -520),
+
+      // 12. Bay lượn trên cao ngắm nhìn toàn bộ Hệ Mặt Trời thu nhỏ (Pan-Galactic Horizon)
+      new THREE.Vector3(-520, 280, 180),
+
+      // 13. Hạ độ cao lượn mượt mà về lại cổng vào (Orbital Re-entry Descent)
+      new THREE.Vector3(-260, 220, 480)
+    ];
+
+    // Sử dụng thuật toán Centripetal Catmull-Rom khép kín:
+    // Triệt tiêu 100% hiện tượng tự thắt nút (cusps/loops) và giật quán tính
+    this.warpSpline = new THREE.CatmullRomCurve3(waypoints, true, 'centripetal');
     this.warpProgress = 0;
   }
 
@@ -2896,17 +2933,39 @@ class MilkyWaySolarSystemEngine {
 
     // 3. Xử lý bay Du hành siêu tốc (Cinematic Hyper-Warp Spline Flight) hoặc Chuyển cảnh Bezier / Bám hành tinh
     if (this.isWarpMode && this.warpSpline) {
-      this.warpProgress = (this.warpProgress + dt * 0.035) % 1.0;
+      // Tốc độ du hành tối ưu (1 vòng thiên hà kéo dài ~40 giây, êm ái, tráng lệ và thư thái)
+      this.warpProgress = (this.warpProgress + dt * 0.024) % 1.0;
       this.warpSpline.getPointAt(this.warpProgress, this.tempVecA);
-      const lookProgress = (this.warpProgress + 0.018) % 1.0;
+
+      // Điểm định hướng trước (Look-ahead tangent point)
+      const lookProgress = (this.warpProgress + 0.022) % 1.0;
       this.warpSpline.getPointAt(lookProgress, this.tempVecB);
 
-      this.camera.position.lerp(this.tempVecA, 0.10);
-      this.controls.target.lerp(this.tempVecB, 0.10);
-      this.camera.lookAt(this.tempVecB);
+      // Phối hợp điểm nhìn điện ảnh (Cinematic Look Blending):
+      // Giữ cho máy quay luôn nhìn bao quát cả hướng bay phía trước lẫn tâm sáng Mặt Trời
+      // Triệt tiêu hiện tượng dập dềnh thẳng đứng bằng cách làm dịu tọa độ Y
+      this.tempVecB.x = this.tempVecB.x * 0.72;
+      this.tempVecB.y = this.tempVecB.y * 0.35;
+      this.tempVecB.z = this.tempVecB.z * 0.72;
+
+      this.camera.position.lerp(this.tempVecA, 0.08);
+      this.controls.target.lerp(this.tempVecB, 0.08);
+      this.camera.lookAt(this.controls.target);
 
       if (dom.currentFocusReadout) {
-        dom.currentFocusReadout.textContent = 'DU HÀNH SIÊU TỐC // TỐC ĐỘ: 0.92c // DUYỆT HỆ MẶT TRỜI';
+        const p = this.warpProgress;
+        let regionName = 'CỔNG VŨ TRỤ KHỞI HÀNH';
+        if (p < 0.10) regionName = 'MẶT TRỜI // VÀNH ĐAI HẠT NĂNG LƯỢNG';
+        else if (p < 0.22) regionName = 'SAO THỦY & SAO KIM // CẬN ĐIỂM HỎA CẦU';
+        else if (p < 0.35) regionName = 'TRÁI ĐẤT & MẶT TRĂNG // HÀNH TINH XANH (NHẬT TRƯỜNG)';
+        else if (p < 0.46) regionName = 'SAO HỎA // HẺM VỰC ĐỎ (XUÂN HIẾU) & TIỂU HÀNH TINH';
+        else if (p < 0.58) regionName = 'SAO MỘC // VŨ BÃO KHỔNG LỒ & 4 ĐẠI VỆ TINH';
+        else if (p < 0.70) regionName = 'SAO THỔ // LƯỚT DỌC VÀNH ĐAI BĂNG LẤP LÁNH';
+        else if (p < 0.82) regionName = 'SAO THIÊN VƯƠNG & SAO HẢI VƯƠNG // VÙNG BĂNG GIÁ';
+        else if (p < 0.92) regionName = 'SAO DIÊM VƯƠNG // RÌA VÀNH ĐAI NGOẠI VI KUIPER';
+        else regionName = 'THƯỢNG TẦNG KHÔNG GIAN // TOÀN CẢNH HỆ MẶT TRỜI';
+
+        dom.currentFocusReadout.textContent = `DU HÀNH SIÊU TỐC // ${regionName} // 0.92c`;
       }
     } else if (this.isTransitioning) {
       this.transitionProgress += dt / this.transitionDuration;
