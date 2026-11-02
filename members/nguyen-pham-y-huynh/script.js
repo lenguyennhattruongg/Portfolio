@@ -61,6 +61,12 @@
     'Nội dung lập trình C++.':'C++ programming category.',
     'Sinh viên năm 3':'3rd Year Student',
     'Tìm cơ hội Thực tập.':'Seeking Internship.',
+    'Thiết kế & Quản trị CSDL Hệ thống Quản lý Thư viện':'Library Management System Database Design & Administration',
+    'Xây dựng sơ đồ ERD chuẩn hóa gồm 12+ bảng dữ liệu quan hệ, viết các truy vấn SQL phức tạp phục vụ thống kê mượn trả sách.':'Built a normalized ERD with 12+ relational tables and wrote complex SQL queries for book borrowing and return statistics.',
+    'Lập trình Hướng đối tượng (OOP)':'Object-Oriented Programming (OOP)',
+    'Áp dụng thành thạo 4 tính chất OOP (Đóng gói, Kế thừa, Đa hình, Trừu tượng), quản lý bộ nhớ và thao tác đọc/ghi file dữ liệu.':'Proficiently applied the 4 OOP principles (Encapsulation, Inheritance, Polymorphism, Abstraction), memory management, and file read/write operations.',
+    'CLB Lập trình – Ban Truyền thông':'Programming Club – Media Team',
+    'Thiết kế ấn phẩm và tổ chức workshop HTML/CSS.':'Designed media publications and organized an HTML/CSS workshop.',
 
     // Form & Footer
     'Có cơ hội thực tập hoặc muốn hợp tác? Gửi tin nhắn, tôi sẽ phản hồi trong 24 giờ.':'Have an internship opportunity or want to collaborate? Send a message and I will reply within 24 hours.',
