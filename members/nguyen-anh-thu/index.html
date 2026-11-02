@@ -5,20 +5,328 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nguyễn Anh Thư | Portfolio</title>
   <link rel="stylesheet" href="./style.css">
+  <meta name="theme-color" content="#f7f9fc">
+    <meta name="description" content="Hồ sơ cá nhân của Nguyễn Anh Thư — sinh viên Hệ thống thông tin quản lý, định hướng Business Analyst.">
+    <meta property="og:title" content="Nguyễn Anh Thư — Aspiring Business Analyst">
+    <meta property="og:description" content="Sinh viên Hệ thống thông tin quản lý, quan tâm đến việc kết nối nhu cầu kinh doanh với giải pháp công nghệ.">
+    <meta property="og:type" content="website">
+    <title>Nguyễn Anh Thư — Aspiring Business Analyst</title>
+    <link rel="icon" href="./images/hinhthe.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Nguyễn Anh Thư</h1>
+  <div id="top"></div>
+    <a class="skip-link" href="#main" data-i18n="skip">Bỏ qua điều hướng</a>
+  <header class="site-header" id="header">
     <a href="../../index.html">&larr; Về trang chủ nhóm</a>
+    <div class="nav-shell">
+        <button class="menu-toggle icon-button" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="primary-nav">
+          <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <nav class="primary-nav" id="primary-nav" aria-label="Điều hướng chính">
+          <a class="nav-link is-active" href="#about" data-section="about" data-i18n="nav.about">Giới thiệu</a>
+          <a class="nav-link" href="#skills" data-section="skills" data-i18n="nav.skills">Kỹ năng</a>
+          <a class="nav-link" href="#interests" data-section="interests" data-i18n="nav.interests">Sở thích</a>
+          <a class="nav-link" href="#education" data-section="education" data-i18n="nav.education">Học vấn</a>
+          <a class="nav-link" href="#journey" data-section="journey" data-i18n="nav.journey">Hành trình học tập</a>
+          <a class="nav-link" href="#contact" data-section="contact" data-i18n="nav.contact">Liên hệ</a>
+          <div class="nav-actions">
+            <button class="text-control language-toggle" type="button" aria-label="Switch language">EN</button>
+            <button class="icon-button theme-toggle" type="button" aria-label="Bật giao diện tối" title="Bật giao diện tối">
+              <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+            </button>
+            <a class="button button-small button-dark cv-link" href="./nguyen-anh-thu-cv.pdf" download>
+              <span data-i18n="downloadCv">Tải CV</span>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 14v2h12v-2"/></svg>
+            </a>
+          </div>
+        </nav>
+      </div>
   </header>
-  <main>
-    <section>
-      <h2>Portfolio Foundation</h2>
-      <p>Khung sẵn sàng tích hợp.</p>
-    </section>
-  </main>
-  <script type="module" src="./script.js"></script>
-</body>
+  <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="hero-outline" aria-hidden="true">PORTFOLIO</p>
+        <div class="hero-identity">
+          <p class="hero-hello" data-i18n="hero.hello">Mình là</p>
+          <h1 id="hero-title" data-i18n="hero.name">Anh Thư</h1>
+        </div>
+        <img class="hero-portrait" src="./images/hero-portrait.png" width="330" height="402" alt="Ảnh chân dung của Nguyễn Anh Thư">
+        <div class="hero-role">
+          <p class="hero-role-title" data-i18n="hero.role">Business Analyst</p>
+          <ul>
+            <li data-i18n="hero.point1">Sinh viên MIS</li>
+            <li data-i18n="hero.point2">Nhu cầu kinh doanh</li>
+            <li data-i18n="hero.point3">Giải pháp công nghệ</li>
+            <li data-i18n="hero.point4">Thực tập BA</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section-about" id="about" aria-labelledby="about-title">
+        <div class="section-wrap about-layout">
+          <div class="about-copy reveal">
+            <p class="eyebrow"><span class="section-number">01</span><span data-i18n="about.kicker">Giới thiệu</span></p>
+            <h2 id="about-title"><span data-i18n="about.hello">Hi, I'm</span> <span class="about-script" data-i18n="about.scriptName">Anh Thư.</span></h2>
+            <p data-i18n="about.body">Tôi là sinh viên Hệ thống thông tin quản lý, đang định hướng Business Analysis. Tôi muốn kết nối nhu cầu kinh doanh với giải pháp công nghệ, và đang tìm cơ hội thực tập để học quy trình làm việc thực tế.</p>
+            <div class="about-actions">
+              <a class="button button-dark" href="assets/cv/nguyen-anh-thu-cv.pdf" download data-i18n="downloadCv">Tải CV</a>
+              <a class="button button-quiet" href="https://www.facebook.com/share/1Lz35AGbGX/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" data-i18n="about.facebook">Facebook</a>
+              <a class="button button-quiet" href="#contact" data-i18n="about.contact">Liên hệ</a>
+            </div>
+          </div>
+          <div class="id-hang reveal">
+            <div class="id-swing">
+              <div class="id-lanyard" aria-hidden="true">
+                <span class="id-clip"></span>
+                <span class="id-strap"></span>
+                <span class="id-ring"></span>
+              </div>
+          <article class="id-card" id="about-card">
+            <span class="id-slot" aria-hidden="true"></span>
+            <div class="id-card-head"><span class="id-chip" data-i18n="about.cardLabel">Hồ sơ sinh viên</span></div>
+            <div class="id-card-body">
+              <div class="id-photo">
+                <img src="./images/about-portrait.jpg" width="785" height="1024" alt="Ảnh chân dung của Nguyễn Anh Thư">
+              </div>
+              <div class="id-card-info">
+                <p class="id-name">Nguyễn Anh Thư</p>
+                <p class="id-role">Aspiring Business Analyst</p>
+                <dl class="id-fields">
+                  <div><dt data-i18n="about.statusLabel">Trạng thái</dt><dd data-i18n="about.statusValue">Đang tìm thực tập</dd></div>
+                  <div><dt data-i18n="detail.specialty">Chuyên ngành</dt><dd data-i18n="detail.specialtyValue">Hệ thống thông tin quản lý</dd></div>
+                  <div><dt data-i18n="detail.birthday">Ngày sinh</dt><dd>26.04.2006</dd></div>
+                  <div><dt data-i18n="about.yearLabel">Niên khóa</dt><dd>2024 – 2028</dd></div>
+                </dl>
+                <p class="id-quote" data-i18n="about.quote">Kết nối nhu cầu kinh doanh với giải pháp công nghệ.</p>
+              </div>
+            </div>
+          </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-skills" id="skills" aria-labelledby="skills-title">
+        <div class="section-wrap">
+          <div class="section-heading reveal">
+            <p class="eyebrow"><span class="section-number">02</span><span data-i18n="skills.kicker">Nền tảng của tôi</span></p>
+            <h2 id="skills-title" data-i18n="skills.title">Luôn<br><span>học hỏi.</span></h2>
+            <p class="heading-description" data-i18n="skills.description">Kỹ năng được trình bày đúng với những gì tôi đang học và sử dụng — nền tảng cho hành trình phát triển.</p>
+          </div>
+        </div>
+        <div class="clothesline" id="clothesline">
+          <svg class="clothesline-rope" aria-hidden="true"></svg>
+          <div class="clothesline-stage">
+            <article class="line-card">
+              <span class="clip clip-peg" aria-hidden="true"><i></i></span>
+              <figure>
+                <img class="skill-mark" src="./images/skill-web.png" width="768" height="768" alt="Logo Visual Studio Code" data-i18n-alt="skills.webAlt">
+                <figcaption>
+                  <h3 data-i18n="skills.web">Web Fundamentals</h3>
+                  <p data-i18n="skills.webDescription">Kiến thức nền tảng về xây dựng giao diện web.</p>
+                  <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                </figcaption>
+              </figure>
+            </article>
+            <article class="line-card">
+              <span class="clip clip-binder" aria-hidden="true"></span>
+              <figure>
+                <img class="skill-mark" src="./images/skill-tools.png" width="768" height="768" alt="Búa và cờ lê bắt chéo" data-i18n-alt="skills.toolsAlt">
+                <figcaption>
+                  <h3 data-i18n="skills.tools">Tools</h3>
+                  <p data-i18n="skills.toolsDescription">Công cụ cộng tác và quản lý công việc ở mức cơ bản.</p>
+                  <div class="tag-list"><span>JIRA</span><span>GitHub <small data-i18n="basic">cơ bản</small></span></div>
+                </figcaption>
+              </figure>
+            </article>
+            <article class="line-card">
+              <span class="clip clip-tape" aria-hidden="true"></span>
+              <figure>
+                <img class="skill-mark" src="./images/skill-soft.png" width="768" height="768" alt="Hình não minh họa kỹ năng mềm" data-i18n-alt="skills.softAlt">
+                <figcaption>
+                  <h3 data-i18n="skills.soft">Soft Skills</h3>
+                  <p data-i18n="skills.softDescription">Những kỹ năng tôi chủ động rèn luyện trong học tập và cộng tác.</p>
+                  <div class="tag-list"><span data-i18n="tag.selfLearning">Tự học</span><span data-i18n="tag.communication">Giao tiếp</span><span data-i18n="tag.teamwork">Làm việc nhóm</span><span data-i18n="tag.time">Quản lý thời gian</span><span data-i18n="tag.feedback">Tiếp nhận phản hồi</span></div>
+                </figcaption>
+              </figure>
+            </article>
+            <article class="line-card">
+              <span class="clip clip-peg" aria-hidden="true"><i></i></span>
+              <figure>
+                <img class="skill-mark" src="./images/skill-database.png" width="768" height="768" alt="Biểu tượng cơ sở dữ liệu" data-i18n-alt="skills.databaseAlt">
+                <figcaption>
+                  <h3 data-i18n="skills.database">Database</h3>
+                  <p data-i18n="skills.databaseDescription">Hệ quản trị cơ sở dữ liệu được bổ sung vào hồ sơ.</p>
+                  <div class="tag-list"><span>MySQL</span><span>PostgreSQL</span></div>
+                </figcaption>
+              </figure>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-education" id="education" aria-labelledby="education-title">
+        <div class="section-wrap">
+          <div class="section-heading reveal">
+            <p class="eyebrow"><span class="section-number">03</span><span data-i18n="education.kicker">Học vấn</span></p>
+            <h2 id="education-title" data-i18n="education.title">Bắt đầu từ nền tảng<br><span>hệ thống thông tin.</span></h2>
+          </div>
+          <div class="edu-stage" id="edu-stage">
+            <div class="edu-side edu-side-left">
+              <div class="edu-shift edu-shift-year">
+                <p class="edu-year edu-reveal" data-year="2024"><span>2024</span></p>
+              </div>
+              <div class="edu-shift edu-shift-card">
+                <article class="edu-card edu-reveal">
+                  <div class="edu-card-motion">
+                    <div class="edu-card-top">
+                      <span class="edu-pill" data-i18n="education.milestone">Cột mốc</span>
+                      <span class="edu-card-when">2024</span>
+                    </div>
+                    <h3 data-i18n="education.milestoneTitle">Bắt đầu đại học</h3>
+                    <p class="edu-card-meta" data-i18n="education.schoolName">Đại học Giao Thông Vận Tải TpHCM</p>
+                    <ul>
+                      <li data-i18n="education.point1">Nhập học chương trình cử nhân.</li>
+                      <li data-i18n="education.point2">Theo học Hệ thống thông tin quản lý.</li>
+                      <li data-i18n="education.point3">Định hướng Business Analysis.</li>
+                    </ul>
+                    <div class="edu-tags">
+                      <span data-i18n="education.tag1">Năm nhất</span>
+                      <span>MIS</span>
+                      <span>BA</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="edu-side edu-side-right">
+              <div class="edu-shift edu-shift-copy">
+                <div class="edu-degree-block edu-reveal">
+                  <p class="edu-scene-label" data-i18n="education.sceneLabel">Học vấn</p>
+                  <h3 data-i18n="education.degree">Hệ thống thông tin quản lý</h3>
+                  <p data-i18n="education.schoolName">Đại học Giao Thông Vận Tải TpHCM</p>
+                  <div class="edu-badges">
+                    <span class="edu-badge edu-badge-live"><span class="status-dot" aria-hidden="true"></span><span data-i18n="education.status">Đang học</span></span>
+                    <span class="edu-badge" data-i18n="education.range">2024 — 2028</span>
+                  </div>
+                </div>
+              </div>
+              <div class="edu-shift edu-shift-year edu-shift-year-end">
+                <p class="edu-year edu-year-end edu-reveal" data-year="2028"><span>2028</span></p>
+              </div>
+            </div>
+            <button class="edu-play" type="button" aria-label="Phát hiệu ứng hành trình học vấn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7.2v9.6l8.2-4.8L9 7.2Z"/></svg>
+            </button>
+          </div>
+          <p class="edu-hint" data-i18n="education.playHint">Nhấn play để xem lại hành trình học vấn.</p>
+        </div>
+      </section>
+
+      <section class="section section-journey" id="journey" aria-labelledby="journey-title">
+        <div class="section-wrap journey-layout">
+          <div class="section-heading reveal">
+            <p class="eyebrow"><span class="section-number">04</span><span data-i18n="journey.kicker">Hành trình học tập</span></p>
+            <h2 id="journey-title" data-i18n="journey.title">Luôn giữ tinh thần<br><span>học hỏi.</span></h2>
+          </div>
+          <div class="journey-content reveal">
+            <span class="journey-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h8m-8 4h6"/></svg></span>
+            <h3 data-i18n="journey.emptyTitle">Những cột mốc tiếp theo</h3>
+            <p data-i18n="journey.emptyBody">Các khóa học, chứng chỉ và nội dung BA đang học sẽ được cập nhật tại đây khi có thông tin thực tế. Không có chứng chỉ hay thành tích nào được tự thêm vào hồ sơ.</p>
+            <span class="journey-note"><span class="status-dot"></span><span data-i18n="journey.note">Đang mở rộng kiến thức từng bước</span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-interests" id="interests" aria-labelledby="interests-title">
+        <div class="section-wrap">
+          <div class="section-heading reveal">
+            <p class="eyebrow"><span class="section-number">05</span><span data-i18n="interests.kicker">Sở thích cá nhân</span></p>
+            <h2 id="interests-title" data-i18n="interests.title">Những điều tôi yêu<br><span>thích mỗi ngày.</span></h2>
+            <p class="heading-description" data-i18n="interests.description">Những điều tôi yêu thích cũng phản ánh cách tôi tư duy, tổ chức thông tin và giải quyết vấn đề.</p>
+          </div>
+        </div>
+        <div class="interest-stage">
+          <div class="interest-gallery" id="interest-gallery"></div>
+          <div class="interest-copy section-wrap">
+              <article class="is-active" data-image="./images/interest-mystery.png" data-i18n-alt="interest.mysteryAlt">
+                <h3 data-i18n="interest.mysteryTitle">Trinh thám</h3>
+                <p data-i18n="interest.mysteryDescription">Xâu chuỗi dữ kiện và tìm manh mối giúp tôi rèn khả năng quan sát và suy luận.</p>
+              </article>
+              <article data-image="./images/interest-psychology.png" data-i18n-alt="interest.psychologyAlt">
+                <h3 data-i18n="interest.psychologyTitle">Tâm lý học</h3>
+                <p data-i18n="interest.psychologyDescription">Tôi thích đọc để hiểu động cơ và hành vi. 1984 là cuốn tôi hay quay lại.</p>
+              </article>
+              <article data-image="./images/interest-diy.png" data-i18n-alt="interest.diyAlt">
+                <h3 data-i18n="interest.diyTitle">Thủ công &amp; DIY</h3>
+                <p data-i18n="interest.diyDescription">Từng bước biến ý tưởng thành sản phẩm thực tế nuôi dưỡng sự tỉ mỉ, kiên nhẫn và chú ý đến chi tiết.</p>
+              </article>
+              <article data-image="./images/interest-baking.png" data-i18n-alt="interest.bakingAlt">
+                <h3 data-i18n="interest.bakingTitle">Làm bánh &amp; thử công thức</h3>
+                <p data-i18n="interest.bakingDescription">Đong đếm chính xác, theo sát quy trình rồi điều chỉnh nguyên liệu dựa trên kết quả là niềm vui của tôi.</p>
+              </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-contact" id="contact" aria-labelledby="contact-title">
+        <svg class="contact-mountains" viewBox="0 0 1440 640" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+          <path fill="color-mix(in srgb, var(--surface) 55%, var(--page))" d="M0 390C160 360 240 210 420 250c170 38 230-120 430-78 180 38 250-150 430-96 70 22 120 8 160 28v536H0Z"/>
+          <path fill="color-mix(in srgb, var(--surface) 78%, var(--page))" d="M0 470C220 430 340 300 560 340c200 36 270-90 500-40 160 34 230-70 380-18v358H0Z"/>
+          <path fill="var(--surface)" d="M0 540C260 500 400 400 640 450c210 44 300-40 500 8 120 28 190-24 300 18v164H0Z"/>
+        </svg>
+        <div class="section-wrap">
+          <div class="contact-panel reveal">
+            <div class="contact-copy">
+              <div class="contact-badge">
+                <span class="badge-num">06</span>
+                <span class="badge-text" data-i18n="contact.kicker">KẾT NỐI</span>
+              </div>
+              <h2 id="contact-title" data-i18n="contact.title">Cùng bắt đầu<br><span>một cuộc trò chuyện.</span></h2>
+              <p class="contact-desc" data-i18n="contact.description">Tôi luôn sẵn sàng kết nối và tìm hiểu về những cơ hội thực tập phù hợp.<br>Hãy gửi lời nhắn cho tôi.</p>
+              <div class="contact-actions">
+                <a class="button button-primary email-link" href="mailto:ngthuanh2604@gmail.com"><span data-i18n="contact.emailButton">Gửi email</span><span class="arrow" aria-hidden="true">↗</span></a>
+                <button class="button button-quiet copy-email" type="button" data-i18n="contact.copy">Sao chép email</button>
+              </div>
+              <div class="contact-divider" aria-hidden="true"></div>
+              <div class="social-links" aria-label="Thông tin liên hệ">
+                <span class="social-heading" data-i18n="contact.socialLabel">Thông tin liên hệ</span>
+                <a class="contact-detail-link" href="mailto:ngthuanh2604@gmail.com">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+                  <span class="detail-label" data-i18n="contact.emailLabel">Email</span><span class="detail-val">ngthuanh2604@gmail.com</span>
+                </a>
+                <a class="contact-detail-link" href="tel:0903631796">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16.5v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 10.2 18a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.7 3.2 2 2 0 0 1 3.7 1h3a2 2 0 0 1 2 1.7l.5 3a2 2 0 0 1-.6 1.7L6.7 9.3a16 16 0 0 0 6 6l1.9-1.9a2 2 0 0 1 1.7-.6l3 .5a2 2 0 0 1 1.7 2.2Z"/></svg>
+                  <span class="detail-label" data-i18n="contact.phoneLabel">Điện thoại</span><span class="detail-val">0903631796</span>
+                </a>
+                <a class="contact-detail-link" href="https://www.facebook.com/share/1Lz35AGbGX/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                  <span class="detail-label" data-i18n="contact.facebookLabel">Facebook</span><span class="detail-val" data-i18n="contact.openProfile">Xem trang cá nhân</span>
+                  <span class="contact-external" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-wrap footer-inner">
+        <span>© <span id="current-year"></span> Nguyễn Anh Thư</span>
+    
+        <a class="footer-top-link" href="#top"><span data-i18n="footer.top">Về đầu trang</span><span aria-hidden="true">↑</span></a>
+      </div>
+    </footer>
+    <button class="back-to-top icon-button" type="button" aria-label="Về đầu trang" title="Về đầu trang">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
+    </button>
+    <div class="toast" role="status" aria-live="polite"></div>
+  </body>
 </html>
 <!doctype html>
 <html lang="vi">
