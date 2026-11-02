@@ -1410,8 +1410,23 @@ class MilkyWaySolarSystemEngine {
         if (dom.preloaderFillBar) dom.preloaderFillBar.style.width = `${pct}%`;
         const filename = url.split('/').pop() || url;
         if (dom.preloaderItemText) dom.preloaderItemText.textContent = `NẠP DỮ LIỆU VIỄN TRẮC: ${filename}`;
+      },
+      (url) => {
+        console.warn('Lỗi nạp texture thiên văn:', url);
+        if (dom.preloader) {
+          dom.preloader.classList.add('preloader-fade-out');
+          setTimeout(() => { dom.preloader.hidden = true; }, 500);
+        }
       }
     );
+
+    // Fallback an toàn: Tự động tắt preloader sau tối đa 2.5 giây nếu tài nguyên mạng bị nghẽn
+    setTimeout(() => {
+      if (dom.preloader && !dom.preloader.hidden) {
+        dom.preloader.classList.add('preloader-fade-out');
+        setTimeout(() => { dom.preloader.hidden = true; }, 600);
+      }
+    }, 2500);
     this.textureLoader = new THREE.TextureLoader(this.loadingManager);
 
     // Unreal Bloom Post-Processing Pipeline & Comet
@@ -1495,8 +1510,11 @@ class MilkyWaySolarSystemEngine {
       TWO: THREE.TOUCH.DOLLY_PAN
     };
 
-    // Khởi tạo chế độ đồ họa đã lưu hoặc mặc định
-    this.setGraphicsMode(this.isLowGraphics, false);
+    // Khởi tạo sơ đồ 2D và khôi phục trạng thái đã lưu
+    this.build2DOrrery();
+    if (this.is2DMode) {
+      this.set2DMode(true, false);
+    }
 
     // Hỗ trợ ngắt chuyển cảnh an toàn (Zero-jump Interruptibility) trên chuột, con lăn và cảm ứng chạm
     const interruptTransition = () => {
@@ -2798,7 +2816,12 @@ class MilkyWaySolarSystemEngine {
   /**
    * Bật / tắt Chế độ 2D Siêu Tiết Kiệm (0% GPU Load cho máy yếu)
    */
+  setGraphicsMode(isLow, playSound = true) {
+    this.set2DMode(isLow, playSound);
+  }
+
   set2DMode(is2D, playSound = true) {
+    this.isLowGraphics = is2D;
     this.is2DMode = is2D;
     try {
       localStorage.setItem('cosmic_mode_2d', is2D ? 'true' : 'false');
