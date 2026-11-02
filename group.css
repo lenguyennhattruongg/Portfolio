@@ -1398,17 +1398,58 @@ body.low-graphics-mode .spatial-detail-panel {
 }
 
 @media (max-width: 600px) {
+  .hud-top-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    padding: 6px 8px !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+  .hud-top-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .hud-brand {
+    flex-shrink: 0 !important;
+    gap: 6px !important;
+  }
+  .hud-brand-symbol {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.82rem !important;
+  }
+  .hud-brand-title {
+    font-size: 0.82rem !important;
+    white-space: nowrap !important;
+  }
   .hud-top-actions {
-    gap: 4px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
   }
   .hud-action-btn {
-    padding: 5px 6px;
-    font-size: 0.65rem;
-    min-height: 30px;
+    padding: 5px 6px !important;
+    font-size: 0.68rem !important;
+    min-height: 30px !important;
   }
-  .graphics-status-label,
+  /* CHỈ ẨN ÂM THANH LABEL, GIỮ NGUYÊN NÚT 2D VÀ GITHUB */
   .audio-status-label {
     display: none !important;
+  }
+  .graphics-status-label {
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+  .graphics-status-label .label-full {
+    display: none !important;
+  }
+  .graphics-status-label .label-short {
+    display: inline !important;
+    font-weight: 700 !important;
+    font-size: 0.68rem !important;
   }
   .hud-action-btn .btn-text {
     display: none;
@@ -1417,7 +1458,10 @@ body.low-graphics-mode .spatial-detail-panel {
 
 @media (max-width: 480px) {
   .hud-perspective-switch {
-    display: none;
+    display: none !important;
+  }
+  .hud-help-btn {
+    display: none !important; /* Ẩn nút hỏi chấm desktop để nhường chỗ trên điện thoại nhỏ */
   }
   /* GIỮ GITHUB LUÔN HIỂN THỊ TRÊN MOBILE */
   .hud-github-link {
@@ -1797,11 +1841,117 @@ body.hud-photo-mode #photoModeToast {
 
 /* TỐI ƯU HIỂN THỊ THANH TOP HUD VÀ NÚT GIẢM ĐỒ HỌA TRÊN MỌI MÀN HÌNH */
 @media (max-width: 992px) {
+  .hud-perspective-switch {
+    display: none !important;
+  }
+}
+
+@media (min-width: 681px) and (max-width: 992px) {
   .hud-top-bar {
     flex-wrap: wrap !important;
     row-gap: 10px !important;
   }
-  .hud-perspective-switch {
+}
+
+/* ĐẢM BẢO 100% CÁC NÚT TRÊN MOBILE HIỂN THỊ RÕ RÀNG, KHÔNG BỊ TRÀN HAY MẤT NÚT */
+@media (max-width: 680px) {
+  .hud-top-bar {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 6px 8px !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+  .hud-top-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .hud-brand {
+    flex-shrink: 0 !important;
+    gap: 6px !important;
+  }
+  .hud-brand-symbol {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.8rem !important;
+  }
+  .hud-brand-title {
+    font-size: 0.8rem !important;
+    white-space: nowrap !important;
+  }
+  .hud-brand-sub {
+    display: none !important;
+  }
+  .hud-top-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+  }
+  .hud-action-btn {
+    padding: 5px 7px !important;
+    font-size: 0.68rem !important;
+    min-height: 32px !important;
+  }
+  /* NÚT 2D HIỂN THỊ CẢ ICON VÀ CHỮ TRÊN MOBILE */
+  .hud-graphics-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    padding: 5px 8px !important;
+  }
+  .graphics-status-label {
+    display: inline-flex !important;
+  }
+  .graphics-status-label .label-full {
+    display: none !important;
+  }
+  .graphics-status-label .label-short {
+    display: inline !important;
+    font-weight: 800 !important;
+    font-size: 0.72rem !important;
+  }
+  /* NÚT GITHUB HIỂN THỊ ICON VÀ CHỮ GH ↗ TRÊN MOBILE */
+  .hud-github-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    padding: 5px 8px !important;
+  }
+  .hud-github-link .btn-text-full {
+    display: none !important;
+  }
+  .hud-github-link .btn-text-short {
+    display: inline !important;
+    font-weight: 700 !important;
+    font-size: 0.68rem !important;
+  }
+  /* NÚT HỆ MT HIỂN THỊ ICON 🔄 */
+  #btnResetOrbit {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 32px !important;
+  }
+  #btnResetOrbit .btn-text,
+  #btnResetOrbit .key-shortcut {
+    display: none !important;
+  }
+  /* NÚT TOÀN CẢNH HIỂN THỊ ICON 📷 */
+  #btnPhotoMode {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 32px !important;
+  }
+  #btnPhotoMode .btn-text,
+  #btnPhotoMode .key-shortcut {
+    display: none !important;
+  }
+  /* ẨN NÚT TRỢ GIÚP CHUỘT TRÊN MOBILE NHỎ ĐỂ KHÔNG CHẬM CHỖ */
+  .hud-help-btn {
     display: none !important;
   }
 }
