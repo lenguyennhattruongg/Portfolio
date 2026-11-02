@@ -2285,3 +2285,298 @@ main {
   outline: 3px solid var(--metro-orange);
   outline-offset: 2px;
 }
+
+/* ---------------------------------------------------------
+   DARK MODE THEME (CHẾ ĐỘ TÀU ĐÊM)
+   --------------------------------------------------------- */
+[data-theme="dark"] {
+  --metro-paper: #0E1117;
+  --metro-surface: #161B22;
+  --metro-ink: #F0F6FC;
+  --metro-ink-secondary: #8B949E;
+  --metro-ink-muted: #6E7681;
+  --metro-orange: #FF5E1A;
+  --metro-orange-hover: #FF7B3D;
+  --metro-orange-tint: rgba(255, 77, 0, 0.16);
+  --metro-border: #30363D;
+  --metro-border-hard: #484F58;
+  --shadow-hard-sm: 2px 2px 0 #000000;
+  --shadow-hard: 4px 4px 0 #000000;
+  --shadow-hard-lg: 8px 8px 0 #000000;
+}
+
+[data-theme="dark"] .operator-pass-card,
+[data-theme="dark"] .metro-ticket-card,
+[data-theme="dark"] .story-lead-box,
+[data-theme="dark"] .transit-bulletin,
+[data-theme="dark"] .freight-bay,
+[data-theme="dark"] .dispatch-info-card,
+[data-theme="dark"] .dispatch-form-card,
+[data-theme="dark"] .modal-dialog-card {
+  background: #161B22;
+  border-color: #30363D;
+}
+
+[data-theme="dark"] .modal-dim-backdrop {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+[data-theme="dark"] .ticket-stub-left {
+  background: #21262D;
+}
+
+/* ---------------------------------------------------------
+   NÚT CHUYỂN GIAO DIỆN DARK / LIGHT THEME
+   --------------------------------------------------------- */
+.btn-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--metro-surface);
+  color: var(--metro-ink);
+  border: 1.5px solid var(--metro-border-hard);
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-hard-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-mechanical);
+}
+
+.btn-theme-toggle:hover {
+  background: var(--metro-orange);
+  color: #FFFFFF;
+  border-color: var(--metro-ink);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-hard);
+}
+
+/* ---------------------------------------------------------
+   KHUNG CHÂN DUNG THỰC TẾ TRONG THẺ NHÂN SỰ
+   --------------------------------------------------------- */
+.pass-photo-frame {
+  position: relative;
+  width: 140px;
+  height: 185px;
+  flex-shrink: 0;
+  background: #EAE6DF;
+  border: 2px solid var(--metro-ink);
+  box-shadow: var(--shadow-hard-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.pass-photo-frame .operator-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  display: block;
+}
+
+.photo-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--metro-ink);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 2px 4px;
+  letter-spacing: 0.05em;
+}
+
+/* ---------------------------------------------------------
+   BANNER ĐIỆN ẢNH: CON ĐƯỜNG HƯỚNG BIỂN & TRIẾT LÝ KỸ SƯ (GA 02)
+   --------------------------------------------------------- */
+.journey-banner-card {
+  margin-top: 32px;
+  background: var(--metro-surface);
+  border: 2px solid var(--metro-ink);
+  box-shadow: var(--shadow-hard);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  transition: transform var(--duration-fast) var(--ease-mechanical);
+}
+
+.journey-banner-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-hard-lg);
+}
+
+.journey-img-frame {
+  position: relative;
+  min-height: 280px;
+  background: #000;
+  overflow: hidden;
+}
+
+.journey-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.journey-banner-card:hover .journey-img {
+  transform: scale(1.03);
+}
+
+.journey-overlay-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(18, 19, 22, 0.88);
+  border: 1px solid var(--metro-orange);
+  color: #FFFFFF;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(4px);
+}
+
+.journey-caption-box {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--metro-surface);
+  border-left: 2px solid var(--metro-ink);
+}
+
+.journey-heading {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--metro-orange);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.journey-quote {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--metro-ink);
+  margin: 0 0 16px 0;
+  font-style: italic;
+  border-left: 3px solid var(--metro-orange);
+  padding-left: 14px;
+}
+
+.journey-author {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--metro-ink-secondary);
+}
+
+@media (max-width: 820px) {
+  .journey-banner-card {
+    grid-template-columns: 1fr;
+  }
+  .journey-img-frame {
+    height: 220px;
+  }
+  .journey-caption-box {
+    border-left: none;
+    border-top: 2px solid var(--metro-ink);
+    padding: 20px;
+  }
+}
+
+/* ---------------------------------------------------------
+   THUMBNAILS VÀ MINH CHỨNG CHẠY THỰC TẾ TRÊN VÉ ĐỒ ÁN
+   --------------------------------------------------------- */
+.ticket-preview-box {
+  margin: 14px 0 16px 0;
+  border: 1.5px solid var(--metro-border);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0B0F19;
+  position: relative;
+  max-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticket-preview-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.metro-ticket-card:hover .ticket-preview-img {
+  transform: scale(1.04);
+}
+
+.ticket-preview-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.82);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* Ảnh minh chứng trong Modal */
+.modal-proof-gallery {
+  margin: 16px 0 20px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.modal-proof-item {
+  border: 1.5px solid var(--metro-ink);
+  box-shadow: var(--shadow-hard-sm);
+  background: #000;
+  overflow: hidden;
+}
+
+.modal-proof-img {
+  width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  display: block;
+  background: #030712;
+}
+
+.modal-proof-caption {
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--metro-surface);
+  color: var(--metro-ink);
+  border-top: 1px solid var(--metro-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.proof-tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal-green);
+  display: inline-block;
+}

@@ -561,3 +561,52 @@ function initCopyEmailFallback() {
     }
   });
 }
+
+
+/* =========================================================
+   6. BẬT/TẮT GIAO DIỆN TÀU NGÀY / TÀU ĐÊM (DARK / LIGHT THEME)
+   Hỗ trợ lưu trạng thái vào localStorage và phím tắt [T]
+   ========================================================= */
+function initThemeToggle() {
+  const toggleBtn = document.getElementById('btnThemeToggle');
+  const icon = document.getElementById('themeToggleIcon');
+  const text = document.getElementById('themeToggleText');
+
+  // Lấy trạng thái lưu trữ hoặc mặc định theo hệ thống
+  const savedTheme = localStorage.getItem('metro_theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    if (icon) icon.textContent = '🌙';
+    if (text) text.textContent = 'ĐÊM';
+  }
+
+  const toggleTheme = () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const nextTheme = isDark ? 'light' : 'dark';
+
+    if (nextTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('metro_theme', 'dark');
+      if (icon) icon.textContent = '🌙';
+      if (text) text.textContent = 'ĐÊM';
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('metro_theme', 'light');
+      if (icon) icon.textContent = '☀️';
+      if (text) text.textContent = 'NGÀY';
+    }
+  };
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', toggleTheme);
+  }
+
+  // Phím tắt bàn phím [T] để đổi theme
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 't' || e.key === 'T') {
+      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      if (activeTag === 'input' || activeTag === 'textarea') return;
+      toggleTheme();
+    }
+  });
+}
