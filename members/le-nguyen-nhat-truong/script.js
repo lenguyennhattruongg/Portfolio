@@ -50,7 +50,7 @@ const METRO_CONFIG = {
 
     'freshvend': {
       id: 'freshvend',
-      serial: 'TICKET № OOP-02',
+      serial: 'TICKET № IOT-02',
       routeCode: 'JAVA-SE',
       course: 'Môn: Lập trình Java & IoT (ThS. Nguyễn Văn Chiến)',
       category: 'java',
@@ -70,7 +70,7 @@ const METRO_CONFIG = {
 
     'vet-center': {
       id: 'vet-center',
-      serial: 'TICKET № WEB-04',
+      serial: 'TICKET № VET-03',
       routeCode: 'MED-VET',
       course: 'Môn: Lập trình Web (ThS. Trần Thịnh Mạnh Đức)',
       category: 'web',
@@ -90,7 +90,7 @@ const METRO_CONFIG = {
 
     'portfolio-group': {
       id: 'portfolio-group',
-      serial: 'TICKET № WEB-03',
+      serial: 'TICKET № WEB-04',
       routeCode: 'MPA-UTH',
       course: 'Môn: Lập trình Web (Nhóm 02)',
       category: 'web',
@@ -467,7 +467,7 @@ function initContactFormValidation() {
   if (subjectInput) subjectInput.addEventListener('input', () => clearError(subjectInput, subjectError));
   if (messageInput) messageInput.addEventListener('input', () => clearError(messageInput, messageError));
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     let isValid = true;
@@ -519,35 +519,68 @@ function initContactFormValidation() {
       return;
     }
 
-    // Đóng gói nội dung thư điện tử
-    const recipient = METRO_CONFIG.operator.email;
-    const formattedSubject = `[PORTFOLIO UTH] ${subjectVal} — từ ${nameVal}`;
-    const formattedBody = [
-      `Kính gửi Lê Nguyễn Nhật Trường (Sinh viên K24 UTH),`,
-      ``,
-      `Thông tin người liên hệ:`,
-      `- Họ và tên: ${nameVal}`,
-      `- Địa chỉ email: ${emailVal}`,
-      `- Tiêu đề: ${subjectVal}`,
-      ``,
-      `Nội dung tin nhắn:`,
-      messageVal,
-      ``,
-      `---`,
-      `[Tín hiệu được gửi từ Tuyến Portfolio Metro UTH]`
-    ].join('\n');
-
-    // Tạo liên kết mailto an toàn bằng encodeURIComponent
-    const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(formattedSubject)}&body=${encodeURIComponent(formattedBody)}`;
-
-    // Thông báo trạng thái tích cực
-    if (alertBox) {
-      alertBox.className = 'form-alert is-success';
-      alertBox.textContent = `Tín hiệu hợp lệ! Đang mở ứng dụng thư điện tử trên máy để gửi đến ${recipient}...`;
+    const submitBtn = document.getElementById('submitFormBtn');
+    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="submit-btn-text">Đang truyền tín hiệu...</span> <span class="submit-arrow" aria-hidden="true">⏳</span>';
     }
 
-    // Kích hoạt giao thức mailto
-    window.location.href = mailtoUrl;
+    if (alertBox) {
+      alertBox.className = 'form-alert is-info';
+      alertBox.textContent = 'Đang kết nối tới máy chủ tiếp nhận tín hiệu điều hành...';
+    }
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        if (alertBox) {
+          alertBox.className = 'form-alert is-success';
+          alertBox.innerHTML = '<strong>ĐÃ GỬI TÍN HIỆU THÀNH CÔNG!</strong> Tin nhắn của bạn đã được chuyển tới Lê Nguyễn Nhật Trường (truonglnn0882@ut.edu.vn). Tôi sẽ phản hồi sớm nhất!';
+        }
+        form.reset();
+      } else {
+        throw new Error('Formspree response error');
+      }
+    } catch (err) {
+      // Fallback: Chuyển tiếp tới ứng dụng Mail nếu mạng chặn hoặc không kết nối được Formspree
+      const recipient = METRO_CONFIG.operator.email;
+      const formattedSubject = `[PORTFOLIO UTH] ${subjectVal} — từ ${nameVal}`;
+      const formattedBody = [
+        `Kính gửi Lê Nguyễn Nhật Trường (Sinh viên K24 UTH),`,
+        ``,
+        `Thông tin người liên hệ:`,
+        `- Họ và tên: ${nameVal}`,
+        `- Địa chỉ email: ${emailVal}`,
+        `- Tiêu đề: ${subjectVal}`,
+        ``,
+        `Nội dung tin nhắn:`,
+        messageVal,
+        ``,
+        `---`,
+        `[Tín hiệu được gửi từ Tuyến Portfolio Metro UTH]`
+      ].join('\n');
+
+      const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(formattedSubject)}&body=${encodeURIComponent(formattedBody)}`;
+      if (alertBox) {
+        alertBox.className = 'form-alert is-success';
+        alertBox.innerHTML = 'Đang kết nối tới ứng dụng Email để đảm bảo tin nhắn gửi tới: <strong>truonglnn0882@ut.edu.vn</strong>';
+      }
+      window.location.href = mailtoUrl;
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+      }
+    }
   });
 }
 
@@ -657,5 +690,26 @@ function initThemeToggle() {
       if (activeTag === 'input' || activeTag === 'textarea') return;
       toggleTheme();
     }
+  });
+}
+
+/* =========================================================
+   NÚT VỀ ĐẦU TRANG (BACK TO TOP SMOOTH SCROLL)
+   ========================================================= */
+function initBackToTop() {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  const toggleVisibility = () => {
+    if (window.scrollY > 300 || document.documentElement.scrollTop > 300) {
+      btn.style.display = 'flex';
+    } else {
+      btn.style.display = 'none';
+    }
+  };
+
+  window.addEventListener('scroll', toggleVisibility, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }

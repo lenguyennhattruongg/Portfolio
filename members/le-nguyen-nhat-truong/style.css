@@ -3213,3 +3213,261 @@ html, body {
     gap: 0.25rem;
   }
 }
+
+/* =========================================================
+   14. BỔ SUNG NÂNG CẤP HỒ SƠ CHUYÊN NGHIỆP (LE NGUYEN NHAT TRUONG)
+   ========================================================= */
+
+/* Nút Tải CV PDF */
+.btn-cv {
+  border-color: var(--metro-orange) !important;
+  color: var(--metro-orange) !important;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-cv:hover {
+  background-color: var(--metro-orange) !important;
+  color: #0d121c !important;
+}
+
+/* Link mạng kết nối trong Thẻ nhân sự */
+.pass-link {
+  color: var(--metro-orange);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  word-break: break-all;
+}
+
+.pass-link:hover {
+  text-decoration: underline;
+  color: #ff9d5c;
+}
+
+/* 4 Khối Vé Đồ Án Chuẩn Hóa */
+.project-meta,
+.project-challenge {
+  background-color: #F8F7F3;
+  border: 1px solid var(--metro-border);
+  border-left: 3px solid var(--metro-orange);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.project-meta p,
+.project-challenge p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--metro-ink);
+  margin: 0;
+}
+
+.project-meta strong,
+.project-challenge strong {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--metro-orange);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-right: 0.35rem;
+}
+
+[data-theme="dark"] .project-meta,
+[data-theme="dark"] .project-challenge {
+  background-color: #12151b;
+  border-color: #272f3d;
+  border-left-color: var(--metro-orange);
+}
+
+[data-theme="dark"] .project-meta p,
+[data-theme="dark"] .project-challenge p {
+  color: #e2e8f0;
+}
+
+/* Cụm nút liên kết vé */
+.ticket-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--metro-border);
+}
+
+.ticket-links .btn-inspect-ticket,
+.ticket-links .btn-ticket-repo,
+.ticket-links .btn-ticket-demo {
+  min-height: 44px;
+}
+
+.btn-ticket-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: transparent;
+  color: var(--metro-orange);
+  border: 1px solid var(--metro-orange);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-ticket-demo:hover {
+  background-color: var(--metro-orange);
+  color: #0d121c;
+}
+
+/* GA 05: Bảng Điểm Mốc Đào Tạo Cốt Lõi */
+.academic-scoreboard {
+  background-color: #F8F7F3;
+  border: 1px solid var(--metro-border);
+  padding: 1.25rem;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+[data-theme="dark"] .academic-scoreboard {
+  background-color: #12151b;
+  border-color: #272f3d;
+}
+
+.score-summary-badge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px dashed var(--metro-border);
+}
+
+.score-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--metro-orange);
+}
+
+.score-number {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--metro-ink);
+}
+
+[data-theme="dark"] .score-number {
+  color: #ffffff;
+}
+
+.score-rank {
+  font-size: 0.85rem;
+  color: var(--signal-green, #10b981);
+  font-weight: 600;
+}
+
+.score-courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.course-score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  padding: 0.25rem 0;
+}
+
+.course-score-row .course-name {
+  color: var(--metro-ink);
+}
+
+[data-theme="dark"] .course-score-row .course-name {
+  color: #cbd5e1;
+}
+
+.course-score-row .course-grade {
+  font-weight: 700;
+  color: var(--metro-orange);
+}
+
+.extra-skills-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.extra-skills-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--metro-ink-secondary);
+}
+
+.extra-skills-list li::before {
+  content: "▪";
+  position: absolute;
+  left: 0;
+  color: var(--metro-orange);
+}
+
+[data-theme="dark"] .extra-skills-list li {
+  color: #94a3b8;
+}
+
+/* Nút Về Đầu Trang (Back to Top) */
+.back-to-top-btn {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  background-color: #0d121c;
+  color: var(--metro-orange, #ff5722);
+  border: 2px solid var(--metro-orange, #ff5722);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.back-to-top-btn:hover {
+  background-color: var(--metro-orange, #ff5722);
+  color: #0d121c;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+}
+
+.back-to-top-btn .back-top-arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.back-to-top-btn .back-top-text {
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-top: 1px;
+}
