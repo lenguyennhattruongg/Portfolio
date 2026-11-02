@@ -18,6 +18,7 @@
   </noscript>
 </head>
 <body>
+  <div id="paint-progress" aria-hidden="true"><i></i></div>
 
   <a class="skip" href="#main">Bỏ qua menu, tới nội dung chính</a>
 
@@ -40,16 +41,22 @@
         <span></span><span></span><span></span>
       </button>
 
+      <button id="fx-toggle" type="button" aria-pressed="true" aria-label="Tắt hiệu ứng để trang nhẹ hơn" title="Bật / tắt hiệu ứng chuyển động">
+        <span aria-hidden="true">✦</span><span class="fx-label"> Hiệu ứng</span> <b class="fx-state">Bật</b>
+      </button>
+
       <ul id="menu">
         <li><a href="#top">Trang chủ</a></li>
         <li><a href="#about">Về tôi</a></li>
         <li><a href="#goal">Mục tiêu</a></li>
         <li><a href="#skills">Kỹ năng</a></li>
         <li><a href="#projects">Dự án</a></li>
+        <li><a href="#quiz">Trắc nghiệm</a></li>
         <li><a href="#experience">Kinh nghiệm</a></li>
         <li><a href="#certificates">Chứng chỉ</a></li>
         <li><a href="#contact">Liên hệ</a></li>
       </ul>
+
     </nav>
   </header>
 
@@ -272,7 +279,7 @@
               <h3>Hình ảnh dự án</h3>
               <div class="gallery">
                 <figure><img src="images/portfolio.jpg" alt="Dự án portfolio — ảnh 1" loading="lazy"><figcaption>Màn hình trang chủ</figcaption></figure>
-                <figure><img src="images/ảnh kỹ năng.jpg" alt="Dự án portfolio — ảnh 2" loading="lazy"><figcaption>Khu vực kỹ năng</figcaption></figure>
+                <figure><img src="images/ảnh-kỹ-năng.jpg" alt="Dự án portfolio — ảnh 2" loading="lazy"><figcaption>Khu vực kỹ năng</figcaption></figure>
               </div>
               <div class="glass">
                 <h3>Kết quả</h3>
@@ -328,6 +335,14 @@
       </div>
     </section>
 
+    <section id="quiz" aria-labelledby="quiz-title">
+      <header>
+        <h2 class="t" id="quiz-title">Bạn là bức tranh nào của Van Gogh?</h2>
+        <div class="rule"></div>
+      </header>
+      <div class="glass quiz" id="quiz-box" aria-live="polite"><noscript>Cần bật JavaScript để chơi trắc nghiệm.</noscript></div>
+    </section>
+
     <section id="experience" aria-labelledby="experience-title">
       <header>
         <h2 class="t" id="experience-title">Kinh nghiệm &amp; hoạt động</h2>
@@ -361,17 +376,20 @@
       </header>
 
       <div class="certs">
-        <article class="glass cert fade">
-          <div class="th" aria-hidden="true">🏅</div>
-          <h3>chứng chỉ </h3>
-          <small>Chưa có</small>
+        <article class="cert-card fade">
+          <div class="medal" aria-hidden="true">🏅</div>
+          <h3>Chứng chỉ</h3>
+          <p>Chưa có chứng chỉ nào</p>
+          <span class="chip">Đang cập nhật ✦</span>
         </article>
-        <article class="glass cert fade">
-          <div class="th" aria-hidden="true">🏅</div>
-          <h3>Giải Thưởng </h3>
-          <small>Chưa có</small>
+        <article class="cert-card fade">
+          <div class="medal" aria-hidden="true">🏆</div>
+          <h3>Giải thưởng</h3>
+          <p>Chưa có giải thưởng nào</p>
+          <span class="chip">Đang cập nhật ✦</span>
         </article>
       </div>
+      <p class="tip">✦ Mỗi chứng chỉ, mỗi giải thưởng sẽ là một nét cọ mới trên bức tranh này ✦</p>
     </section>
 
     <section id="contact" class="contact" aria-labelledby="contact-title">
@@ -389,19 +407,14 @@
           <a class="btn" href="https://www.facebook.com/share/1DyEvTfZRe/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
         </div>
 
+        <div class="bubbles" id="bubbles" aria-live="polite"></div>
+
         <form class="cform" id="contact-form" data-mailto="chau87193@gmail.com" novalidate>
-          <div class="row">
-            <div class="field">
+          <div class="field">
               <label class="sr-only" for="cf-name">Tên của bạn</label>
               <input id="cf-name" name="name" type="text" placeholder="Tên của bạn" autocomplete="name" maxlength="60" aria-describedby="err-name">
               <small class="err" id="err-name" role="alert"></small>
             </div>
-            <div class="field">
-              <label class="sr-only" for="cf-email">Email của bạn</label>
-              <input id="cf-email" name="email" type="email" placeholder="Email của bạn" autocomplete="email" maxlength="100" aria-describedby="err-email">
-              <small class="err" id="err-email" role="alert"></small>
-            </div>
-          </div>
           <div class="field">
             <label class="sr-only" for="cf-message">Lời nhắn</label>
             <textarea id="cf-message" name="message" placeholder="Lời nhắn…" maxlength="500" aria-describedby="err-message"></textarea>
@@ -414,16 +427,18 @@
       </div>
     </section>
 
+
   </main>
 
   <footer>
     <p>Thanks for watching!</p>
     <small>lhc</small>
+    <button class="egg" id="sign-open" type="button" aria-label="Ký tên"></button>
   </footer>
 
   <button id="to-top" aria-label="Cuộn lên đầu trang">↑</button>
 
   <div class="detail" id="detail" role="dialog" aria-modal="true" aria-label="Chi tiết dự án" hidden></div>
-  <script  type="module" src="./script.js"></script>
+  <script type="module" src="script.js" defer></script>
 </body>
 </html>
