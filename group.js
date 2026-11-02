@@ -2621,7 +2621,9 @@ class MilkyWaySolarSystemEngine {
     }
 
     if (dom.graphicsStatusText) {
-      dom.graphicsStatusText.textContent = isLow ? 'TIẾT KIỆM' : 'ĐỒ HỌA: CAO';
+      dom.graphicsStatusText.innerHTML = isLow
+        ? '<span class="label-full">BẬT ĐỒ HỌA CAO</span><span class="label-short">BẬT ĐH</span>'
+        : '<span class="label-full">GIẢM ĐỒ HỌA</span><span class="label-short">GIẢM ĐH</span>';
     }
     if (dom.btnGraphicsToggle) {
       dom.btnGraphicsToggle.classList.toggle('active-low-graphics', isLow);

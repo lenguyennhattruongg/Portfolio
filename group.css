@@ -374,32 +374,50 @@ html, body {
   background: rgba(142, 156, 255, 0.15);
 }
 
-/* Nút chuyển đổi chế độ đồ họa (Graphics Quality Toggle) */
+/* Nút chuyển đổi chế độ đồ họa (Graphics Quality Toggle) - Nổi bật, dễ nhận diện */
 .hud-graphics-btn {
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   gap: 6px;
-  background: rgba(16, 23, 42, 0.75);
-  border-color: rgba(56, 189, 248, 0.45);
-  color: #38BDF8;
+  background: rgba(245, 158, 11, 0.18) !important;
+  border: 1.5px solid #F59E0B !important;
+  color: #FBBF24 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35) !important;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 .hud-graphics-btn:hover {
-  border-color: #38BDF8;
-  color: #FFFFFF;
-  background: rgba(56, 189, 248, 0.15);
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  background: rgba(245, 158, 11, 0.3) !important;
+  color: #FFFFFF !important;
+  border-color: #FCD34D !important;
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.6) !important;
+  transform: translateY(-1px);
 }
 
 .hud-graphics-btn.active-low-graphics {
   border-color: #22C55E !important;
   color: #4ADE80 !important;
-  background: rgba(34, 197, 94, 0.16) !important;
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.35) !important;
+  background: rgba(34, 197, 94, 0.22) !important;
+  box-shadow: 0 0 14px rgba(34, 197, 94, 0.45) !important;
+}
+
+.graphics-status-label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.graphics-status-label .label-full {
+  display: inline;
+}
+
+.graphics-status-label .label-short {
+  display: none;
 }
 
 .graphics-icon {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   line-height: 1;
 }
 
@@ -1775,4 +1793,29 @@ body.hud-photo-mode .radar-scanline-layer {
 
 body.hud-photo-mode #photoModeToast {
   display: flex !important;
+}
+
+/* TỐI ƯU HIỂN THỊ THANH TOP HUD VÀ NÚT GIẢM ĐỒ HỌA TRÊN MỌI MÀN HÌNH */
+@media (max-width: 992px) {
+  .hud-top-bar {
+    flex-wrap: wrap !important;
+    row-gap: 10px !important;
+  }
+  .hud-perspective-switch {
+    display: none !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .graphics-status-label .label-full {
+    display: none !important;
+  }
+  .graphics-status-label .label-short {
+    display: inline !important;
+  }
+  .hud-graphics-btn {
+    padding: 5px 8px !important;
+    font-size: 0.72rem !important;
+    min-height: 32px !important;
+  }
 }
