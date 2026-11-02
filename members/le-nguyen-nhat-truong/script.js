@@ -26,50 +26,84 @@ const METRO_CONFIG = {
   },
 
   // Danh mục 3 đồ án chính xác theo concept Vé Tàu Metro
+    // Danh mục 4 đồ án chính xác theo concept Vé Tàu Metro (Dữ liệu thực chiến 100%)
   projects: {
     'remote-desktop': {
       id: 'remote-desktop',
       serial: 'TICKET № NET-01',
       routeCode: 'TCP/IP',
-      course: 'Môn: Lập trình Mạng',
+      course: 'Môn: Lập trình Mạng (Đồ án prj_UDM_06)',
       category: 'network',
-      title: 'Remote Desktop Application',
+      title: 'Remote Desktop Application (Client - Server)',
       summary: 'Ứng dụng điều khiển máy tính từ xa hoạt động theo mô hình Client - Server qua TCP/IP Socket. Hệ thống truyền phát luồng ảnh chụp màn hình và đồng bộ các sự kiện điều khiển chuột, bàn phím theo thời gian thực.',
-      myRole: '[CẦN SỬA: Ví dụ: Phụ trách lập trình ServerSocket nhận stream ảnh màn hình và xử lý các sự kiện chuột / bàn phím]',
-      whatILearned: '[CẦN SỬA: Ví dụ: Hiểu sâu cơ chế bắt tay 3 bước TCP, cách phân mảnh byte buffer để hình ảnh không bị giật lag và cách tách luồng tránh đơ UI]',
-      technologies: ['Java Core', 'Socket TCP', 'Screen Capture Buffer', 'Network Protocol', 'Multithreading'],
+      myRole: 'Lập trình viên Giao thức & ServerSocket (feature/protocol): Thiết kế cấu trúc gói tin nhị phân (Packet Protocol: Type + Payload Length + Body), lập trình cơ chế bắt tay kết nối TCP trên cổng 5000, tối ưu hóa bộ đệm phân mảnh mảng byte buffer nén để truyền tải stream màn hình mượt mà và đồng bộ sự kiện chuột/bàn phím không đơ giao diện.',
+      whatILearned: 'Thấu hiểu sâu sắc tầng Transport TCP, xử lý bắt tay 3 bước (3-way handshake), kỹ thuật lập trình đa luồng (Multithreading Task.Run) tách biệt luồng nhận tín hiệu mạng và luồng giao diện WinForms, kiểm soát ngoại lệ SocketException khi mất kết nối đột ngột.',
+      technologies: ['C# .NET 8.0', 'Socket TCP/IP', 'Screen Capture Stream', 'Custom Protocol', 'Multithreading'],
       githubUrl: 'https://github.com/duypham26/prj_UDM_06',
-      status: 'Đã hoàn thành nghiệm thu'
+      status: 'Đã hoàn thành nghiệm thu',
+      proofImages: [
+        { src: './images/project-rdp-code.png', caption: 'ẢNH CHẠY THỰC TẾ: Visual Studio Debug mã nguồn ServerSocket & Command Protocol' },
+        { src: './images/project-rdp-spec.png', caption: 'TÀI LIỆU KỸ THUẬT: Đặc tả gói tin nhị phân và bắt tay Socket TCP/IP (Protocol.md)' },
+        { src: './images/project-rdp-pr.png', caption: 'MINH CHỨNG GITHUB: Pull Request chính thức bởi lenguyennhattruongg (11 commits)' }
+      ]
     },
 
     'freshvend': {
       id: 'freshvend',
       serial: 'TICKET № OOP-02',
       routeCode: 'JAVA-SE',
-      course: 'Môn: Lập trình Hướng đối tượng',
+      course: 'Môn: Lập trình Java & IoT (ThS. Nguyễn Văn Chiến)',
       category: 'java',
-      title: 'FreshVend Management System',
-      summary: 'Phần mềm quản lý và vận hành máy bán hàng tự động bằng Java Core. Triển khai các nguyên lý kiến trúc OOP, quản lý danh mục tồn kho sản phẩm, mô phỏng quy trình xử lý giao dịch và kiểm soát dòng tiền mua hàng.',
-      myRole: '[CẦN SỬA: Ví dụ: Thiết kế các class mô hình hóa sản phẩm, khay chứa và xử lý logic trừ tiền trong giao dịch]',
-      whatILearned: '[CẦN SỬA: Ví dụ: Cách áp dụng 4 tính chất OOP để code không bị rối khi mở rộng thêm loại hàng hóa mới]',
-      technologies: ['Java Core (SE 21)', 'OOP Architecture', 'Inventory System', 'Transaction Handler', 'Exception Handling'],
+      title: 'FreshVend IoT Vending Machine System',
+      summary: 'Hệ thống quản lý và vận hành máy bán hàng tự động thông minh bằng Java Spring Boot 3 kết nối IoT ESP32. Tiếp nhận dữ liệu quan trắc nhiệt độ/độ ẩm, kiểm soát khay chứa và kích hoạt motor Servo nhả hàng tự động.',
+      myRole: 'Backend Developer (BE3): Xây dựng REST API tiếp nhận dữ liệu quan trắc nhiệt độ/độ ẩm từ vi điều khiển ESP32 (/api/iot/telemetry). Xây dựng DTO, Bean Validation (chặn nhiệt độ ngoài dải -40°C đến 80°C), Service layer xử lý cảnh báo quá nhiệt và điều khiển Servo nhả hàng.',
+      whatILearned: 'Ứng dụng 4 nguyên lý OOP (Kế thừa, Đóng gói, Đa hình, Trừu tượng) vào kiến trúc phân lớp Controller-Service-Repository, xử lý bất đồng bộ kết nối phần cứng IoT với backend Java Spring Boot 3, viết unit test kiểm tra thuộc tính MQTT và REST API.',
+      technologies: ['Java Spring Boot 3', 'ESP32 Wokwi IoT', 'REST API Telemetry', 'OOP Architecture', 'Thunder Client'],
       githubUrl: 'https://github.com/nguyenxuanhieu2903/freshvend-java',
-      status: 'Đã hoàn thành nghiệm thu'
+      status: 'Đã hoàn thành nghiệm thu',
+      proofImages: [
+        { src: './images/project-freshvend-api-test.png', caption: 'ẢNH CHẠY THỰC TẾ: Test REST API Telemetry trên Thunder Client (200 OK • 6.5ms)' },
+        { src: './images/project-freshvend-terminal.png', caption: 'LOG TERMINAL: Spring Boot 3 Embedded Tomcat chạy cổng 8080 nhận telemetry' },
+        { src: './images/project-freshvend-wokwi.png', caption: 'MÔ PHỎNG PHẦN CỨNG: Mạch ESP32 + Cảm biến DHT22 + Servo nhả khay trên Wokwi' }
+      ]
+    },
+
+    'vet-center': {
+      id: 'vet-center',
+      serial: 'TICKET № WEB-04',
+      routeCode: 'MED-VET',
+      course: 'Môn: Lập trình Web (ThS. Trần Thịnh Mạnh Đức)',
+      category: 'web',
+      title: 'Website Trung Tâm Thú Y (PetCare Vet Center)',
+      summary: 'Hệ thống quản lý phòng khám và bệnh viện thú y trực tuyến (Đề tài Nhóm 2 - Mã HP 012012103105). Phân hệ quản lý hồ sơ thú cưng, đặt lịch khám dịch vụ, bệnh án y tế và kê đơn thuốc cho bác sĩ.',
+      myRole: 'Vai trò thực tế (TV2 - Backend Dev 1): Thiết kế Sơ đồ thực thể quan hệ (ERD) MySQL 8.0 chuẩn 3NF, lập trình Models Django cho Pet, Appointment, MedicalRecord, PrescriptionItem. Xây dựng thuật toán chống trùng lịch bác sĩ và chống IDOR bảo mật thông tin chủ nuôi.',
+      whatILearned: 'Chuẩn hóa CSDL 3NF, đánh chỉ mục Composite Index trên [appointment_date, doctor] đạt tốc độ truy vấn O(log N), kiểm tra ràng buộc toàn vẹn dữ liệu và cấu hình giao diện Django Admin chuyên nghiệp.',
+      technologies: ['Python Django', 'MySQL 8.0 3NF', 'Anti Double-Booking', 'Anti-IDOR Security', 'Django Admin'],
+      githubUrl: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
+      status: 'Đang vận hành chính thức',
+      proofImages: [
+        { src: '../../assets/veterinary-erd-VdpYieiX.svg', caption: 'CSDL QUAN HỆ: Sơ đồ ERD 6 bảng chuẩn 3NF MySQL 8.0 phân hệ Y tế & Đặt lịch' },
+        { src: './images/project-vet-architecture.png', caption: 'KIẾN TRÚC HỆ THỐNG: Mô hình phân lớp 3 tầng (Layered / 3-Tier MVC Architecture)' },
+        { src: './images/project-vet-backend.png', caption: 'BÁO CÁO KỸ THUẬT: Đặc tả phân hệ Backend Django ORM & Quản trị Django Admin' }
+      ]
     },
 
     'portfolio-group': {
       id: 'portfolio-group',
       serial: 'TICKET № WEB-03',
       routeCode: 'MPA-UTH',
-      course: 'Môn: Lập trình Web',
+      course: 'Môn: Lập trình Web (Nhóm 02)',
       category: 'web',
       title: 'Group Portfolio Website Hub',
       summary: 'Nền tảng website Nhóm 02 (6 sinh viên UTH) kiến trúc đa trang (Multi-Page Application) tối ưu bằng Vite. Tích hợp thanh tìm kiếm thành viên theo thời gian thực, responsive đa thiết bị và không gian portfolio cá nhân độc lập.',
-      myRole: '[CẦN SỬA: Ví dụ: Thiết kế và hoàn thiện toàn bộ không gian portfolio cá nhân độc lập, tích hợp form liên hệ và tối ưu responsive]',
-      whatILearned: '[CẦN SỬA: Ví dụ: Tư duy cấu trúc đa trang MPA, cách viết CSS thuần kiểm soát bố cục và kỹ thuật bắt sự kiện DOM không phụ thuộc framework]',
-      technologies: ['HTML5 Semantic', 'CSS3 Vanilla', 'JavaScript ES6+', 'Vite MPA', 'Bootstrap 5'],
+      myRole: 'Thiết kế và hoàn thiện toàn bộ không gian portfolio cá nhân Tuyến Metro T24 độc lập, tích hợp bộ lọc vé đồ án theo thời gian thực, modal soi vé, form liên hệ và chế độ Dark/Light theme.',
+      whatILearned: 'Tư duy cấu trúc đa trang MPA, chuẩn hóa semantic HTML5, kiểm soát responsive di động không tràn thanh cuộn ngang và tối ưu hiệu suất build Vite production.',
+      technologies: ['HTML5 Semantic', 'CSS3 Grid / Flex', 'JavaScript ES6+', 'Vite MPA'],
       githubUrl: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
-      status: 'Đang vận hành chính thức'
+      status: 'Đang vận hành chính thức',
+      proofImages: [
+        { src: './images/project-portfolio-group.svg', caption: 'CỔNG NHÓM 02: Kiến trúc đa trang Multi-Page Application (MPA) tối ưu bằng Vite' }
+      ]
     }
   }
 };
@@ -280,44 +314,59 @@ function initProjectInspectionModal() {
       .map(tech => `<span class="modal-tech-badge">${tech}</span>`)
       .join('');
 
+    const proofGalleryHtml = project.proofImages && project.proofImages.length ? `
+      <div class="modal-section-title" style="margin-top: 18px;">HÌNH ẢNH MINH CHỨNG VẬN HÀNH THỰC TẾ</div>
+      <div class="modal-proof-gallery">
+        ${project.proofImages.map(img => `
+          <div class="modal-proof-item">
+            <img src="${img.src}" alt="${img.caption}" class="modal-proof-img" loading="lazy" onerror="this.src='./images/project-portfolio-group.svg';">
+            <div class="modal-proof-caption">
+              <span class="proof-dot"></span>
+              <span>${img.caption}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    ` : '';
+
     modalBodyContent.innerHTML = `
       <div class="modal-project-header">
         <span class="modal-project-cat">${project.course.toUpperCase()} • TUYẾN ${project.routeCode}</span>
         <h3 class="modal-project-title" id="modalProjectTitle">${project.title}</h3>
-        <span class="notice-status">&#9679; ${project.status}</span>
       </div>
 
       <div class="modal-desc-box">
         <div class="modal-section-title">MÔ TẢ CHI TIẾT ĐỒ ÁN</div>
-        <p>${project.summary}</p>
+        <p class="modal-desc-text">${project.summary}</p>
       </div>
+
+      ${proofGalleryHtml}
 
       <div class="modal-duties-grid">
         <div class="modal-duty-item">
           <span class="modal-duty-label">VAI TRÒ TRONG ĐỒ ÁN</span>
           <p class="modal-duty-content">${project.myRole}</p>
         </div>
-
         <div class="modal-duty-item">
           <span class="modal-duty-label">ĐIỀU TÔI ĐÃ HỌC ĐƯỢC</span>
           <p class="modal-duty-content">${project.whatILearned}</p>
         </div>
       </div>
 
-      <div>
+      <div class="modal-tech-box">
         <div class="modal-section-title">CÔNG NGHỆ ÁP DỤNG TRÊN TOA TÀU</div>
         <div class="modal-tech-list">
-          ${techBadgesHtml}
+          ${techListHtml}
         </div>
       </div>
 
       <div class="modal-actions-bar">
         <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn-transit btn-transit-primary">
-          <span>Xem Kho Lưu Trữ GitHub</span>
+          <span>Xem Kho Mã Nguồn GitHub</span>
           <span aria-hidden="true">&#8599;</span>
         </a>
         <button type="button" class="btn-transit btn-transit-ghost" id="modalCloseAction">
-          <span>Đóng Cửa Sổ</span>
+          <span>Đóng Cửa Toa (Esc)</span>
         </button>
       </div>
     `;

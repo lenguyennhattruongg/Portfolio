@@ -194,7 +194,7 @@
 
                 <div class="pass-body">
                   <div class="pass-photo-frame">
-                    <img src="./images/truong-portrait.jpg" alt="Ảnh chân dung sinh viên Lê Nguyễn Nhật Trường — UTH K24" class="operator-img" loading="eager" onerror="this.onerror=null; this.src='./images/avatar.png';">
+                    <img src="./images/avatar.png" alt="Ảnh chân dung sinh viên Lê Nguyễn Nhật Trường — UTH K24" class="operator-img" loading="eager" onerror="this.onerror=null; this.src='./images/avatar.svg';">
                     <span class="photo-caption">L.N.N. TRƯỜNG</span>
                   </div>
 
@@ -429,31 +429,37 @@
 
               <div class="ticket-body">
                 <div class="ticket-header-strip">
-                  <span class="route-tag-network">MÔN: LẬP TRÌNH MẠNG</span>
+                  <span class="route-tag-network">MÔN: LẬP TRÌNH MẠNG (ĐỒ ÁN PRJ_UDM_06)</span>
                   <span class="ticket-date">HỌC KỲ UTH</span>
                 </div>
 
-                <h3 class="ticket-project-title">Remote Desktop Application</h3>
+                <h3 class="ticket-project-title">Remote Desktop Application (Client - Server)</h3>
                 <p class="ticket-desc">
                   Ứng dụng điều khiển máy tính từ xa hoạt động theo mô hình Client - Server qua TCP/IP Socket. Hệ thống truyền phát luồng ảnh chụp màn hình và đồng bộ các sự kiện điều khiển chuột, bàn phím theo thời gian thực.
                 </p>
 
+                <div class="ticket-preview-box">
+                  <img src="./images/project-rdp-code.png" alt="Mã nguồn điều khiển giao thức Remote Desktop Protocol Socket TCP/IP" class="ticket-preview-img" onerror="this.src='./images/project-remote-desktop.svg';">
+                  <span class="ticket-preview-badge">C# .NET 8.0 // SOCKET TCP/IP BUFFER STREAM</span>
+                </div>
+
                 <div class="ticket-duties">
                   <div class="duty-box">
-                    <span class="duty-label">VAI TRÒ CỦA TÔI:</span>
-                    <p class="duty-text">[CẦN SỬA: Ví dụ: Phụ trách lập trình ServerSocket nhận stream ảnh màn hình và xử lý các sự kiện chuột / bàn phím]</p>
+                    <span class="duty-label">VAI TRÒ THỰC TẾ (FEATURE/PROTOCOL):</span>
+                    <p class="duty-text">Thiết kế cấu trúc gói tin Packet Protocol (Type, Length, Data), lập trình ServerSocket bắt tay TCP trên cổng 5000, xử lý phân mảnh mảng byte buffer truyền stream màn hình và đồng bộ sự kiện chuột/bàn phím.</p>
                   </div>
                   <div class="duty-box">
-                    <span class="duty-label">ĐIỀU TÔI HỌC ĐƯỢC:</span>
-                    <p class="duty-text">[CẦN SỬA: Ví dụ: Hiểu sâu cơ chế bắt tay 3 bước TCP, cách phân mảnh byte buffer để hình ảnh không bị giật lag và cách tách luồng tránh đơ UI]</p>
+                    <span class="duty-label">BÀI HỌC KỸ THUẬT:</span>
+                    <p class="duty-text">Hiểu sâu cơ chế bắt tay 3 bước TCP, kỹ thuật Multithreading (Task.Run) tách biệt luồng nhận tín hiệu mạng và luồng giao diện WinForms, xử lý ngoại lệ SocketException khi mất kết nối đột ngột.</p>
                   </div>
                 </div>
 
                 <div class="ticket-tech-strip">
-                  <span class="pill-tech">Java Core</span>
-                  <span class="pill-tech">Socket TCP</span>
-                  <span class="pill-tech">Screen Capture</span>
-                  <span class="pill-tech">Network Protocol</span>
+                  <span class="pill-tech">C# .NET 8.0</span>
+                  <span class="pill-tech">Socket TCP/IP</span>
+                  <span class="pill-tech">Screen Capture Stream</span>
+                  <span class="pill-tech">Custom Protocol</span>
+                  <span class="pill-tech">Multithreading</span>
                 </div>
 
                 <div class="ticket-actions">
@@ -480,31 +486,37 @@
 
               <div class="ticket-body">
                 <div class="ticket-header-strip">
-                  <span class="route-tag-java">MÔN: LẬP TRÌNH HƯỚNG ĐỐI TƯỢNG</span>
-                  <span class="ticket-date">HỌC KỲ UTH</span>
+                  <span class="route-tag-java">MÔN: LẬP TRÌNH JAVA &amp; IOT (THS. NGUYỄN VĂN CHIẾN)</span>
+                  <span class="ticket-date">HỌC PHẦN 012012213602</span>
                 </div>
 
-                <h3 class="ticket-project-title">FreshVend Management System</h3>
+                <h3 class="ticket-project-title">FreshVend IoT Vending Machine System</h3>
                 <p class="ticket-desc">
-                  Phần mềm quản lý và vận hành máy bán hàng tự động bằng Java Core. Triển khai các nguyên lý kiến trúc OOP, quản lý danh mục tồn kho sản phẩm, mô phỏng quy trình xử lý giao dịch và kiểm soát dòng tiền mua hàng.
+                  Hệ thống quản lý và vận hành máy bán hàng tự động thông minh bằng Java Spring Boot 3 kết nối IoT ESP32. Tiếp nhận dữ liệu quan trắc nhiệt độ/độ ẩm, kiểm soát khay chứa và kích hoạt motor Servo nhả hàng tự động.
                 </p>
+
+                <div class="ticket-preview-box">
+                  <img src="./images/project-freshvend-api-test.png" alt="Thử nghiệm REST API Telemetry trên Thunder Client" class="ticket-preview-img" onerror="this.src='./images/project-freshvend.svg';">
+                  <span class="ticket-preview-badge">THUNDER CLIENT 200 OK // SPRING BOOT 3 &amp; WOKWI</span>
+                </div>
 
                 <div class="ticket-duties">
                   <div class="duty-box">
-                    <span class="duty-label">VAI TRÒ CỦA TÔI:</span>
-                    <p class="duty-text">[CẦN SỬA: Ví dụ: Thiết kế các class mô hình hóa sản phẩm, khay chứa và xử lý logic trừ tiền trong giao dịch]</p>
+                    <span class="duty-label">VAI TRÒ THỰC TẾ (BE3 - BACKEND DEV):</span>
+                    <p class="duty-text">Xây dựng REST API nhận telemetry (/api/iot/telemetry) từ ESP32, thiết kế DTO &amp; Bean Validation (-40°C đến 80°C), lập trình Service layer xử lý cảnh báo quá nhiệt và điều khiển Servo nhả hàng.</p>
                   </div>
                   <div class="duty-box">
-                    <span class="duty-label">ĐIỀU TÔI HỌC ĐƯỢC:</span>
-                    <p class="duty-text">[CẦN SỬA: Ví dụ: Cách áp dụng 4 tính chất OOP để code không bị rối khi mở rộng thêm loại hàng hóa mới]</p>
+                    <span class="duty-label">BÀI HỌC KỸ THUẬT:</span>
+                    <p class="duty-text">Áp dụng 4 nguyên lý OOP vào kiến trúc Controller-Service-Repository, tích hợp luồng dữ liệu phần cứng IoT vào backend Java Spring Boot 3 và viết unit test kiểm tra thuộc tính MQTT.</p>
                   </div>
                 </div>
 
                 <div class="ticket-tech-strip">
-                  <span class="pill-tech">Java Core (SE 21)</span>
+                  <span class="pill-tech">Java Spring Boot 3</span>
+                  <span class="pill-tech">ESP32 Wokwi IoT</span>
+                  <span class="pill-tech">REST API Telemetry</span>
                   <span class="pill-tech">OOP Architecture</span>
-                  <span class="pill-tech">Inventory System</span>
-                  <span class="pill-tech">Transaction Handler</span>
+                  <span class="pill-tech">Thunder Client</span>
                 </div>
 
                 <div class="ticket-actions">
@@ -588,7 +600,7 @@
 
               <div class="ticket-body">
                 <div class="ticket-header-strip">
-                  <span class="route-tag-web">MÔN: LẬP TRÌNH WEB</span>
+                  <span class="route-tag-web">MÔN: LẬP TRÌNH WEB (NHÓM 02)</span>
                   <span class="ticket-date">HỌC KỲ 1 2026</span>
                 </div>
 
@@ -597,20 +609,25 @@
                   Nền tảng website Nhóm 02 (6 sinh viên UTH) kiến trúc đa trang (Multi-Page Application) tối ưu bằng Vite. Tích hợp thanh tìm kiếm thành viên theo thời gian thực, responsive đa thiết bị và không gian portfolio cá nhân độc lập.
                 </p>
 
+                <div class="ticket-preview-box">
+                  <img src="./images/project-portfolio-group.svg" alt="Giao diện cổng điều phối Portfolio Nhóm 02" class="ticket-preview-img">
+                  <span class="ticket-preview-badge">VITE MPA // ARCHITECTURE MULTI-PAGE</span>
+                </div>
+
                 <div class="ticket-duties">
                   <div class="duty-box">
-                    <span class="duty-label">VAI TRÒ CỦA TÔI:</span>
-                    <p class="duty-text">[CẦN SỬA: Ví dụ: Thiết kế và hoàn thiện toàn bộ không gian portfolio cá nhân độc lập, tích hợp form liên hệ và tối ưu responsive]</p>
+                    <span class="duty-label">VAI TRÒ THỰC TẾ (THÀNH VIÊN K24):</span>
+                    <p class="duty-text">Thiết kế và hoàn thiện toàn bộ không gian portfolio cá nhân Tuyến Metro T24 độc lập, tích hợp bộ lọc vé đồ án theo thời gian thực, modal soi vé, form liên hệ và chế độ Dark/Light theme.</p>
                   </div>
                   <div class="duty-box">
-                    <span class="duty-label">ĐIỀU TÔI HỌC ĐƯỢC:</span>
-                    <p class="duty-text">[CẦN SỬA: Ví dụ: Tư duy cấu trúc đa trang MPA, cách viết CSS thuần kiểm soát bố cục và kỹ thuật bắt sự kiện DOM không phụ thuộc framework]</p>
+                    <span class="duty-label">BÀI HỌC KỸ THUẬT:</span>
+                    <p class="duty-text">Tư duy cấu trúc đa trang MPA, chuẩn hóa semantic HTML5, kiểm soát responsive di động không tràn thanh cuộn ngang và tối ưu hiệu suất build Vite production.</p>
                   </div>
                 </div>
 
                 <div class="ticket-tech-strip">
                   <span class="pill-tech">HTML5 Semantic</span>
-                  <span class="pill-tech">CSS3 Vanilla</span>
+                  <span class="pill-tech">CSS3 Grid / Flex</span>
                   <span class="pill-tech">JavaScript ES6+</span>
                   <span class="pill-tech">Vite MPA</span>
                 </div>
@@ -701,6 +718,26 @@
           <div class="station-signpost">
             <span class="sign-code">GA 06</span>
             <h2 class="sign-title">Phòng Điều Hành &amp; Kênh Nhận Tín Hiệu</h2>
+          </div>
+
+          <!-- BANNER HỒ SƠ KỸ SƯ THỰC ĐỊA: TÁC PHONG SẴN SÀNG NHẬN NHIỆM VỤ -->
+          <div class="engineer-dossier-banner">
+            <div class="dossier-photo-wrap">
+              <img src="./images/truong-portrait.jpg" alt="Lê Nguyễn Nhật Trường sẵn sàng nhận nhiệm vụ" class="dossier-photo" loading="lazy">
+              <span class="dossier-status-pill font-mono">STATUS: SẴN SÀNG NHẬN NHIỆM VỤ</span>
+            </div>
+            <div class="dossier-info-wrap">
+              <div class="dossier-code font-mono">OPERATOR DOSSIER // UTH-K24-SE</div>
+              <h3 class="dossier-title">Kỹ Sư Trẻ Sẵn Sàng Đồng Hành Cùng Dự Án</h3>
+              <p class="dossier-desc">
+                Sinh viên K24 Khoa Công nghệ Thông tin - Trường ĐH Giao thông Vận tải TP.HCM (UTH). Nắm vững tư duy hướng đối tượng Java OOP, lập trình mạng Socket TCP/IP và thiết kế CSDL quan hệ chuẩn hóa 3NF. Tác phong cầu thị, kiên định và luôn tập trung tối ưu hóa từ gốc bài toán.
+              </p>
+              <div class="dossier-badges">
+                <span class="badge-metro-tag">MSSV: 082206010882</span>
+                <span class="badge-metro-tag">LỚP: CNTT24A</span>
+                <span class="badge-metro-tag">BACKEND SE INTERN 2026</span>
+              </div>
+            </div>
           </div>
 
           <div class="dispatch-grid">
