@@ -815,6 +815,10 @@ const dom = {
   graphicsStatusText: document.getElementById('graphicsStatusText'),
   solarSystem2D: document.getElementById('solarSystem2D'),
   orrery2DViewport: document.getElementById('orrery2DViewport'),
+  orrery2DPlane: document.getElementById('orrery2DPlane'),
+  btnHoloAngleSteep: document.getElementById('btnHoloAngleSteep'),
+  btnHoloAngleMid: document.getElementById('btnHoloAngleMid'),
+  btnHoloAngleFlat: document.getElementById('btnHoloAngleFlat'),
   btnResetOrbit: document.getElementById('btnResetOrbit'),
   btnZoomIn: document.getElementById('btnZoomIn'),
   btnZoomOut: document.getElementById('btnZoomOut'),
@@ -2620,91 +2624,200 @@ class MilkyWaySolarSystemEngine {
    * Xây dựng sơ đồ quỹ đạo Hệ Mặt Trời 2D tương tác (Interactive 2D Space Orrery)
    */
   build2DOrrery() {
-    if (!dom.orrery2DViewport) return;
+    const container = dom.orrery2DPlane || dom.orrery2DViewport;
+    if (!container) return;
 
     const svgNS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('viewBox', '0 0 1000 1000');
+    svg.setAttribute('viewBox', '0 0 1280 820');
     svg.setAttribute('class', 'orrery-svg');
     svg.setAttribute('role', 'region');
-    svg.setAttribute('aria-label', 'Bản đồ quỹ đạo 2D Hệ Mặt Trời');
+    svg.setAttribute('aria-label', 'Radar Không Gian 2.5D Holographic Hệ Mặt Trời');
 
-    // defs: Gradients & Glow
+    const CX = 640;
+    const CY = 410;
+    const TILT_DEG = -12;
+    const TILT_RAD = (TILT_DEG * Math.PI) / 180;
+    const Y_RATIO = 0.48; // Tỷ lệ phối cảnh Isometric 2.5D
+    const ELEVATION_H = 26; // Độ cao lơ lửng của hành tinh so với mặt phẳng quỹ đạo
+
+    // 1. defs: Gradients bóng cầu 3D, vầng plasma Mặt Trời và tia Laser Beacon
     const defs = document.createElementNS(svgNS, 'defs');
     defs.innerHTML = `
-      <radialGradient id="sunGrad2D" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#FFFBEB" />
-        <stop offset="35%" stop-color="#FCD34D" />
-        <stop offset="70%" stop-color="#F59E0B" />
-        <stop offset="100%" stop-color="#D97706" />
+      <!-- Tia Laser Beacon Hologram kết nối hành tinh với quỹ đạo -->
+      <linearGradient id="beaconGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="rgba(56, 189, 248, 0.15)" />
+        <stop offset="60%" stop-color="rgba(56, 189, 248, 0.75)" />
+        <stop offset="100%" stop-color="#FFFFFF" />
+      </linearGradient>
+
+      <!-- Bóng đổ Ground Shadow 2.5D trên mặt phẳng quỹ đạo -->
+      <radialGradient id="groundShadowGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(0, 4, 15, 0.88)" />
+        <stop offset="65%" stop-color="rgba(0, 4, 15, 0.45)" />
+        <stop offset="100%" stop-color="transparent" />
       </radialGradient>
-      <radialGradient id="sunGlow2D" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="rgba(245, 158, 11, 0.45)" />
-        <stop offset="50%" stop-color="rgba(245, 158, 11, 0.15)" />
-        <stop offset="100%" stop-color="rgba(245, 158, 11, 0.0)" />
+
+      <!-- Vầng hào quang Mặt Trời đa tầng -->
+      <radialGradient id="sunCoronaPulse" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(245, 158, 11, 0.65)" />
+        <stop offset="35%" stop-color="rgba(245, 158, 11, 0.22)" />
+        <stop offset="75%" stop-color="rgba(245, 158, 11, 0.06)" />
+        <stop offset="100%" stop-color="transparent" />
+      </radialGradient>
+
+      <radialGradient id="sunCoreSphere" cx="42%" cy="40%" r="58%">
+        <stop offset="0%" stop-color="#FFFFFF" />
+        <stop offset="25%" stop-color="#FEF08A" />
+        <stop offset="55%" stop-color="#F59E0B" />
+        <stop offset="85%" stop-color="#D97706" />
+        <stop offset="100%" stop-color="#9A3412" />
+      </radialGradient>
+
+      <!-- Khối cầu đổ bóng 3D chân thực cho từng hành tinh -->
+      <radialGradient id="grad-sphere-mercury" cx="35%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#F8FAFC" />
+        <stop offset="30%" stop-color="#94A3B8" />
+        <stop offset="70%" stop-color="#475569" />
+        <stop offset="100%" stop-color="#0F172A" />
+      </radialGradient>
+
+      <radialGradient id="grad-sphere-venus" cx="35%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#FEF9C3" />
+        <stop offset="30%" stop-color="#FACC15" />
+        <stop offset="70%" stop-color="#B45309" />
+        <stop offset="100%" stop-color="#451A03" />
+      </radialGradient>
+
+      <radialGradient id="grad-sphere-earth" cx="35%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#E0F2FE" />
+        <stop offset="25%" stop-color="#38BDF8" />
+        <stop offset="60%" stop-color="#0284C7" />
+        <stop offset="85%" stop-color="#0F172A" />
+        <stop offset="100%" stop-color="#020617" />
+      </radialGradient>
+
+      <radialGradient id="grad-sphere-mars" cx="35%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#FFEDD5" />
+        <stop offset="28%" stop-color="#FB923C" />
+        <stop offset="65%" stop-color="#C2410C" />
+        <stop offset="100%" stop-color="#270A03" />
+      </radialGradient>
+
+      <radialGradient id="grad-sphere-jupiter" cx="35%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#FFFBEB" />
+        <stop offset="25%" stop-color="#FDE68A" />
+        <stop offset="55%" stop-color="#F59E0B" />
+        <stop offset="85%" stop-color="#78350F" />
+        <stop offset="100%" stop-color="#260B02" />
+      </radialGradient>
+
+      <radialGradient id="grad-sphere-saturn" cx="35%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#FEF3C7" />
+        <stop offset="30%" stop-color="#FCD34D" />
+        <stop offset="68%" stop-color="#D97706" />
+        <stop offset="100%" stop-color="#451A03" />
+      </radialGradient>
+
+      <radialGradient id="grad-sphere-uranus" cx="35%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#ECFEFF" />
+        <stop offset="30%" stop-color="#67E8F9" />
+        <stop offset="70%" stop-color="#0891B2" />
+        <stop offset="100%" stop-color="#082F49" />
+      </radialGradient>
+
+      <radialGradient id="grad-sphere-neptune" cx="35%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#DBEAFE" />
+        <stop offset="30%" stop-color="#60A5FA" />
+        <stop offset="70%" stop-color="#1D4ED8" />
+        <stop offset="100%" stop-color="#0B1953" />
+      </radialGradient>
+
+      <radialGradient id="grad-sphere-pluto" cx="35%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#F8FAFC" />
+        <stop offset="30%" stop-color="#CBD5E1" />
+        <stop offset="70%" stop-color="#64748B" />
+        <stop offset="100%" stop-color="#0F172A" />
       </radialGradient>
     `;
     svg.appendChild(defs);
 
-    // Background radar axes & boundary
+    // 2. Lưới tọa độ Radar góc phần tư & Vạch định vị thiên văn
     const bgGroup = document.createElementNS(svgNS, 'g');
     bgGroup.innerHTML = `
-      <line x1="50" y1="500" x2="950" y2="500" stroke="rgba(142, 156, 255, 0.07)" stroke-width="1" stroke-dasharray="4,6" />
-      <line x1="500" y1="50" x2="500" y2="950" stroke="rgba(142, 156, 255, 0.07)" stroke-width="1" stroke-dasharray="4,6" />
-      <circle cx="500" cy="500" r="490" fill="none" stroke="rgba(56, 189, 248, 0.12)" stroke-width="1.5" stroke-dasharray="6,8" />
+      <!-- Trục tọa độ viễn trắc xoay theo mặt phẳng Isometric -->
+      <line x1="${CX - 620}" y1="${CY}" x2="${CX + 620}" y2="${CY}" stroke="rgba(56, 189, 248, 0.08)" stroke-width="1" stroke-dasharray="6,8" transform="rotate(${TILT_DEG} ${CX} ${CY})" />
+      <line x1="${CX}" y1="${CY - 380}" x2="${CX}" y2="${CY + 380}" stroke="rgba(56, 189, 248, 0.08)" stroke-width="1" stroke-dasharray="6,8" transform="rotate(${TILT_DEG} ${CX} ${CY})" />
+      <ellipse cx="${CX}" cy="${CY}" rx="635" ry="${635 * Y_RATIO}" fill="none" stroke="rgba(56, 189, 248, 0.12)" stroke-width="1.5" stroke-dasharray="8,10" transform="rotate(${TILT_DEG} ${CX} ${CY})" />
     `;
     svg.appendChild(bgGroup);
 
-    // Orbits group
+    // 3. Nhóm đường quỹ đạo Ellipse 2.5D
     const orbitsGroup = document.createElementNS(svgNS, 'g');
     orbitsGroup.setAttribute('class', 'orrery-orbits-group');
     svg.appendChild(orbitsGroup);
 
-    // Planets group
-    const planetsGroup = document.createElementNS(svgNS, 'g');
-    planetsGroup.setAttribute('class', 'orrery-planets-group');
-    svg.appendChild(planetsGroup);
+    // 4. Nhóm mặt phẳng Ground (Bóng đổ & Đĩa định vị)
+    const groundGroup = document.createElementNS(svgNS, 'g');
+    groundGroup.setAttribute('class', 'orrery-ground-group');
+    svg.appendChild(groundGroup);
 
-    // Center Sun
+    // 5. Nhóm tia Laser Beacon
+    const beaconsGroup = document.createElementNS(svgNS, 'g');
+    beaconsGroup.setAttribute('class', 'orrery-beacons-group');
+    svg.appendChild(beaconsGroup);
+
+    // 6. Nhóm Thiên thể lơ lửng & Thẻ thành viên
+    const floatingGroup = document.createElementNS(svgNS, 'g');
+    floatingGroup.setAttribute('class', 'orrery-floating-group');
+    svg.appendChild(floatingGroup);
+
+    // 7. Mặt Trời trung tâm (Trung tâm năng lượng)
     const sunGroup = document.createElementNS(svgNS, 'g');
     sunGroup.setAttribute('class', 'orrery-sun-group');
     sunGroup.setAttribute('role', 'button');
     sunGroup.setAttribute('tabindex', '0');
     sunGroup.setAttribute('data-id', 'sun');
     sunGroup.innerHTML = `
-      <circle cx="500" cy="500" r="85" fill="url(#sunGlow2D)" />
-      <circle cx="500" cy="500" r="42" fill="url(#sunGrad2D)" stroke="#FDE68A" stroke-width="2" class="sun-disk-2d" />
-      <text x="500" y="504" text-anchor="middle" fill="#78350F" font-family="monospace" font-size="11" font-weight="900" pointer-events="none">☉ SUN</text>
-      <text x="500" y="562" text-anchor="middle" fill="#FBBF24" font-family="monospace" font-size="10" font-weight="700" letter-spacing="1">MẶT TRỜI // NHÓM 02</text>
+      <!-- Hào quang chân trời -->
+      <ellipse cx="${CX}" cy="${CY}" rx="120" ry="${120 * Y_RATIO}" fill="url(#sunCoronaPulse)" />
+      <!-- Quả cầu Mặt Trời 3D -->
+      <circle cx="${CX}" cy="${CY - 10}" r="44" fill="url(#sunCoreSphere)" stroke="#FDE68A" stroke-width="2" class="sun-core-sphere" />
+      <text x="${CX}" y="${CY - 6}" text-anchor="middle" fill="#78350F" font-family="monospace" font-size="11.5" font-weight="900" pointer-events="none">☉ SUN</text>
+      <text x="${CX}" y="${CY + 52}" text-anchor="middle" fill="#FBBF24" font-family="monospace" font-size="10.5" font-weight="700" letter-spacing="1.2">MẶT TRỜI // NHÓM 02</text>
+      <text x="${CX}" y="${CY + 66}" text-anchor="middle" fill="rgba(253, 230, 138, 0.7)" font-family="monospace" font-size="8.5" font-weight="600" letter-spacing="0.5">TRUNG TÂM NĂNG LƯỢNG VŨ TRỤ</text>
     `;
     sunGroup.addEventListener('click', () => this.focusPlanet('sun'));
-    planetsGroup.appendChild(sunGroup);
+    floatingGroup.appendChild(sunGroup);
 
-    // Cấu hình tọa độ quỹ đạo, góc, bán kính cho từng hành tinh
+    // Cấu hình quỹ đạo, góc, bán kính cho từng thiên thể
     const planetConfigs = [
-      { id: 'mercury', R: 85, angle: -45, r: 10, color: '#94A3B8', border: '#CBD5E1' },
-      { id: 'venus', R: 135, angle: 195, r: 14, color: '#F59E0B', border: '#FDE68A' },
-      { id: 'earth', R: 190, angle: 35, r: 16, color: '#38BDF8', border: '#7DD3FC' },
-      { id: 'mars', R: 250, angle: 140, r: 13, color: '#EF4444', border: '#FCA5A5' },
-      { id: 'asteroid', isBelt: true, R: 290 },
-      { id: 'jupiter', R: 335, angle: -125, r: 23, color: '#FB923C', border: '#FED7AA' },
-      { id: 'saturn', R: 390, angle: -18, r: 19, color: '#FBBF24', border: '#FEF08A' },
-      { id: 'uranus', R: 435, angle: 80, r: 14, color: '#2DD4BF', border: '#99F6E4' },
-      { id: 'neptune', R: 465, angle: -165, r: 14, color: '#60A5FA', border: '#BAE6FD' },
-      { id: 'pluto', R: 490, angle: 115, r: 8, color: '#CBD5E1', border: '#F1F5F9' }
+      { id: 'mercury', R: 90, angle: -35, r: 11, border: '#94A3B8', au: '0.39 AU' },
+      { id: 'venus', R: 145, angle: 200, r: 15, border: '#FDE047', au: '0.72 AU' },
+      { id: 'earth', R: 210, angle: 40, r: 18, border: '#38BDF8', au: '1.00 AU' },
+      { id: 'mars', R: 280, angle: 145, r: 14, border: '#FB923C', au: '1.52 AU' },
+      { id: 'asteroid', isBelt: true, R: 330 },
+      { id: 'jupiter', R: 390, angle: -120, r: 27, border: '#FBBF24', au: '5.20 AU' },
+      { id: 'saturn', R: 465, angle: -15, r: 22, border: '#FDE68A', au: '9.58 AU', hasRings: true },
+      { id: 'uranus', R: 535, angle: 85, r: 16, border: '#67E8F9', au: '19.2 AU' },
+      { id: 'neptune', R: 590, angle: -160, r: 16, border: '#60A5FA', au: '30.1 AU' },
+      { id: 'pluto', R: 635, angle: 120, r: 9, border: '#CBD5E1', au: '39.5 AU' }
     ];
 
     planetConfigs.forEach((cfg) => {
+      // Vành đai tiểu hành tinh 2.5D
       if (cfg.isBelt) {
-        const beltCircle = document.createElementNS(svgNS, 'circle');
-        beltCircle.setAttribute('cx', '500');
-        beltCircle.setAttribute('cy', '500');
-        beltCircle.setAttribute('r', cfg.R);
-        beltCircle.setAttribute('fill', 'none');
-        beltCircle.setAttribute('stroke', 'rgba(148, 163, 184, 0.28)');
-        beltCircle.setAttribute('stroke-width', '6');
-        beltCircle.setAttribute('stroke-dasharray', '2,6');
-        orbitsGroup.appendChild(beltCircle);
+        const belt = document.createElementNS(svgNS, 'ellipse');
+        belt.setAttribute('cx', CX);
+        belt.setAttribute('cy', CY);
+        belt.setAttribute('rx', cfg.R);
+        belt.setAttribute('ry', cfg.R * Y_RATIO);
+        belt.setAttribute('fill', 'none');
+        belt.setAttribute('stroke', 'rgba(148, 163, 184, 0.24)');
+        belt.setAttribute('stroke-width', '8');
+        belt.setAttribute('stroke-dasharray', '2,6');
+        belt.setAttribute('transform', `rotate(${TILT_DEG} ${CX} ${CY})`);
+        orbitsGroup.appendChild(belt);
         return;
       }
 
@@ -2712,20 +2825,83 @@ class MilkyWaySolarSystemEngine {
       if (!data) return;
       const member = MEMBERS_DATA.find((m) => m.id === data.memberId);
 
-      // Quỹ đạo 2D
-      const orbitCircle = document.createElementNS(svgNS, 'circle');
-      orbitCircle.setAttribute('cx', '500');
-      orbitCircle.setAttribute('cy', '500');
-      orbitCircle.setAttribute('r', cfg.R);
-      orbitCircle.setAttribute('class', 'orrery-orbit-path');
-      orbitCircle.setAttribute('data-orbit-id', cfg.id);
-      orbitsGroup.appendChild(orbitCircle);
+      // Đường quỹ đạo Ellipse 2.5D
+      const orbitPath = document.createElementNS(svgNS, 'ellipse');
+      orbitPath.setAttribute('cx', CX);
+      orbitPath.setAttribute('cy', CY);
+      orbitPath.setAttribute('rx', cfg.R);
+      orbitPath.setAttribute('ry', cfg.R * Y_RATIO);
+      orbitPath.setAttribute('class', 'orrery-orbit-path');
+      orbitPath.setAttribute('data-orbit-id', cfg.id);
+      orbitPath.setAttribute('transform', `rotate(${TILT_DEG} ${CX} ${CY})`);
+      orbitsGroup.appendChild(orbitPath);
 
-      // Tọa độ hành tinh
-      const rad = (cfg.angle * Math.PI) / 180;
-      const px = 500 + cfg.R * Math.cos(rad);
-      const py = 500 + cfg.R * Math.sin(rad);
+      // Nhãn cự ly viễn trắc (AU) trên quỹ đạo
+      if (cfg.au) {
+        const auRad = (cfg.angle + 25) * (Math.PI / 180);
+        const auX0 = cfg.R * Math.cos(auRad);
+        const auY0 = cfg.R * Y_RATIO * Math.sin(auRad);
+        const auX = CX + auX0 * Math.cos(TILT_RAD) - auY0 * Math.sin(TILT_RAD);
+        const auY = CY + auX0 * Math.sin(TILT_RAD) + auY0 * Math.cos(TILT_RAD);
 
+        const auText = document.createElementNS(svgNS, 'text');
+        auText.setAttribute('x', auX);
+        auText.setAttribute('y', auY + 12);
+        auText.setAttribute('text-anchor', 'middle');
+        auText.setAttribute('class', 'orrery-telemetry-distance');
+        auText.textContent = cfg.au;
+        orbitsGroup.appendChild(auText);
+      }
+
+      // TÍNH TOÁN HÌNH HỌC TỌA ĐỘ 2.5D CHUẨN XÁC:
+      const theta = (cfg.angle * Math.PI) / 180;
+      const x0 = cfg.R * Math.cos(theta);
+      const y0 = cfg.R * Y_RATIO * Math.sin(theta);
+      // Áp dụng phép quay theo góc nghiêng đĩa TILT_RAD
+      const xr = x0 * Math.cos(TILT_RAD) - y0 * Math.sin(TILT_RAD);
+      const yr = x0 * Math.sin(TILT_RAD) + y0 * Math.cos(TILT_RAD);
+      const xBase = CX + xr;
+      const yBase = CY + yr;
+
+      // Tọa độ quả cầu lơ lửng trong không gian
+      const xPlanet = xBase;
+      const yPlanet = yBase - ELEVATION_H;
+
+      // 1. Bóng đổ trên mặt đất (Ground Shadow)
+      const shadow = document.createElementNS(svgNS, 'ellipse');
+      shadow.setAttribute('cx', xBase);
+      shadow.setAttribute('cy', yBase);
+      shadow.setAttribute('rx', cfg.r * 1.15);
+      shadow.setAttribute('ry', cfg.r * Y_RATIO);
+      shadow.setAttribute('fill', 'url(#groundShadowGrad)');
+      shadow.setAttribute('class', 'orrery-ground-shadow');
+      groundGroup.appendChild(shadow);
+
+      // 2. Vòng định vị điểm neo trên quỹ đạo (Beacon Base Ring)
+      const beaconRing = document.createElementNS(svgNS, 'ellipse');
+      beaconRing.setAttribute('cx', xBase);
+      beaconRing.setAttribute('cy', yBase);
+      beaconRing.setAttribute('rx', cfg.r * 1.45);
+      beaconRing.setAttribute('ry', cfg.r * Y_RATIO * 1.35);
+      beaconRing.setAttribute('fill', 'none');
+      beaconRing.setAttribute('stroke', cfg.border);
+      beaconRing.setAttribute('stroke-width', '1.2');
+      beaconRing.setAttribute('class', 'orrery-beacon-ring');
+      groundGroup.appendChild(beaconRing);
+
+      // 3. Tia Laser Beacon kết nối mặt đất lên quả cầu
+      const stalk = document.createElementNS(svgNS, 'line');
+      stalk.setAttribute('x1', xBase);
+      stalk.setAttribute('y1', yBase);
+      stalk.setAttribute('x2', xPlanet);
+      stalk.setAttribute('y2', yPlanet + cfg.r * 0.85);
+      stalk.setAttribute('stroke', 'url(#beaconGrad)');
+      stalk.setAttribute('stroke-width', '1.8');
+      stalk.setAttribute('stroke-dasharray', '3,2');
+      stalk.setAttribute('class', 'orrery-beacon-stalk');
+      beaconsGroup.appendChild(stalk);
+
+      // 4. Nhóm phần tử lơ lửng tương tác (Interactive Planet Node)
       const nodeG = document.createElementNS(svgNS, 'g');
       nodeG.setAttribute('class', 'orrery-planet-node');
       nodeG.setAttribute('data-id', cfg.id);
@@ -2733,84 +2909,169 @@ class MilkyWaySolarSystemEngine {
       nodeG.setAttribute('tabindex', '0');
       nodeG.setAttribute('aria-label', `${data.name} - ${member ? member.name : ''}`);
 
-      // Selection ring
-      const selRing = document.createElementNS(svgNS, 'circle');
-      selRing.setAttribute('cx', px);
-      selRing.setAttribute('cy', py);
-      selRing.setAttribute('r', cfg.r + 9);
-      selRing.setAttribute('class', 'orrery-sel-ring');
-      nodeG.appendChild(selRing);
+      // AR Target Bracket quay quanh khi được chọn
+      const targetBracket = document.createElementNS(svgNS, 'circle');
+      targetBracket.setAttribute('cx', xPlanet);
+      targetBracket.setAttribute('cy', yPlanet);
+      targetBracket.setAttribute('r', cfg.r + 9);
+      targetBracket.setAttribute('class', 'orrery-target-bracket');
+      nodeG.appendChild(targetBracket);
 
-      // Planet body
-      const bodyCircle = document.createElementNS(svgNS, 'circle');
-      bodyCircle.setAttribute('cx', px);
-      bodyCircle.setAttribute('cy', py);
-      bodyCircle.setAttribute('r', cfg.r);
-      bodyCircle.setAttribute('fill', cfg.color);
-      bodyCircle.setAttribute('stroke', cfg.border);
-      bodyCircle.setAttribute('stroke-width', '2');
-      bodyCircle.setAttribute('class', 'orrery-planet-body');
-      nodeG.appendChild(bodyCircle);
-
-      // Vành đai Thổ tinh 2D
-      if (cfg.id === 'saturn') {
+      // Vành đai Thổ tinh 2.5D (Nửa sau vẽ trước)
+      if (cfg.hasRings) {
         const satRing = document.createElementNS(svgNS, 'ellipse');
-        satRing.setAttribute('cx', px);
-        satRing.setAttribute('cy', py);
-        satRing.setAttribute('rx', cfg.r * 1.85);
-        satRing.setAttribute('ry', cfg.r * 0.55);
+        satRing.setAttribute('cx', xPlanet);
+        satRing.setAttribute('cy', yPlanet);
+        satRing.setAttribute('rx', cfg.r * 2.1);
+        satRing.setAttribute('ry', cfg.r * 0.62);
         satRing.setAttribute('fill', 'none');
-        satRing.setAttribute('stroke', 'rgba(251, 191, 36, 0.75)');
-        satRing.setAttribute('stroke-width', '2.5');
-        satRing.setAttribute('transform', `rotate(-25 ${px} ${py})`);
+        satRing.setAttribute('stroke', 'rgba(251, 191, 36, 0.78)');
+        satRing.setAttribute('stroke-width', '4');
+        satRing.setAttribute('transform', `rotate(-22 ${xPlanet} ${yPlanet})`);
         nodeG.appendChild(satRing);
       }
 
-      // Label & Member Tag
-      const labelG = document.createElementNS(svgNS, 'g');
-      labelG.setAttribute('class', 'orrery-node-label');
-      const isRight = px >= 500;
-      const labelX = isRight ? px + cfg.r + 8 : px - cfg.r - 8;
-      const anchor = isRight ? 'start' : 'end';
+      // Quả cầu hành tinh 3D (Volumetric Sphere Shading)
+      const sphere = document.createElementNS(svgNS, 'circle');
+      sphere.setAttribute('cx', xPlanet);
+      sphere.setAttribute('cy', yPlanet);
+      sphere.setAttribute('r', cfg.r);
+      sphere.setAttribute('fill', `url(#grad-sphere-${cfg.id})`);
+      sphere.setAttribute('stroke', cfg.border);
+      sphere.setAttribute('stroke-width', '1.4');
+      sphere.setAttribute('class', 'orrery-planet-sphere');
+      nodeG.appendChild(sphere);
 
-      const textTitle = document.createElementNS(svgNS, 'text');
-      textTitle.setAttribute('x', labelX);
-      textTitle.setAttribute('y', py - (member ? 5 : 0));
-      textTitle.setAttribute('text-anchor', anchor);
-      textTitle.setAttribute('class', 'orrery-text-title');
-      textTitle.textContent = `${data.symbol} ${data.name.toUpperCase()}`;
-      labelG.appendChild(textTitle);
+      // Vầng khí quyển Halo mỏng nhẹ
+      const halo = document.createElementNS(svgNS, 'circle');
+      halo.setAttribute('cx', xPlanet);
+      halo.setAttribute('cy', yPlanet);
+      halo.setAttribute('r', cfg.r + 2.5);
+      halo.setAttribute('fill', 'none');
+      halo.setAttribute('stroke', cfg.border);
+      halo.setAttribute('stroke-width', '1');
+      halo.setAttribute('opacity', '0.45');
+      halo.setAttribute('class', 'orrery-planet-halo');
+      nodeG.appendChild(halo);
+
+      // 5. Thẻ định danh Hologram nổi cho thành viên (Holographic Member HUD Card)
+      const isRight = xPlanet >= CX;
+      const cardW = 162;
+      const cardH = member ? 54 : 32;
+      const cardX = isRight ? xPlanet + cfg.r + 14 : xPlanet - cfg.r - 14 - cardW;
+      const cardY = yPlanet - cardH / 2;
+
+      const cardG = document.createElementNS(svgNS, 'g');
+      cardG.setAttribute('class', 'orrery-card-group');
+
+      const cardBg = document.createElementNS(svgNS, 'rect');
+      cardBg.setAttribute('x', cardX);
+      cardBg.setAttribute('y', cardY);
+      cardBg.setAttribute('width', cardW);
+      cardBg.setAttribute('height', cardH);
+      cardBg.setAttribute('class', 'orrery-card-bg');
+      cardG.appendChild(cardBg);
+
+      // Tên thiên thể & Biểu tượng
+      const planetTag = document.createElementNS(svgNS, 'text');
+      planetTag.setAttribute('x', cardX + 10);
+      planetTag.setAttribute('y', cardY + 14);
+      planetTag.setAttribute('class', 'orrery-card-planet-tag');
+      planetTag.textContent = `${data.symbol} ${data.name.toUpperCase()}`;
+      cardG.appendChild(planetTag);
 
       if (member) {
-        const textMember = document.createElementNS(svgNS, 'text');
-        textMember.setAttribute('x', labelX);
-        textMember.setAttribute('y', py + 11);
-        textMember.setAttribute('text-anchor', anchor);
-        textMember.setAttribute('class', 'orrery-text-member');
-        textMember.textContent = member.name;
-        labelG.appendChild(textMember);
+        // Tên thành viên
+        const memberNameText = document.createElementNS(svgNS, 'text');
+        memberNameText.setAttribute('x', cardX + 10);
+        memberNameText.setAttribute('y', cardY + 29);
+        memberNameText.setAttribute('class', 'orrery-card-name');
+        memberNameText.textContent = member.name;
+        cardG.appendChild(memberNameText);
 
-        const textRole = document.createElementNS(svgNS, 'text');
-        textRole.setAttribute('x', labelX);
-        textRole.setAttribute('y', py + 23);
-        textRole.setAttribute('text-anchor', anchor);
-        textRole.setAttribute('class', 'orrery-text-role');
-        textRole.textContent = `// ${member.role}`;
-        labelG.appendChild(textRole);
+        // Chức vụ / Chuyên môn
+        const memberRoleText = document.createElementNS(svgNS, 'text');
+        memberRoleText.setAttribute('x', cardX + 10);
+        memberRoleText.setAttribute('y', cardY + 44);
+        memberRoleText.setAttribute('class', 'orrery-card-role');
+        memberRoleText.textContent = `// ${member.role.substring(0, 24)}`;
+        cardG.appendChild(memberRoleText);
+      } else {
+        const descText = document.createElementNS(svgNS, 'text');
+        descText.setAttribute('x', cardX + 10);
+        descText.setAttribute('y', cardY + 25);
+        descText.setAttribute('class', 'orrery-card-role');
+        descText.textContent = '// Vệ tinh viễn trắc';
+        cardG.appendChild(descText);
       }
 
-      nodeG.appendChild(labelG);
+      nodeG.appendChild(cardG);
 
+      // Tương tác khi click: Khóa mục tiêu thiên thể và đồng bộ HUD
       nodeG.addEventListener('click', (e) => {
         e.stopPropagation();
         this.focusPlanet(cfg.id);
       });
 
-      planetsGroup.appendChild(nodeG);
+      floatingGroup.appendChild(nodeG);
     });
 
-    dom.orrery2DViewport.innerHTML = '';
-    dom.orrery2DViewport.appendChild(svg);
+    container.innerHTML = '';
+    container.appendChild(svg);
+
+    // Kích hoạt các nút đổi 3 góc nhìn Radar 2.5D
+    this.setupHoloAngleControls();
+  }
+
+  /**
+   * Cấu hình 3 góc nhìn Radar 2.5D: Dốc 68°, Chuẩn 55°, và Đứng 0°
+   */
+  setupHoloAngleControls() {
+    const plane = dom.orrery2DPlane;
+    if (!plane) return;
+
+    const btnSteep = document.getElementById('btnHoloAngleSteep');
+    const btnMid = document.getElementById('btnHoloAngleMid');
+    const btnFlat = document.getElementById('btnHoloAngleFlat');
+    const allBtns = [btnSteep, btnMid, btnFlat].filter(Boolean);
+
+    const setAngle = (angleClass, activeBtn) => {
+      plane.classList.remove('angle-steep', 'angle-mid', 'angle-flat');
+      plane.classList.add(angleClass);
+      allBtns.forEach((b) => b.classList.remove('is-active'));
+      if (activeBtn) activeBtn.classList.add('is-active');
+      if (audio) audio.playCelestialChime(560);
+    };
+
+    if (btnSteep) btnSteep.onclick = () => setAngle('angle-steep', btnSteep);
+    if (btnMid) btnMid.onclick = () => setAngle('angle-mid', btnMid);
+    if (btnFlat) btnFlat.onclick = () => setAngle('angle-flat', btnFlat);
+
+    // Parallax tương tác nhẹ theo con trỏ chuột (Tactical Tilt Response)
+    const viewport = dom.orrery2DViewport;
+    if (viewport && !viewport.__hasTiltListener) {
+      viewport.__hasTiltListener = true;
+      viewport.addEventListener('mousemove', (e) => {
+        if (!this.is2DMode) return;
+        const rect = viewport.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / rect.width - 0.5;
+        const ny = (e.clientY - rect.top) / rect.height - 0.5;
+        
+        if (plane.classList.contains('angle-mid')) {
+          plane.style.transform = `rotateX(${12 - ny * 6}deg) rotateY(${nx * 8}deg) scale(1.0)`;
+        } else if (plane.classList.contains('angle-steep')) {
+          plane.style.transform = `rotateX(${24 - ny * 8}deg) rotateY(${nx * 8}deg) scale(1.04)`;
+        }
+      });
+
+      viewport.addEventListener('mouseleave', () => {
+        if (plane.classList.contains('angle-mid')) {
+          plane.style.transform = 'rotateX(12deg) scale(1.0)';
+        } else if (plane.classList.contains('angle-steep')) {
+          plane.style.transform = 'rotateX(24deg) scale(1.04)';
+        }
+      });
+    }
   }
 
   /**
@@ -2843,19 +3104,19 @@ class MilkyWaySolarSystemEngine {
       dom.btnGraphicsToggle.classList.toggle('active-2d-mode', is2D);
       dom.btnGraphicsToggle.setAttribute('aria-pressed', is2D ? 'true' : 'false');
       dom.btnGraphicsToggle.title = is2D
-        ? 'Đang ở Chế độ 2D Siêu Tiết Kiệm (Bấm để bật lại Vũ trụ 3D WebGL)'
-        : 'Bấm để giảm hẳn xuống Chế độ 2D (Tắt 3D WebGL, 0% GPU cho máy yếu)';
+        ? 'Đang ở Radar 2.5D Hologram (Bấm để quay về Vũ trụ 3D WebGL)'
+        : 'Bật chế độ Radar Không Gian 2.5D Hologram (Cực mượt, 0% GPU cho máy yếu)';
     }
 
     if (dom.graphicsStatusText) {
       dom.graphicsStatusText.innerHTML = is2D
-        ? '<span class="label-full">🌌 BẬT LẠI 3D</span><span class="label-short">3D</span>'
-        : '<span class="label-full">⚡ CHẾ ĐỘ 2D</span><span class="label-short">2D</span>';
+        ? '<span class="label-full">🌌 VŨ TRỤ 3D</span><span class="label-short">3D</span>'
+        : '<span class="label-full">🛰️ RADAR 2.5D</span><span class="label-short">2.5D</span>';
     }
 
     if (dom.currentFocusReadout) {
       dom.currentFocusReadout.textContent = is2D
-        ? 'TELEMETRY // CHẾ ĐỘ 2D SIÊU TIẾT KIỆM (0% GPU · MƯỢT TUYỆT ĐỐI)'
+        ? 'TELEMETRY // RADAR KHÔNG GIAN 2.5D HOLOGRAPHIC (0% GPU · ISOMETRIC)'
         : (this.focusedPlanet 
             ? `TARGET LOCKED // ${this.focusedPlanet.symbol} ${this.focusedPlanet.name.toUpperCase()}`
             : 'TELEMETRY // HỆ MẶT TRỜI 3D (WEBGL)');

@@ -107,12 +107,32 @@
   <div id="spatialLabels" class="spatial-labels-layer" aria-hidden="true"></div>
   <!-- BẢN ĐỒ QUỸ ĐẠO HỆ MẶT TRỜI 2D SIÊU TIẾT KIỆM (2D ORRERY FLAT MODE - 0% GPU CHO MÁY YẾU) -->
   <div id="solarSystem2D" class="solar-system-2d-layer" hidden>
+    <!-- Hiệu ứng lưới sàn Hologram & Vạch quét Radar 2.5D -->
+    <div class="holo-grid-floor" aria-hidden="true"></div>
+    <div class="holo-radar-rings" aria-hidden="true"></div>
+    <div class="holo-scanline-sweep" aria-hidden="true"></div>
+
     <div class="orrery-2d-container">
       <div class="orrery-2d-header">
-        <span class="badge-2d-mode font-mono">⚡ CHẾ ĐỘ 2D SIÊU TIẾT KIỆM · TẮT HOÀN TOÀN GPU 3D CHO MÁY YẾU</span>
+        <span class="badge-2d-mode font-mono">
+          <span class="badge-dot-live"></span>
+          🛰️ RADAR KHÔNG GIAN 2.5D HOLOGRAPHIC // QUỸ ĐẠO ISOMETRIC CÓ CHIỀU SÂU // 0% GPU LOAD
+        </span>
       </div>
+
+      <!-- Khung nhìn 2.5D có phối cảnh chiều sâu -->
       <div class="orrery-2d-viewport" id="orrery2DViewport">
-        <!-- SVG Interactive Orrery được vẽ tự động từ group.js -->
+        <div class="orrery-2d-plane angle-mid" id="orrery2DPlane">
+          <!-- SVG 2.5D Interactive Orrery được render tự động từ group.js -->
+        </div>
+      </div>
+
+      <!-- Bộ chuyển đổi 3 góc nhìn Radar 2.5D điện ảnh -->
+      <div class="holo-angle-selector font-mono" id="holoAngleSelector" role="group" aria-label="Góc nhìn Radar 2.5D">
+        <span class="holo-angle-title">GÓC RADAR:</span>
+        <button type="button" class="btn-holo-angle" id="btnHoloAngleSteep" data-angle="steep" title="Góc nghiêng dốc 68° (Cinematic Depth)">📐 Góc Dốc 68°</button>
+        <button type="button" class="btn-holo-angle is-active" id="btnHoloAngleMid" data-angle="mid" title="Góc nghiêng chuẩn 55° (Isometric 2.5D)">🛰️ Chuẩn 55°</button>
+        <button type="button" class="btn-holo-angle" id="btnHoloAngleFlat" data-angle="flat" title="Góc nhìn phẳng từ trên xuống (Top-down)">☉ Góc Đứng 0°</button>
       </div>
     </div>
   </div>
@@ -161,11 +181,11 @@
         </button>
 
         <!-- NÚT CHUYỂN CHẾ ĐỘ ĐỒ HỌA (GRAPHICS QUALITY TOGGLE) -->
-        <button type="button" class="hud-action-btn hud-graphics-btn font-mono" id="btnGraphicsToggle" title="Bấm để giảm hẳn xuống Chế độ 2D (Tắt 3D WebGL, 0% GPU cho máy yếu)" aria-label="Chế độ 2D tiết kiệm">
-          <span class="graphics-icon" aria-hidden="true">⚡</span>
+        <button type="button" class="hud-action-btn hud-graphics-btn font-mono" id="btnGraphicsToggle" title="Bật/Tắt Radar Không Gian 2.5D Hologram (Cực mượt, 0% GPU cho máy yếu)" aria-label="Chế độ Radar 2.5D Hologram">
+          <span class="graphics-icon" aria-hidden="true">🛰️</span>
           <span id="graphicsStatusText" class="graphics-status-label">
-            <span class="label-full">CHẾ ĐỘ 2D</span>
-            <span class="label-short">2D</span>
+            <span class="label-full">RADAR 2.5D</span>
+            <span class="label-short">2.5D</span>
           </span>
         </button>
 
