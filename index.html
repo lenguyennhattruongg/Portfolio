@@ -56,6 +56,17 @@
 
   <!-- LỚP NHÃN THIÊN VĂN AR ĐƯỢC CHIẾU TỪ TỌA ĐỘ 3D LÊN MÀN HÌNH (PROJECTED LABELS) -->
   <div id="spatialLabels" class="spatial-labels-layer" aria-hidden="true"></div>
+  <!-- BẢN ĐỒ QUỸ ĐẠO HỆ MẶT TRỜI 2D SIÊU TIẾT KIỆM (2D ORRERY FLAT MODE - 0% GPU CHO MÁY YẾU) -->
+  <div id="solarSystem2D" class="solar-system-2d-layer" hidden>
+    <div class="orrery-2d-container">
+      <div class="orrery-2d-header">
+        <span class="badge-2d-mode font-mono">⚡ CHẾ ĐỘ 2D SIÊU TIẾT KIỆM · TẮT HOÀN TOÀN GPU 3D CHO MÁY YẾU</span>
+      </div>
+      <div class="orrery-2d-viewport" id="orrery2DViewport">
+        <!-- SVG Interactive Orrery được vẽ tự động từ group.js -->
+      </div>
+    </div>
+  </div>
 
   <!-- GIAO DIỆN ĐIỀU KHIỂN KHÔNG GIAN (SPATIAL HUD OVERLAY) -->
   <div class="spatial-hud-overlay" id="hudOverlay">
@@ -101,11 +112,11 @@
         </button>
 
         <!-- NÚT CHUYỂN CHẾ ĐỘ ĐỒ HỌA (GRAPHICS QUALITY TOGGLE) -->
-        <button type="button" class="hud-action-btn hud-graphics-btn font-mono" id="btnGraphicsToggle" title="Bấm để giảm hiệu ứng đồ họa, tăng FPS cho máy yếu" aria-label="Giảm đồ họa">
+        <button type="button" class="hud-action-btn hud-graphics-btn font-mono" id="btnGraphicsToggle" title="Bấm để giảm hẳn xuống Chế độ 2D (Tắt 3D WebGL, 0% GPU cho máy yếu)" aria-label="Chế độ 2D tiết kiệm">
           <span class="graphics-icon" aria-hidden="true">⚡</span>
           <span id="graphicsStatusText" class="graphics-status-label">
-            <span class="label-full">GIẢM ĐỒ HỌA</span>
-            <span class="label-short">GIẢM ĐH</span>
+            <span class="label-full">CHẾ ĐỘ 2D</span>
+            <span class="label-short">2D</span>
           </span>
         </button>
 
