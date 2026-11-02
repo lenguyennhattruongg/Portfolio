@@ -3,20 +3,922 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nguyễn Thị Thảo Như | Portfolio</title>
+  <title>Nguyễn Thị Thảo Như | Personal Portfolio</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Personal portfolio of Nguyễn Thị Thảo Như, Information Technology student and aspiring Backend Developer.">
+  <meta name="keywords" content="Nguyễn Thị Thảo Như, Backend Developer, Portfolio, Sinh viên IT, Đại học Giao thông Vận tải TP.HCM, C++, Python, SQL">
+  <meta name="author" content="Nguyễn Thị Thảo Như">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Nguyễn Thị Thảo Như | Personal Portfolio">
+  <meta property="og:description" content="Personal portfolio of Nguyễn Thị Thảo Như, Information Technology student and aspiring Backend Developer.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nhuthinguyen.github.io/profile/">
+  <meta property="og:image" content="./images/3x4.jpg">
+
+  <!-- Favicon (Inline SVG Icon - Soft Rose) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%23fff1f2' stroke='%23f472b6' stroke-width='5'/><text x='50' y='67' font-size='48' font-family='sans-serif' font-weight='bold' fill='%23db2777' text-anchor='middle'>TN</text></svg>">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Stylesheet (Relative Path for GitHub Pages) -->
   <link rel="stylesheet" href="./style.css">
 </head>
+<script>
+    (function () {
+      try {
+        var fx = localStorage.getItem('portfolio-fx');
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (fx === 'off' || (!fx && reduce)) document.documentElement.classList.add('fx-off');
+      } catch (e) {}
+    })();
+  </script>
 <body>
-  <header>
-    <h1>Nguyễn Thị Thảo Như</h1>
-    <a href="../../index.html">&larr; Về trang chủ nhóm</a>
+  <a class="back-group" href="../../index.html">&larr; Về trang chủ nhóm</a>
+  <a class="back-group" href="../../index.html">&larr; Về trang chủ nhóm</a> 
+
+  <div class="site-bg" aria-hidden="true">
+    <span class="site-wash"></span>
+    <span class="site-orb site-orb--a"></span>
+    <span class="site-orb site-orb--b"></span>
+    <span class="site-orb site-orb--c"></span>
+    <span class="site-orb site-orb--d"></span>
+    <canvas class="site-stars" id="siteStars"></canvas>
+  </div>
+
+  <!-- ==================== HEADER & NAVBAR ==================== -->
+  <header class="header" id="header">
+    <div class="nav-shell" id="navShell">
+      <a href="#home" class="logo">
+        <span class="logo-text">Nguyễn Thị Thảo Như</span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <div class="nav-track" id="navTrack">
+          <span class="nav-blob" id="navBlob" aria-hidden="true"></span>
+          <ul class="nav-list" id="navList">
+            <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+            <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
+            <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+            <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+            <li class="nav-item"><a href="#activities" class="nav-link">Activities</a></li>
+            <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="nav-orb" id="fxToggleBtn" aria-pressed="true" aria-label="Tắt hiệu ứng" title="Tắt hiệu ứng">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </button>
+        <button type="button" class="nav-orb theme-toggle-btn" id="themeToggleBtn" aria-label="Chuyển đổi giao diện Sáng / Tối" title="Chuyển đổi giao diện Sáng / Tối">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="#contact" class="nav-cta">Let's Connect</a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
   </header>
-  <main>
-    <section>
-      <h2>Portfolio Foundation</h2>
-      <p>Khung sẵn sàng tích hợp.</p>
-    </section>
-  </main>
-  <script type="module" src="./script.js"></script>
+
+  <!-- ==================== HERO / HOME SECTION ==================== -->
+  <section class="hero section" id="home">
+    <div class="container hero-container">
+      <div class="hero-content reveal">
+        <p class="hero-hello">Hi there, I'm</p>
+        <h1 class="hero-title" id="heroTitle">Thảo Như</h1>
+        <p class="hero-description">
+          Sinh viên Công nghệ Thông tin. Mình xây sản phẩm web với C++, Python và SQL, định hướng chuyên sâu
+          <span class="hero-role">Backend Developer</span>.
+        </p>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>2024</strong>
+            <span>năm nhập học</span>
+          </div>
+          <div class="hero-stat">
+            <strong>C++/SQL</strong>
+            <span>tech stack</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Intern</strong>
+            <span>mục tiêu</span>
+          </div>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-hero-outline">
+            See my work
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#contact" class="btn btn-hero-ghost">
+            Message me
+            <i class="fa-solid fa-paper-plane"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-image-wrapper reveal">
+        <div class="hero-collage">
+          <span class="hero-lace" aria-hidden="true"></span>
+
+          <div class="hero-float hero-float--a">
+            <figure class="hero-polaroid hero-polaroid--a">
+              <img src="./images/hero-frame-xmas.png" alt="Thảo Như tại Country House">
+            </figure>
+          </div>
+          <div class="hero-float hero-float--b">
+            <figure class="hero-polaroid hero-polaroid--b">
+              <img src="./images/hero-frame-office.png" alt="Thảo Như tại văn phòng">
+            </figure>
+          </div>
+          <div class="hero-float hero-float--c">
+            <figure class="hero-polaroid hero-polaroid--c">
+              <img src="./images/3x4.jpg" alt="Ảnh thẻ Thảo Như">
+            </figure>
+          </div>
+          <div class="hero-float hero-float--d">
+            <figure class="hero-polaroid hero-polaroid--d">
+              <img src="./images/hero-frame-suit.png" alt="Thảo Như vest và laptop">
+            </figure>
+          </div>
+
+          <div class="hero-figure">
+            <img src="./images/hero-portrait.png" alt="Nguyễn Thị Thảo Như" class="hero-avatar">
+          </div>
+
+          <div class="hero-camera">
+            <div class="hero-camera-flash"></div>
+            <div class="hero-camera-view"></div>
+            <div class="hero-camera-body">
+              <div class="hero-camera-screen">
+                <img src="./images/hero-sit-full.png" alt="Thảo Như ngồi trên ghế">
+              </div>
+              <div class="hero-camera-lens">
+                <span></span>
+              </div>
+            </div>
+            <div class="hero-camera-shutter"></div>
+          </div>
+
+          <span class="hero-flower hero-flower--1" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="hero-flower hero-flower--2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="hero-flower hero-flower--3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="hero-berry hero-berry--1" aria-hidden="true"></span>
+          <span class="hero-berry hero-berry--2" aria-hidden="true"></span>
+          <span class="hero-berry hero-berry--3" aria-hidden="true"></span>
+          <span class="hero-berry hero-berry--4" aria-hidden="true"></span>
+          <span class="hero-berry hero-berry--5" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ME SECTION ==================== -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">Giới thiệu</span>
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">Nền tảng học thuật, đam mê công nghệ và định hướng phát triển bản thân</p>
+      </div>
+    </div>
+
+    <div class="about-grid">
+        <div class="about-showcase reveal">
+          <p class="about-showcase-name">Thảo Như</p>
+
+          <div class="about-showcase-photo">
+            <img src="./images/hero-portrait.png" alt="Nguyễn Thị Thảo Như">
+          </div>
+
+          <div class="about-showcase-copy">
+            <p class="about-showcase-kicker">Xin chào, tôi là</p>
+            <h3 class="about-showcase-identity">Nguyễn Thị Thảo Như</h3>
+            <p class="about-showcase-meta">Công nghệ Thông tin</p>
+            <p class="about-showcase-meta">2024 – 2028</p>
+            <h3 class="about-showcase-role">Backend Developer</h3>
+            <ul class="about-showcase-list">
+              <li>Đại học Giao thông Vận tải TP.HCM</li>
+              <li>Backend Intern</li>
+              <li><a href="tel:0375590009">0375590009</a></li>
+              <li><a href="mailto:nguyenthithaonhu.9a7@gmail.com">nguyenthithaonhu.9a7@gmail.com</a></li>
+              <li>Đông Thạnh, TP.HCM</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="about-card-text reveal">
+          <span class="about-card-glow" aria-hidden="true"></span>
+          <span class="about-card-orb about-card-orb--a" aria-hidden="true"></span>
+          <span class="about-card-orb about-card-orb--b" aria-hidden="true"></span>
+          <h3 class="about-heading">Hành trình &amp; Tinh thần học tập</h3>
+          <p class="about-paragraph highlight-quote">
+            "Tôi là sinh viên Công nghệ Thông tin tại Đại học Giao thông Vận tải TP.HCM, yêu thích lập trình, phát triển sản phẩm và thiết kế giao diện web. Tôi có nền tảng về HTML, CSS, JavaScript, C++, C#, Python và SQL, cùng kiến thức về Lập trình hướng đối tượng (OOP), Phân tích và thiết kế hệ thống và Phân tích thiết kế giải thuật. Tôi có khả năng tự học công nghệ mới, tinh thần học hỏi và tiếp thu feedback, đồng thời có khả năng làm việc nhóm và quản lý thời gian. Hiện tại, tôi đang định hướng phát triển theo Backend Developer và mong muốn tìm kiếm cơ hội Backend Intern để học hỏi, trải nghiệm môi trường thực tế và phát triển chuyên môn."
+          </p>
+
+          <div class="strengths-grid">
+            <div class="strength-item">
+              <div class="strength-icon"><i class="fa-solid fa-brain"></i></div>
+              <div class="strength-text">
+                <h4>Khả năng tự học</h4>
+                <p>Chủ động tìm hiểu tài liệu, nghiên cứu công nghệ và giải thuật mới.</p>
+              </div>
+            </div>
+
+            <div class="strength-item">
+              <div class="strength-icon"><i class="fa-solid fa-comments"></i></div>
+              <div class="strength-text">
+                <h4>Cầu tiến &amp; Tiếp thu</h4>
+                <p>Lắng nghe phản hồi từ giảng viên, bạn bè để liên tục cải thiện mã nguồn.</p>
+              </div>
+            </div>
+
+            <div class="strength-item">
+              <div class="strength-icon"><i class="fa-solid fa-users"></i></div>
+              <div class="strength-text">
+                <h4>Làm việc nhóm</h4>
+                <p>Phối hợp nhịp nhàng, tôn trọng tiến độ và giao tiếp cởi mở trong đồ án.</p>
+              </div>
+            </div>
+
+            <div class="strength-item">
+              <div class="strength-icon"><i class="fa-solid fa-clock"></i></div>
+              <div class="strength-text">
+                <h4>Quản lý thời gian</h4>
+                <p>Cân bằng hiệu quả giữa việc học trên trường và các dự án cá nhân.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- ==================== EDUCATION SECTION ==================== -->
+  <section class="education section" id="education">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">Học vấn</span>
+        <h2 class="section-title">Education</h2>
+        <p class="section-subtitle">Chặng đường đào tạo chính quy và tích lũy kiến thức chuyên ngành</p>
+      </div>
+
+      <div class="edu-journey reveal" id="eduJourney">
+        <svg class="edu-journey-svg" id="eduJourneySvg" aria-hidden="true">
+          <path class="edu-path-line" id="eduPathLine" fill="none"></path>
+          <circle class="edu-traveler" id="eduTraveler" r="9"></circle>
+        </svg>
+
+        <article class="edu-stop" data-edu-stop>
+          <figure class="edu-polaroid edu-polaroid--left">
+            <div class="edu-polaroid-tape"></div>
+            <div class="edu-polaroid-frame">
+              <img src="./images/4.jpg" alt="Nguyễn Thị Thảo Như – chân dung học tập">
+            </div>
+            <figcaption>so happy of this time</figcaption>
+          </figure>
+          <div class="edu-info-card">
+            <p class="edu-year">2024</p>
+            <h3 class="edu-title">B.Tech, Công nghệ Thông tin</h3>
+            <p class="edu-org">Đại học Giao thông Vận tải TP.HCM</p>
+            <p class="edu-desc">Bắt đầu hành trình đại học, xây dựng nền tảng lập trình, tư duy hệ thống và định hướng Backend.</p>
+            <div class="edu-card-foot">
+              <img src="./images/3x4.jpg" alt="">
+              <span>2024 – 2028 · Đang theo học</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="edu-stop edu-stop--flip" data-edu-stop>
+          <figure class="edu-polaroid edu-polaroid--right">
+            <div class="edu-polaroid-tape edu-polaroid-tape--alt"></div>
+            <div class="edu-polaroid-frame">
+              <img src="./images/5.jpg" alt="Nguyễn Thị Thảo Như – hành trình học tập">
+            </div>
+            <figcaption>still writing this story</figcaption>
+          </figure>
+          <div class="edu-info-card">
+            <p class="edu-year">2025</p>
+            <h3 class="edu-title">Nền tảng chuyên ngành</h3>
+            <p class="edu-org">C++, Python, SQL &amp; OOP </p>
+            <p class="edu-desc">Tập trung cấu trúc dữ liệu, cơ sở dữ liệu, lập trình hướng đối tượng, giải thuật và phân tích thiết kế hệ thống và tìm hiểu thêm FE.</p>
+            <div class="edu-card-foot">
+              <img src="./images/3x4.jpg" alt="">
+              <span>Cấu trúc dữ liệu · SQL · Hệ thống</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="edu-stop" data-edu-stop>
+          <figure class="edu-polaroid edu-polaroid--left edu-polaroid--tilt-sm">
+            <div class="edu-polaroid-tape"></div>
+            <div class="edu-polaroid-frame">
+              <img src="./images/6.jpg" alt="Định hướng Backend Developer">
+            </div>
+            <figcaption>next chapter loading</figcaption>
+          </figure>
+          <div class="edu-info-card">
+            <p class="edu-year">2026 – 2028</p>
+            <h3 class="edu-title">Backend Intern &amp; Tốt nghiệp</h3>
+            <p class="edu-org">Future Backend Developer</p>
+            <p class="edu-desc">Tìm kiếm cơ hội thực tập Backend, hoàn thiện đồ án và từng bước xây dựng nền tảng chuyên môn vững chắc.</p>
+            <div class="edu-card-foot">
+              <img src="./images/3x4.jpg" alt="">
+              <span>Career Goal · Backend Intern</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS SECTION ==================== -->
+  <section class="skills section" id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">Kỹ năng kỹ thuật</span>
+        <h2 class="section-title">Skills</h2>
+        <p class="section-subtitle">Các ngôn ngữ, công cụ và nền tảng khoa học máy tính đã và đang trau dồi</p>
+      </div>
+
+      <div class="skills-stage reveal">
+        <div class="skills-copy">
+          <p class="skills-kicker">Technical Skills</p>
+          <h3 class="skills-headline">SOFTWARE</h3>
+        </div>
+
+        <div class="skills-trail">
+          <div class="skill-cluster">
+            <p class="skill-cluster-label">Programming Languages</p>
+            <div class="skill-icons">
+              <span class="skill-icon skill-icon--cpp" title="C++"><i class="fa-solid fa-code"></i><em>C++</em></span>
+              <span class="skill-icon skill-icon--csharp" title="C#"><i class="fa-solid fa-hashtag"></i><em>C#</em></span>
+              <span class="skill-icon skill-icon--python" title="Python"><i class="fa-brands fa-python"></i><em>Py</em></span>
+              <span class="skill-icon skill-icon--js" title="JavaScript"><i class="fa-brands fa-js"></i><em>JS</em></span>
+            </div>
+          </div>
+
+          <div class="skill-cluster">
+            <p class="skill-cluster-label">Web Development</p>
+            <div class="skill-icons">
+              <span class="skill-icon skill-icon--html" title="HTML"><i class="fa-brands fa-html5"></i><em>HTML</em></span>
+              <span class="skill-icon skill-icon--css" title="CSS"><i class="fa-brands fa-css3-alt"></i><em>CSS</em></span>
+              <span class="skill-icon skill-icon--js" title="JavaScript"><i class="fa-brands fa-js"></i><em>JS</em></span>
+            </div>
+          </div>
+
+          <div class="skill-cluster">
+            <p class="skill-cluster-label">Database</p>
+            <div class="skill-icons">
+              <span class="skill-icon skill-icon--sql" title="SQL"><i class="fa-solid fa-database"></i><em>SQL</em></span>
+            </div>
+          </div>
+
+          <div class="skill-cluster">
+            <p class="skill-cluster-label">Tools</p>
+            <div class="skill-icons">
+              <span class="skill-icon skill-icon--docker" title="Docker – Basic"><i class="fa-brands fa-docker"></i><em>Docker</em></span>
+              <span class="skill-icon skill-icon--jira" title="JIRA"><i class="fa-brands fa-jira"></i><em>JIRA</em></span>
+              <span class="skill-icon skill-icon--github" title="GitHub"><i class="fa-brands fa-github"></i><em>GitHub</em></span>
+            </div>
+          </div>
+
+          <div class="skill-cluster">
+            <p class="skill-cluster-label">Computer Science</p>
+            <div class="skill-icons">
+              <span class="skill-icon skill-icon--oop" title="OOP"><i class="fa-solid fa-cubes"></i><em>OOP</em></span>
+              <span class="skill-icon skill-icon--sys" title="Phân tích và thiết kế hệ thống"><i class="fa-solid fa-diagram-project"></i><em>Hệ thống</em></span>
+              <span class="skill-icon skill-icon--algo" title="Phân tích thiết kế giải thuật"><i class="fa-solid fa-network-wired"></i><em>Giải thuật</em></span>
+            </div>
+          </div>
+        </div>
+
+        <figure class="skills-mascot">
+          <img src="./images/skills-pose.png" alt="Linh vật kỹ năng đang chỉ về các công cụ">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS SECTION ==================== -->
+  <section class="projects section" id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">Dự án tiêu biểu</span>
+        <h2 class="section-title">Projects I've worked on</h2>
+        <p class="section-subtitle">Các dự án cá nhân và sản phẩm thực hành áp dụng tư duy thuật toán &amp; kỹ thuật lập trình</p>
+      </div>
+
+      <div class="works-desk reveal" id="worksDesk">
+        <div class="works-list">
+          <button type="button" class="works-row works-row--0 is-on" data-folder="0" data-project="p1">
+            <span class="works-num">01</span>
+            <span class="works-copy">
+              <strong>Trekking &amp; Leo núi</strong>
+              <em>Ứng dụng web hỗ trợ lên kế hoạch trekking, lọc cung đường và checklist trang bị.</em>
+            </span>
+          </button>
+          <button type="button" class="works-row works-row--1" data-folder="1" data-project="p3">
+            <span class="works-num">02</span>
+            <span class="works-copy">
+              <strong>Interactive Love Website</strong>
+              <em>Website tương tác với animation, particle và trải nghiệm cảm xúc trên web.</em>
+            </span>
+          </button>
+          <button type="button" class="works-row works-row--2" data-folder="2">
+            <span class="works-num">03</span>
+            <span class="works-copy">
+              <strong>Backend API</strong>
+              <em>Dự án mới đang xây dựng, tập trung API và định hướng Backend Intern.</em>
+            </span>
+          </button>
+          <button type="button" class="works-row works-row--3" data-folder="3" data-project="p4">
+            <span class="works-num">04</span>
+            <span class="works-copy">
+              <strong>Personal Portfolio</strong>
+              <em>Trang portfolio cá nhân với giao diện thẩm mỹ, animation và tương tác.</em>
+            </span>
+          </button>
+        </div>
+
+        <div class="works-stage">
+          <div class="works-scene" id="worksScene">
+            <div class="works-bin">
+              <div class="works-bin-face works-bin-back"></div>
+              <div class="works-bin-face works-bin-left"></div>
+              <div class="works-bin-face works-bin-right"></div>
+              <div class="works-bin-face works-bin-bottom"></div>
+              <div class="works-folders">
+                <button type="button" class="works-folder works-folder--0 is-on" data-folder="0" data-project="p1" style="--i:0">
+                  <span class="works-folder-bob">
+                    <span class="works-tab">Trekking</span>
+                    <span class="works-sheet"></span>
+                  </span>
+                </button>
+                <button type="button" class="works-folder works-folder--1" data-folder="1" data-project="p3" style="--i:1">
+                  <span class="works-folder-bob">
+                    <span class="works-tab">Love Web</span>
+                    <span class="works-sheet"></span>
+                  </span>
+                </button>
+                <button type="button" class="works-folder works-folder--2" data-folder="2" style="--i:2">
+                  <span class="works-folder-bob">
+                    <span class="works-tab">Backend</span>
+                    <span class="works-sheet"></span>
+                  </span>
+                </button>
+                <button type="button" class="works-folder works-folder--3" data-folder="3" data-project="p4" style="--i:3">
+                  <span class="works-folder-bob">
+                    <span class="works-tab">Portfolio</span>
+                    <span class="works-sheet"></span>
+                  </span>
+                </button>
+              </div>
+              <div class="works-bin-face works-bin-front">
+                <span>MY WORKS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ACTIVITIES & LEARNING SECTION ==================== -->
+  <section class="activities section" id="activities">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">Hoạt động &amp; Quá trình phát triển</span>
+        <h2 class="section-title">Activities &amp; Learning</h2>
+        <p class="section-subtitle">Chủ động nâng cao kỹ năng lập trình, tư duy giải quyết vấn đề và năng lực cá nhân</p>
+      </div>
+
+      <p class="projects-fan-hint">Tự xoay vòng • Rê chuột để xem • Click card để dừng</p>
+      <div class="projects-fan reveal" id="activitiesFan">
+        <canvas class="projects-fan-sparks" id="activitySparks" aria-hidden="true"></canvas>
+        <article class="project-fan-card" data-activity="a1" style="--i:0;">
+          <div class="project-fan-inner">
+            <div class="project-fan-chrome">
+              <span></span><span></span><span></span>
+              <em>personal-dev</em>
+            </div>
+            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--1">
+              <i class="fa-solid fa-laptop-file activity-fan-icon"></i>
+              <div class="project-fan-caption">
+                <p>Practice</p>
+                <h3>Thực hiện các dự án cá nhân</h3>
+                <span class="placeholder-tag">Learning</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="project-fan-card" data-activity="a2" style="--i:1;">
+          <div class="project-fan-inner">
+            <div class="project-fan-chrome">
+              <span></span><span></span><span></span>
+              <em>team-project</em>
+            </div>
+            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--2">
+              <i class="fa-solid fa-people-group activity-fan-icon"></i>
+              <div class="project-fan-caption">
+                <p>Collaboration</p>
+                <h3>Project nhóm khi học tập</h3>
+                <span class="placeholder-tag">Learning</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="project-fan-card" data-activity="a3" style="--i:2;">
+          <div class="project-fan-inner">
+            <div class="project-fan-chrome">
+              <span></span><span></span><span></span>
+              <em>new-tech</em>
+            </div>
+            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--3">
+              <i class="fa-solid fa-magnifying-glass-chart activity-fan-icon"></i>
+              <div class="project-fan-caption">
+                <p>Research</p>
+                <h3>Tìm hiểu công nghệ mới</h3>
+                <span class="placeholder-tag">Learning</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="project-fan-card" data-activity="a4" style="--i:3;">
+          <div class="project-fan-inner">
+            <div class="project-fan-chrome">
+              <span></span><span></span><span></span>
+              <em>clean-code</em>
+            </div>
+            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--4">
+              <i class="fa-solid fa-terminal activity-fan-icon"></i>
+              <div class="project-fan-caption">
+                <p>Craft</p>
+                <h3>Rèn luyện kỹ năng lập trình</h3>
+                <span class="placeholder-tag">Learning</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="project-fan-card" data-activity="a5" style="--i:4;">
+          <div class="project-fan-inner">
+            <div class="project-fan-chrome">
+              <span></span><span></span><span></span>
+              <em>dsa-lab</em>
+            </div>
+            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--5">
+              <i class="fa-solid fa-tree activity-fan-icon"></i>
+              <div class="project-fan-caption">
+                <p>Algorithms</p>
+                <h3>Thuật toán &amp; cấu trúc dữ liệu</h3>
+                <span class="placeholder-tag">Learning</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="project-fan-card" data-activity="a6" style="--i:5;">
+          <div class="project-fan-inner">
+            <div class="project-fan-chrome">
+              <span></span><span></span><span></span>
+              <em>sys-design</em>
+            </div>
+            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--6">
+              <i class="fa-solid fa-diagram-successor activity-fan-icon"></i>
+              <div class="project-fan-caption">
+                <p>Architecture</p>
+                <h3>Phân tích thiết kế hệ thống</h3>
+                <span class="placeholder-tag">Learning</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="project-fan-card" data-activity="a7" style="--i:6;">
+          <div class="project-fan-inner">
+            <div class="project-fan-chrome">
+              <span></span><span></span><span></span>
+              <em>teamwork</em>
+            </div>
+            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--7">
+              <i class="fa-solid fa-handshake-angle activity-fan-icon"></i>
+              <div class="project-fan-caption">
+                <p>Soft skills</p>
+                <h3>Kỹ năng làm việc nhóm</h3>
+                <span class="placeholder-tag">Learning</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="project-fan-card" data-activity="a8" style="--i:7;">
+          <div class="project-fan-inner">
+            <div class="project-fan-chrome">
+              <span></span><span></span><span></span>
+              <em>self-study</em>
+            </div>
+            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--8">
+              <i class="fa-solid fa-book-bookmark activity-fan-icon"></i>
+              <div class="project-fan-caption">
+                <p>Self-learning</p>
+                <h3>Tự học và nghiên cứu</h3>
+                <span class="placeholder-tag">Learning</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CAREER GOAL SECTION ==================== -->
+  <section class="career-goal-section section">
+    <div class="container">
+      <div class="career-goal-card reveal">
+        <div class="goal-header">
+          <div class="goal-icon"><i class="fa-solid fa-compass"></i></div>
+          <div>
+            <span class="goal-badge">Định hướng tương lai</span>
+            <h3 class="goal-title">Career Goal</h3>
+          </div>
+        </div>
+        <p class="goal-text">
+          "Tôi đang định hướng phát triển theo Backend Developer và mong muốn tìm kiếm cơ hội Backend Intern để được làm việc trong môi trường thực tế, học hỏi từ các anh chị có kinh nghiệm, nâng cao kỹ năng lập trình và từng bước xây dựng nền tảng chuyên môn vững chắc."
+        </p>
+        <div class="goal-footer">
+          <a href="#contact" class="btn btn-sm btn-primary">
+            <i class="fa-solid fa-paper-plane"></i> Liên hệ cơ hội thực tập
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INTERESTS SECTION ==================== -->
+  <section class="interests section" id="interests">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">Đời sống &amp; Sở thích</span>
+        <h2 class="section-title">Interests</h2>
+        <p class="section-subtitle">Những hoạt động giúp cân bằng cuộc sống và khơi nguồn cảm hứng sáng tạo</p>
+      </div>
+
+      <p class="interests-reel-hint">Rê chuột • Bấm mũi tên • Click play để xem nội dung</p>
+      <div class="interests-reel reveal" id="interestsReel">
+        <button type="button" class="reel-nav reel-nav--prev" id="reelPrev" aria-label="Sở thích trước">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button type="button" class="reel-nav reel-nav--next" id="reelNext" aria-label="Sở thích tiếp">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div class="reel-glow" aria-hidden="true"></div>
+        <div class="reel-stage" id="reelStage">
+          <article class="reel-card is-active" data-reel="0">
+            <div class="reel-poster reel-poster--ui">
+              <span class="reel-ui-window"></span>
+              <span class="reel-ui-window reel-ui-window--b"></span>
+              <span class="reel-palette"><i></i><i></i><i></i></span>
+            </div>
+            <button type="button" class="reel-play" aria-label="Xem chi tiết thiết kế giao diện">
+              <i class="fa-solid fa-play"></i>
+              <span>Xem chi tiết</span>
+            </button>
+            <div class="reel-meta">
+              <p>Sở thích • Sáng tạo</p>
+              <h3>Thiết kế giao diện web</h3>
+              <small>Layout • Màu sắc • UX ★ 4.9</small>
+            </div>
+            <div class="reel-story">
+              <h4>Thiết kế giao diện web</h4>
+              <p>Thích sáng tạo bố cục gọn gàng, phối màu hài hòa và mang lại trải nghiệm thân thiện cho người dùng.</p>
+            </div>
+          </article>
+
+          <article class="reel-card" data-reel="1">
+            <div class="reel-poster reel-poster--tech">
+              <span class="reel-node"></span>
+              <span class="reel-node reel-node--b"></span>
+              <span class="reel-grid"></span>
+            </div>
+            <button type="button" class="reel-play" aria-label="Xem chi tiết công nghệ mới">
+              <i class="fa-solid fa-play"></i>
+              <span>Xem chi tiết</span>
+            </button>
+            <div class="reel-meta">
+              <p>Sở thích • Khám phá</p>
+              <h3>Công nghệ mới</h3>
+              <small>Architecture • Tools ★ 4.8</small>
+            </div>
+            <div class="reel-story">
+              <h4>Tìm hiểu công nghệ mới</h4>
+              <p>Đam mê cập nhật xu hướng công nghệ, tìm hiểu giải pháp kiến trúc phần mềm hiện đại và thử những công cụ mới.</p>
+            </div>
+          </article>
+
+          <article class="reel-card" data-reel="2">
+            <div class="reel-poster reel-poster--sport">
+              <span class="reel-ball"></span>
+              <span class="reel-court"></span>
+            </div>
+            <button type="button" class="reel-play" aria-label="Xem chi tiết thể thao">
+              <i class="fa-solid fa-play"></i>
+              <span>Xem chi tiết</span>
+            </button>
+            <div class="reel-meta">
+              <p>Sở thích • Năng lượng</p>
+              <h3>Chơi thể thao</h3>
+              <small>Vận động • Kiên trì ★ 4.7</small>
+            </div>
+            <div class="reel-story">
+              <h4>Chơi thể thao</h4>
+              <p>Rèn luyện thể lực, duy trì tinh thần sảng khoái và tính kiên trì sau những giờ tập trung viết code.</p>
+            </div>
+          </article>
+
+          <article class="reel-card" data-reel="3">
+            <div class="reel-poster reel-poster--music">
+              <span class="reel-vinyl"></span>
+              <span class="reel-eq"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+            <button type="button" class="reel-play" aria-label="Xem chi tiết nghe nhạc">
+              <i class="fa-solid fa-play"></i>
+              <span>Xem chi tiết</span>
+            </button>
+            <div class="reel-meta">
+              <p>Sở thích • Cảm hứng</p>
+              <h3>Nghe nhạc</h3>
+              <small>Focus • Melody ★ 5.0</small>
+            </div>
+            <div class="reel-story">
+              <h4>Nghe nhạc</h4>
+              <p>Thưởng thức những giai điệu yêu thích giúp kích thích tư duy logic và tập trung cao độ khi làm việc.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="reel-dots" id="reelDots" role="tablist" aria-label="Chọn sở thích"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT SECTION ==================== -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">Kết nối</span>
+        <h2 class="section-title">Contact Me</h2>
+        <p class="section-subtitle">Đừng ngần ngại liên hệ với tôi để trao đổi về cơ hội thực tập hoặc chia sẻ kinh nghiệm</p>
+      </div>
+
+      <div class="contact-stage reveal" id="contactStage">
+        <div class="contact-lanyard" id="contactLanyard">
+          <div class="lanyard-arm" id="lanyardArm">
+            <span class="pass-strap" id="passStrap" aria-hidden="true"></span>
+            <div class="contact-badge" id="contactBadge" tabindex="0" role="img" aria-label="Thẻ intern, kéo thả để lắc dây đeo">
+              <span class="pass-clip" aria-hidden="true"></span>
+              <div class="pass-sleeve">
+                <span class="pass-zip" aria-hidden="true"></span>
+                <article class="id-pass">
+                  <span class="id-banner">INTERN PASS</span>
+                  <img src="./images/contact-piano.png" alt="Nguyễn Thị Thảo Như chơi piano" class="contact-photo">
+                  <div class="id-info">
+                    <p>Backend Developer</p>
+                    <h4>Nguyễn Thị Thảo Như</h4>
+                    <small>UTC2 · TN-2024</small>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-hello">
+          <h3>Hello!</h3>
+          <p>
+            Mình là <strong>Nguyễn Thị Thảo Như</strong> — sinh viên Công nghệ Thông tin, định hướng
+            <em>Backend Developer</em>. Rất vui được trao đổi về cơ hội Backend Intern và các dự án công nghệ.
+          </p>
+
+          <div class="contact-hello-list">
+            <a href="tel:0375590009"><b>Phone</b> 0375590009</a>
+            <a href="mailto:nguyenthithaonhu.9a7@gmail.com"><b>Email</b> nguyenthithaonhu.9a7@gmail.com</a>
+            <span><b>Address</b> 257/80/123, xã Đông Thạnh, TP.HCM</span>
+          </div>
+
+          <div class="contact-orbs">
+            <a href="tel:0375590009" class="contact-orb contact-orb--phone" title="Gọi điện">
+              <i class="fa-solid fa-phone"></i>
+            </a>
+            <a href="mailto:nguyenthithaonhu.9a7@gmail.com" class="contact-orb contact-orb--mail" title="Gửi email">
+              <i class="fa-solid fa-envelope"></i>
+            </a>
+            <a href="https://github.com/NhuThiNguyen" target="_blank" rel="noopener noreferrer" class="contact-orb contact-orb--git" title="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/như-nguyễn-thị-thảo-329865338" target="_blank" rel="noopener noreferrer" class="contact-orb contact-orb--in" title="LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.facebook.com/share/1HShWBbbvn/" target="_blank" rel="noopener noreferrer" class="contact-orb contact-orb--fb" title="Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <button type="button" class="contact-copy" id="copyEmailBtn" data-email="nguyenthithaonhu.9a7@gmail.com" title="Sao chép địa chỉ email">
+              Sao chép email
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECT DETAIL MODAL ==================== -->
+  <div class="modal-backdrop" id="projectModal" aria-hidden="true" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <span class="modal-badge" id="modalBadge">Project Category</span>
+          <h3 class="modal-title" id="modalTitle">Project Name</h3>
+        </div>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Đóng modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Overview -->
+        <div class="modal-section">
+          <h4 class="modal-section-title"><i class="fa-solid fa-circle-info"></i> Overview</h4>
+          <p id="modalOverview" class="modal-section-text"></p>
+        </div>
+
+        <!-- Problem & Solution Grid -->
+        <div class="modal-grid-2">
+          <div class="modal-section">
+            <h4 class="modal-section-title"><i class="fa-solid fa-triangle-exclamation"></i> Problem</h4>
+            <p id="modalProblem" class="modal-section-text"></p>
+          </div>
+          <div class="modal-section">
+            <h4 class="modal-section-title"><i class="fa-solid fa-lightbulb"></i> Solution</h4>
+            <p id="modalSolution" class="modal-section-text"></p>
+          </div>
+        </div>
+
+        <!-- Technologies & Algorithms -->
+        <div class="modal-grid-2">
+          <div class="modal-section">
+            <h4 class="modal-section-title"><i class="fa-solid fa-code"></i> Technologies</h4>
+            <div id="modalTechnologies" class="modal-tags-container"></div>
+          </div>
+          <div class="modal-section">
+            <h4 class="modal-section-title"><i class="fa-solid fa-gears"></i> Algorithms</h4>
+            <div id="modalAlgorithms" class="modal-tags-container"></div>
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="modal-section">
+          <h4 class="modal-section-title"><i class="fa-solid fa-list-check"></i> Key Features</h4>
+          <ul id="modalFeatures" class="modal-list"></ul>
+        </div>
+
+        <!-- Challenges & What I Learned -->
+        <div class="modal-grid-2">
+          <div class="modal-section">
+            <h4 class="modal-section-title"><i class="fa-solid fa-fire"></i> Challenges</h4>
+            <p id="modalChallenges" class="modal-section-text"></p>
+          </div>
+          <div class="modal-section">
+            <h4 class="modal-section-title"><i class="fa-solid fa-graduation-cap"></i> What I Learned</h4>
+            <p id="modalLearned" class="modal-section-text"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" id="modalGithubLink">
+          <i class="fa-brands fa-github"></i> View GitHub
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="modalDemoLink">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toastNotification" role="alert">
+    <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <div class="toast-message" id="toastMessage">Tin nhắn của bạn đã được gửi thành công!</div>
+  </div>
+
+  <!-- Main Script (Relative Path for GitHub Pages) -->
+  <script src="./script.js?v=skills-float1"></script>
 </body>
 </html>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" width="100%" height="100%">
+  <defs>
+    <linearGradient id="loveLightBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff1f2" />
+      <stop offset="50%" stop-color="#fdf2f8" />
+      <stop offset="100%" stop-color="#fae8ff" />
+    </linearGradient>
+    <linearGradient id="heartLightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="50%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+    <filter id="heartSoftGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="600" height="380" rx="20" fill="url(#loveLightBg)" />
+
+  <!-- Floating Gentle Sparkles -->
+  <g fill="#f43f5e" opacity="0.35">
+    <circle cx="110" cy="80" r="3.5" />
+    <circle cx="180" cy="50" r="2.5" />
+    <circle cx="490" cy="90" r="3.5" />
+    <circle cx="440" cy="60" r="2.5" />
+    <circle cx="130" cy="300" r="3" />
+    <circle cx="490" cy="280" r="3.5" />
+  </g>
+
+  <!-- Browser Frame in Light Theme -->
+  <rect x="70" y="38" width="460" height="304" rx="14" fill="#ffffff" stroke="rgba(244, 114, 182, 0.4)" stroke-width="1.5" filter="drop-shadow(0 12px 28px rgba(244, 114, 182, 0.15))" />
+
+  <!-- Window Bar -->
+  <rect x="70" y="38" width="460" height="38" rx="14" fill="#fdf2f8" />
+  <circle cx="92" cy="57" r="5" fill="#f43f5e" />
+  <circle cx="108" cy="57" r="5" fill="#fbbf24" />
+  <circle cx="124" cy="57" r="5" fill="#34d399" />
+  
+  <rect x="165" y="47" width="270" height="20" rx="6" fill="#ffffff" stroke="rgba(244, 114, 182, 0.25)" stroke-width="1" />
+  <text x="300" y="61" fill="#be185d" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">interactive-love-experience.web</text>
+
+  <!-- Glowing Romantic Heart -->
+  <g transform="translate(300, 175) scale(1.05)">
+    <path d="M 0 -30 C -25 -65, -80 -40, -80 5 C -80 45, -30 80, 0 105 C 30 80, 80 45, 80 5 C 80 -40, 25 -65, 0 -30 Z" fill="url(#heartLightGrad)" filter="url(#heartSoftGlow)" />
+    <!-- Heart Inner Reflection -->
+    <path d="M 0 -20 C -18 -45, -55 -28, -55 5 C -55 32, -20 58, 0 75 C 20 58, 55 32, 55 5 C 55 -28, 18 -45, 0 -20 Z" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" />
+  </g>
+
+  <!-- Interactive Controls Preview -->
+  <g transform="translate(175, 290)">
+    <rect width="115" height="30" rx="15" fill="url(#heartLightGrad)" filter="drop-shadow(0 4px 10px rgba(244, 63, 94, 0.3))" />
+    <text x="57" y="19" fill="#ffffff" font-family="'Inter', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Say Yes 💖</text>
+  </g>
+  <g transform="translate(310, 290)">
+    <rect width="115" height="30" rx="15" fill="#ffffff" stroke="#f472b6" stroke-width="1.5" />
+    <text x="57" y="19" fill="#db2777" font-family="'Inter', sans-serif" font-size="11" font-weight="600" text-anchor="middle">Interactive ✨</text>
+  </g>
+</svg>
