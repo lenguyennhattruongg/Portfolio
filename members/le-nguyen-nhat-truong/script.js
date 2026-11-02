@@ -9,8 +9,6 @@
 
 'use strict';
 
-import { initMetro3D, navigateToStation, setCameraAngle, disposeMetro3D } from './metro3d.js';
-
 /* =========================================================
    1. KHỐI DỮ LIỆU CẤU HÌNH TRUNG TÂM (DỄ SỬA ĐỔI)
    ========================================================= */
@@ -36,10 +34,9 @@ const METRO_CONFIG = {
       course: 'Môn: Lập trình Mạng',
       category: 'network',
       title: 'Remote Desktop Application',
-      image: './images/project-remote-desktop.svg',
       summary: 'Ứng dụng điều khiển máy tính từ xa hoạt động theo mô hình Client - Server qua TCP/IP Socket. Hệ thống truyền phát luồng ảnh chụp màn hình và đồng bộ các sự kiện điều khiển chuột, bàn phím theo thời gian thực.',
-      myRole: 'Phát triển module Server TCP/IP, xử lý luồng truyền nhận byte buffer ảnh màn hình và giải mã gói tin sự kiện điều khiển chuột/bàn phím.',
-      whatILearned: 'Nắm vững cơ chế bắt tay 3 bước TCP Socket, kỹ thuật multithreading tách luồng I/O mạng khỏi main UI và xử lý nén buffer truyền tải qua LAN.',
+      myRole: '[CẦN SỬA: Ví dụ: Phụ trách lập trình ServerSocket nhận stream ảnh màn hình và xử lý các sự kiện chuột / bàn phím]',
+      whatILearned: '[CẦN SỬA: Ví dụ: Hiểu sâu cơ chế bắt tay 3 bước TCP, cách phân mảnh byte buffer để hình ảnh không bị giật lag và cách tách luồng tránh đơ UI]',
       technologies: ['Java Core', 'Socket TCP', 'Screen Capture Buffer', 'Network Protocol', 'Multithreading'],
       githubUrl: 'https://github.com/duypham26/prj_UDM_06',
       status: 'Đã hoàn thành nghiệm thu'
@@ -52,10 +49,9 @@ const METRO_CONFIG = {
       course: 'Môn: Lập trình Hướng đối tượng',
       category: 'java',
       title: 'FreshVend Management System',
-      image: './images/project-freshvend.svg',
       summary: 'Phần mềm quản lý và vận hành máy bán hàng tự động bằng Java Core. Triển khai các nguyên lý kiến trúc OOP, quản lý danh mục tồn kho sản phẩm, mô phỏng quy trình xử lý giao dịch và kiểm soát dòng tiền mua hàng.',
-      myRole: 'Thiết kế kiến trúc hướng đối tượng các class Product, Inventory, Transaction; cài đặt nghiệp vụ kiểm tra tồn kho và logic trừ tiền thanh toán.',
-      whatILearned: 'Vận dụng triệt để 4 tính chất OOP (Đóng gói, Kế thừa, Đa hình, Trừu tượng), tách biệt rõ ràng giữa Business Logic và lưu trữ dữ liệu.',
+      myRole: '[CẦN SỬA: Ví dụ: Thiết kế các class mô hình hóa sản phẩm, khay chứa và xử lý logic trừ tiền trong giao dịch]',
+      whatILearned: '[CẦN SỬA: Ví dụ: Cách áp dụng 4 tính chất OOP để code không bị rối khi mở rộng thêm loại hàng hóa mới]',
       technologies: ['Java Core (SE 21)', 'OOP Architecture', 'Inventory System', 'Transaction Handler', 'Exception Handling'],
       githubUrl: 'https://github.com/nguyenxuanhieu2903/freshvend-java',
       status: 'Đã hoàn thành nghiệm thu'
@@ -68,10 +64,9 @@ const METRO_CONFIG = {
       course: 'Môn: Lập trình Web',
       category: 'web',
       title: 'Group Portfolio Website Hub',
-      image: './images/project-portfolio-group.svg',
-      summary: 'Nền tảng website nhóm 6 sinh viên UTH kiến trúc đa trang (Multi-Page Application) tối ưu bằng Vite. Tích hợp thanh tìm kiếm thành viên theo thời gian thực, responsive đa thiết bị và không gian portfolio cá nhân độc lập.',
-      myRole: 'Lập trình và hoàn thiện toàn bộ không gian portfolio cá nhân độc lập Tuyến T24 Metro 3D, tích hợp WebGL Three.js và tối ưu chuẩn tiếp cận WCAG AA.',
-      whatILearned: 'Làm chủ kiến trúc đa trang Vite MPA, kiểm soát đồ họa WebGL r186 (PBR materials, instanced geometries) và điều hướng bàn phím không phụ thuộc framework.',
+      summary: 'Nền tảng website Nhóm 02 (6 sinh viên UTH) kiến trúc đa trang (Multi-Page Application) tối ưu bằng Vite. Tích hợp thanh tìm kiếm thành viên theo thời gian thực, responsive đa thiết bị và không gian portfolio cá nhân độc lập.',
+      myRole: '[CẦN SỬA: Ví dụ: Thiết kế và hoàn thiện toàn bộ không gian portfolio cá nhân độc lập, tích hợp form liên hệ và tối ưu responsive]',
+      whatILearned: '[CẦN SỬA: Ví dụ: Tư duy cấu trúc đa trang MPA, cách viết CSS thuần kiểm soát bố cục và kỹ thuật bắt sự kiện DOM không phụ thuộc framework]',
       technologies: ['HTML5 Semantic', 'CSS3 Vanilla', 'JavaScript ES6+', 'Vite MPA', 'Bootstrap 5'],
       githubUrl: 'https://github.com/nguyenxuanhieu2903/portfolio-group',
       status: 'Đang vận hành chính thức'
@@ -80,131 +75,19 @@ const METRO_CONFIG = {
 };
 
 /* =========================================================
-   2. KHỞI CHẠY HỆ THỐNG KHI DOM HOÀN TẤT
+   2. KHỞI CHẠY HỆ THỐNG KHI DOM SẴN SÀNG
    ========================================================= */
 function bootMetroSystem() {
-  initThemeToggle();
-  initMobileMenuToggle();
   initRailStationTracker();
   initTicketFilter();
   initProjectInspectionModal();
   initContactFormValidation();
   initCopyEmailFallback();
 
-  // Khởi động không gian 3D và hệ thống tương tác ga
-  initMetroIntegration();
-
   console.log(
-    `%c[UTH-METRO] Hệ thống portfolio Lê Nguyễn Nhật Trường (K24) vận hành ổn định!`,
+    `%c[UTH-METRO] Hệ thống portfolio Lê Nguyễn Nhật Trường (K24) sẵn sàng vận hành!`,
     'background: #FF4D00; color: #FFFFFF; font-weight: bold; padding: 4px 8px; border: 1px solid #121316;'
   );
-}
-
-/**
- * Tích hợp điều khiển Tuyến T24 Metro 3D (C3.3, C3.4)
- */
-function initMetroIntegration() {
-  const is3DActive = initMetro3D();
-  if (!is3DActive) return;
-
-  const stationIds = ['hero', 'about', 'skills', 'projects', 'education', 'contact'];
-
-  // 1. Lắng nghe click các trạm trên thanh ray
-  const stationLinks = document.querySelectorAll('.station-link');
-  stationLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        const targetId = href.substring(1);
-        navigateToStation(targetId);
-      }
-    });
-  });
-
-  // 1b. Lắng nghe chuyển góc nhìn 3D trực quan (kèm cập nhật aria-pressed chuẩn WCAG)
-  const angleButtons = document.querySelectorAll('.btn-hud-angle');
-  angleButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      angleButtons.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed', 'false');
-      });
-      btn.classList.add('active');
-      btn.setAttribute('aria-pressed', 'true');
-      const angleKey = btn.getAttribute('data-angle');
-      if (angleKey) {
-        setCameraAngle(angleKey);
-      }
-    });
-  });
-
-  // 2. Đồng bộ khi thay đổi Hash (Back/Forward trình duyệt)
-  window.addEventListener('hashchange', () => {
-    const hash = window.location.hash.replace('#', '') || 'hero';
-    navigateToStation(hash);
-  });
-
-  // Khởi động tại ga theo hash URL nếu có
-  if (window.location.hash) {
-    const initialHash = window.location.hash.replace('#', '');
-    navigateToStation(initialHash);
-  }
-
-  // 3. Điều hướng bằng bàn phím (WCAG AA - Arrow keys, Home, End, Esc)
-  window.addEventListener('keydown', (e) => {
-    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-    const modal = document.getElementById('projectModal');
-    if (modal && modal.classList.contains('is-active')) return;
-
-    const currentHash = window.location.hash.replace('#', '') || 'hero';
-    let currentIndex = stationIds.indexOf(currentHash);
-    if (currentIndex === -1) currentIndex = 0;
-
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-      e.preventDefault();
-      const nextIndex = Math.min(currentIndex + 1, stationIds.length - 1);
-      window.location.hash = '#' + stationIds[nextIndex];
-    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-      e.preventDefault();
-      const prevIndex = Math.max(currentIndex - 1, 0);
-      window.location.hash = '#' + stationIds[prevIndex];
-    } else if (e.key === 'Home') {
-      e.preventDefault();
-      window.location.hash = '#hero';
-    } else if (e.key === 'End') {
-      e.preventDefault();
-      window.location.hash = '#contact';
-    } else if (e.key === 'Escape') {
-      window.location.hash = '#hero';
-    }
-  });
-
-  // 4. Đồng bộ Camera khi cuộn trang
-  let lastScrolledStation = '';
-  window.addEventListener('scroll', () => {
-    const stationSections = document.querySelectorAll('.station-section');
-    const scrollCenter = window.scrollY + window.innerHeight * 0.38;
-
-    stationSections.forEach(section => {
-      const top = section.offsetTop;
-      const height = section.offsetHeight;
-      if (scrollCenter >= top && scrollCenter < top + height) {
-        const id = section.id;
-        if (id && id !== lastScrolledStation) {
-          lastScrolledStation = id;
-          navigateToStation(id);
-        }
-      }
-    });
-  }, { passive: true });
-
-  // 5. Giải phóng tài nguyên Three.js khi rời trang hoặc unmount
-  window.addEventListener('beforeunload', () => {
-    disposeMetro3D();
-  });
-  window.addEventListener('pagehide', () => {
-    disposeMetro3D();
-  });
 }
 
 if (document.readyState === 'loading') {
@@ -404,16 +287,11 @@ function initProjectInspectionModal() {
         <span class="notice-status">&#9679; ${project.status}</span>
       </div>
 
-      <div class="modal-project-banner-wrap">
-        <img src="${project.image}" alt="${project.title}" class="modal-project-banner-img">
-      </div>
-
       <div class="modal-desc-box">
         <div class="modal-section-title">MÔ TẢ CHI TIẾT ĐỒ ÁN</div>
         <p>${project.summary}</p>
       </div>
 
-      ${project.myRole && project.whatILearned ? `
       <div class="modal-duties-grid">
         <div class="modal-duty-item">
           <span class="modal-duty-label">VAI TRÒ TRONG ĐỒ ÁN</span>
@@ -425,7 +303,6 @@ function initProjectInspectionModal() {
           <p class="modal-duty-content">${project.whatILearned}</p>
         </div>
       </div>
-      ` : ''}
 
       <div>
         <div class="modal-section-title">CÔNG NGHỆ ÁP DỤNG TRÊN TOA TÀU</div>
@@ -436,7 +313,7 @@ function initProjectInspectionModal() {
 
       <div class="modal-actions-bar">
         <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn-transit btn-transit-primary">
-          <span>Mã nguồn nhóm GitHub</span>
+          <span>Xem Kho Lưu Trữ GitHub</span>
           <span aria-hidden="true">&#8599;</span>
         </a>
         <button type="button" class="btn-transit btn-transit-ghost" id="modalCloseAction">
@@ -496,27 +373,6 @@ function initProjectInspectionModal() {
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('is-active')) {
       closeModal();
-    }
-  });
-
-  // Bẫy tiêu điểm (Focus Trap) chuẩn WCAG AA khi modal đang mở
-  modal.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
-    const focusable = modal.querySelectorAll('button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-    if (!focusable.length) return;
-    const firstEl = focusable[0];
-    const lastEl = focusable[focusable.length - 1];
-
-    if (e.shiftKey) {
-      if (document.activeElement === firstEl || document.activeElement === modal) {
-        e.preventDefault();
-        lastEl.focus();
-      }
-    } else {
-      if (document.activeElement === lastEl) {
-        e.preventDefault();
-        firstEl.focus();
-      }
     }
   });
 }
