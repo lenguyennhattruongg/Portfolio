@@ -25,7 +25,7 @@ const MEMBERS_DATA = MEMBERS.map((m, idx) => ({
   role: m.role || 'Thành viên',
   seq: `THÀNH VIÊN // 0${idx + 1}`,
   portfolio: m.portfolio,
-  github: m.github || 'https://github.com/lenguyennhattruongg/Portfolio',
+  github: m.github || 'https://github.com/nguyenxuanhieu2903/portfolio-group',
   avatar: m.avatar || (m.slug === 'le-nguyen-nhat-truong' ? truongAvatarUrl : (m.slug === 'nguyen-xuan-hieu' ? hieuAvatarUrl : null)),
   tags: Array.isArray(m.tags) ? m.tags : []
 }));
@@ -811,6 +811,8 @@ const dom = {
   btnModeWarp: document.getElementById('btnModeWarp'),
   btnAudioToggle: document.getElementById('btnAudioToggle'),
   audioStatusText: document.getElementById('audioStatusText'),
+  btnGraphicsToggle: document.getElementById('btnGraphicsToggle'),
+  graphicsStatusText: document.getElementById('graphicsStatusText'),
   btnResetOrbit: document.getElementById('btnResetOrbit'),
   btnZoomIn: document.getElementById('btnZoomIn'),
   btnZoomOut: document.getElementById('btnZoomOut'),
@@ -1382,6 +1384,7 @@ class MilkyWaySolarSystemEngine {
     this.isPaused = false;
     this.sunShaderTime = 0.0;
     this.isPhotoMode = false;
+    this.isLowGraphics = localStorage.getItem('cosmic_low_graphics') === 'true';
 
     // Loading Manager cho Sci-Fi Telemetry Preloader
     this.loadingManager = new THREE.LoadingManager(
@@ -1486,6 +1489,9 @@ class MilkyWaySolarSystemEngine {
       ONE: THREE.TOUCH.ROTATE,
       TWO: THREE.TOUCH.DOLLY_PAN
     };
+
+    // Khởi tạo chế độ đồ họa đã lưu hoặc mặc định
+    this.setGraphicsMode(this.isLowGraphics, false);
 
     // Hỗ trợ ngắt chuyển cảnh an toàn (Zero-jump Interruptibility) trên chuột, con lăn và cảm ứng chạm
     const interruptTransition = () => {
@@ -2554,13 +2560,88 @@ class MilkyWaySolarSystemEngine {
   /**
    * Bật / Tắt chế độ quan sát toàn cảnh không HUD (Clean Photo Mode [H])
    */
+  /**
+   * Bật / Tắt chế độ quan sát toàn cảnh không HUD (Clean Photo Mode [H])
+   */
   togglePhotoMode() {
-    this.isPhotoMode = !this.isPhotoMode;
-    document.body.classList.toggle('hud-photo-mode', this.isPhotoMode);
-    if (dom.photoModeToast) {
-      dom.photoModeToast.hidden = !this.isPhotoMode;
+    if (this.isPhotoMode) {
+      this.exitPhotoMode();
+    } else {
+      this.enterPhotoMode();
     }
-    audio.playCelestialChime(this.isPhotoMode ? 600 : 420);
+  }
+
+  enterPhotoMode() {
+    this.isPhotoMode = true;
+    document.body.classList.add('hud-photo-mode');
+    if (dom.photoModeToast) {
+      dom.photoModeToast.hidden = false;
+    }
+    audio.playCelestialChime(600);
+  }
+
+  exitPhotoMode() {
+    if (!this.isPhotoMode) return;
+    this.isPhotoMode = false;
+    document.body.classList.remove('hud-photo-mode');
+    if (dom.photoModeToast) {
+      dom.photoModeToast.hidden = true;
+    }
+    audio.playCelestialChime(420);
+    if (dom.currentFocusReadout && !this.focusedPlanet) {
+      dom.currentFocusReadout.textContent = 'HỆ MẶT TRỜI // TOÀN CẢNH QUỸ ĐẠO';
+    }
+  }
+
+  /**
+   * Chuyển đổi chế độ đồ họa: Cao (PBR + Unreal Bloom) <-> Tiết kiệm (60 FPS cho máy yếu)
+   */
+  setGraphicsMode(isLow, playSound = true) {
+    this.isLowGraphics = isLow;
+    try {
+      localStorage.setItem('cosmic_low_graphics', isLow ? 'true' : 'false');
+    } catch (e) {}
+
+    document.body.classList.toggle('low-graphics-mode', isLow);
+
+    // Giảm DPR xuống 1.0 ở chế độ tiết kiệm
+    const maxDpr = isLow ? 1.0 : (window.innerWidth <= 768 ? 1.5 : 2.0);
+    this.currentDpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+
+    if (this.renderer) {
+      this.renderer.setPixelRatio(this.currentDpr);
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+    if (this.composer) {
+      this.composer.setPixelRatio(this.currentDpr);
+      this.composer.setSize(window.innerWidth, window.innerHeight);
+    }
+    if (this.bloomPass) {
+      this.bloomPass.enabled = !isLow;
+    }
+
+    if (dom.graphicsStatusText) {
+      dom.graphicsStatusText.textContent = isLow ? 'TIẾT KIỆM' : 'ĐỒ HỌA: CAO';
+    }
+    if (dom.btnGraphicsToggle) {
+      dom.btnGraphicsToggle.classList.toggle('active-low-graphics', isLow);
+      dom.btnGraphicsToggle.setAttribute('aria-pressed', isLow ? 'true' : 'false');
+      dom.btnGraphicsToggle.title = isLow
+        ? 'Đang ở chế độ tiết kiệm đồ họa (Bấm để bật đồ họa cao PBR + Bloom)'
+        : 'Đang ở chế độ đồ họa cao PBR + Bloom (Bấm để chuyển sang chế độ tiết kiệm)';
+    }
+
+    if (dom.currentFocusReadout && playSound) {
+      dom.currentFocusReadout.textContent = `TELEMETRY // ĐỒ HỌA: ${isLow ? 'TIẾT KIỆM (TỐI ƯU 60 FPS)' : 'CAO (PBR + BLOOM)'}`;
+    }
+
+    if (playSound) {
+      audio.playCelestialChime(isLow ? 380 : 580);
+    }
+  }
+
+  toggleGraphicsMode() {
+    this.setGraphicsMode(!this.isLowGraphics, true);
   }
 
   /**
@@ -2748,6 +2829,8 @@ class MilkyWaySolarSystemEngine {
       if (mem && mem.github) {
         dom.panelGithubLink.hidden = false;
         dom.panelGithubLink.href = mem.github;
+        const ghUsername = mem.github.split('/').filter(Boolean).pop();
+        dom.panelGithubLink.textContent = `GitHub: @${ghUsername} ↗`;
       } else {
         dom.panelGithubLink.hidden = true;
       }
@@ -3005,8 +3088,10 @@ class MilkyWaySolarSystemEngine {
     // 7. Cập nhật nhãn AR
     this.updateARLabels();
 
-    // 8. Render chuẩn điện ảnh qua Unreal Bloom Postprocessing EffectComposer
-    if (this.composer) {
+    // 8. Render chuẩn điện ảnh (Chế độ tiết kiệm render trực tiếp để tối ưu FPS)
+    if (this.isLowGraphics) {
+      this.renderer.render(this.scene, this.camera);
+    } else if (this.composer) {
       this.composer.render();
     } else {
       this.renderer.render(this.scene, this.camera);
@@ -3056,10 +3141,14 @@ class MilkyWaySolarSystemEngine {
     window.addEventListener('pointerup', (e) => {
       // 1. Nếu đang trong chế độ toàn cảnh (Photo mode), chạm nhẹ vào màn hình là thoát ngay
       if (this.isPhotoMode) {
+        // Nếu chạm vào chính nút thoát hoặc toast thì để click listener xử lý, không xử lý ở đây
+        if (e.target.closest('#photoModeToast') || e.target.closest('#btnExitPhoto')) {
+          return;
+        }
         const deltaX = Math.abs(e.clientX - pointerStartX);
         const deltaY = Math.abs(e.clientY - pointerStartY);
         if (deltaX < 15 && deltaY < 15) {
-          this.togglePhotoMode();
+          this.exitPhotoMode();
           return;
         }
       }
@@ -3156,7 +3245,7 @@ class MilkyWaySolarSystemEngine {
         this.togglePhotoMode();
       } else if (e.key === 'Escape') {
         if (this.isPhotoMode) {
-          this.togglePhotoMode();
+          this.exitPhotoMode();
         } else {
           this.resetToOverview();
         }
@@ -3311,18 +3400,33 @@ class MilkyWaySolarSystemEngine {
 
     // Chế độ quan sát toàn cảnh / Chụp ảnh (Clean Photo Mode [H])
     if (dom.btnPhotoMode) {
-      dom.btnPhotoMode.addEventListener('click', () => this.togglePhotoMode());
-    }
-
-    if (dom.btnExitPhoto) {
-      dom.btnExitPhoto.addEventListener('click', (e) => {
-        e.stopPropagation();
+      dom.btnPhotoMode.addEventListener('click', (e) => {
+        e.preventDefault();
         this.togglePhotoMode();
       });
     }
 
+    if (dom.btnExitPhoto) {
+      dom.btnExitPhoto.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.exitPhotoMode();
+      });
+    }
+
     if (dom.photoModeToast) {
-      dom.photoModeToast.addEventListener('click', () => this.togglePhotoMode());
+      dom.photoModeToast.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.exitPhotoMode();
+      });
+    }
+
+    // Nút chuyển chế độ đồ họa (Graphics Quality Toggle)
+    if (dom.btnGraphicsToggle) {
+      dom.btnGraphicsToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.toggleGraphicsMode();
+      });
     }
 
     window.addEventListener('click', () => audio.startAmbience(), { once: true });

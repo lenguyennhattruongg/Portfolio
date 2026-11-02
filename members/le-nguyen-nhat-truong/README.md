@@ -37,8 +37,9 @@
 ## 🎨 Điểm Nhấn Thiết Kế & Trải Nghiệm (Concept Tuyến Metro Sài Gòn)
 
 Khác biệt hoàn toàn với các khuôn mẫu template sinh viên thông thường, portfolio được kiến tạo theo ý tưởng **Tuyến T24 Metro UTH** độc bản:
-- **Thanh ray dẫn đường dọc (Metro Rail Sidebar):** Mô phỏng sơ đồ các ga dừng (Ga Chính, Ga Kỹ Năng, Ga Dự Án, Ga Liên Hệ) tự động kích hoạt ánh sáng ray theo tiến trình cuộn trang.
-- **Bảng điện tử ga chính (Terminal Display):** Đồng hồ thời gian thực kỹ thuật số, lịch vận hành tuyến T24 và thẻ trạng thái tuyến sẵn sàng.
+*(Lưu ý: Tuyến T24 là ẩn dụ thiết kế kiến trúc thông tin, không phải tuyến metro vận hành thực tế).*
+- **Thanh ray dẫn đường dọc (Metro Rail Sidebar):** Mô phỏng sơ đồ các ga dừng (Ga 01 đến Ga 06) tự động kích hoạt ánh sáng ray theo tiến trình cuộn trang.
+- **Bảng điện tử ga chính (Terminal Display):** Đồng hồ thời gian thực kỹ thuật số hiển thị theo hệ thống các trạm dừng.
 - **Thẻ vé Metro tương tác (Interactive Metro Ticket):** Cho phép xem thông số kỹ thuật, chuyên môn chi tiết qua modal giao diện vé tàu điện.
 - **Bảng mã màu & Typography:** Phông chữ kiến trúc Bricolage Grotesque (tiêu đề), IBM Plex Sans (nội dung) và JetBrains Mono (thông số kỹ thuật).
 
@@ -62,10 +63,10 @@ Khác biệt hoàn toàn với các khuôn mẫu template sinh viên thông thư
 - **Công nghệ:** Java SE 21, Socket TCP/IP, Java AWT Robot, Multithreading Concurrency, Nén luồng ảnh thời gian thực.
 - **Đặc điểm:** Tối ưu hóa độ trễ gói tin, quản lý luồng song song Client-Server độc lập.
 
-### 2. FreshVend Smart Lockers
-- **Mô tả:** Hệ thống phần mềm quản lý và điều phối tủ gửi đồ thông minh tự động dành cho khu phức hợp.
-- **Công nghệ:** C++ (OOP Architecture), Quản lý bộ nhớ động, Cấu trúc dữ liệu & Thuật toán, Xử lý tệp tin cấu hình.
-- **Đặc điểm:** Phân bổ ngăn tủ tự động theo kích thước kiện hàng, mã hóa mã PIN bảo mật giao nhận.
+### 2. FreshVend Management System
+- **Mô tả:** Phần mềm quản lý và vận hành máy bán hàng tự động bằng Java Core. Triển khai các nguyên lý kiến trúc OOP, quản lý tồn kho và quy trình giao dịch mua hàng.
+- **Công nghệ:** Java Core (Java SE 21), OOP Architecture, Inventory System, Transaction Handler, Exception Handling.
+- **Đặc điểm:** Phân tách module sản phẩm và khay chứa, kiểm soát dòng tiền và trạng thái giao dịch.
 
 ### 3. Portfolio Group — Cổng Không Gian 3D Hệ Mặt Trời
 - **Mô tả:** Cổng kết nối trang chủ nhóm sinh viên UTH theo kiến trúc Đa trang (Multi-Page Application — MPA) kết hợp đồ họa 3D Three.js.
