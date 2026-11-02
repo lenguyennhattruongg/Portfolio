@@ -1457,9 +1457,7 @@ body.low-graphics-mode .spatial-detail-panel {
 }
 
 @media (max-width: 480px) {
-  .hud-perspective-switch {
-    display: none !important;
-  }
+  
   .hud-help-btn {
     display: none !important; /* Ẩn nút hỏi chấm desktop để nhường chỗ trên điện thoại nhỏ */
   }
@@ -1841,9 +1839,7 @@ body.hud-photo-mode #photoModeToast {
 
 /* TỐI ƯU HIỂN THỊ THANH TOP HUD VÀ NÚT GIẢM ĐỒ HỌA TRÊN MỌI MÀN HÌNH */
 @media (max-width: 992px) {
-  .hud-perspective-switch {
-    display: none !important;
-  }
+  
 }
 
 @media (min-width: 681px) and (max-width: 992px) {
@@ -2145,5 +2141,60 @@ body.mode-2d-active .hud-graphics-btn {
   }
   .orrery-text-member {
     font-size: 10px;
+  }
+}
+
+/* =========================================================
+   HIỂN THỊ CỐ ĐỊNH NÚT QUỸ ĐẠO 360° & DU HÀNH SIÊU TỐC TRÊN MOBILE
+   ========================================================= */
+@media (max-width: 768px) {
+  .hud-top-bar {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 6px 10px !important;
+    gap: 6px !important;
+  }
+
+  .hud-brand {
+    order: 1 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .hud-top-actions {
+    order: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* NÚT QUỸ ĐẠO 360° & DU HÀNH SIÊU TỐC: HÀNG THỨ 2 RÕ NÉT TRÊN MOBILE */
+  .hud-perspective-switch {
+    order: 3 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-top: 4px !important;
+    padding: 3px !important;
+    background: rgba(8, 12, 24, 0.88) !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(142, 156, 255, 0.3) !important;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .btn-perspective {
+    flex: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 6px 10px !important;
+    font-size: 0.72rem !important;
+    min-height: 34px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
   }
 }

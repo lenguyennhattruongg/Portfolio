@@ -1,4 +1,4 @@
-# 🪐 Group Portfolio Website — Nhóm 06 (UTH)
+# 🪐 Group Portfolio Website — Nhóm 02 (UTH)
 
 > **Đồ án môn học Lập trình Web** — Trường Đại học Giao thông Vận tải TP.HCM (UTH)  
 > Kho mã nguồn chính thức của nhóm: [https://github.com/nguyenxuanhieu2903/portfolio-group](https://github.com/nguyenxuanhieu2903/portfolio-group)
@@ -21,7 +21,7 @@ Dự án đã được triển khai trực tiếp trên GitHub Pages, mời th�
 
 ## 📖 Giới Thiệu Đồ Án
 
-Chào mừng thầy cô và các bạn đã ghé thăm website Portfolio của **Nhóm 06**. 
+Chào mừng thầy cô và các bạn đã ghé thăm website Portfolio của **Nhóm 02**. 
 
 Trong học phần Lập trình Web, nhóm chúng mình đặt mục tiêu không chỉ tạo ra một trang danh sách thông thường, mà xây dựng một **Cổng thông tin không gian 3D (3D Solar System)** sống động kết nối với **6 không gian portfolio cá nhân độc lập**. 
 
@@ -143,4 +143,4 @@ portfolio-group/
 
 ---
 
-*Cảm ơn thầy cô và các bạn đã dành thời gian theo dõi đồ án của Nhóm 06!* ✨
+*Cảm ơn thầy cô và các bạn đã dành thời gian theo dõi đồ án của Nhóm 02!* ✨

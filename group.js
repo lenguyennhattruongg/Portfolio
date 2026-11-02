@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * Nhóm 06 — Hệ Mặt Trời 3D (Milky Way & Solar System Engine)
+ * Nhóm 02 — Hệ Mặt Trời 3D (Milky Way & Solar System Engine)
  * Trường Đại học Giao thông Vận tải TP.HCM (UTH)
  * ============================================================================
  */
@@ -16,7 +16,7 @@ import truongAvatarUrl from './members/le-nguyen-nhat-truong/images/avatar.png';
 import hieuAvatarUrl from './members/nguyen-xuan-hieu/images/avatar.jpg';
 
 // ============================================================================
-// 1. DATA CONTRACT: 10 THIÊN THỂ HỆ MẶT TRỜI & 6 THÀNH VIÊN NHÓM 06
+// 1. DATA CONTRACT: 10 THIÊN THỂ HỆ MẶT TRỜI & 6 THÀNH VIÊN NHÓM 02
 // ============================================================================
 const MEMBERS_DATA = MEMBERS.map((m, idx) => ({
   id: m.slug,
@@ -2675,7 +2675,7 @@ class MilkyWaySolarSystemEngine {
       <circle cx="500" cy="500" r="85" fill="url(#sunGlow2D)" />
       <circle cx="500" cy="500" r="42" fill="url(#sunGrad2D)" stroke="#FDE68A" stroke-width="2" class="sun-disk-2d" />
       <text x="500" y="504" text-anchor="middle" fill="#78350F" font-family="monospace" font-size="11" font-weight="900" pointer-events="none">☉ SUN</text>
-      <text x="500" y="562" text-anchor="middle" fill="#FBBF24" font-family="monospace" font-size="10" font-weight="700" letter-spacing="1">MẶT TRỜI // NHÓM 06</text>
+      <text x="500" y="562" text-anchor="middle" fill="#FBBF24" font-family="monospace" font-size="10" font-weight="700" letter-spacing="1">MẶT TRỜI // NHÓM 02</text>
     `;
     sunGroup.addEventListener('click', () => this.focusPlanet('sun'));
     planetsGroup.appendChild(sunGroup);

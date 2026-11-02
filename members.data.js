@@ -1,5 +1,5 @@
 /**
- * members.data.js — Nguồn dữ liệu duy nhất và chính xác cho 6 thành viên Nhóm 06
+ * members.data.js — Nguồn dữ liệu duy nhất và chính xác cho 6 thành viên Nhóm 02
  * Cập nhật định danh GitHub và chuyên môn kỹ thuật chính xác cho từng thành viên.
  */
 

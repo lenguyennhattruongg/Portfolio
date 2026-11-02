@@ -10,7 +10,7 @@
 
 ## 🌐 ĐƯỜNG DẪN TRẢI NGHIỆM TRỰC TIẾP (LIVE DEPLOY)
 
-- 🌟 **Hệ thống chính thức của Nhóm 06:**  
+- 🌟 **Hệ thống chính thức của Nhóm 02:**  
   👉 **[https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/)**
 
 - 🚀 **Repository cá nhân dự phòng:**  
