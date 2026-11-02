@@ -1967,15 +1967,13 @@ body.hud-photo-mode #photoModeToast {
 }
 
 /* =========================================================
-   CHẾ ĐỘ RADAR KHÔNG GIAN 2.5D HOLOGRAPHIC (0% GPU LOAD CHO MÁY YẾU)
-   Phối cảnh Isometric 55°, bóng đổ ground shadow, tia laser beacon,
-   và khối cầu đổ bóng 3D chân thực mà không tốn tài nguyên WebGL.
+   CHẾ ĐỘ 2D SIÊU TIẾT KIỆM CHO MÁY YẾU (2D ORRERY FLAT MODE)
    ========================================================= */
 .solar-system-2d-layer {
   position: fixed;
   inset: 0;
   z-index: 5;
-  background: radial-gradient(ellipse at 50% 45%, #0d1527 0%, #060913 60%, #010308 100%);
+  background: radial-gradient(circle at center, #0B1120 0%, #030712 65%, #000208 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1987,48 +1985,6 @@ body.hud-photo-mode #photoModeToast {
   display: none !important;
 }
 
-/* Lưới sàn không gian Hologram 2.5D có độ sâu */
-.holo-grid-floor {
-  position: absolute;
-  inset: -20%;
-  background-image: 
-    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
-  background-size: 50px 50px;
-  transform: perspective(800px) rotateX(62deg);
-  transform-origin: 50% 60%;
-  pointer-events: none;
-  opacity: 0.8;
-  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 15%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 15%, transparent 75%);
-}
-
-.holo-radar-rings {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1400px;
-  height: 700px;
-  transform: translate(-50%, -50%) perspective(1000px) rotateX(55deg);
-  border: 1px dashed rgba(56, 189, 248, 0.12);
-  border-radius: 50%;
-  pointer-events: none;
-  box-shadow: 0 0 100px rgba(56, 189, 248, 0.03) inset;
-}
-
-.holo-scanline-sweep {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(56, 189, 248, 0.03) 50%, transparent 100%);
-  animation: holoScanlineSweep 8s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes holoScanlineSweep {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
-}
-
 .orrery-2d-container {
   width: 100%;
   height: 100%;
@@ -2036,12 +1992,12 @@ body.hud-photo-mode #photoModeToast {
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 65px 20px 75px 20px;
+  padding: 70px 20px 80px 20px;
 }
 
 .orrery-2d-header {
   position: absolute;
-  top: 72px;
+  top: 75px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 6;
@@ -2049,298 +2005,114 @@ body.hud-photo-mode #photoModeToast {
 }
 
 .badge-2d-mode {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(14, 165, 233, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  color: #38BDF8;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  color: #34D399;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  padding: 5px 16px;
+  padding: 5px 14px;
   border-radius: 20px;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
   white-space: nowrap;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
-.badge-dot-live {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #38BDF8;
-  box-shadow: 0 0 8px #38BDF8;
-  animation: badgeDotPulse 1.8s ease-in-out infinite alternate;
-}
-
-@keyframes badgeDotPulse {
-  0% { opacity: 0.4; transform: scale(0.85); }
-  100% { opacity: 1; transform: scale(1.2); }
-}
-
-/* 2.5D Viewport with 3D Perspective Canvas */
 .orrery-2d-viewport {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1200px;
-  perspective-origin: 50% 45%;
-}
-
-.orrery-2d-plane {
-  width: 100%;
-  height: 100%;
-  max-width: 1260px;
-  max-height: calc(100vh - 140px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Các góc nghiêng Radar 2.5D */
-.orrery-2d-plane.angle-steep {
-  transform: rotateX(24deg) scale(1.04);
-}
-
-.orrery-2d-plane.angle-mid {
-  transform: rotateX(12deg) scale(1.0);
-}
-
-.orrery-2d-plane.angle-flat {
-  transform: rotateX(0deg) scale(0.96);
 }
 
 .orrery-svg {
   width: 100%;
   height: 100%;
-  overflow: visible;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.6));
+  max-width: 920px;
+  max-height: calc(100vh - 150px);
+  filter: drop-shadow(0 0 24px rgba(14, 165, 233, 0.15));
 }
 
-/* Orbits 2.5D */
+/* Orbits */
 .orrery-orbit-path {
   fill: none;
-  stroke: rgba(142, 156, 255, 0.16);
-  stroke-width: 1.4;
-  transition: stroke 0.3s ease, stroke-width 0.3s ease, filter 0.3s ease;
+  stroke: rgba(142, 156, 255, 0.15);
+  stroke-width: 1.2;
+  transition: all 0.3s ease;
 }
 
-.orrery-orbit-path:hover,
 .orrery-orbit-path.is-active-orbit {
   stroke: rgba(56, 189, 248, 0.85) !important;
-  stroke-width: 2.4 !important;
-  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.8));
-}
-
-.orrery-telemetry-distance {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 600;
-  fill: rgba(148, 163, 184, 0.45);
-  letter-spacing: 0.05em;
-  pointer-events: none;
-}
-
-/* 2.5D Nodes & Planet Objects */
-.orrery-planet-node {
-  cursor: pointer;
-  outline: none;
-}
-
-.orrery-ground-shadow {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-}
-
-.orrery-beacon-stalk {
-  transition: stroke-width 0.25s ease, stroke 0.25s ease;
-  pointer-events: none;
-}
-
-.orrery-beacon-ring {
-  transition: stroke-width 0.25s ease, stroke 0.25s ease;
-  pointer-events: none;
-}
-
-.orrery-planet-sphere {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
-}
-
-.orrery-planet-halo {
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-
-/* Hover States: Floating planet lift up & beacon glow */
-.orrery-planet-node:hover .orrery-planet-sphere {
-  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.6));
-  transform: translateY(-5px);
-}
-
-.orrery-planet-node:hover .orrery-beacon-stalk {
-  stroke: #38BDF8 !important;
   stroke-width: 2.6 !important;
   filter: drop-shadow(0 0 8px #38BDF8);
 }
 
-.orrery-planet-node:hover .orrery-beacon-ring {
-  stroke: #38BDF8 !important;
-  stroke-width: 2 !important;
-  filter: drop-shadow(0 0 8px #38BDF8);
+/* Nodes */
+.orrery-planet-node {
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.orrery-planet-node:hover .orrery-card-bg {
-  stroke: rgba(56, 189, 248, 0.85) !important;
-  fill: rgba(15, 23, 42, 0.95) !important;
-  filter: drop-shadow(0 6px 20px rgba(56, 189, 248, 0.35));
+.orrery-planet-node:hover .orrery-planet-body {
+  filter: drop-shadow(0 0 10px #FFFFFF);
 }
 
-.orrery-planet-node:hover .orrery-card-name {
+.orrery-planet-node:hover .orrery-text-title {
   fill: #FFFFFF !important;
 }
 
-/* Selection Ring / AR Target Brackets */
-.orrery-target-bracket {
+.orrery-sel-ring {
   fill: none;
   stroke: transparent;
-  stroke-width: 1.8;
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-
-.orrery-planet-node.is-selected-2d .orrery-target-bracket {
-  stroke: #38BDF8;
-  stroke-dasharray: 6,4;
-  animation: rotateSelBracket 8s linear infinite;
-  filter: drop-shadow(0 0 10px #38BDF8);
-}
-
-@keyframes rotateSelBracket {
-  from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: 40; }
-}
-
-/* Central Sun Group */
-.orrery-sun-group {
-  cursor: pointer;
-  outline: none;
-}
-
-.orrery-sun-group:hover .sun-core-sphere {
-  filter: drop-shadow(0 0 35px #F59E0B);
-}
-
-/* Member Holographic Cards */
-.orrery-card-group {
-  transition: transform 0.25s ease;
-}
-
-.orrery-card-bg {
-  fill: rgba(8, 14, 28, 0.85);
-  stroke: rgba(56, 189, 248, 0.3);
-  stroke-width: 1;
-  rx: 7;
-  ry: 7;
+  stroke-width: 2;
   transition: all 0.25s ease;
 }
 
-.orrery-card-name {
+.orrery-planet-node.is-selected-2d .orrery-sel-ring {
+  stroke: #38BDF8;
+  stroke-dasharray: 4,4;
+  animation: rotateSelRing 6s linear infinite;
+  filter: drop-shadow(0 0 10px #38BDF8);
+}
+
+@keyframes rotateSelRing {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 32; }
+}
+
+.orrery-sun-group {
+  cursor: pointer;
+}
+
+.orrery-sun-group:hover .sun-disk-2d {
+  filter: drop-shadow(0 0 20px #F59E0B);
+}
+
+.orrery-text-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  fill: #94A3B8;
+  letter-spacing: 0.05em;
+  transition: fill 0.2s ease;
+}
+
+.orrery-text-member {
   font-family: var(--font-heading);
   font-size: 11.5px;
   font-weight: 700;
   fill: #F8FAFC;
-  letter-spacing: 0.02em;
-  transition: fill 0.2s ease;
-  pointer-events: none;
 }
 
-.orrery-card-role {
+.orrery-text-role {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 9.5px;
   font-weight: 600;
   fill: #38BDF8;
-  letter-spacing: 0.04em;
-  pointer-events: none;
+  opacity: 0.9;
 }
 
-.orrery-card-planet-tag {
-  font-family: var(--font-mono);
-  font-size: 8.5px;
-  font-weight: 700;
-  fill: #94A3B8;
-  letter-spacing: 0.06em;
-  pointer-events: none;
-}
-
-.orrery-card-badge {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  font-weight: 600;
-  fill: #34D399;
-  letter-spacing: 0.04em;
-  pointer-events: none;
-}
-
-/* 2.5D Angle Selector HUD on bottom-right */
-.holo-angle-selector {
-  position: absolute;
-  bottom: 24px;
-  right: 28px;
-  z-index: 8;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(8, 12, 24, 0.88);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  border-radius: 24px;
-  padding: 4px 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.holo-angle-title {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #94A3B8;
-  letter-spacing: 0.06em;
-  margin-right: 4px;
-}
-
-.btn-holo-angle {
-  background: transparent;
-  border: 1px solid transparent;
-  color: #94A3B8;
-  font-family: inherit;
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.btn-holo-angle:hover {
-  color: #F8FAFC;
-  background: rgba(56, 189, 248, 0.12);
-  border-color: rgba(56, 189, 248, 0.3);
-}
-
-.btn-holo-angle.is-active {
-  color: #38BDF8;
-  background: rgba(56, 189, 248, 0.2);
-  border-color: #38BDF8;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
-}
-
-/* Tối ưu hóa tuyệt đối khi ở chế độ 2.5D */
+/* Tắt CSS Blur và tối ưu tuyệt đối khi ở 2D mode */
 body.mode-2d-active .hud-top-bar,
 body.mode-2d-active .hud-bottom-bar,
 body.mode-2d-active .spatial-detail-panel {
@@ -2352,33 +2124,23 @@ body.mode-2d-active .spatial-detail-panel {
 body.mode-2d-active .hud-graphics-btn {
   border-color: #38BDF8 !important;
   color: #38BDF8 !important;
-  background: rgba(56, 189, 248, 0.22) !important;
-  box-shadow: 0 0 18px rgba(56, 189, 248, 0.5) !important;
+  background: rgba(56, 189, 248, 0.18) !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.45) !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .orrery-2d-header {
-    top: 58px;
+    top: 60px;
   }
   .badge-2d-mode {
-    font-size: 0.6rem;
+    font-size: 0.62rem;
     padding: 4px 10px;
   }
-  .holo-angle-selector {
-    bottom: 75px;
-    right: 12px;
-    padding: 3px 6px;
-    gap: 4px;
-  }
-  .btn-holo-angle {
-    font-size: 0.62rem;
-    padding: 3px 7px;
-  }
-  .holo-angle-title {
+  .orrery-text-role {
     display: none;
   }
-  .orrery-card-group {
-    transform: scale(0.88);
+  .orrery-text-member {
+    font-size: 10px;
   }
 }
 
