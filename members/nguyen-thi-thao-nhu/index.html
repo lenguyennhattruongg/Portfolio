@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Stylesheet (Relative Path for GitHub Pages) -->
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=lean1">
 </head>
 <script>
     (function () {
@@ -45,12 +45,7 @@
   <a class="back-group" href="../../index.html">&larr; Về trang chủ nhóm</a> 
 
   <div class="site-bg" aria-hidden="true">
-    <span class="site-wash"></span>
-    <span class="site-orb site-orb--a"></span>
-    <span class="site-orb site-orb--b"></span>
-    <span class="site-orb site-orb--c"></span>
-    <span class="site-orb site-orb--d"></span>
-    <canvas class="site-stars" id="siteStars"></canvas>
+    <div class="site-liquid" id="liquidEther"></div>
   </div>
 
   <!-- ==================== HEADER & NAVBAR ==================== -->
@@ -69,7 +64,7 @@
             <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
             <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
             <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
-            <li class="nav-item"><a href="#activities" class="nav-link">Activities</a></li>
+            <li class="nav-item"><a href="#interests" class="nav-link">Interests</a></li>
             <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
           </ul>
         </div>
@@ -354,60 +349,86 @@
       </div>
 
       <div class="skills-stage reveal">
-        <div class="skills-copy">
-          <p class="skills-kicker">Technical Skills</p>
-          <h3 class="skills-headline">SOFTWARE</h3>
+        <div class="skill-files">
+          <div class="skill-file" style="--folder:#6d28d9; --folder-back:#5b21b6">
+            <button type="button" class="skill-file-hit" aria-expanded="false">
+              <span class="skill-file-body">
+                <span class="skill-file-tab" aria-hidden="true"></span>
+                <span class="skill-file-papers">
+                  <span class="skill-icon skill-icon--cpp" title="C++"><i class="fa-solid fa-code"></i><em>C++</em></span>
+                  <span class="skill-icon skill-icon--csharp" title="C#"><i class="fa-solid fa-hashtag"></i><em>C#</em></span>
+                  <span class="skill-icon skill-icon--python" title="Python"><i class="fa-brands fa-python"></i><em>Py</em></span>
+                  <span class="skill-icon skill-icon--js" title="JavaScript"><i class="fa-brands fa-js"></i><em>JS</em></span>
+                </span>
+                <span class="skill-file-flap skill-file-flap--left" aria-hidden="true"></span>
+                <span class="skill-file-flap skill-file-flap--right" aria-hidden="true"></span>
+              </span>
+            </button>
+            <p class="skill-file-name">Programming Languages</p>
+          </div>
+
+          <div class="skill-file" style="--folder:#e11d48; --folder-back:#be123c">
+            <button type="button" class="skill-file-hit" aria-expanded="false">
+              <span class="skill-file-body">
+                <span class="skill-file-tab" aria-hidden="true"></span>
+                <span class="skill-file-papers">
+                  <span class="skill-icon skill-icon--html" title="HTML"><i class="fa-brands fa-html5"></i><em>HTML</em></span>
+                  <span class="skill-icon skill-icon--css" title="CSS"><i class="fa-brands fa-css3-alt"></i><em>CSS</em></span>
+                  <span class="skill-icon skill-icon--js" title="JavaScript"><i class="fa-brands fa-js"></i><em>JS</em></span>
+                </span>
+                <span class="skill-file-flap skill-file-flap--left" aria-hidden="true"></span>
+                <span class="skill-file-flap skill-file-flap--right" aria-hidden="true"></span>
+              </span>
+            </button>
+            <p class="skill-file-name">Web Development</p>
+          </div>
+
+          <div class="skill-file" style="--folder:#0e7490; --folder-back:#155e75">
+            <button type="button" class="skill-file-hit" aria-expanded="false">
+              <span class="skill-file-body">
+                <span class="skill-file-tab" aria-hidden="true"></span>
+                <span class="skill-file-papers">
+                  <span class="skill-icon skill-icon--sql" title="SQL"><i class="fa-solid fa-database"></i><em>SQL</em></span>
+                </span>
+                <span class="skill-file-flap skill-file-flap--left" aria-hidden="true"></span>
+                <span class="skill-file-flap skill-file-flap--right" aria-hidden="true"></span>
+              </span>
+            </button>
+            <p class="skill-file-name">Database</p>
+          </div>
+
+          <div class="skill-file" style="--folder:#2563eb; --folder-back:#1d4ed8">
+            <button type="button" class="skill-file-hit" aria-expanded="false">
+              <span class="skill-file-body">
+                <span class="skill-file-tab" aria-hidden="true"></span>
+                <span class="skill-file-papers">
+                  <span class="skill-icon skill-icon--docker" title="Docker – Basic"><i class="fa-brands fa-docker"></i><em>Docker</em></span>
+                  <span class="skill-icon skill-icon--jira" title="JIRA"><i class="fa-brands fa-jira"></i><em>JIRA</em></span>
+                  <span class="skill-icon skill-icon--github" title="GitHub"><i class="fa-brands fa-github"></i><em>GitHub</em></span>
+                </span>
+                <span class="skill-file-flap skill-file-flap--left" aria-hidden="true"></span>
+                <span class="skill-file-flap skill-file-flap--right" aria-hidden="true"></span>
+              </span>
+            </button>
+            <p class="skill-file-name">Tools</p>
+          </div>
+
+          <div class="skill-file" style="--folder:#db2777; --folder-back:#be185d">
+            <button type="button" class="skill-file-hit" aria-expanded="false">
+              <span class="skill-file-body">
+                <span class="skill-file-tab" aria-hidden="true"></span>
+                <span class="skill-file-papers">
+                  <span class="skill-icon skill-icon--oop" title="OOP"><i class="fa-solid fa-cubes"></i><em>OOP</em></span>
+                  <span class="skill-icon skill-icon--sys" title="Phân tích và thiết kế hệ thống"><i class="fa-solid fa-diagram-project"></i><em>Hệ thống</em></span>
+                  <span class="skill-icon skill-icon--algo" title="Phân tích thiết kế giải thuật"><i class="fa-solid fa-network-wired"></i><em>Giải thuật</em></span>
+                </span>
+                <span class="skill-file-flap skill-file-flap--left" aria-hidden="true"></span>
+                <span class="skill-file-flap skill-file-flap--right" aria-hidden="true"></span>
+              </span>
+            </button>
+            <p class="skill-file-name">Computer Science</p>
+          </div>
         </div>
-
-        <div class="skills-trail">
-          <div class="skill-cluster">
-            <p class="skill-cluster-label">Programming Languages</p>
-            <div class="skill-icons">
-              <span class="skill-icon skill-icon--cpp" title="C++"><i class="fa-solid fa-code"></i><em>C++</em></span>
-              <span class="skill-icon skill-icon--csharp" title="C#"><i class="fa-solid fa-hashtag"></i><em>C#</em></span>
-              <span class="skill-icon skill-icon--python" title="Python"><i class="fa-brands fa-python"></i><em>Py</em></span>
-              <span class="skill-icon skill-icon--js" title="JavaScript"><i class="fa-brands fa-js"></i><em>JS</em></span>
-            </div>
-          </div>
-
-          <div class="skill-cluster">
-            <p class="skill-cluster-label">Web Development</p>
-            <div class="skill-icons">
-              <span class="skill-icon skill-icon--html" title="HTML"><i class="fa-brands fa-html5"></i><em>HTML</em></span>
-              <span class="skill-icon skill-icon--css" title="CSS"><i class="fa-brands fa-css3-alt"></i><em>CSS</em></span>
-              <span class="skill-icon skill-icon--js" title="JavaScript"><i class="fa-brands fa-js"></i><em>JS</em></span>
-            </div>
-          </div>
-
-          <div class="skill-cluster">
-            <p class="skill-cluster-label">Database</p>
-            <div class="skill-icons">
-              <span class="skill-icon skill-icon--sql" title="SQL"><i class="fa-solid fa-database"></i><em>SQL</em></span>
-            </div>
-          </div>
-
-          <div class="skill-cluster">
-            <p class="skill-cluster-label">Tools</p>
-            <div class="skill-icons">
-              <span class="skill-icon skill-icon--docker" title="Docker – Basic"><i class="fa-brands fa-docker"></i><em>Docker</em></span>
-              <span class="skill-icon skill-icon--jira" title="JIRA"><i class="fa-brands fa-jira"></i><em>JIRA</em></span>
-              <span class="skill-icon skill-icon--github" title="GitHub"><i class="fa-brands fa-github"></i><em>GitHub</em></span>
-            </div>
-          </div>
-
-          <div class="skill-cluster">
-            <p class="skill-cluster-label">Computer Science</p>
-            <div class="skill-icons">
-              <span class="skill-icon skill-icon--oop" title="OOP"><i class="fa-solid fa-cubes"></i><em>OOP</em></span>
-              <span class="skill-icon skill-icon--sys" title="Phân tích và thiết kế hệ thống"><i class="fa-solid fa-diagram-project"></i><em>Hệ thống</em></span>
-              <span class="skill-icon skill-icon--algo" title="Phân tích thiết kế giải thuật"><i class="fa-solid fa-network-wired"></i><em>Giải thuật</em></span>
-            </div>
-          </div>
-        </div>
-
-        <figure class="skills-mascot">
-          <img src="./images/skills-pose.png" alt="Linh vật kỹ năng đang chỉ về các công cụ">
-        </figure>
       </div>
     </div>
   </section>
@@ -437,18 +458,18 @@
               <em>Website tương tác với animation, particle và trải nghiệm cảm xúc trên web.</em>
             </span>
           </button>
-          <button type="button" class="works-row works-row--2" data-folder="2">
+          <button type="button" class="works-row works-row--2" data-folder="2" data-project="p4">
             <span class="works-num">03</span>
-            <span class="works-copy">
-              <strong>Backend API</strong>
-              <em>Dự án mới đang xây dựng, tập trung API và định hướng Backend Intern.</em>
-            </span>
-          </button>
-          <button type="button" class="works-row works-row--3" data-folder="3" data-project="p4">
-            <span class="works-num">04</span>
             <span class="works-copy">
               <strong>Personal Portfolio</strong>
               <em>Trang portfolio cá nhân với giao diện thẩm mỹ, animation và tương tác.</em>
+            </span>
+          </button>
+          <button type="button" class="works-row works-row--3" data-folder="3">
+            <span class="works-num">04</span>
+            <span class="works-copy">
+              <strong>Thêm dự án mới</strong>
+              <em>Vị trí dành cho dự án tiếp theo.</em>
             </span>
           </button>
         </div>
@@ -473,15 +494,15 @@
                     <span class="works-sheet"></span>
                   </span>
                 </button>
-                <button type="button" class="works-folder works-folder--2" data-folder="2" style="--i:2">
+                <button type="button" class="works-folder works-folder--2" data-folder="2" data-project="p4" style="--i:2">
                   <span class="works-folder-bob">
-                    <span class="works-tab">Backend</span>
+                    <span class="works-tab">Portfolio</span>
                     <span class="works-sheet"></span>
                   </span>
                 </button>
-                <button type="button" class="works-folder works-folder--3" data-folder="3" data-project="p4" style="--i:3">
+                <button type="button" class="works-folder works-folder--3" data-folder="3" style="--i:3">
                   <span class="works-folder-bob">
-                    <span class="works-tab">Portfolio</span>
+                    <span class="works-tab">Mới</span>
                     <span class="works-sheet"></span>
                   </span>
                 </button>
@@ -496,168 +517,63 @@
     </div>
   </section>
 
-  <!-- ==================== ACTIVITIES & LEARNING SECTION ==================== -->
-  <section class="activities section" id="activities">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge">Hoạt động &amp; Quá trình phát triển</span>
-        <h2 class="section-title">Activities &amp; Learning</h2>
-        <p class="section-subtitle">Chủ động nâng cao kỹ năng lập trình, tư duy giải quyết vấn đề và năng lực cá nhân</p>
-      </div>
-
-      <p class="projects-fan-hint">Tự xoay vòng • Rê chuột để xem • Click card để dừng</p>
-      <div class="projects-fan reveal" id="activitiesFan">
-        <canvas class="projects-fan-sparks" id="activitySparks" aria-hidden="true"></canvas>
-        <article class="project-fan-card" data-activity="a1" style="--i:0;">
-          <div class="project-fan-inner">
-            <div class="project-fan-chrome">
-              <span></span><span></span><span></span>
-              <em>personal-dev</em>
-            </div>
-            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--1">
-              <i class="fa-solid fa-laptop-file activity-fan-icon"></i>
-              <div class="project-fan-caption">
-                <p>Practice</p>
-                <h3>Thực hiện các dự án cá nhân</h3>
-                <span class="placeholder-tag">Learning</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="project-fan-card" data-activity="a2" style="--i:1;">
-          <div class="project-fan-inner">
-            <div class="project-fan-chrome">
-              <span></span><span></span><span></span>
-              <em>team-project</em>
-            </div>
-            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--2">
-              <i class="fa-solid fa-people-group activity-fan-icon"></i>
-              <div class="project-fan-caption">
-                <p>Collaboration</p>
-                <h3>Project nhóm khi học tập</h3>
-                <span class="placeholder-tag">Learning</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="project-fan-card" data-activity="a3" style="--i:2;">
-          <div class="project-fan-inner">
-            <div class="project-fan-chrome">
-              <span></span><span></span><span></span>
-              <em>new-tech</em>
-            </div>
-            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--3">
-              <i class="fa-solid fa-magnifying-glass-chart activity-fan-icon"></i>
-              <div class="project-fan-caption">
-                <p>Research</p>
-                <h3>Tìm hiểu công nghệ mới</h3>
-                <span class="placeholder-tag">Learning</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="project-fan-card" data-activity="a4" style="--i:3;">
-          <div class="project-fan-inner">
-            <div class="project-fan-chrome">
-              <span></span><span></span><span></span>
-              <em>clean-code</em>
-            </div>
-            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--4">
-              <i class="fa-solid fa-terminal activity-fan-icon"></i>
-              <div class="project-fan-caption">
-                <p>Craft</p>
-                <h3>Rèn luyện kỹ năng lập trình</h3>
-                <span class="placeholder-tag">Learning</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="project-fan-card" data-activity="a5" style="--i:4;">
-          <div class="project-fan-inner">
-            <div class="project-fan-chrome">
-              <span></span><span></span><span></span>
-              <em>dsa-lab</em>
-            </div>
-            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--5">
-              <i class="fa-solid fa-tree activity-fan-icon"></i>
-              <div class="project-fan-caption">
-                <p>Algorithms</p>
-                <h3>Thuật toán &amp; cấu trúc dữ liệu</h3>
-                <span class="placeholder-tag">Learning</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="project-fan-card" data-activity="a6" style="--i:5;">
-          <div class="project-fan-inner">
-            <div class="project-fan-chrome">
-              <span></span><span></span><span></span>
-              <em>sys-design</em>
-            </div>
-            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--6">
-              <i class="fa-solid fa-diagram-successor activity-fan-icon"></i>
-              <div class="project-fan-caption">
-                <p>Architecture</p>
-                <h3>Phân tích thiết kế hệ thống</h3>
-                <span class="placeholder-tag">Learning</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="project-fan-card" data-activity="a7" style="--i:6;">
-          <div class="project-fan-inner">
-            <div class="project-fan-chrome">
-              <span></span><span></span><span></span>
-              <em>teamwork</em>
-            </div>
-            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--7">
-              <i class="fa-solid fa-handshake-angle activity-fan-icon"></i>
-              <div class="project-fan-caption">
-                <p>Soft skills</p>
-                <h3>Kỹ năng làm việc nhóm</h3>
-                <span class="placeholder-tag">Learning</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="project-fan-card" data-activity="a8" style="--i:7;">
-          <div class="project-fan-inner">
-            <div class="project-fan-chrome">
-              <span></span><span></span><span></span>
-              <em>self-study</em>
-            </div>
-            <div class="project-fan-preview project-fan-preview--soon activity-preview activity-preview--8">
-              <i class="fa-solid fa-book-bookmark activity-fan-icon"></i>
-              <div class="project-fan-caption">
-                <p>Self-learning</p>
-                <h3>Tự học và nghiên cứu</h3>
-                <span class="placeholder-tag">Learning</span>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
   <!-- ==================== CAREER GOAL SECTION ==================== -->
-  <section class="career-goal-section section">
+  <section class="career-goal-section section" id="career">
     <div class="container">
-      <div class="career-goal-card reveal">
-        <div class="goal-header">
-          <div class="goal-icon"><i class="fa-solid fa-compass"></i></div>
-          <div>
-            <span class="goal-badge">Định hướng tương lai</span>
-            <h3 class="goal-title">Career Goal</h3>
-          </div>
-        </div>
-        <p class="goal-text">
-          "Tôi đang định hướng phát triển theo Backend Developer và mong muốn tìm kiếm cơ hội Backend Intern để được làm việc trong môi trường thực tế, học hỏi từ các anh chị có kinh nghiệm, nâng cao kỹ năng lập trình và từng bước xây dựng nền tảng chuyên môn vững chắc."
-        </p>
-        <div class="goal-footer">
+      <div class="goal-switch reveal">
+        <span class="section-badge goal-kicker">Định hướng tương lai</span>
+        <div class="goal-copy">
+          <h2 class="section-title goal-title">Career Goal</h2>
+          <p class="goal-lede">Định hướng Backend Developer, bắt đầu từ cơ hội Backend Intern trong môi trường thực tế.</p>
           <a href="#contact" class="btn btn-sm btn-primary">
             <i class="fa-solid fa-paper-plane"></i> Liên hệ cơ hội thực tập
           </a>
+        </div>
+
+        <div class="goal-stage" id="goalStage">
+          <div class="goal-panels">
+            <article class="goal-card is-on" id="goal-panel-0" role="tabpanel" aria-labelledby="goal-dot-0">
+              <blockquote class="goal-quote">
+                <p>"Tôi đang định hướng phát triển theo Backend Developer và mong muốn tìm kiếm cơ hội Backend Intern để được làm việc trong môi trường thực tế, học hỏi từ các anh chị có kinh nghiệm, nâng cao kỹ năng lập trình và từng bước xây dựng nền tảng chuyên môn vững chắc."</p>
+              </blockquote>
+              <footer class="goal-person">
+                <img src="./images/hero-portrait.png" alt="" width="52" height="52">
+                <div>
+                  <strong>Nguyễn Thị Thảo Như</strong>
+                  <span>Backend Intern</span>
+                </div>
+              </footer>
+            </article>
+            <article class="goal-card" id="goal-panel-1" role="tabpanel" aria-labelledby="goal-dot-1" aria-hidden="true">
+              <blockquote class="goal-quote">
+                <p>"Tôi có khả năng tự học công nghệ mới, tinh thần học hỏi và tiếp thu feedback, đồng thời có khả năng làm việc nhóm và quản lý thời gian."</p>
+              </blockquote>
+              <footer class="goal-person">
+                <img src="./images/hero-portrait.png" alt="" width="52" height="52">
+                <div>
+                  <strong>Nguyễn Thị Thảo Như</strong>
+                  <span>Tự học &amp; làm việc nhóm</span>
+                </div>
+              </footer>
+            </article>
+            <article class="goal-card" id="goal-panel-2" role="tabpanel" aria-labelledby="goal-dot-2" aria-hidden="true">
+              <blockquote class="goal-quote">
+                <p>"Tôi là sinh viên Công nghệ Thông tin tại Đại học Giao thông Vận tải TP.HCM, yêu thích lập trình, phát triển sản phẩm và thiết kế giao diện web."</p>
+              </blockquote>
+              <footer class="goal-person">
+                <img src="./images/hero-portrait.png" alt="" width="52" height="52">
+                <div>
+                  <strong>Nguyễn Thị Thảo Như</strong>
+                  <span>Công nghệ Thông tin</span>
+                </div>
+              </footer>
+            </article>
+          </div>
+          <div class="goal-dots" role="tablist" aria-label="Các lời định hướng">
+            <button type="button" class="goal-dot" role="tab" id="goal-dot-0" aria-controls="goal-panel-0" aria-selected="true" aria-current="true" aria-label="Định hướng Backend Intern"></button>
+            <button type="button" class="goal-dot" role="tab" id="goal-dot-1" aria-controls="goal-panel-1" aria-selected="false" aria-label="Tự học và làm việc nhóm"></button>
+            <button type="button" class="goal-dot" role="tab" id="goal-dot-2" aria-controls="goal-panel-2" aria-selected="false" aria-label="Sinh viên Công nghệ Thông tin"></button>
+          </div>
         </div>
       </div>
     </div>
@@ -672,108 +588,40 @@
         <p class="section-subtitle">Những hoạt động giúp cân bằng cuộc sống và khơi nguồn cảm hứng sáng tạo</p>
       </div>
 
-      <p class="interests-reel-hint">Rê chuột • Bấm mũi tên • Click play để xem nội dung</p>
-      <div class="interests-reel reveal" id="interestsReel">
-        <button type="button" class="reel-nav reel-nav--prev" id="reelPrev" aria-label="Sở thích trước">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button type="button" class="reel-nav reel-nav--next" id="reelNext" aria-label="Sở thích tiếp">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-
-        <div class="reel-glow" aria-hidden="true"></div>
-        <div class="reel-stage" id="reelStage">
-          <article class="reel-card is-active" data-reel="0">
-            <div class="reel-poster reel-poster--ui">
-              <span class="reel-ui-window"></span>
-              <span class="reel-ui-window reel-ui-window--b"></span>
-              <span class="reel-palette"><i></i><i></i><i></i></span>
-            </div>
-            <button type="button" class="reel-play" aria-label="Xem chi tiết thiết kế giao diện">
-              <i class="fa-solid fa-play"></i>
-              <span>Xem chi tiết</span>
-            </button>
-            <div class="reel-meta">
-              <p>Sở thích • Sáng tạo</p>
-              <h3>Thiết kế giao diện web</h3>
-              <small>Layout • Màu sắc • UX ★ 4.9</small>
-            </div>
-            <div class="reel-story">
-              <h4>Thiết kế giao diện web</h4>
-              <p>Thích sáng tạo bố cục gọn gàng, phối màu hài hòa và mang lại trải nghiệm thân thiện cho người dùng.</p>
-            </div>
-          </article>
-
-          <article class="reel-card" data-reel="1">
-            <div class="reel-poster reel-poster--tech">
-              <span class="reel-node"></span>
-              <span class="reel-node reel-node--b"></span>
-              <span class="reel-grid"></span>
-            </div>
-            <button type="button" class="reel-play" aria-label="Xem chi tiết công nghệ mới">
-              <i class="fa-solid fa-play"></i>
-              <span>Xem chi tiết</span>
-            </button>
-            <div class="reel-meta">
-              <p>Sở thích • Khám phá</p>
-              <h3>Công nghệ mới</h3>
-              <small>Architecture • Tools ★ 4.8</small>
-            </div>
-            <div class="reel-story">
-              <h4>Tìm hiểu công nghệ mới</h4>
-              <p>Đam mê cập nhật xu hướng công nghệ, tìm hiểu giải pháp kiến trúc phần mềm hiện đại và thử những công cụ mới.</p>
-            </div>
-          </article>
-
-          <article class="reel-card" data-reel="2">
-            <div class="reel-poster reel-poster--sport">
-              <span class="reel-ball"></span>
-              <span class="reel-court"></span>
-            </div>
-            <button type="button" class="reel-play" aria-label="Xem chi tiết thể thao">
-              <i class="fa-solid fa-play"></i>
-              <span>Xem chi tiết</span>
-            </button>
-            <div class="reel-meta">
-              <p>Sở thích • Năng lượng</p>
-              <h3>Chơi thể thao</h3>
-              <small>Vận động • Kiên trì ★ 4.7</small>
-            </div>
-            <div class="reel-story">
-              <h4>Chơi thể thao</h4>
-              <p>Rèn luyện thể lực, duy trì tinh thần sảng khoái và tính kiên trì sau những giờ tập trung viết code.</p>
-            </div>
-          </article>
-
-          <article class="reel-card" data-reel="3">
-            <div class="reel-poster reel-poster--music">
-              <span class="reel-vinyl"></span>
-              <span class="reel-eq"><i></i><i></i><i></i><i></i><i></i></span>
-            </div>
-            <button type="button" class="reel-play" aria-label="Xem chi tiết nghe nhạc">
-              <i class="fa-solid fa-play"></i>
-              <span>Xem chi tiết</span>
-            </button>
-            <div class="reel-meta">
-              <p>Sở thích • Cảm hứng</p>
-              <h3>Nghe nhạc</h3>
-              <small>Focus • Melody ★ 5.0</small>
-            </div>
-            <div class="reel-story">
-              <h4>Nghe nhạc</h4>
-              <p>Thưởng thức những giai điệu yêu thích giúp kích thích tư duy logic và tập trung cao độ khi làm việc.</p>
-            </div>
-          </article>
+      <div class="interest-switch" id="interestSwitch">
+        <div class="interest-pin">
+          <div class="interest-copy" id="interestCopy">
+            <p class="interest-kicker" id="interestKicker">Sở thích • Sáng tạo</p>
+            <h3 class="interest-title" id="interestTitle">Thiết kế giao diện web</h3>
+            <p class="interest-body" id="interestBody">Thích sáng tạo bố cục gọn gàng, phối màu hài hòa và mang lại trải nghiệm thân thiện cho người dùng.</p>
+            <small class="interest-meta" id="interestMeta">Layout • Màu sắc • UX</small>
+          </div>
         </div>
-
-        <div class="reel-dots" id="reelDots" role="tablist" aria-label="Chọn sở thích"></div>
+        <div class="interest-track">
+          <figure class="interest-frame" data-kicker="Sở thích • Sáng tạo" data-title="Thiết kế giao diện web" data-body="Thích sáng tạo bố cục gọn gàng, phối màu hài hòa và mang lại trải nghiệm thân thiện cho người dùng." data-meta="Layout • Màu sắc • UX">
+            <img src="./images/interest-code.png" alt="Mình đang chỉnh giao diện portfolio trên laptop">
+          </figure>
+          <figure class="interest-frame" data-kicker="Sở thích • Khám phá" data-title="Tìm hiểu công nghệ mới" data-body="Đam mê cập nhật xu hướng công nghệ, tìm hiểu giải pháp kiến trúc phần mềm hiện đại và thử những công cụ mới." data-meta="Architecture • Tools">
+            <img src="./images/interest-code.png" alt="Màn hình code khi tìm hiểu công nghệ mới" style="object-position:center 18%">
+          </figure>
+          <figure class="interest-frame" data-kicker="Sở thích • Năng lượng" data-title="Chơi thể thao" data-body="Rèn luyện thể lực, duy trì tinh thần sảng khoái và tính kiên trì sau những giờ tập trung viết code." data-meta="Vận động • Kiên trì">
+            <img src="./images/interest-sport.png" alt="Vợt và bóng pickleball">
+          </figure>
+          <figure class="interest-frame" data-kicker="Sở thích • Cảm hứng" data-title="Nghe nhạc" data-body="Thưởng thức những giai điệu yêu thích giúp kích thích tư duy logic và tập trung cao độ khi làm việc." data-meta="Focus • Melody">
+            <img src="./images/interest-music.png" alt="Playlist Taylor Swift đang phát">
+          </figure>
+          <figure class="interest-frame" data-kicker="Sở thích • Thủ công" data-title="Làm hoa" data-body="Mình thích làm hoa kẽm nhung, phối những cánh pastel và giữ từng bông như một cách thư giãn sau giờ code." data-meta="Kẽm nhung • Màu nhẹ">
+            <img src="./images/interest-flowers.png" alt="Bó hoa kẽm nhung màu pastel">
+          </figure>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== CONTACT SECTION ==================== -->
   <section class="contact section" id="contact">
-    <div class="container">
+    <canvas id="contactDots" aria-hidden="true"></canvas>
+    <div class="container contact-front">
       <div class="section-header reveal">
         <span class="section-badge">Kết nối</span>
         <h2 class="section-title">Contact Me</h2>
@@ -781,27 +629,6 @@
       </div>
 
       <div class="contact-stage reveal" id="contactStage">
-        <div class="contact-lanyard" id="contactLanyard">
-          <div class="lanyard-arm" id="lanyardArm">
-            <span class="pass-strap" id="passStrap" aria-hidden="true"></span>
-            <div class="contact-badge" id="contactBadge" tabindex="0" role="img" aria-label="Thẻ intern, kéo thả để lắc dây đeo">
-              <span class="pass-clip" aria-hidden="true"></span>
-              <div class="pass-sleeve">
-                <span class="pass-zip" aria-hidden="true"></span>
-                <article class="id-pass">
-                  <span class="id-banner">INTERN PASS</span>
-                  <img src="./images/contact-piano.png" alt="Nguyễn Thị Thảo Như chơi piano" class="contact-photo">
-                  <div class="id-info">
-                    <p>Backend Developer</p>
-                    <h4>Nguyễn Thị Thảo Như</h4>
-                    <small>UTC2 · TN-2024</small>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="contact-hello">
           <h3>Hello!</h3>
           <p>
@@ -919,6 +746,14 @@
   </div>
 
   <!-- Main Script (Relative Path for GitHub Pages) -->
-  <script src="./script.js?v=skills-float1"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+    }
+  }
+  </script>
+  <script type="module" src="./liquid-ether.js?v=ether3"></script>
+  <script src="./script.js?v=lean1"></script>
 </body>
 </html>
