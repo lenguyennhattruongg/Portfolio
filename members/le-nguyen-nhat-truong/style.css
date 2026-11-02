@@ -2789,3 +2789,427 @@ main {
     height: 260px;
   }
 }
+
+
+/* =========================================================
+   CHUYÊN BIỆT TỐI ƯU HÓA GIAO DIỆN DI ĐỘNG (MOBILE-FIRST POLISH)
+   Tuân thủ WCAG AA: Touch targets >= 44px, Zero Horizontal Overflow
+   ========================================================= */
+
+/* Ngăn chặn tuyệt đối tràn thanh cuộn ngang trên mọi thiết bị */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.metro-layout {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+.metro-main-content {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* 1. MÀN HÌNH TABLET / DI ĐỘNG RỘNG (<= 900px) */
+@media (max-width: 900px) {
+  /* Giải phóng không gian: Giữ thanh chuyển ga sticky, chuyển topbar thành relative để không bị chồng 2 tầng thanh cố định */
+  .transit-topbar {
+    position: relative;
+    top: auto;
+    z-index: 30;
+    padding: 0.65rem 1rem;
+    border-bottom: 2px solid var(--metro-ink);
+  }
+
+  .topbar-inner {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .metro-rail-sidebar {
+    top: 0;
+    z-index: 80;
+    height: 52px;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .stations-list {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .stations-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .station-link {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* 2. MÀN HÌNH ĐIỆN THOẠI TIÊU CHUẨN (<= 640px) */
+@media (max-width: 640px) {
+  /* Ga Section Padding */
+  .station-section {
+    padding: 2.75rem 1rem;
+  }
+
+  /* Station Signposts */
+  .station-signpost {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .sign-code {
+    font-size: 0.75rem;
+  }
+
+  .sign-title {
+    font-size: 1.5rem;
+    line-height: 1.25;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 2rem 1rem 3rem 1rem;
+  }
+
+  .hero-mega-title {
+    font-size: 2.2rem;
+    line-height: 1.1;
+    margin: 0.75rem 0;
+  }
+
+  .hero-position-banner {
+    padding: 0.65rem 0.85rem;
+  }
+
+  .position-title {
+    font-size: 0.92rem;
+    word-break: break-word;
+  }
+
+  .hero-lead-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .hero-cta-strip {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .hero-cta-strip .btn-transit {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+
+  /* Thẻ Nhân sự Ga 01 (Operator Pass Card) */
+  .operator-pass-card {
+    padding: 1.25rem 1rem;
+    width: 100%;
+    box-shadow: var(--shadow-hard);
+  }
+
+  .pass-photo-frame {
+    height: 280px;
+  }
+
+  .pass-photo-badge {
+    top: 8px;
+    left: 8px;
+    font-size: 0.62rem;
+    padding: 3px 6px;
+  }
+
+  .photo-caption {
+    font-size: 0.7rem;
+    padding: 5px 8px;
+  }
+
+  .pass-fields {
+    gap: 0.65rem;
+  }
+
+  .field-item {
+    font-size: 0.82rem;
+  }
+
+  /* Ga 02: About & Story */
+  .story-lead-box {
+    padding: 1.35rem 1rem;
+  }
+
+  .story-heading {
+    font-size: 1.25rem;
+  }
+
+  .transit-bulletin {
+    padding: 1.35rem 1rem;
+  }
+
+  .journey-banner-card {
+    margin-top: 1.5rem;
+    box-shadow: var(--shadow-hard);
+  }
+
+  .journey-img-frame {
+    height: 200px;
+  }
+
+  .journey-caption-box {
+    padding: 1.25rem 1rem;
+  }
+
+  .journey-heading {
+    font-size: 1rem;
+  }
+
+  .journey-quote {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  /* Ga 03: Khoang Tải Năng Lực */
+  .freight-container-grid {
+    gap: 1rem;
+  }
+
+  .freight-bay {
+    padding: 1.25rem 1rem;
+  }
+
+  .bay-title {
+    font-size: 1.1rem;
+  }
+
+  .tech-detail {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* Ga 04: Vé Đồ Án */
+  .ticket-filter-bar {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ticket-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn-filter {
+    min-height: 44px;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .metro-ticket-card {
+    box-shadow: var(--shadow-hard);
+    margin-bottom: 1.5rem;
+  }
+
+  .ticket-stub-left {
+    padding: 0.65rem 1rem;
+  }
+
+  .ticket-body {
+    padding: 1.15rem 1rem;
+  }
+
+  .ticket-project-title {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+  }
+
+  .ticket-preview-box {
+    height: 175px;
+    max-height: 175px;
+    margin: 10px 0 12px 0;
+  }
+
+  .ticket-preview-img {
+    height: 175px;
+  }
+
+  .duty-box {
+    padding: 0.75rem 0.85rem;
+  }
+
+  .duty-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .ticket-actions {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .btn-inspect-ticket,
+  .btn-ticket-repo {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+    font-size: 0.88rem;
+  }
+
+  /* Ga 05: Lộ Trình */
+  .timetable-col {
+    padding: 1.25rem 1rem;
+  }
+
+  .schedule-stop {
+    padding-left: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Ga 06: Điều Hành & Hồ Sơ */
+  .engineer-dossier-banner {
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-hard);
+  }
+
+  .dossier-photo-wrap {
+    height: 240px;
+  }
+
+  .dossier-info-wrap {
+    padding: 1.25rem 1rem;
+  }
+
+  .dossier-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .dossier-desc {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+
+  .dispatch-info-card,
+  .dispatch-form-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .channel-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .channel-val {
+    word-break: break-all;
+  }
+
+  .btn-copy-email,
+  .btn-submit-form,
+  .btn-hub-link {
+    min-height: 48px;
+    width: 100%;
+    justify-content: center;
+    font-size: 0.88rem;
+  }
+
+  /* Cửa Sổ Soi Vé (Modal) Trên Điện Thoại */
+  .metro-modal {
+    padding: 0.5rem;
+  }
+
+  .modal-dialog-card {
+    max-height: 95vh;
+    box-shadow: 4px 4px 0 var(--metro-ink);
+    border-width: 2px;
+  }
+
+  .modal-header-strip {
+    padding: 0.65rem 0.85rem;
+  }
+
+  .modal-close-icon {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-body-content {
+    padding: 0.85rem;
+    gap: 1rem;
+  }
+
+  .modal-project-title {
+    font-size: 1.2rem;
+  }
+
+  .modal-proof-img {
+    max-height: 210px;
+  }
+
+  .modal-actions-bar {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .modal-actions-bar .btn-transit {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+}
+
+/* 3. MÀN HÌNH ĐIỆN THOẠI CỠ NHỎ (<= 420px: iPhone SE, Galaxy A, 360px-390px) */
+@media (max-width: 420px) {
+  .hero-mega-title {
+    font-size: 1.95rem;
+  }
+
+  .pass-photo-frame {
+    height: 250px;
+  }
+
+  .field-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+
+  .field-key {
+    font-size: 0.65rem;
+  }
+
+  .field-val {
+    text-align: left;
+    font-size: 0.85rem;
+    word-break: break-word;
+  }
+
+  .ticket-header-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
