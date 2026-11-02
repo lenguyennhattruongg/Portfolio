@@ -12,8 +12,8 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { MEMBERS, normalizeText } from './members.data.js';
-import truongAvatarUrl from './members/le-nguyen-nhat-truong/images/avatar.png';
-import hieuAvatarUrl from './members/nguyen-xuan-hieu/images/avatar.jpg';
+const truongAvatarUrl = './members/le-nguyen-nhat-truong/images/avatar.png';
+const hieuAvatarUrl = './members/nguyen-xuan-hieu/images/avatar.jpg';
 
 // ============================================================================
 // 1. DATA CONTRACT: 10 THIÊN THỂ HỆ MẶT TRỜI & 6 THÀNH VIÊN NHÓM 02
@@ -3809,8 +3809,19 @@ class MilkyWaySolarSystemEngine {
 
 // Khởi tạo Engine an toàn bất kể thời điểm script thực thi
 function launchEngine() {
-  const engine = new MilkyWaySolarSystemEngine();
-  engine.init();
+  try {
+    const engine = new MilkyWaySolarSystemEngine();
+    engine.init();
+    window.__milkyWayEngine = engine;
+  } catch (err) {
+    console.error('MilkyWaySolarSystemEngine init error, falling back to 2D:', err);
+    if (window.__dismissPreloader) window.__dismissPreloader();
+    const s2d = document.getElementById('solarSystem2D');
+    if (s2d) {
+      s2d.hidden = false;
+      document.body.classList.add('mode-2d-active');
+    }
+  }
 }
 
 if (document.readyState === 'loading') {
