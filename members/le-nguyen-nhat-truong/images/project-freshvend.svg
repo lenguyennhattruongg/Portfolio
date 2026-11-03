@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="vendBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091E1A" />
+      <stop offset="50%" stop-color="#0D2E28" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="800" height="480" fill="url(#vendBg)" />
+  <path d="M0 80 H800 M0 160 H800 M0 240 H800 M0 320 H800 M0 400 H800" stroke="#134E4A" stroke-width="1" stroke-opacity="0.4" />
+  
+  <rect x="90" y="60" width="260" height="320" rx="16" fill="url(#panelGrad)" stroke="#10B981" stroke-width="3" />
+  <rect x="110" y="80" width="160" height="200" rx="8" fill="#042F2C" stroke="#14B8A6" stroke-width="1" />
+  <line x1="110" y1="130" x2="270" y2="130" stroke="#14B8A6" stroke-width="2" />
+  <line x1="110" y1="180" x2="270" y2="180" stroke="#14B8A6" stroke-width="2" />
+  <line x1="110" y1="230" x2="270" y2="230" stroke="#14B8A6" stroke-width="2" />
+  
+  <rect x="125" y="95" width="22" height="30" rx="4" fill="#10B981" />
+  <rect x="160" y="95" width="22" height="30" rx="4" fill="#3B82F6" />
+  <rect x="195" y="95" width="22" height="30" rx="4" fill="#F59E0B" />
+  <rect x="230" y="95" width="22" height="30" rx="4" fill="#EC4899" />
+  
+  <rect x="125" y="145" width="22" height="30" rx="4" fill="#8B5CF6" />
+  <rect x="160" y="145" width="22" height="30" rx="4" fill="#10B981" />
+  <rect x="195" y="145" width="22" height="30" rx="4" fill="#06B6D4" />
+  <rect x="230" y="145" width="22" height="30" rx="4" fill="#F43F5E" />
+
+  <rect x="130" y="300" width="120" height="50" rx="6" fill="#022C22" stroke="#334155" stroke-width="2" />
+  <rect x="285" y="90" width="50" height="40" rx="4" fill="#022C22" stroke="#10B981" />
+  <text x="310" y="115" font-family="'JetBrains Mono', monospace" font-size="12" fill="#34D399" text-anchor="middle">OOP</text>
+  
+  <circle cx="295" cy="150" r="5" fill="#334155" />
+  <circle cx="310" cy="150" r="5" fill="#334155" />
+  <circle cx="325" cy="150" r="5" fill="#334155" />
+  <circle cx="295" cy="170" r="5" fill="#334155" />
+  <circle cx="310" cy="170" r="5" fill="#334155" />
+  <circle cx="325" cy="170" r="5" fill="#334155" />
+
+  <rect x="390" y="60" width="350" height="320" rx="14" fill="#041210" stroke="#10B981" stroke-width="2" />
+  <rect x="390" y="60" width="350" height="34" rx="14" fill="#064E3B" />
+  <circle cx="410" cy="77" r="5" fill="#EF4444" />
+  <circle cx="425" cy="77" r="5" fill="#F59E0B" />
+  <circle cx="440" cy="77" r="5" fill="#10B981" />
+  <text x="565" y="82" font-family="'JetBrains Mono', monospace" font-size="12" fill="#A7F3D0" text-anchor="middle">FreshVend System — Java Core</text>
+  
+  <text x="415" y="125" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6EE7B7">public class FreshVendApp {</text>
+  <text x="435" y="150" font-family="'JetBrains Mono', monospace" font-size="12" fill="#93C5FD">  private InventoryManager inventory;</text>
+  <text x="435" y="175" font-family="'JetBrains Mono', monospace" font-size="12" fill="#93C5FD">  private TransactionHandler cashier;</text>
+  <text x="435" y="210" font-family="'JetBrains Mono', monospace" font-size="12" fill="#FCD34D">  public void dispenseProduct(String id) {</text>
+  <text x="455" y="235" font-family="'JetBrains Mono', monospace" font-size="12" fill="#D1D5DB">    inventory.deductStock(id);</text>
+  <text x="455" y="260" font-family="'JetBrains Mono', monospace" font-size="12" fill="#34D399">    Logger.info("Dispense SUCCESS: " + id);</text>
+  <text x="435" y="285" font-family="'JetBrains Mono', monospace" font-size="12" fill="#FCD34D">  }</text>
+  <text x="415" y="310" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6EE7B7">}</text>
+  
+  <rect x="415" y="335" width="300" height="28" rx="6" fill="#064E3B" />
+  <circle cx="430" cy="349" r="4" fill="#34D399" />
+  <text x="445" y="353" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="#ECFDF5">Status: Development in progress • Java OOP</text>
+
+  <rect x="50" y="405" width="290" height="42" rx="8" fill="#064E3B" stroke="#047857" />
+  <text x="70" y="432" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#ECFDF5">FreshVend Management System</text>
+  
+  <rect x="500" y="410" width="70" height="28" rx="6" fill="#042F2C" />
+  <text x="535" y="429" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="#34D399" text-anchor="middle">Java</text>
+  
+  <rect x="580" y="410" width="75" height="28" rx="6" fill="#042F2C" />
+  <text x="617" y="429" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="#6EE7B7" text-anchor="middle">OOP Core</text>
+  
+  <rect x="665" y="410" width="85" height="28" rx="6" fill="#042F2C" />
+  <text x="707" y="429" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="#A7F3D0" text-anchor="middle">System App</text>
+</svg>

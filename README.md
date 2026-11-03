@@ -1,301 +1,235 @@
-# Group Portfolio Website — Lập Trình Web
+# 🪐 Portfolio Nhóm 02 — Hệ Mặt Trời 3D (Cosmic 3D Portfolio)
 
-Dự án website portfolio nhóm phục vụ học phần **Lập trình Web** tại Trường Đại học Giao thông Vận tải TP.HCM (UTH). Hệ thống bao gồm 01 Trang chủ nhóm (Group Landing Page) và 06 trang Portfolio cá nhân riêng biệt, kết nối thống nhất qua kiến trúc đa trang (Multi-Page Application) với Vite.
+<div align="center">
 
----
+![Vite](https://img.shields.io/badge/Vite-5.4.21-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-r186-000000?style=for-the-badge&logo=three.dot.js&logoColor=white)
+![WebGL](https://img.shields.io/badge/WebGL-2.0-990000?style=for-the-badge&logo=webgl&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-Semantic-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-Modern%20HUD-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Hosted-222222?style=for-the-badge&logo=github&logoColor=white)
+![UTH](https://img.shields.io/badge/UTH-Khoa%20CNTT-008080?style=for-the-badge)
 
-## 1. Tổng quan dự án
+<p align="center">
+  <b>Đồ án môn học Lập trình Web — Nhóm 02 — Trường Đại học Giao thông Vận tải TP.HCM (UTH)</b><br>
+  <i>Một không gian mô phỏng vũ trụ 3D viễn tưởng thời gian thực, kết nối 6 thiên thể đại diện cho 6 thành viên sinh viên UTH thông qua kiến trúc Multi-Page Application tân tiến.</i>
+</p>
 
-- **Mục tiêu:** Giới thiệu tập thể nhóm, năng lực kỹ thuật và sản phẩm tiêu biểu của từng thành viên; tích hợp 6 không gian portfolio cá nhân độc lập vào một nền tảng web tĩnh hoạt động ổn định.
-- **Phạm vi học thuật:** Đây là đồ án môn học, không phải sản phẩm thương mại. Toàn bộ thông tin được trình bày trung thực, đúng năng lực và tiến độ thực tế của sinh viên.
-- **Đặc trưng kiến trúc:** Mỗi thành viên tự chủ sáng tạo phong cách giao diện và logic tương tác trong thư mục riêng; toàn bộ dự án dùng chung hệ thống build và quy trình tích hợp Git/GitHub.
+[🌐 Trực Tiếp Trải Nghiệm (Live Demo)](#-trực-tiếp-trải-nghiệm-live-demo) •
+[✨ Tính Năng Nổi Bật](#-tính-năng-nổi-bật-key-features) •
+[📁 Cấu Trúc Dự Án](#-cấu-trúc-thư-mục-dự-án) •
+[👥 Danh Sách Thành Viên](#-bảng-trạng-thái-thành-viên--nhóm-02-team-roster--status-table) •
+[🚀 Cài Đặt Local](#-hướng-dẫn-cài-đặt--khởi-chạy-local) •
+[🤝 Quy Trình Gộp Code](#-quy-trình-đóng-góp--gộp-nhánh-contribution-guidelines)
 
----
-
-## 2. Trạng thái dự án hiện tại
-
-Ghi nhận tại thời điểm hoàn tất Phase 2.1:
-
-| Thành phần | Trạng thái hiện tại | Ghi chú kỹ thuật |
-|---|:---:|---|
-| **Group Landing Page (`index.html`)** | **Hoàn thành (PASS)** | Giao diện theo định hướng *Editorial / Digital Studio*, đáp ứng đầy đủ tiêu chí thẩm mỹ, ngữ nghĩa HTML5, hỗ trợ tìm kiếm thành viên theo thời gian thực và đạt chuẩn responsive trên cả 5 viewports (từ 360px đến 1440px). |
-| **06 Thư mục Portfolio cá nhân (`members/`)** | **Khung cơ sở (Base Template)** | Đã khởi tạo đầy đủ 6 cấu trúc thư mục gồm `index.html`, `style.css`, `script.js` và `images/`. Nội dung chi tiết đang chờ từng thành viên triển khai. |
-| **Hệ thống Build đa trang (Vite)** | **Hoạt động ổn định (PASS)** | `npm.cmd run build` đóng gói sạch 100% cả 7 HTML entrypoints trong ~500ms với đường dẫn tương đối (`base: './'`). |
-| **Portfolio Nguyễn Xuân Hiếu** | **Chờ triển khai (Phase 3)** | Đã chốt đặc tả chi tiết trong tài liệu yêu cầu; chuẩn bị bắt đầu ở Phase 3. |
-| **Triển khai Production (GitHub Pages)** | **Chưa triển khai** | Chưa cấu hình remote GitHub và chưa deploy chính thức. |
-
----
-
-## 3. Công nghệ sử dụng
-
-Dự án tuân thủ nghiêm ngặt stack công nghệ cốt lõi đã chốt, không cài đặt các framework nặng ngoài phạm vi:
-
-- **HTML5:** Xây dựng cấu trúc ngữ nghĩa (Semantic HTML), hỗ trợ SEO và khả năng tiếp cận (Accessibility).
-- **CSS3:** Bố cục bằng CSS Grid, Flexbox, Custom Properties (CSS Variables) và xử lý responsive đa màn hình.
-- **Vanilla JavaScript (ES6+):** Xử lý thao tác DOM, sự kiện, lọc dữ liệu tìm kiếm và tương tác giao diện thực tế.
-- **Bootstrap 5 & Bootstrap Icons:** Cung cấp hệ thống lưới tiện ích (Grid System), icon vector đồng bộ và hỗ trợ menu mobile.
-- **Vite:** Công cụ máy chủ phát triển (Dev Server) tốc độ cao và đóng gói tĩnh đa trang (Multi-Page Bundler).
-- **npm:** Trình quản lý thư viện và thực thi các script tự động hóa.
-- **Git & GitHub:** Hệ thống quản lý phiên bản mã nguồn phân tán và nền tảng cộng tác nhóm.
+</div>
 
 ---
 
-## 4. Cấu trúc thư mục thực tế
+## 🌐 Trực Tiếp Trải Nghiệm (Live Demo)
 
-Cây thư mục thực tế của repository:
+Dự án được xây dựng và triển khai tự động qua **GitHub Actions** lên **GitHub Pages**:
+
+* 🌌 **Trang Chủ Cổng Không Gian 3D (Cosmic 3D Solar System):**  
+  👉 **[https://nguyenxuanhieu2903.github.io/portfolio-group/](https://nguyenxuanhieu2903.github.io/portfolio-group/)**  
+  *(Không gian WebGL 3D tương tác toàn diện, vật liệu PBR 2K, hậu kỳ Unreal Bloom, âm thanh synthesizer không gian và bộ điều khiển HUD viễn tưởng).*
+
+* 🚀 **Truy Cập Nhanh Portfolio Cá Nhân Đã Hoàn Thành (3/6 Thành Viên):**
+  * 🌍 **Lê Nguyễn Nhật Trường** *(Trái Đất — Earth):*  
+    👉 **[Xem Portfolio Tuyến Metro K24 ↗](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/index.html)**  
+    *(Chủ đề UTH Metro Bespoke, chuyển ga tàu động GA 01 - GA 06, giả lập Terminal CLI, đo lường chỉ số động và CV chi tiết).*
+  * 🔴 **Nguyễn Xuân Hiếu** *(Sao Hỏa — Mars):*  
+    👉 **[Xem Portfolio UTH Lanyard Badge ↗](https://nguyenxuanhieu2903.github.io/portfolio-group/members/nguyen-xuan-hieu/index.html)**  
+    *(Điểm nhấn Thẻ sinh viên UTH treo dây đàn hồi tương tác vật lý, hệ màu Jade Pebble Morning, sơ đồ kiến trúc hệ thống SVG và Metrics Dashboard).*
+  * ♃ **Lê Hữu Châu** *(Sao Mộc — Jupiter):*  
+    👉 **[Xem Portfolio Khung Tranh Nghệ Thuật ↗](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-huu-chau/index.html)**  
+    *(Ý tưởng phòng trưng bày mỹ thuật số, khung tranh tương tác vật lý kéo thả, nền WebGL Canvas nghệ thuật và typography Playfair Display).*
+
+---
+
+## 📖 Giới Thiệu Đồ Án
+
+Thay vì đi theo khuôn mẫu danh sách thẻ thành viên 2D truyền thống, đồ án **Portfolio Nhóm 02 — UTH** được kiến tạo như một **Trạm điều khiển không gian (Spatial Cockpit)**:
+
+1. **Ý tưởng trung tâm:** Toàn bộ nhóm được quy tụ thành một **Hệ Mặt Trời 3D**. Mặt Trời tượng trưng cho năng lượng tri thức chung, trong khi **6 hành tinh** tương ứng với 6 thành viên trong nhóm.
+2. **Triết lý kiến trúc:** Kết hợp giữa vẻ đẹp công nghệ viễn tưởng (Sci-Fi HUD, WebGL Three.js) và nền tảng kỹ thuật vững chắc: **Vite Multi-Page Application (MPA)**. Mỗi thành viên được thỏa sức tự do sáng tạo không gian riêng biệt trong thư mục cá nhân mà không làm phá vỡ sự ổn định của hệ thống lõi.
+
+---
+
+## ✨ Tính Năng Nổi Bật (Key Features)
+
+### 1. 🌌 Cosmic 3D Spatial Cockpit (WebGL & Three.js Engine)
+* **Quỹ đạo thiên văn học chuẩn xác:** Mô phỏng chuyển động Keplerian của Mặt Trời cùng 9 thiên thể (Sao Thủy, Sao Kim, Trái Đất, Sao Hỏa, Sao Mộc, Sao Thổ, Sao Thiên Vương, Sao Hải Vương, Sao Diêm Vương) với độ nghiêng trục và vận tốc tương quan thực tế.
+* **Bộ điều khiển góc nhìn kép (Dual-Perspective Kinematic Switch):**
+  * `[Q] Quỹ đạo 360°:` Tự do xoay, nghiêng, thu phóng quanh tâm Hệ Mặt Trời với bộ điều khiển `OrbitControls`.
+  * `[W] Du hành siêu tốc (Warp Drive):` Camera tăng tốc lướt xuyên qua các vành đai không gian với hiệu ứng vệt sao điện ảnh.
+* **Chế độ chụp ảnh toàn cảnh (Clean Photo Mode):**
+  * Nhấn `[H]` để ẩn tức thì toàn bộ bảng điều khiển HUD, cho phép người dùng thưởng lãm vũ trụ bao la ở chế độ màn hình sạch (Clean Viewport).
+* **Hiệu ứng đồ họa hậu kỳ (Post-Processing FX):** Tích hợp `EffectComposer` cùng bộ lọc `UnrealBloomPass` mang lại vầng nhật hoa rực rỡ, phát quang khí quyển chân thực và hệ vành đai PBR lộng lẫy của Sao Thổ và Sao Mộc.
+* **Âm thanh vũ trụ tương tác (Web Audio API Synthesizer):** Tự động phát âm thanh nền synthwave tần số thấp, điều biến Doppler sống động khi chuyển góc nhìn và có nút bật/tắt tiện lợi.
+
+### 2. 🎛️ Trung Tâm Chỉ Huy HUD Không Gian (Spatial HUD Control Center)
+* **Thanh tìm kiếm tọa độ thông minh:** Tra cứu tức thì thiên thể hoặc thành viên với thuật toán chuẩn hóa tiếng Việt không phân biệt dấu.
+* **Thanh trượt điều hướng quỹ đạo (Orbit Pills Navigation):** Thanh cuộn ngang hiển thị ký hiệu chiêm tinh học và tên hành tinh, cho phép dịch chuyển camera tức thời.
+* **Trạm quan sát thiên thể AR (Spatial Detail Drawer):** Bảng trượt hiển thị chi tiết thông số viễn trắc NASA (bán trục lớn AU, vận tốc quỹ đạo, chu kỳ quay, độ lệch tâm, số lượng vệ tinh) cùng hồ sơ năng lực thành viên và nút tiến vào Portfolio cá nhân.
+* **Bộ điều khiển dòng thời gian (Time Scrubbing):** Tạm dừng chuyển động quỹ đạo bằng phím `[Space]`, tua nhanh tốc độ từ `0.25x` đến `4.0x`, hoặc đảo chiều quỹ đạo thời gian thực.
+* **Cụm nút thu phóng chuyên dụng:** Thu phóng nhanh với nút `+`, `-` và phím tắt `[Esc]` để khôi phục góc nhìn toàn cảnh.
+
+### 3. 📑 Kiến Trúc Đa Trang Độc Lập (Multi-Page Application — MPA)
+* **Tách biệt tuyệt đối:** Mỗi thành viên toàn quyền quản lý mã nguồn HTML/CSS/JS và tài nguyên trong thư mục riêng `members/<slug>/`.
+* **Cơ chế quét động tự động (Dynamic Entry Detection):** File `vite.config.js` sử dụng Node.js `fs.existsSync` để tự động dò quét các trang HTML thực tế có trong dự án, ngăn chặn triệt để lỗi gãy build khi các thành viên nộp bài theo từng giai đoạn.
+* **Đường dẫn tương đối 100%:** Thiết lập `base: './'` đảm bảo mọi tài nguyên (hình ảnh, fonts, stylesheet, script, file CV PDF) hoạt động hoàn hảo trên mọi môi trường máy chủ tĩnh và thư mục con của GitHub Pages.
+
+### 4. 🚀 Tự Động Hóa CI/CD Toàn Diện (GitHub Actions Pipeline)
+* Pipeline cấu hình tại `.github/workflows/deploy.yml` tự động kích hoạt khi có commit mới vào nhánh `main`.
+* Thực thi kiểm tra phụ thuộc nghiêm ngặt (`npm ci`), đóng gói bản phát hành (`npm run build`), và đẩy sản phẩm lên GitHub Pages mà không cần can thiệp thủ công.
+
+---
+
+## 📁 Cấu Trúc Thư Mục Dự Án
 
 ```text
-Portfolio_group/
-├── index.html                      # Trang chủ giới thiệu nhóm (Landing Page)
-├── group.css                       # Stylesheet chính cho trang chủ nhóm (Editorial Studio)
-├── group.js                        # JavaScript xử lý tương tác trang chủ (Search, Navbar, Scroll)
-├── members/                        # Không gian phát triển riêng của 6 thành viên
-│   ├── nguyen-xuan-hieu/           # Portfolio của Nguyễn Xuân Hiếu (Trưởng nhóm)
-│   │   ├── index.html
-│   │   ├── style.css
-│   │   ├── script.js
-│   │   └── images/
-│   ├── le-nguyen-nhat-truong/      # Portfolio của Lê Nguyễn Nhật Trường
-│   │   ├── index.html
-│   │   ├── style.css
-│   │   ├── script.js
-│   │   └── images/
-│   ├── nguyen-thi-thao-nhu/        # Portfolio của Nguyễn Thị Thảo Như
-│   │   ├── index.html
-│   │   ├── style.css
-│   │   ├── script.js
-│   │   └── images/
-│   ├── nguyen-pham-y-huynh/        # Portfolio của Nguyễn Phạm Y Huỳnh
-│   │   ├── index.html
-│   │   ├── style.css
-│   │   ├── script.js
-│   │   └── images/
-│   ├── le-huu-chau/                # Portfolio của Lê Hữu Châu
-│   │   ├── index.html
-│   │   ├── style.css
-│   │   ├── script.js
-│   │   └── images/
-│   └── nguyen-anh-thu/             # Portfolio của Nguyễn Anh Thư
-│       ├── index.html
-│       ├── style.css
-│       ├── script.js
-│       └── images/
-├── public/                         # Thư mục tài nguyên tĩnh công cộng
-│   └── images/
-│       └── group/                  # Ảnh tĩnh dùng chung cho trang chủ nhóm
-├── package.json                    # Khai báo dependencies và scripts của npm
-├── package-lock.json               # Khóa chính xác phiên bản các gói phụ thuộc
-├── vite.config.js                  # Cấu hình đa trang (7 entrypoints) và base path cho Vite
-├── .gitignore                      # Danh sách các file/thư mục không đưa lên Git
-└── README.md                       # Tài liệu hướng dẫn sử dụng và phát triển dự án
+portfolio-group/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml              # Quy trình CI/CD tự động build & deploy GitHub Pages
+├── members/                        # Không gian Portfolio độc lập của 6 thành viên
+│   ├── nguyen-xuan-hieu/           # Portfolio Trưởng nhóm (Mars — UTH Lanyard Badge)
+│   ├── le-nguyen-nhat-truong/      # Portfolio thành viên (Earth — UTH Metro Concept)
+│   ├── le-huu-chau/                # Portfolio thành viên (Jupiter — Khung Tranh Nghệ Thuật)
+│   ├── nguyen-thi-thao-nhu/        # Portfolio thành viên (Venus — Backend Developer Aspirant)
+│   ├── nguyen-pham-y-huynh/        # Portfolio thành viên (Mercury — Đang hoàn thiện)
+│   └── nguyen-anh-thu/             # Portfolio thành viên (Saturn — Đang hoàn thiện)
+├── public/                         # Thư mục tài nguyên tĩnh công cộng (Vite phục vụ trực tiếp)
+│   ├── avatars/                    # Ảnh chân dung đại diện của các thành viên
+│   └── planets/                    # Bộ texture độ phân giải cao 2K (Sun, Earth, Mars...)
+├── group.css                       # Hệ thống định kiểu HUD viễn tưởng, Drawer và Responsive
+├── group.js                        # Engine 3D Three.js, xử lý quỹ đạo, Shader Bloom & Web Audio
+├── index.html                      # Trang chủ Cổng thông tin vũ trụ 3D Hệ Mặt Trời (Nhóm 02)
+├── members.data.js                 # Single Source of Truth (SSOT): Dữ liệu thành viên & hành tinh
+├── package.json                    # Khai báo dependencies (Three.js, Vite) và scripts chạy
+├── package-lock.json               # Khóa phiên bản gói thư viện chuẩn hóa CI/CD
+├── vite.config.js                  # Cấu hình đóng gói Vite MPA tự động quét entrypoint
+└── README.md                       # Tài liệu hướng dẫn kỹ thuật toàn diện của đồ án
 ```
 
 ---
 
-## 5. Danh sách thành viên & Phân công thư mục
+## 👥 Bảng Trạng Thái Thành Viên — Nhóm 02 (Team Roster & Status Table)
 
-Mỗi thành viên chịu trách nhiệm chính về nội dung, thẩm mỹ và mã nguồn trong thư mục portfolio cá nhân của mình:
-
-| STT | Họ và tên | Slug thư mục cá nhân | Trách nhiệm chính |
-|:---:|---|---|---|
-| 1 | **Nguyễn Xuân Hiếu** | `members/nguyen-xuan-hieu/` | Trưởng nhóm, phát triển portfolio cá nhân, phụ trách tích hợp & review |
-| 2 | **Lê Nguyễn Nhật Trường** | `members/le-nguyen-nhat-truong/` | Phát triển portfolio cá nhân, kiểm thử giao diện |
-| 3 | **Nguyễn Thị Thảo Như** | `members/nguyen-thi-thao-nhu/` | Phát triển portfolio cá nhân, kiểm thử giao diện |
-| 4 | **Nguyễn Phạm Y Huỳnh** | `members/nguyen-pham-y-huynh/` | Phát triển portfolio cá nhân, kiểm thử giao diện |
-| 5 | **Lê Hữu Châu** | `members/le-huu-chau/` | Phát triển portfolio cá nhân, kiểm thử giao diện |
-| 6 | **Nguyễn Anh Thư** | `members/nguyen-anh-thu/` | Phát triển portfolio cá nhân, kiểm thử giao diện |
-
-> **Nguyên tắc bất biến:** Tuyệt đối không tự ý đổi tên thư mục slug cá nhân vì sẽ phá vỡ liên kết điều hướng từ Trang chủ và cấu hình build trong `vite.config.js`.
+| STT | Họ và Tên | Thiên Thể Đại Diện | Vai Trò / Định Hướng Kỹ Thuật | Thư Mục Mã Nguồn | Trạng Thái Gộp Nhánh |
+| :---: | :--- | :---: | :--- | :--- | :---: |
+| 1 | **Nguyễn Xuân Hiếu** | 🔴 **Sao Hỏa** *(Mars)* | Trưởng nhóm • Full-Stack & System Admin | `members/nguyen-xuan-hieu/` | ![Merged](https://img.shields.io/badge/Merged-Done-success?style=flat-square) |
+| 2 | **Lê Nguyễn Nhật Trường** | 🌍 **Trái Đất** *(Earth)* | Thành viên • Full-Stack & Creative UI (Metro Concept) | `members/le-nguyen-nhat-truong/` | ![Merged](https://img.shields.io/badge/Merged-Done-success?style=flat-square) |
+| 3 | **Lê Hữu Châu** | ♃ **Sao Mộc** *(Jupiter)* | Thành viên • Frontend & Gallery Digital Artist | `members/le-huu-chau/` | ![Merged](https://img.shields.io/badge/Merged-Done-success?style=flat-square) |
+| 4 | **Nguyễn Thị Thảo Như** | ♀️ **Sao Kim** *(Venus)* | Thành viên • Backend Developer Aspirant | `members/nguyen-thi-thao-nhu/` | ![In Progress](https://img.shields.io/badge/In%20Progress-Pending-orange?style=flat-square) |
+| 5 | **Nguyễn Phạm Y Huỳnh** | ☿️ **Sao Thủy** *(Mercury)* | Thành viên • Frontend Developer Aspirant | `members/nguyen-pham-y-huynh/` | ![In Progress](https://img.shields.io/badge/In%20Progress-Pending-orange?style=flat-square) |
+| 6 | **Nguyễn Anh Thư** | ♄ **Sao Thổ** *(Saturn)* | Thành viên • Frontend & Web Designer Aspirant | `members/nguyen-anh-thu/` | ![In Progress](https://img.shields.io/badge/In%20Progress-Pending-orange?style=flat-square) |
 
 ---
 
-## 6. Yêu cầu môi trường & Lệnh thực thi
+## 🚀 Hướng Dẫn Cài Đặt & Khởi Chạy Local
 
-### 6.1. Yêu cầu phần mềm
-Trước khi bắt đầu, đảm bảo máy tính đã cài đặt các công cụ sau:
-- **Git:** Phiên bản 2.30+ trở lên.
-- **Node.js:** Phiên bản LTS khuyến nghị (v20.x hoặc v22.x/v24.x).
-- **npm:** Đi kèm cùng Node.js (v10.x trở lên).
+### 1. Yêu cầu môi trường
+* Đã cài đặt **Git**.
+* Đã cài đặt **Node.js** phiên bản LTS (khuyến nghị từ `v18.x` hoặc `v20.x` trở lên).
 
-Kiểm tra phiên bản trong terminal:
-```powershell
-node -v
-npm.cmd -v
-git --version
+### 2. Các bước cài đặt và khởi chạy
+Mở Terminal / PowerShell và thực hiện tuần tự các lệnh sau:
+
+```bash
+# 1. Sao chép (clone) repository về máy cá nhân
+git clone https://github.com/nguyenxuanhieu2903/portfolio-group.git
+cd portfolio-group
+
+# 2. Cài đặt các gói thư viện phụ thuộc (bao gồm Three.js và Vite)
+npm install
+# (Nếu bạn dùng Windows PowerShell gặp chặn script thực thi, hãy dùng: npm.cmd install)
+
+# 3. Khởi chạy máy chủ phát triển (Development Server)
+npm run dev
+# (Hoặc: npm.cmd run dev)
 ```
-*(Trên Windows PowerShell, nếu lệnh `npm` gặp lỗi do Execution Policy, hãy sử dụng `npm.cmd`).*
+
+Sau khi chạy lệnh, truy cập trình duyệt tại địa chỉ: `http://localhost:3000/` để tương tác trực tiếp với Hệ Mặt Trời 3D.
+
+### 3. Kiểm thử đóng gói sản phẩm (Production Build)
+Để thẩm định chất lượng đóng gói trước khi triển khai hoặc nộp bài:
+
+```bash
+# Kiểm tra đóng gói toàn bộ 7 trang HTML và tài nguyên ra thư mục dist/
+npm run build
+# (Hoặc: npm.cmd run build)
+
+# Xem thử bản đóng gói tĩnh trên máy tính (Preview Server)
+npm run preview
+# (Hoặc: npm.cmd run preview)
+```
+
+Quá trình build sẽ biên dịch toàn bộ mã nguồn vào thư mục `dist/` với kết quả chuẩn mực `0 Error`.
 
 ---
 
-### 6.2. Hướng dẫn clone và chạy local
+## 🤝 Quy Trình Đóng Góp & Gộp Nhánh (Contribution Guidelines)
 
-1. **Clone repository về máy:**
-   ```powershell
-   git clone <REPOSITORY_URL>
-   cd Portfolio_group
-   ```
-   *(Thay `<REPOSITORY_URL>` bằng địa chỉ GitHub chính thức của nhóm).*
-
-2. **Cài đặt các thư viện phụ thuộc:**
-   ```powershell
-   npm.cmd install
-   ```
-
-3. **Khởi chạy Development Server:**
-   ```powershell
-   npm.cmd run dev
-   ```
-   Terminal sẽ in ra đường dẫn cục bộ (thường là `http://localhost:3000/` hoặc `http://127.0.0.1:3000/`). Mở đường dẫn này trên trình duyệt để xem trực tiếp website với cơ chế Hot Module Replacement (HMR).
-
-4. **Kiểm tra đóng gói Production Build:**
-   ```powershell
-   npm.cmd run build
-   ```
-   Lệnh này biên dịch toàn bộ mã nguồn vào thư mục `dist/`. Luôn chạy lệnh này để bảo đảm không có lỗi cú pháp trước khi gửi yêu cầu tích hợp.
-
-5. **Xem thử bản build (Preview):**
-   ```powershell
-   npm.cmd run preview
-   ```
-   Khởi chạy server giả lập môi trường production tĩnh để kiểm tra đường dẫn tài nguyên sau khi build.
-
----
-
-## 7. Chiến lược phân nhánh Git & Quy trình làm việc
-
-Nhóm áp dụng mô hình phân nhánh chuẩn để bảo đảm tính ổn định của mã nguồn:
+Nhằm đảm bảo quá trình tích hợp mã nguồn của 3 thành viên còn lại diễn ra trơn tru, không gây xung đột với Trang chủ 3D hay cấu hình hệ thống, nhóm áp dụng **Quy tắc 3 bước chuẩn công nghiệp**:
 
 ```text
-main (Nhánh bảo vệ — Phiên bản ổn định cao nhất)
- └── develop (Nhánh tích hợp chung của cả nhóm)
-      ├── feature/portfolio-hieu
-      ├── feature/portfolio-truong
-      ├── feature/portfolio-thao-nhu
-      ├── feature/portfolio-y-huynh
-      ├── feature/portfolio-huu-chau
-      └── feature/portfolio-anh-thu
+[Nhánh cá nhân: member/<slug>]
+  ├── Chỉ chỉnh sửa trong thư mục members/<slug>/
+  ├── Kiểm tra đường dẫn ảnh (./images/...) và nút về trang chủ (../../index.html)
+  └── git merge main (Đồng bộ code mới nhất)
+             ↓
+[Mở Pull Request vào main]
+  └── Kiểm tra tab "Files changed" (Chỉ chứa file của thành viên)
+             ↓
+[Leader Review & Squash Merge]
+  └── GitHub Actions tự động build và xuất bản lên GitHub Pages trong 60 giây!
 ```
 
-### 7.1. Vai trò của từng nhánh
-- **`main`:** Nhánh chính chứa bản phát hành chính thức, sẵn sàng nộp bài hoặc deploy GitHub Pages. Chỉ trưởng nhóm mới có quyền merge vào `main` sau khi toàn bộ website đã được nghiệm thu.
-- **`develop`:** Nhánh tích hợp trung tâm. Mọi tính năng cá nhân sau khi hoàn thiện sẽ được gửi Pull Request vào nhánh này để kiểm thử phối hợp.
-- **`feature/portfolio-*`:** Nhánh riêng của từng thành viên để phát triển portfolio cá nhân, độc lập và không ảnh hưởng đến người khác.
+### Chi tiết các bước thực hiện:
+
+1. **Bước 1: Làm việc độc lập trên nhánh cá nhân**
+   * Tạo và làm việc trên nhánh riêng: `git checkout -b member/<slug-cua-ban>`.
+   * **Nguyên tắc vàng:** Chỉ thêm/sửa file trong thư mục `members/<slug-cua-ban>/`. Tuyệt đối **không chỉnh sửa** các file hệ thống chung (`index.html`, `group.js`, `group.css`, `vite.config.js`).
+   * Đảm bảo đường dẫn tài nguyên là đường dẫn tương đối: hình ảnh dùng `./images/...`, nút quay về Trang chủ dùng `<a href="../../index.html">`.
+
+2. **Bước 2: Đồng bộ nhánh trước khi tạo PR**
+   * Kéo code mới nhất từ nhánh `main` về nhánh của bạn để giải quyết sớm mọi sai lệch:
+     ```bash
+     git checkout main
+     git pull origin main
+     git checkout member/<slug-cua-ban>
+     git merge main
+     npm run build
+     ```
+   * Khi lệnh `npm run build` đạt `0 Error`, đẩy nhánh lên GitHub: `git push origin member/<slug-cua-ban>`.
+
+3. **Bước 3: Mở Pull Request (PR)**
+   * Mở PR trên GitHub từ `member/<slug-cua-ban>` vào `main`.
+   * Kiểm tra tab **"Files changed"**: Đảm bảo **chỉ có** các file nằm trong thư mục cá nhân của bạn.
+   * Trưởng nhóm sẽ duyệt qua, cập nhật thông tin hiển thị của bạn trên quả cầu 3D (nếu cần) và thực hiện **Squash and merge**. Pipeline CI/CD sẽ tự động cập nhật sản phẩm lên GitHub Pages sau 1-2 phút!
 
 ---
 
-### 7.2. Quy trình làm việc 10 bước chuẩn
+## 🛠️ Công Nghệ & Thư Viện Cốt Lõi
 
-1. **Clone repo:** Thành viên clone dự án về máy.
-2. **Chuyển sang nhánh develop:** Đồng bộ mã nguồn mới nhất từ remote:
-   ```powershell
-   git status
-   git fetch origin
-   git switch develop
-   git pull origin develop
-   ```
-   *(Nếu remote chưa có nhánh `develop`, trưởng nhóm sẽ khởi tạo nhánh này trước).*
-3. **Tạo nhánh feature cá nhân:** Khởi tạo branch từ `develop`:
-   ```powershell
-   # Ví dụ cho thành viên Hiếu:
-   git switch -c feature/portfolio-hieu
-
-   # Ví dụ cho thành viên Trường:
-   git switch -c feature/portfolio-truong
-   ```
-4. **Phát triển mã nguồn:** Chỉ chỉnh sửa các file bên trong thư mục `members/<slug-cua-ban>/`.
-5. **Kiểm tra trạng thái:** Xác nhận các file đã thay đổi:
-   ```powershell
-   git status
-   ```
-6. **Staging có chủ đích:** Tuyệt đối không dùng `git add .` bừa bãi. Chỉ thêm các file thuộc phạm vi cá nhân:
-   ```powershell
-   git add members/<slug-cua-ban>/
-   ```
-7. **Commit với thông điệp rõ ràng:**
-   ```powershell
-   git commit -m "feat: complete personal portfolio layout and interactive modal"
-   ```
-8. **Đẩy branch lên GitHub:**
-   ```powershell
-   git push -u origin feature/<ten-branch-cua-ban>
-   ```
-9. **Tạo Pull Request (PR):** Truy cập GitHub, tạo PR với mục tiêu: **Base: `develop`** &larr; **Compare: `feature/<ten-branch-cua-ban>`**. Mô tả ngắn gọn những gì đã thực hiện.
-10. **Review & Merge:** Trưởng nhóm kiểm tra code, chạy thử build. Nếu đạt, PR sẽ được merge vào `develop`.
+* **Core Engine:** [Three.js r186](https://threejs.org/) (WebGL 3D Rendering, Perspective Camera, OrbitControls).
+* **Post-Processing FX:** `EffectComposer`, `RenderPass`, `UnrealBloomPass`, `OutputPass`.
+* **Audio Synthesis:** Web Audio API (Sine/Triangle Oscillator, Low-pass Biquad Filter, Doppler Modulator).
+* **Build System:** [Vite 5](https://vitejs.dev/) (Rollup MPA Bundler, ES Module HMR).
+* **Styling & HUD:** Vanilla CSS3 (Custom Variables, Flexbox, Grid, Backdrop-Filter Glassmorphism, CSS Animation).
+* **Typography:** Google Fonts (`Outfit`, `Plus Jakarta Sans`, `JetBrains Mono`).
+* **CI/CD Automation:** GitHub Actions (`actions/checkout@v4`, `actions/setup-node@v4`, `actions/deploy-pages@v4`).
 
 ---
 
-### 7.3. Các quy tắc an toàn bắt buộc (Safety Rules)
-- **Không bao giờ commit trực tiếp lên `main` hoặc `develop`.**
-- **Không sử dụng `git push --force`** hoặc viết lại lịch sử commit chung.
-- **Không tự ý sửa file của thành viên khác.**
-- **Không commit thư mục `node_modules/`, `dist/` hoặc các file cache:** File `.gitignore` đã được cấu hình sẵn để tự động loại trừ.
-- **Bảo mật tuyệt đối:** Không đưa mật khẩu, token, API keys hoặc file `.env` lên GitHub.
+<div align="center">
 
----
+**ĐỒ ÁN MÔN HỌC LẬP TRÌNH WEB — NHÓM 02 — HỌC KỲ II**  
+**Trường Đại học Giao thông Vận tải TP.HCM (UTH)**  
+*Dành tặng thầy cô và các bạn yêu thích công nghệ lập trình Web & đồ họa không gian 3D.* ✨
 
-## 8. Khuyến nghị cấu hình GitHub Rulesets & Quyền Merge
-
-Để vận hành quy trình nhóm an toàn trên GitHub, nhóm đề xuất cấu hình cài đặt repository như sau:
-
-- **Bảo vệ nhánh `main`:**
-  - Bật yêu cầu bắt buộc tạo Pull Request trước khi merge (*Require a pull request before merging*).
-  - Yêu cầu ít nhất 01 review phê duyệt từ Trưởng nhóm (*Require approvals*).
-  - Giới hạn quyền merge trực tiếp (*Restrict deletions & restrict pushes*).
-- **Bảo vệ nhánh `develop`:**
-  - Yêu cầu mọi thay đổi tích hợp phải thông qua Pull Request từ các nhánh `feature/*`.
-  - Kiểm tra trạng thái build thành công trước khi merge.
-- *Lưu ý:* Việc thiết lập chi tiết phụ thuộc vào gói tài khoản GitHub (Free/Team) và quyền của chủ sở hữu repository trong phần **Settings &rarr; Rulesets**.
-
----
-
-## 9. Hướng dẫn dành cho từng thành viên khi làm Portfolio
-
-1. **Phạm vi làm việc:** Toàn bộ công việc của bạn nằm trong `members/<slug-cua-ban>/`:
-   - `index.html`: Soạn thảo cấu trúc HTML ngữ nghĩa (Navbar, Hero/Giới thiệu, Kỹ năng, Dự án, Hoạt động, Form liên hệ).
-   - `style.css`: Viết CSS riêng cho portfolio của bạn, tự do sáng tạo màu sắc và bố cục.
-   - `script.js`: Viết các tính năng JavaScript tương tác thực tế (xử lý sự kiện, modal, validate form,...).
-   - `images/`: Đặt ảnh chân dung thật và ảnh minh họa dự án của bạn tại đây.
-2. **Quy tắc đường dẫn tương đối:**
-   - Trong file `members/<slug>/index.html`, luôn dẫn tài nguyên cục bộ dạng `./style.css`, `./script.js`, `./images/ten-anh.jpg`.
-   - Nút quay lại trang chủ dùng đường dẫn `../../index.html`.
-3. **Thảo luận trước khi sửa file chung:**
-   - Nếu bạn cần sửa các file cấu hình hoặc tài nguyên chung (`vite.config.js`, `package.json`, `index.html` trang chủ, `group.css`, `group.js`), **bắt buộc phải thông báo và thống nhất với trưởng nhóm trước**.
-
----
-
-## 10. Checklist trước khi tạo Pull Request
-
-Trước khi tạo Pull Request để gửi duyệt, mỗi thành viên phải tự kiểm tra danh sách sau:
-
-- [ ] Portfolio mở và hiển thị chính xác trên máy local qua lệnh `npm.cmd run dev`.
-- [ ] Mở Console trình duyệt (F12) và bảo đảm **không có lỗi JavaScript đỏ (0 runtime errors)**.
-- [ ] Toàn bộ hình ảnh hiển thị rõ ràng, không bị vỡ đường dẫn (404).
-- [ ] Giao diện co giãn tốt trên điện thoại di động (không bị tràn ngang thanh cuộn).
-- [ ] Liên kết `&larr; Về trang chủ nhóm` hoạt động chính xác.
-- [ ] Đã chạy thử lệnh `npm.cmd run build` và **build thành công 100%**.
-- [ ] Lệnh `git status` xác nhận chỉ stage các file thuộc thư mục cá nhân.
-- [ ] Không có file tạm, file cấu hình IDE cá nhân hoặc dữ liệu nhạy cảm trong commit.
-
----
-
-## 11. Quy ước Code & Nội dung
-
-- **Tính trung thực:** Trình bày đúng kỹ năng, dự án và kinh nghiệm của bản thân. Không bịa đặt giải thưởng hoặc chứng chỉ chưa được kiểm chứng.
-- **Bản quyền tài nguyên:** Chỉ sử dụng hình ảnh cá nhân thật hoặc hình ảnh, icon miễn phí bản quyền (như Bootstrap Icons).
-- **Clean Code:** Đặt tên class CSS, tên biến và hàm JavaScript có ý nghĩa bằng tiếng Anh hoặc tiếng Việt nhất quán; giữ mã nguồn gọn gàng, có chú thích cần thiết.
-- **Không tự ý cài thêm package ngoài:** Nếu cần thư viện mới, phải trao đổi để bổ sung tập trung vào `package.json` của cả nhóm.
-
----
-
-## 12. Lộ trình triển khai tiếp theo
-
-1. **Phase 3:** Triển khai hoàn chỉnh Portfolio cá nhân của Nguyễn Xuân Hiếu theo đặc tả đã chốt.
-2. **Phase 4:** Các thành viên phát triển và hoàn thiện 5 portfolio cá nhân còn lại; gửi PR vào `develop`.
-3. **Phase 5:** Tích hợp tổng thể, chạy bộ kiểm thử QA toàn site, rà soát liên kết và cấu hình GitHub Actions tự động triển khai lên GitHub Pages.
-
----
-
-## 13. Ghi chú tài liệu nội bộ
-
-- File `README.md` này là tài liệu hướng dẫn vận hành kỹ thuật và quy chuẩn làm việc công khai của repository.
-- Các tài liệu phân tích nghiệp vụ, đặc tả chi tiết sản phẩm và kế hoạch nội bộ của nhóm được quản lý và lưu trữ riêng, không đưa vào mã nguồn công khai khi chưa có yêu cầu.
+</div>
