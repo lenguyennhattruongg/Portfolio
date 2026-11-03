@@ -11,7 +11,12 @@
 
 ---
 
-## 1. HỌC VẤN & TIẾN ĐỘ ĐÀO TẠO
+## 1. TÓM TẮT & BẢN SẮC NGHỀ NGHIỆP
+Sinh viên Công nghệ Thông tin chính quy K24 tại Trường ĐH Giao thông Vận tải TP.HCM (UTH), đã hoàn thành **77 / 120 tín chỉ** với **GPA 3.31 / 4.0**. Tiếp xúc với máy tính từ nhỏ với ước mơ mộc mạc nhưng kiên định: tự tay xây dựng những ứng dụng, phần mềm thực tế mà mọi người có thể sử dụng mỗi ngày. Định hướng chuyên sâu vào **Backend Systems**, lập trình tầng thấp, cấu trúc dữ liệu và giao thức mạng Socket TCP/IP. Tác phong cầu thị, đào sâu bản chất vấn đề, làm việc kỷ luật và kiên định theo đuổi mục tiêu dài hạn: trở thành Senior Software Engineer tại **NVIDIA**.
+
+---
+
+## 2. HỌC VẤN & TIẾN ĐỘ ĐÀO TẠO
 
 - **Trường Đại học Giao thông Vận tải TP.HCM (UTH)** (2024 – 2028 • Dự kiến tốt nghiệp 2028)
   - Chuyên ngành: Công nghệ Thông tin • Lớp CNTT24A • Hệ Chính quy 4 năm
@@ -27,7 +32,7 @@
 
 ---
 
-## 2. KỸ NĂNG KỸ THUẬT PHÂN TẦNG (3 TIERS)
+## 3. KỸ NĂNG KỸ THUẬT PHÂN TẦNG (3 TIERS)
 
 | Tầng năng lực | Chi tiết công nghệ & Mức độ thực tế |
 |:---|:---|
@@ -37,7 +42,7 @@
 
 ---
 
-## 3. DỰ ÁN KỸ THUẬT TIÊU BIỂU (CHUẨN HÓA 8 MỤC)
+## 4. DỰ ÁN KỸ THUẬT TIÊU BIỂU (CHUẨN HÓA 8 MỤC)
 
 ### 1. Remote Desktop Application (Client - Server)
 - **Tổng quan bài toán:** Ứng dụng điều khiển máy tính từ xa Client - Server qua TCP/IP Socket, truyền phát màn hình và đồng bộ chuột/phím theo thời gian thực.
@@ -75,7 +80,7 @@
 
 ---
 
-## 4. BEYOND CODING & KỶ LUẬT KỸ THUẬT
+## 5. BEYOND CODING & KỶ LUẬT KỸ THUẬT
 
 - **Rèn luyện thể lực:** Chạy bộ đường trường đều đặn, rèn luyện sự bền bỉ thể chất và giữ sự tỉnh táo, minh mẫn khi đối mặt với các bài toán deadlock logic phức tạp.
 - **Đam mê công nghệ:** Chủ động nghiên cứu tài liệu AI, Agentic Workflows (Gemini, Claude) và cách AI giải quyết các bài toán lớn trong kiến trúc doanh nghiệp; hướng tầm nhìn tới nền tảng phần cứng tăng tốc của **NVIDIA**.
