@@ -3471,3 +3471,450 @@ html, body {
   line-height: 1;
   margin-top: 1px;
 }
+
+/* =========================================================
+   NÂNG CẤP BỔ SUNG: LEARNING JOURNEY TIMELINE (GA 02)
+   Concept: Lộ trình trạm dừng Metro xuyên suốt 4 giai đoạn
+   ========================================================= */
+.journey-timeline-metro {
+  margin: 2.25rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  padding-left: 2rem;
+  border-left: 3px dashed var(--metro-orange);
+}
+
+.journey-milestone-card {
+  background-color: #FFFFFF;
+  border: 2px solid var(--metro-ink);
+  box-shadow: var(--shadow-hard-sm);
+  padding: 1.25rem 1.5rem;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.journey-milestone-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hard-md);
+}
+
+.journey-milestone-card::before {
+  content: "";
+  position: absolute;
+  left: -2.7rem;
+  top: 1.5rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 4px solid var(--metro-orange);
+  box-shadow: 0 0 0 2px var(--metro-ink);
+}
+
+.journey-milestone-card.milestone-active::before {
+  background-color: var(--metro-orange);
+  animation: pulseNode 2s infinite;
+}
+
+.milestone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.milestone-stage-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  background-color: var(--metro-ink);
+  color: #FFFFFF;
+  padding: 0.2rem 0.6rem;
+  letter-spacing: 0.05em;
+}
+
+.milestone-time {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--metro-orange);
+  font-weight: 700;
+}
+
+.milestone-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--metro-ink);
+  margin-bottom: 0.5rem;
+}
+
+.milestone-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--metro-ink-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.milestone-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.milestone-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 0.15rem 0.45rem;
+  color: var(--metro-ink);
+}
+
+/* =========================================================
+   BEYOND CODING & KHÁT VỌNG CÔNG NGHỆ (GA 02)
+   ========================================================= */
+.beyond-coding-section {
+  margin-top: 2.5rem;
+}
+
+.beyond-coding-heading {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--metro-orange);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.beyond-coding-heading::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--metro-orange) 0, var(--metro-orange) 6px, transparent 6px, transparent 12px);
+}
+
+.beyond-coding-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.beyond-card {
+  background-color: #FFFFFF;
+  border: 2px solid var(--metro-ink);
+  box-shadow: var(--shadow-hard-sm);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.beyond-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.beyond-card-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.beyond-card-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--metro-ink);
+}
+
+.beyond-card-sub {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--metro-orange);
+  font-weight: 600;
+}
+
+.beyond-card-text {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--metro-ink-secondary);
+}
+
+/* =========================================================
+   KỸ NĂNG 3 TẦNG (SKILL TIERS) — GA 03
+   ========================================================= */
+.skill-tier-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+}
+
+.tier-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.tier-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.tier-dot.dot-used { background-color: #059669; }
+.tier-dot.dot-learning { background-color: var(--metro-orange); }
+.tier-dot.dot-research { background-color: #6366f1; }
+
+.tech-tier-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tier-used {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.tier-learning {
+  background-color: #fff7ed;
+  color: #9a3412;
+  border: 1px solid #fed7aa;
+}
+
+.tier-research {
+  background-color: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+}
+
+.tech-applied-project {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--metro-orange);
+  font-weight: 600;
+}
+
+/* =========================================================
+   SƠ ĐỒ GIAO THỨC & 8 MỤC ĐỒ ÁN (GA 04)
+   ========================================================= */
+.protocol-diagram-box {
+  background-color: #0d121c;
+  color: #f8fafc;
+  border: 2px solid var(--metro-ink);
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: var(--font-mono);
+}
+
+.protocol-diagram-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--metro-orange);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.protocol-packet-frame {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #334155;
+  overflow: hidden;
+  background-color: #1e293b;
+}
+
+.packet-chunk {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.72rem;
+  border-right: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.packet-chunk:last-child {
+  border-right: none;
+  flex: 1;
+}
+
+.chunk-size {
+  font-size: 0.65rem;
+  color: var(--metro-orange);
+}
+
+.chunk-name {
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+/* Bảng phân định 8 trường thông tin đồ án */
+.project-spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.86rem;
+}
+
+.project-spec-table th,
+.project-spec-table td {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.project-spec-table th {
+  background-color: #f8fafc;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--metro-ink);
+  width: 25%;
+}
+
+.project-spec-table td {
+  color: var(--metro-ink-secondary);
+  line-height: 1.5;
+}
+
+/* =========================================================
+   CAM KẾT MINH BẠCH HỌC THUẬT (ACADEMIC INTEGRITY) — GA 05
+   ========================================================= */
+.academic-integrity-box {
+  background-color: #fffbeb;
+  border: 2px solid #b45309;
+  box-shadow: var(--shadow-hard-sm);
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.integrity-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.integrity-icon {
+  font-size: 1.3rem;
+}
+
+.integrity-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #78350f;
+}
+
+.integrity-badge {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  background-color: #b45309;
+  color: #FFFFFF;
+  padding: 0.15rem 0.5rem;
+}
+
+.integrity-text {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #92400e;
+}
+
+.integrity-bullets {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   DARK THEME CHO CÁC KHỐI MỚI BỔ SUNG
+   ========================================================= */
+[data-theme="dark"] .journey-milestone-card,
+[data-theme="dark"] .beyond-card {
+  background-color: #121824;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .journey-milestone-card::before {
+  background-color: #121824;
+  border-color: var(--metro-orange);
+  box-shadow: 0 0 0 2px #334155;
+}
+
+[data-theme="dark"] .milestone-title,
+[data-theme="dark"] .beyond-card-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .milestone-desc,
+[data-theme="dark"] .beyond-card-text {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .milestone-tag {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .skill-tier-strip {
+  background-color: #0d121c;
+  border-color: #1e293b;
+}
+
+[data-theme="dark"] .project-spec-table th,
+[data-theme="dark"] .project-spec-table td {
+  border-color: #334155;
+}
+
+[data-theme="dark"] .project-spec-table th {
+  background-color: #1e293b;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .project-spec-table td {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .academic-integrity-box {
+  background-color: #1c1917;
+  border-color: #d97706;
+}
+
+[data-theme="dark"] .integrity-title {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .integrity-text,
+[data-theme="dark"] .integrity-bullets {
+  color: #d1d5db;
+}
