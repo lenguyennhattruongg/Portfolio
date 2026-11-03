@@ -79,6 +79,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -2944,6 +2945,37 @@ html.fx-off *::after {
 
 /* Mobile Screen (480px) */
 @media (max-width: 480px) {
+  .header {
+    height: 70px;
+    padding: 6px 8px 0;
+  }
+  .nav-shell {
+    height: 50px;
+    gap: 4px;
+    padding: 3px 6px;
+  }
+  .logo {
+    min-width: 0;
+    flex-shrink: 1;
+  }
+  .logo-text {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-actions {
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .nav-orb {
+    width: 30px;
+    height: 30px;
+  }
+  .hamburger-btn {
+    width: 30px;
+    height: 30px;
+  }
   .section {
     padding-block: 65px 30px;
   }
