@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Lê Nguyễn Nhật Trường — Backend Software Engineer Intern</title>
+  <meta name="description" content="Curriculum Vitae Lê Nguyễn Nhật Trường — Sinh viên K24 Khoa CNTT Trường ĐH Giao thông Vận tải TP.HCM (UTH). Định hướng Backend Software Engineer (Java, Mạng máy tính, Hệ thống).">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #e28743;
+      --primary-dark: #c46d2c;
+      --ink: #0f172a;
+      --ink-secondary: #334155;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --font-display: 'Bricolage Grotesque', sans-serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--ink-secondary);
+      background-color: var(--bg);
+      line-height: 1.45;
+      font-size: 14px;
+      padding: 24px 16px 48px;
+    }
+
+    /* Thanh điều khiển trên cùng (không in) */
+    .cv-topbar {
+      max-width: 860px;
+      margin: 0 auto 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      background: #0d121c;
+      border: 1px solid #272f3d;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .cv-topbar a, .cv-topbar button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-back {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid #334155;
+    }
+    .btn-back:hover {
+      background: #1e293b;
+      color: #ffffff;
+    }
+
+    .cv-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-download {
+      background: var(--primary);
+      color: #0d121c;
+      border: 1px solid var(--primary);
+    }
+    .btn-download:hover {
+      background: #ff9d5c;
+    }
+
+    .btn-print {
+      background: transparent;
+      color: #38bdf8;
+      border: 1px solid #38bdf8;
+    }
+    .btn-print:hover {
+      background: rgba(56, 189, 248, 0.15);
+    }
+
+    /* Giấy A4 CV */
+    .cv-sheet {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      padding: 36px 42px;
+      border-radius: 4px;
+    }
+
+    /* Header */
+    .cv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+
+    .cv-name {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      line-height: 1.15;
+    }
+
+    .cv-role {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    .cv-institution {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .cv-contacts {
+      text-align: right;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .cv-contacts a {
+      color: #0284c7;
+      text-decoration: none;
+    }
+    .cv-contacts a:hover {
+      text-decoration: underline;
+    }
+
+    /* Sections */
+    .cv-section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 16px;
+      background: var(--primary);
+      border-radius: 1px;
+    }
+
+    /* Items */
+    .cv-item {
+      margin-bottom: 14px;
+    }
+    .cv-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    .item-sub {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+
+    .highlight-gpa {
+      color: #b45309;
+      font-weight: 700;
+      font-style: normal;
+      font-family: var(--font-mono);
+    }
+
+    .tag-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tech-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      background: #f1f5f9;
+      color: #1e293b;
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    ul.duty-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.duty-list li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 4px;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--ink-secondary);
+    }
+
+    ul.duty-list li::before {
+      content: '▪';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 12px;
+      top: -1px;
+    }
+
+    ul.duty-list strong {
+      color: var(--ink);
+    }
+
+    /* Skill Grid */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      row-gap: 6px;
+      column-gap: 12px;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+        margin: 0;
+        font-size: 9pt;
+      }
+      .cv-topbar {
+        display: none !important;
+      }
+      .cv-sheet {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 10mm 14mm;
+      }
+      a {
+        text-decoration: none;
+        color: inherit !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cv-sheet {
+        padding: 20px 18px;
+      }
+      .cv-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .cv-contacts {
+        text-align: left;
+      }
+      .skill-grid {
+        grid-template-columns: 1fr;
+        row-gap: 4px;
+      }
+      .item-header, .item-sub {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Thanh điều khiển trên cùng -->
+  <header class="cv-topbar" aria-label="Điều hướng CV">
+    <a href="./index.html" class="btn-back">
+      <span>&larr; Quay lại Tuyến Metro T24</span>
+    </a>
+    <div class="cv-actions">
+      <button type="button" onclick="window.print()" class="btn-print">
+        <span>🖨️ In CV / Lưu PDF</span>
+      </button>
+      <a href="./assets/CV_LeNguyenNhatTruong_BackendIntern.pdf" download="CV_LeNguyenNhatTruong_BackendIntern.pdf" class="btn-download">
+        <span>📥 Tải File PDF</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Giấy A4 CV -->
+  <main class="cv-sheet">
+    <header class="cv-header">
+      <div class="cv-identity">
+        <h1 class="cv-name">Lê Nguyễn Nhật Trường</h1>
+        <div class="cv-role">BACKEND SOFTWARE ENGINEER INTERN</div>
+        <div class="cv-institution">Trường ĐH Giao thông Vận tải TP.HCM (UTH) &bull; Lớp CNTT24A &bull; MSSV: 082206010882</div>
+      </div>
+      <div class="cv-contacts">
+        <div>📧 <a href="mailto:truonglnn0882@ut.edu.vn">truonglnn0882@ut.edu.vn</a></div>
+        <div>📞 <strong>0909 xxx 882 (Zalo)</strong> &bull; TP. Hồ Chí Minh</div>
+        <div>🐙 <a href="https://github.com/lenguyennhattruongg" target="_blank" rel="noopener noreferrer">github.com/lenguyennhattruongg &#8599;</a></div>
+        <div>🔗 <a href="https://linkedin.com/in/lenguyennhattruongg" target="_blank" rel="noopener noreferrer">linkedin.com/in/lenguyennhattruongg &#8599;</a></div>
+        <div>🌐 <a href="https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/" target="_blank">Portfolio Tuyến Metro T24 UTH &#8599;</a></div>
+      </div>
+    </header>
+
+    <!-- HỌC VẤN -->
+    <section class="cv-section">
+      <h2 class="section-title">Học Vấn &amp; Nền Tảng Học Thuật</h2>
+      <div class="cv-item">
+        <div class="item-header">
+          <span>Trường Đại học Giao thông Vận tải TP.HCM (UTH)</span>
+          <span>2024 &ndash; Hiện tại</span>
+        </div>
+        <div class="item-sub">
+          <span>Chuyên ngành Công nghệ Thông tin &bull; Lớp CNTT24A &bull; Hệ Chính quy</span>
+          <span class="highlight-gpa">GPA Tích lũy: 3.25 / 4.0 (Khá - Giỏi)</span>
+        </div>
+        <ul class="duty-list">
+          <li><strong>Môn học cốt lõi đạt điểm A/A+:</strong> Lập trình Hướng đối tượng Java (A), Mạng máy tính &amp; Socket TCP/IP (A), Hệ quản trị CSDL &amp; Chuẩn hóa 3NF MySQL (A), Cấu trúc Dữ liệu &amp; Giải thuật (A), Kiến trúc Máy tính &amp; Hệ điều hành (B+).</li>
+          <li><strong>Ngoại ngữ:</strong> Tiếng Anh kỹ thuật chuyên ngành CNTT, đang ôn tập và đặt mục tiêu đạt <strong>TOEIC 650+</strong> (Dự kiến thi Quý 4/2026).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- KỸ NĂNG -->
+    <section class="cv-section">
+      <h2 class="section-title">Kỹ Năng Chuyên Môn (Technical Skills)</h2>
+      <div class="skill-grid">
+        <div class="skill-label">Ngôn ngữ:</div>
+        <div><strong>Java Core</strong> (OOP, Collections, Multithreading, Socket), <strong>C# (.NET 8.0)</strong>, <strong>PHP thuần (PDO)</strong>, SQL, HTML5/CSS3/JavaScript ES6+.</div>
+
+        <div class="skill-label">Backend &amp; Mạng:</div>
+        <div>TCP/IP Socket Programming, Custom Binary Protocol, Byte Buffer Stream, Spring Boot 3 RESTful API, Transaction ACID, Anti-IDOR Security.</div>
+
+        <div class="skill-label">Cơ sở Dữ liệu:</div>
+        <div><strong>MySQL 8.0</strong>, Chuẩn hóa 3NF, Khóa ngoại (CASCADE/RESTRICT), Composite Indexing O(log N), Prepared Statements chống 100% SQLi.</div>
+
+        <div class="skill-label">Công cụ &amp; Hệ thống:</div>
+        <div>Git &amp; GitHub (Branching/PR/Code Review), Postman, Wireshark Packet Inspection, Wokwi ESP32 Simulator, Vite MPA, Linux Bash.</div>
+      </div>
+    </section>
+
+    <!-- DỰ ÁN TIÊU BIỂU -->
+    <section class="cv-section">
+      <h2 class="section-title">Dự Án Kỹ Thuật Tiêu Biểu (4 Đồ Án Môn Học Thực Chiến)</h2>
+
+      <!-- Đồ án 1 -->
+      <article class="cv-item">
+        <div class="item-header">
+          <span>1. Remote Desktop Application (Client - Server)</span>
+          <div class="tag-group">
+            <span class="tech-tag">C# .NET 8.0</span>
+            <span class="tech-tag">Socket TCP/IP</span>
+            <span class="tech-tag">Multithreading</span>
+          </div>
+        </div>
+        <div class="item-sub">
+          <span>Đồ án Môn Lập trình Mạng (Mã prj_UDM_06) &bull; GitHub: github.com/duypham26/prj_UDM_06</span>
+          <span>Học kỳ UTH</span>
+        </div>
+        <ul class="duty-list">
+          <li><strong>Vai trò:</strong> Thiết kế kiến trúc Packet Protocol (Header Type, Length, Payload), lập trình ServerSocket bắt tay TCP cổng 5000, xử lý phân mảnh mảng byte buffer stream ảnh chụp màn hình desktop và đồng bộ sự kiện chuột/phím.</li>
+          <li><strong>Điểm nổi bật:</strong> Xử lý đa kết nối đồng thời với Task.Run, áp dụng DeflateStream nén giảm 40% dung lượng byte buffer, duy trì tốc độ truyền nhận màn hình ổn định 25&ndash;30 FPS với độ trễ thấp (&lt; 60ms).</li>
+          <li><strong>Thách thức &amp; Giải pháp:</strong> Khắc phục triệt để hiện tượng nghẽn luồng giao diện WinForms khi nhận dữ liệu liên tục bằng cách phân tách biệt lập Worker Thread và UI Invocation; chống trôi byte bằng Header Length Framing và bắt tay ACK.</li>
+        </ul>
+      </article>
+
+      <!-- Đồ án 2 -->
+      <article class="cv-item">
+        <div class="item-header">
+          <span>2. FreshVend &ndash; Hệ Thống Máy Bán Nước Tự Động Thông Minh IoT</span>
+          <div class="tag-group">
+            <span class="tech-tag">Java Spring Boot 3</span>
+            <span class="tech-tag">ESP32 Wokwi</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+        <div class="item-sub">
+          <span>Đồ án Java OOP &bull; GitHub: github.com/lenguyennhattruongg/freshvend-java</span>
+          <span>Học kỳ UTH</span>
+        </div>
+        <ul class="duty-list">
+          <li><strong>Vai trò:</strong> Thiết kế kiến trúc Backend RESTful API và máy trạng thái đơn hàng (State Machine: PENDING &rarr; DISPENSING &rarr; COMPLETED / REFUNDED), kết nối vi điều khiển ESP32 giả lập Wokwi.</li>
+          <li><strong>Điểm nổi bật:</strong> Xử lý trên 100 req/s với thời gian phản hồi API &lt; 45ms (Thunder Client 200 OK &bull; 6.5ms); đồng bộ trạng thái tồn kho và doanh thu theo thời gian thực về MySQL.</li>
+          <li><strong>Thách thức &amp; Giải pháp:</strong> Giải quyết bài toán rớt gói mạng giữa vi điều khiển và máy chủ bằng cơ chế Heartbeat ping định kỳ 3s và cơ chế hoàn tiền tự động khi cảm biến nhả hàng không xác nhận.</li>
+        </ul>
+      </article>
+
+      <!-- Đồ án 3 -->
+      <article class="cv-item">
+        <div class="item-header">
+          <span>3. PetCare Vet Center &ndash; Hệ Thống Quản Lý Trung Tâm Thú Y</span>
+          <div class="tag-group">
+            <span class="tech-tag">PHP thuần</span>
+            <span class="tech-tag">PDO</span>
+            <span class="tech-tag">MySQL 3NF</span>
+          </div>
+        </div>
+        <div class="item-sub">
+          <span>Đồ án Lập trình Web Nhóm 2 (Mã HP 012012103105) &bull; Vai trò: Backend Developer 1</span>
+          <span>Học kỳ 1 2026</span>
+        </div>
+        <ul class="duty-list">
+          <li><strong>Vai trò:</strong> Thiết kế lược đồ CSDL MySQL 8.0 chuẩn 3NF (12 bảng có quan hệ chặt chẽ), viết module quản lý lịch hẹn, hồ sơ bệnh án và đơn thuốc thú cưng.</li>
+          <li><strong>Bảo mật &amp; Tối ưu:</strong> Áp dụng 100% Prepared Statements qua PDO chống SQL Injection, bọc htmlspecialchars chống XSS, thuật toán Transaction ACID với SELECT ... FOR UPDATE chống trùng lịch khám (Double-booking) và kiểm tra quyền sở hữu chống IDOR.</li>
+        </ul>
+      </article>
+
+      <!-- Đồ án 4 -->
+      <article class="cv-item">
+        <div class="item-header">
+          <span>4. Group Portfolio Website Hub &amp; Tuyến Metro T24 Cá Nhân</span>
+          <div class="tag-group">
+            <span class="tech-tag">HTML5 / CSS3</span>
+            <span class="tech-tag">JavaScript ES6+</span>
+            <span class="tech-tag">Vite MPA</span>
+          </div>
+        </div>
+        <div class="item-sub">
+          <span>Nền tảng Portfolio Nhóm 02 UTH &bull; GitHub: github.com/nguyenxuanhieu2903/portfolio-group</span>
+          <span>2026</span>
+        </div>
+        <ul class="duty-list">
+          <li><strong>Vai trò:</strong> Xây dựng trang portfolio cá nhân lấy cảm hứng Tuyến Metro T24 UTH với bộ lọc vé đồ án động, modal soi vé chi tiết, giao diện thích ứng mobile không tràn ngang và Dark/Light mode.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- CHỨNG CHỈ & KỶ LUẬT -->
+    <section class="cv-section" style="margin-bottom: 0;">
+      <h2 class="section-title">Chứng Chỉ &amp; Kỷ Luật Kỹ Thuật</h2>
+      <div class="skill-grid">
+        <div class="skill-label">Chứng nhận:</div>
+        <div>Git &amp; GitHub Professional Workflow; Linux Command Line &amp; Bash Basics; LeetCode 50+ DSA Solutions.</div>
+
+        <div class="skill-label">Kỷ luật làm việc:</div>
+        <div>Tuân thủ nghiêm ngặt Git Feature Branch, Commit Convention chuẩn mực, tinh thần chủ động tìm hiểu root-cause và ham học hỏi công nghệ mới.</div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

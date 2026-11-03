@@ -1,37 +1,69 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Nhóm 02 — Hệ Mặt Trời 3D kết nối 6 thành viên sinh viên Trường Đại học Giao thông Vận tải TP.HCM (UTH).">
+  <meta name="description" content="Nhóm 02 — Hệ Mặt Trời 3D kết nối 6 thành viên sinh viên Trường Đại học Giao thông Vận tải TP.HCM (UTH).">
   <meta name="author" content="Nhóm 02 — UTH">
+
   <title>Nhóm 02 — Hệ Mặt Trời 3D</title>
 
   <!-- Open Graph -->
   <meta property="og:title" content="Nhóm 02 — Hệ Mặt Trời 3D">
-  <meta property="og:description"
-    content="Không gian mô phỏng 3D Hệ Mặt Trời kết nối 6 thành viên Nhóm 02, Trường Đại học Giao thông Vận tải TP.HCM.">
+  <meta property="og:description" content="Không gian mô phỏng 3D Hệ Mặt Trời kết nối 6 thành viên Nhóm 02, Trường Đại học Giao thông Vận tải TP.HCM.">
   <meta property="og:type" content="website">
 
   <!-- Phông chữ Google Fonts (Outfit, Plus Jakarta Sans, JetBrains Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="./group.css">
 
-</head>
 
+  <!-- Importmap cho trình duyệt trực tiếp (GitHub Pages Standalone & CDN Support) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <!-- BẢO VỆ TUYỆT ĐỐI KHỞI ĐỘNG: Bắt mọi lỗi sớm và tự động tắt preloader sau tối đa 1.8s -->
+  <script>
+    window.__dismissPreloader = function() {
+      try {
+        var p = document.getElementById('sciFiPreloader');
+        if (p && !p.classList.contains('preloader-fade-out')) {
+          p.classList.add('preloader-fade-out');
+          setTimeout(function() {
+            p.hidden = true;
+            p.style.display = 'none';
+          }, 500);
+        }
+      } catch (e) {
+        console.warn('dismissPreloader error:', e);
+      }
+    };
+    // Tự động giải phóng màn hình chờ sau tối đa 1.8 giây phòng ngừa mạng chậm/lỗi WebGL
+    setTimeout(function() {
+      if (window.__dismissPreloader) window.__dismissPreloader();
+    }, 1800);
+    window.addEventListener('error', function() {
+      if (window.__dismissPreloader) window.__dismissPreloader();
+    });
+    window.addEventListener('unhandledrejection', function() {
+      if (window.__dismissPreloader) window.__dismissPreloader();
+    });
+  </script>
+</head>
 <body class="spatial-viewport-body">
 
   <!-- MÀN HÌNH CHỜ VIỄN TRẮC SCI-FI (SCI-FI ASSET PRELOADER) -->
-  <div class="sci-fi-preloader font-mono" id="sciFiPreloader" role="progressbar"
-    aria-label="Đang nạp dữ liệu viễn trắc Hệ Mặt Trời">
+  <div class="sci-fi-preloader font-mono" id="sciFiPreloader" role="progressbar" aria-label="Đang nạp dữ liệu viễn trắc Hệ Mặt Trời">
     <div class="preloader-content">
       <div class="preloader-radar">
         <div class="radar-circle radar-circle-outer"></div>
@@ -50,10 +82,21 @@
           <div class="preloader-progress-bar" id="preloaderFillBar"></div>
         </div>
         <div class="preloader-asset-name" id="preloaderItemText">Đang khởi tạo lõi không gian WebGL 3D...</div>
+        <button type="button" id="btnSkipPreloader" style="margin-top: 14px; padding: 6px 16px; font-family: inherit; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.45); color: #bae6fd; border-radius: 9999px; cursor: pointer; transition: all 0.2s ease; outline: none;">
+          ⚡ Bỏ qua chờ &amp; Vào trang ngay
+        </button>
       </div>
     </div>
   </div>
 
+  <script>
+    (function() {
+      var p = document.getElementById('sciFiPreloader');
+      var b = document.getElementById('btnSkipPreloader');
+      if (p) p.addEventListener('click', function() { if (window.__dismissPreloader) window.__dismissPreloader(); });
+      if (b) b.addEventListener('click', function(e) { e.stopPropagation(); if (window.__dismissPreloader) window.__dismissPreloader(); });
+    })();
+  </script>
   <!-- VẠCH QUÉT RADAR KHÔNG GIAN (RADAR SCANLINE) -->
   <div class="radar-scanline-layer" aria-hidden="true"></div>
 
@@ -62,6 +105,17 @@
 
   <!-- LỚP NHÃN THIÊN VĂN AR ĐƯỢC CHIẾU TỪ TỌA ĐỘ 3D LÊN MÀN HÌNH (PROJECTED LABELS) -->
   <div id="spatialLabels" class="spatial-labels-layer" aria-hidden="true"></div>
+  <!-- BẢN ĐỒ QUỸ ĐẠO HỆ MẶT TRỜI 2D SIÊU TIẾT KIỆM (2D ORRERY FLAT MODE - 0% GPU CHO MÁY YẾU) -->
+  <div id="solarSystem2D" class="solar-system-2d-layer" hidden>
+    <div class="orrery-2d-container">
+      <div class="orrery-2d-header">
+        <span class="badge-2d-mode font-mono">⚡ CHẾ ĐỘ 2D SIÊU TIẾT KIỆM · TẮT HOÀN TOÀN GPU 3D CHO MÁY YẾU</span>
+      </div>
+      <div class="orrery-2d-viewport" id="orrery2DViewport">
+        <!-- SVG Interactive Orrery được vẽ tự động từ group.js -->
+      </div>
+    </div>
+  </div>
 
   <!-- GIAO DIỆN ĐIỀU KHIỂN KHÔNG GIAN (SPATIAL HUD OVERLAY) -->
   <div class="spatial-hud-overlay" id="hudOverlay">
@@ -85,12 +139,10 @@
 
       <!-- DUAL-PERSPECTIVE KINEMATIC SWITCH -->
       <div class="hud-perspective-switch font-mono" id="hudPerspectiveSwitch">
-        <button type="button" class="btn-perspective active" id="btnModeOrbit"
-          title="Góc nhìn quỹ đạo 360° bao quát Hệ Mặt Trời [Q]">
+        <button type="button" class="btn-perspective active" id="btnModeOrbit" title="Góc nhìn quỹ đạo 360° bao quát Hệ Mặt Trời [Q]">
           <span class="perspective-dot orbit-dot"></span> [Q] Quỹ đạo 360°
         </button>
-        <button type="button" class="btn-perspective" id="btnModeWarp"
-          title="Chế độ du hành không gian xuyên quỹ đạo [W]">
+        <button type="button" class="btn-perspective" id="btnModeWarp" title="Chế độ du hành không gian xuyên quỹ đạo [W]">
           <span class="perspective-dot warp-dot"></span> [W] Du hành siêu tốc
         </button>
       </div>
@@ -98,47 +150,53 @@
       <!-- Điều hướng góc phải -->
       <div class="hud-top-actions">
         <!-- NÚT TRỢ GIÚP ĐIỀU KHIỂN -->
-        <button type="button" class="hud-action-btn hud-help-btn font-mono" id="btnHelpGuide"
-          title="Kéo chuột: Xoay 360° · Cuộn: Thu phóng · Nhấp: Xem thiên thể"
-          aria-label="Hướng dẫn điều khiển">?</button>
+        <button type="button" class="hud-action-btn hud-help-btn font-mono" id="btnHelpGuide" title="Kéo chuột: Xoay 360° · Cuộn: Thu phóng · Nhấp: Xem thiên thể" aria-label="Hướng dẫn điều khiển">?</button>
 
         <!-- NÚT BẬT / TẮT ÂM THANH KHÔNG GIAN (SPATIAL AUDIO TOGGLE) -->
-        <button type="button" class="hud-action-btn hud-audio-btn font-mono" id="btnAudioToggle" aria-pressed="false"
-          title="Bật / tắt âm thanh vũ trụ 3D (Web Audio API)">
+        <button type="button" class="hud-action-btn hud-audio-btn font-mono" id="btnAudioToggle" aria-pressed="false" title="Bật / tắt âm thanh vũ trụ 3D (Web Audio API)">
           <span class="audio-bars-icon" aria-hidden="true">
             <i></i><i></i><i></i><i></i>
           </span>
           <span id="audioStatusText" class="audio-status-label">ÂM THANH: TẮT</span>
         </button>
 
-        <!-- NÚT CHẾ ĐỘ ẢNH / TOÀN CẢNH (CLEAN PHOTO MODE) -->
-        <button type="button" class="hud-action-btn font-mono" id="btnPhotoMode"
-          title="Ẩn giao diện HUD để chiêm ngưỡng / chụp ảnh toàn cảnh [H]">
-          <span aria-hidden="true">📷</span> <span class="btn-text">Toàn cảnh</span> <span
-            class="key-shortcut">[H]</span>
+        <!-- NÚT CHUYỂN CHẾ ĐỘ ĐỒ HỌA (GRAPHICS QUALITY TOGGLE) -->
+        <button type="button" class="hud-action-btn hud-graphics-btn font-mono" id="btnGraphicsToggle" title="Bấm để giảm hẳn xuống Chế độ 2D (Tắt 3D WebGL, 0% GPU cho máy yếu)" aria-label="Chế độ 2D tiết kiệm">
+          <span class="graphics-icon" aria-hidden="true">⚡</span>
+          <span id="graphicsStatusText" class="graphics-status-label">
+            <span class="label-full">CHẾ ĐỘ 2D</span>
+            <span class="label-short">2D</span>
+          </span>
         </button>
 
-        <button type="button" class="hud-action-btn font-mono" id="btnResetOrbit"
-          title="Trở về góc nhìn toàn cảnh Hệ Mặt Trời">
-          <span class="btn-text">Hệ Mặt Trời</span> <span class="key-shortcut">[Esc]</span>
+        <!-- NÚT CHẾ ĐỘ ẢNH / TOÀN CẢNH (CLEAN PHOTO MODE) -->
+        <button type="button" class="hud-action-btn font-mono" id="btnPhotoMode" title="Ẩn giao diện HUD để chiêm ngưỡng / chụp ảnh toàn cảnh [H]">
+          <span aria-hidden="true">📷</span> <span class="btn-text">Toàn cảnh</span> <span class="key-shortcut">[H]</span>
         </button>
-        <a href="https://github.com/lenguyennhattruongg/Portfolio" class="hud-action-btn font-mono hud-github-link"
-          target="_blank" rel="noopener noreferrer">
-          GitHub ↗
+
+        <button type="button" class="hud-action-btn font-mono" id="btnResetOrbit" title="Trở về góc nhìn toàn cảnh Hệ Mặt Trời">
+          <span aria-hidden="true">🔄</span> <span class="btn-text">Hệ MT</span> <span class="key-shortcut">[Esc]</span>
+        </button>
+
+        <!-- KHO MÃ NGUỒN GITHUB CHÍNH THỨC CỦA NHÓM -->
+        <a href="https://github.com/nguyenxuanhieu2903/portfolio-group" class="hud-action-btn font-mono hud-github-link" target="_blank" rel="noopener noreferrer" title="Kho mã nguồn GitHub chính thức của Nhóm" aria-label="Kho mã nguồn GitHub của Nhóm">
+          <svg class="github-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span class="btn-text-full">GitHub ↗</span>
+          <span class="btn-text-short">GH ↗</span>
         </a>
       </div>
     </header>
 
     <!-- TRẠM QUAN SÁT THIÊN THỂ CHI TIẾT (AR SPATIAL DETAIL DRAWER) -->
-    <aside class="spatial-detail-panel spatial-hud-element" id="spatialDetailPanel" role="region"
-      aria-labelledby="panelMemberName" aria-live="polite" hidden>
+    <aside class="spatial-detail-panel spatial-hud-element" id="spatialDetailPanel" role="region" aria-labelledby="panelMemberName" aria-live="polite" hidden>
       <div class="panel-sheet-handle" aria-hidden="true"></div>
       <div class="panel-inner">
-
+        
         <div class="panel-header-row">
           <span class="panel-seq font-mono" id="panelMemberSeq">THIÊN THỂ // 01</span>
-          <button type="button" class="panel-close-cross font-mono" id="panelCloseBtn"
-            aria-label="Trở về quỹ đạo toàn cảnh (Esc)">
+          <button type="button" class="panel-close-cross font-mono" id="panelCloseBtn" aria-label="Trở về quỹ đạo toàn cảnh (Esc)">
             &times;
           </button>
         </div>
@@ -157,8 +215,7 @@
         <p class="panel-headline font-body" id="panelMemberHeadline">--</p>
 
         <!-- Lời giải thích phép ẩn dụ trang trí -->
-        <p class="panel-metaphor-note font-mono" id="panelMetaphorNote">✦ Ghi chú: Gắn kết thành viên là phép ẩn dụ
-          thiên văn đại diện dự án.</p>
+        <p class="panel-metaphor-note font-mono" id="panelMetaphorNote">✦ Ghi chú: Gắn kết thành viên là phép ẩn dụ thiên văn đại diện dự án.</p>
 
         <!-- THÔNG SỐ VẬT LÝ THIÊN VĂN -->
         <div class="panel-telemetry-grid font-mono" id="panelTelemetryGrid">
@@ -199,8 +256,7 @@
           <a href="#" class="btn-portal-primary font-body" id="panelPortfolioLink">
             XEM PORTFOLIO CHI TIẾT ↗
           </a>
-          <a href="#" class="btn-portal-secondary font-body" id="panelGithubLink" target="_blank"
-            rel="noopener noreferrer" hidden>
+          <a href="#" class="btn-portal-secondary font-body" id="panelGithubLink" target="_blank" rel="noopener noreferrer" hidden>
             Trang GitHub Cá Nhân ↗
           </a>
         </div>
@@ -218,8 +274,7 @@
     </div>
 
     <!-- BẢNG ĐIỀU KHIỂN DÒNG THỜI GIAN VÀ TỐC ĐỘ QUỸ ĐẠO (TIME SCRUBBING HUD) -->
-    <div class="hud-time-controller spatial-hud-element font-mono" id="hudTimeControl" role="group"
-      aria-label="Bảng điều khiển dòng thời gian">
+    <div class="hud-time-controller spatial-hud-element font-mono" id="hudTimeControl" role="group" aria-label="Bảng điều khiển dòng thời gian">
       <button type="button" class="btn-time-play" id="btnTimeToggle" title="Tạm dừng / Tiếp tục quỹ đạo [Phím Space]">
         <span id="timePlayIcon" class="time-play-icon">❚❚</span>
       </button>
@@ -233,8 +288,7 @@
     </div>
 
     <!-- CỤM ĐIỀU KHIỂN THU PHÓNG VŨ TRỤ (SPATIAL ZOOM HUD CLUSTER) -->
-    <div class="hud-zoom-controls spatial-hud-element font-mono" id="hudZoomControls" role="toolbar"
-      aria-label="Điều khiển thu phóng Hệ Mặt Trời">
+    <div class="hud-zoom-controls spatial-hud-element font-mono" id="hudZoomControls" role="toolbar" aria-label="Điều khiển thu phóng Hệ Mặt Trời">
       <button type="button" class="btn-hud-zoom" id="btnZoomIn" title="Phóng to Hệ Mặt Trời (+)">
         <span class="zoom-icon">+</span>
       </button>
@@ -248,16 +302,14 @@
 
     <!-- THANH HUD DƯỚI CÙNG: THANH ĐIỀU HƯỚNG QUỸ ĐẠO & TÌM KIẾM TỌA ĐỘ -->
     <footer class="hud-bottom-bar spatial-hud-element" role="contentinfo">
-
+      
       <!-- Cụm tìm kiếm tọa độ nhanh (Compact Expandable Search) -->
       <div class="hud-search-cluster" id="hudSearchCluster">
         <label for="spatialSearchInput" class="visually-hidden">Tìm kiếm hành tinh hoặc thành viên</label>
         <div class="hud-search-input-box">
           <span class="search-icon-symbol" aria-hidden="true">⌕</span>
-          <input type="text" id="spatialSearchInput" class="hud-search-input font-mono"
-            placeholder="Tìm thiên thể, thành viên..." autocomplete="off">
-          <button type="button" class="hud-search-clear" id="spatialSearchClearBtn" aria-label="Xóa tìm kiếm"
-            hidden>&times;</button>
+          <input type="text" id="spatialSearchInput" class="hud-search-input font-mono" placeholder="Tìm thiên thể, thành viên..." autocomplete="off">
+          <button type="button" class="hud-search-clear" id="spatialSearchClearBtn" aria-label="Xóa tìm kiếm" hidden>&times;</button>
         </div>
         <div class="hud-search-empty-box font-mono" id="spatialSearchEmpty" hidden>
           Không tìm thấy tọa độ thiên thể.
@@ -266,14 +318,11 @@
 
       <!-- Khung cuộn ngang danh sách thiên thể có 2 nút mũi tên -->
       <div class="hud-pills-scroll-wrapper">
-        <button type="button" class="hud-pills-arrow hud-pills-prev" id="btnPillScrollLeft" aria-label="Cuộn sang trái"
-          title="Cuộn sang trái">&lsaquo;</button>
-        <div class="hud-orbit-pills-row font-mono" id="spatialNavPills" role="tablist" tabindex="0"
-          aria-label="Danh sách thiên thể Hệ Mặt Trời">
+        <button type="button" class="hud-pills-arrow hud-pills-prev" id="btnPillScrollLeft" aria-label="Cuộn sang trái" title="Cuộn sang trái">&lsaquo;</button>
+        <div class="hud-orbit-pills-row font-mono" id="spatialNavPills" role="tablist" tabindex="0" aria-label="Danh sách thiên thể Hệ Mặt Trời">
           <!-- Render các nút thiên thể từ JS -->
         </div>
-        <button type="button" class="hud-pills-arrow hud-pills-next" id="btnPillScrollRight" aria-label="Cuộn sang phải"
-          title="Cuộn sang phải">&rsaquo;</button>
+        <button type="button" class="hud-pills-arrow hud-pills-next" id="btnPillScrollRight" aria-label="Cuộn sang phải" title="Cuộn sang phải">&rsaquo;</button>
       </div>
 
     </footer>
@@ -282,6 +331,21 @@
 
   <!-- Tệp logic WebGL 3D (ES6 Module) -->
   <script type="module" src="./group.js"></script>
-</body>
 
+  <!-- BẢO VỆ TUYỆT ĐỐI: Tự động tắt màn hình chờ sau tối đa 2 giây, không bao giờ bị đứng ở 00% -->
+  <script>
+    (function() {
+      const dismissPreloader = function() {
+        const p = document.getElementById('sciFiPreloader');
+        if (p && !p.hidden) {
+          p.classList.add('preloader-fade-out');
+          setTimeout(function() { p.hidden = true; }, 600);
+        }
+      };
+      setTimeout(dismissPreloader, 1800);
+      window.addEventListener('error', dismissPreloader);
+      window.addEventListener('unhandledrejection', dismissPreloader);
+    })();
+  </script>
+</body>
 </html>

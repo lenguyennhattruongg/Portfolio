@@ -12,8 +12,8 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { MEMBERS, normalizeText } from './members.data.js';
-import truongAvatarUrl from './members/le-nguyen-nhat-truong/images/avatar.png';
-import hieuAvatarUrl from './members/nguyen-xuan-hieu/images/avatar.jpg';
+const truongAvatarUrl = './members/le-nguyen-nhat-truong/images/avatar.png';
+const hieuAvatarUrl = './members/nguyen-xuan-hieu/images/avatar.jpg';
 
 // ============================================================================
 // 1. DATA CONTRACT: 10 THIÊN THỂ HỆ MẶT TRỜI & 6 THÀNH VIÊN NHÓM 02
@@ -25,7 +25,7 @@ const MEMBERS_DATA = MEMBERS.map((m, idx) => ({
   role: m.role || 'Thành viên',
   seq: `THÀNH VIÊN // 0${idx + 1}`,
   portfolio: m.portfolio,
-  github: m.github || 'https://github.com/lenguyennhattruongg/Portfolio',
+  github: m.github || 'https://github.com/nguyenxuanhieu2903/portfolio-group',
   avatar: m.avatar || (m.slug === 'le-nguyen-nhat-truong' ? truongAvatarUrl : (m.slug === 'nguyen-xuan-hieu' ? hieuAvatarUrl : null)),
   tags: Array.isArray(m.tags) ? m.tags : []
 }));
@@ -811,6 +811,10 @@ const dom = {
   btnModeWarp: document.getElementById('btnModeWarp'),
   btnAudioToggle: document.getElementById('btnAudioToggle'),
   audioStatusText: document.getElementById('audioStatusText'),
+  btnGraphicsToggle: document.getElementById('btnGraphicsToggle'),
+  graphicsStatusText: document.getElementById('graphicsStatusText'),
+  solarSystem2D: document.getElementById('solarSystem2D'),
+  orrery2DViewport: document.getElementById('orrery2DViewport'),
   btnResetOrbit: document.getElementById('btnResetOrbit'),
   btnZoomIn: document.getElementById('btnZoomIn'),
   btnZoomOut: document.getElementById('btnZoomOut'),
@@ -1361,6 +1365,8 @@ class MilkyWaySolarSystemEngine {
     this.transEndTarget = new THREE.Vector3();
     this.transMidControl = new THREE.Vector3();
     this.targetFocusMesh = null;
+    document.querySelectorAll('.orrery-planet-node').forEach((n) => n.classList.remove('is-selected-2d'));
+    document.querySelectorAll('.orrery-orbit-path').forEach((o) => o.classList.remove('is-active-orbit'));
     this.targetFollowOffset = new THREE.Vector3();
     this.targetLateralOffset = new THREE.Vector3();
 
@@ -1382,6 +1388,8 @@ class MilkyWaySolarSystemEngine {
     this.isPaused = false;
     this.sunShaderTime = 0.0;
     this.isPhotoMode = false;
+    this.isLowGraphics = localStorage.getItem('cosmic_low_graphics') === 'true';
+    this.is2DMode = localStorage.getItem('cosmic_mode_2d') === 'true';
 
     // Loading Manager cho Sci-Fi Telemetry Preloader
     this.loadingManager = new THREE.LoadingManager(
@@ -1402,8 +1410,23 @@ class MilkyWaySolarSystemEngine {
         if (dom.preloaderFillBar) dom.preloaderFillBar.style.width = `${pct}%`;
         const filename = url.split('/').pop() || url;
         if (dom.preloaderItemText) dom.preloaderItemText.textContent = `NẠP DỮ LIỆU VIỄN TRẮC: ${filename}`;
+      },
+      (url) => {
+        console.warn('Lỗi nạp texture thiên văn:', url);
+        if (dom.preloader) {
+          dom.preloader.classList.add('preloader-fade-out');
+          setTimeout(() => { dom.preloader.hidden = true; }, 500);
+        }
       }
     );
+
+    // Fallback an toàn: Tự động tắt preloader sau tối đa 2.5 giây nếu tài nguyên mạng bị nghẽn
+    setTimeout(() => {
+      if (dom.preloader && !dom.preloader.hidden) {
+        dom.preloader.classList.add('preloader-fade-out');
+        setTimeout(() => { dom.preloader.hidden = true; }, 600);
+      }
+    }, 2500);
     this.textureLoader = new THREE.TextureLoader(this.loadingManager);
 
     // Unreal Bloom Post-Processing Pipeline & Comet
@@ -1486,6 +1509,12 @@ class MilkyWaySolarSystemEngine {
       ONE: THREE.TOUCH.ROTATE,
       TWO: THREE.TOUCH.DOLLY_PAN
     };
+
+    // Khởi tạo sơ đồ 2D và khôi phục trạng thái đã lưu
+    this.build2DOrrery();
+    if (this.is2DMode) {
+      this.set2DMode(true, false);
+    }
 
     // Hỗ trợ ngắt chuyển cảnh an toàn (Zero-jump Interruptibility) trên chuột, con lăn và cảm ứng chạm
     const interruptTransition = () => {
@@ -2554,13 +2583,300 @@ class MilkyWaySolarSystemEngine {
   /**
    * Bật / Tắt chế độ quan sát toàn cảnh không HUD (Clean Photo Mode [H])
    */
+  /**
+   * Bật / Tắt chế độ quan sát toàn cảnh không HUD (Clean Photo Mode [H])
+   */
   togglePhotoMode() {
-    this.isPhotoMode = !this.isPhotoMode;
-    document.body.classList.toggle('hud-photo-mode', this.isPhotoMode);
-    if (dom.photoModeToast) {
-      dom.photoModeToast.hidden = !this.isPhotoMode;
+    if (this.isPhotoMode) {
+      this.exitPhotoMode();
+    } else {
+      this.enterPhotoMode();
     }
-    audio.playCelestialChime(this.isPhotoMode ? 600 : 420);
+  }
+
+  enterPhotoMode() {
+    this.isPhotoMode = true;
+    document.body.classList.add('hud-photo-mode');
+    if (dom.photoModeToast) {
+      dom.photoModeToast.hidden = false;
+    }
+    audio.playCelestialChime(600);
+  }
+
+  exitPhotoMode() {
+    if (!this.isPhotoMode) return;
+    this.isPhotoMode = false;
+    document.body.classList.remove('hud-photo-mode');
+    if (dom.photoModeToast) {
+      dom.photoModeToast.hidden = true;
+    }
+    audio.playCelestialChime(420);
+    if (dom.currentFocusReadout && !this.focusedPlanet) {
+      dom.currentFocusReadout.textContent = 'HỆ MẶT TRỜI // TOÀN CẢNH QUỸ ĐẠO';
+    }
+  }
+
+  /**
+   * Xây dựng sơ đồ quỹ đạo Hệ Mặt Trời 2D tương tác (Interactive 2D Space Orrery)
+   */
+  build2DOrrery() {
+    if (!dom.orrery2DViewport) return;
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 1000 1000');
+    svg.setAttribute('class', 'orrery-svg');
+    svg.setAttribute('role', 'region');
+    svg.setAttribute('aria-label', 'Bản đồ quỹ đạo 2D Hệ Mặt Trời');
+
+    // defs: Gradients & Glow
+    const defs = document.createElementNS(svgNS, 'defs');
+    defs.innerHTML = `
+      <radialGradient id="sunGrad2D" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFFBEB" />
+        <stop offset="35%" stop-color="#FCD34D" />
+        <stop offset="70%" stop-color="#F59E0B" />
+        <stop offset="100%" stop-color="#D97706" />
+      </radialGradient>
+      <radialGradient id="sunGlow2D" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(245, 158, 11, 0.45)" />
+        <stop offset="50%" stop-color="rgba(245, 158, 11, 0.15)" />
+        <stop offset="100%" stop-color="rgba(245, 158, 11, 0.0)" />
+      </radialGradient>
+    `;
+    svg.appendChild(defs);
+
+    // Background radar axes & boundary
+    const bgGroup = document.createElementNS(svgNS, 'g');
+    bgGroup.innerHTML = `
+      <line x1="50" y1="500" x2="950" y2="500" stroke="rgba(142, 156, 255, 0.07)" stroke-width="1" stroke-dasharray="4,6" />
+      <line x1="500" y1="50" x2="500" y2="950" stroke="rgba(142, 156, 255, 0.07)" stroke-width="1" stroke-dasharray="4,6" />
+      <circle cx="500" cy="500" r="490" fill="none" stroke="rgba(56, 189, 248, 0.12)" stroke-width="1.5" stroke-dasharray="6,8" />
+    `;
+    svg.appendChild(bgGroup);
+
+    // Orbits group
+    const orbitsGroup = document.createElementNS(svgNS, 'g');
+    orbitsGroup.setAttribute('class', 'orrery-orbits-group');
+    svg.appendChild(orbitsGroup);
+
+    // Planets group
+    const planetsGroup = document.createElementNS(svgNS, 'g');
+    planetsGroup.setAttribute('class', 'orrery-planets-group');
+    svg.appendChild(planetsGroup);
+
+    // Center Sun
+    const sunGroup = document.createElementNS(svgNS, 'g');
+    sunGroup.setAttribute('class', 'orrery-sun-group');
+    sunGroup.setAttribute('role', 'button');
+    sunGroup.setAttribute('tabindex', '0');
+    sunGroup.setAttribute('data-id', 'sun');
+    sunGroup.innerHTML = `
+      <circle cx="500" cy="500" r="85" fill="url(#sunGlow2D)" />
+      <circle cx="500" cy="500" r="42" fill="url(#sunGrad2D)" stroke="#FDE68A" stroke-width="2" class="sun-disk-2d" />
+      <text x="500" y="504" text-anchor="middle" fill="#78350F" font-family="monospace" font-size="11" font-weight="900" pointer-events="none">☉ SUN</text>
+      <text x="500" y="562" text-anchor="middle" fill="#FBBF24" font-family="monospace" font-size="10" font-weight="700" letter-spacing="1">MẶT TRỜI // NHÓM 02</text>
+    `;
+    sunGroup.addEventListener('click', () => this.focusPlanet('sun'));
+    planetsGroup.appendChild(sunGroup);
+
+    // Cấu hình tọa độ quỹ đạo, góc, bán kính cho từng hành tinh
+    const planetConfigs = [
+      { id: 'mercury', R: 85, angle: -45, r: 10, color: '#94A3B8', border: '#CBD5E1' },
+      { id: 'venus', R: 135, angle: 195, r: 14, color: '#F59E0B', border: '#FDE68A' },
+      { id: 'earth', R: 190, angle: 35, r: 16, color: '#38BDF8', border: '#7DD3FC' },
+      { id: 'mars', R: 250, angle: 140, r: 13, color: '#EF4444', border: '#FCA5A5' },
+      { id: 'asteroid', isBelt: true, R: 290 },
+      { id: 'jupiter', R: 335, angle: -125, r: 23, color: '#FB923C', border: '#FED7AA' },
+      { id: 'saturn', R: 390, angle: -18, r: 19, color: '#FBBF24', border: '#FEF08A' },
+      { id: 'uranus', R: 435, angle: 80, r: 14, color: '#2DD4BF', border: '#99F6E4' },
+      { id: 'neptune', R: 465, angle: -165, r: 14, color: '#60A5FA', border: '#BAE6FD' },
+      { id: 'pluto', R: 490, angle: 115, r: 8, color: '#CBD5E1', border: '#F1F5F9' }
+    ];
+
+    planetConfigs.forEach((cfg) => {
+      if (cfg.isBelt) {
+        const beltCircle = document.createElementNS(svgNS, 'circle');
+        beltCircle.setAttribute('cx', '500');
+        beltCircle.setAttribute('cy', '500');
+        beltCircle.setAttribute('r', cfg.R);
+        beltCircle.setAttribute('fill', 'none');
+        beltCircle.setAttribute('stroke', 'rgba(148, 163, 184, 0.28)');
+        beltCircle.setAttribute('stroke-width', '6');
+        beltCircle.setAttribute('stroke-dasharray', '2,6');
+        orbitsGroup.appendChild(beltCircle);
+        return;
+      }
+
+      const data = SOLAR_SYSTEM_DATA.find((p) => p.id === cfg.id);
+      if (!data) return;
+      const member = MEMBERS_DATA.find((m) => m.id === data.memberId);
+
+      // Quỹ đạo 2D
+      const orbitCircle = document.createElementNS(svgNS, 'circle');
+      orbitCircle.setAttribute('cx', '500');
+      orbitCircle.setAttribute('cy', '500');
+      orbitCircle.setAttribute('r', cfg.R);
+      orbitCircle.setAttribute('class', 'orrery-orbit-path');
+      orbitCircle.setAttribute('data-orbit-id', cfg.id);
+      orbitsGroup.appendChild(orbitCircle);
+
+      // Tọa độ hành tinh
+      const rad = (cfg.angle * Math.PI) / 180;
+      const px = 500 + cfg.R * Math.cos(rad);
+      const py = 500 + cfg.R * Math.sin(rad);
+
+      const nodeG = document.createElementNS(svgNS, 'g');
+      nodeG.setAttribute('class', 'orrery-planet-node');
+      nodeG.setAttribute('data-id', cfg.id);
+      nodeG.setAttribute('role', 'button');
+      nodeG.setAttribute('tabindex', '0');
+      nodeG.setAttribute('aria-label', `${data.name} - ${member ? member.name : ''}`);
+
+      // Selection ring
+      const selRing = document.createElementNS(svgNS, 'circle');
+      selRing.setAttribute('cx', px);
+      selRing.setAttribute('cy', py);
+      selRing.setAttribute('r', cfg.r + 9);
+      selRing.setAttribute('class', 'orrery-sel-ring');
+      nodeG.appendChild(selRing);
+
+      // Planet body
+      const bodyCircle = document.createElementNS(svgNS, 'circle');
+      bodyCircle.setAttribute('cx', px);
+      bodyCircle.setAttribute('cy', py);
+      bodyCircle.setAttribute('r', cfg.r);
+      bodyCircle.setAttribute('fill', cfg.color);
+      bodyCircle.setAttribute('stroke', cfg.border);
+      bodyCircle.setAttribute('stroke-width', '2');
+      bodyCircle.setAttribute('class', 'orrery-planet-body');
+      nodeG.appendChild(bodyCircle);
+
+      // Vành đai Thổ tinh 2D
+      if (cfg.id === 'saturn') {
+        const satRing = document.createElementNS(svgNS, 'ellipse');
+        satRing.setAttribute('cx', px);
+        satRing.setAttribute('cy', py);
+        satRing.setAttribute('rx', cfg.r * 1.85);
+        satRing.setAttribute('ry', cfg.r * 0.55);
+        satRing.setAttribute('fill', 'none');
+        satRing.setAttribute('stroke', 'rgba(251, 191, 36, 0.75)');
+        satRing.setAttribute('stroke-width', '2.5');
+        satRing.setAttribute('transform', `rotate(-25 ${px} ${py})`);
+        nodeG.appendChild(satRing);
+      }
+
+      // Label & Member Tag
+      const labelG = document.createElementNS(svgNS, 'g');
+      labelG.setAttribute('class', 'orrery-node-label');
+      const isRight = px >= 500;
+      const labelX = isRight ? px + cfg.r + 8 : px - cfg.r - 8;
+      const anchor = isRight ? 'start' : 'end';
+
+      const textTitle = document.createElementNS(svgNS, 'text');
+      textTitle.setAttribute('x', labelX);
+      textTitle.setAttribute('y', py - (member ? 5 : 0));
+      textTitle.setAttribute('text-anchor', anchor);
+      textTitle.setAttribute('class', 'orrery-text-title');
+      textTitle.textContent = `${data.symbol} ${data.name.toUpperCase()}`;
+      labelG.appendChild(textTitle);
+
+      if (member) {
+        const textMember = document.createElementNS(svgNS, 'text');
+        textMember.setAttribute('x', labelX);
+        textMember.setAttribute('y', py + 11);
+        textMember.setAttribute('text-anchor', anchor);
+        textMember.setAttribute('class', 'orrery-text-member');
+        textMember.textContent = member.name;
+        labelG.appendChild(textMember);
+
+        const textRole = document.createElementNS(svgNS, 'text');
+        textRole.setAttribute('x', labelX);
+        textRole.setAttribute('y', py + 23);
+        textRole.setAttribute('text-anchor', anchor);
+        textRole.setAttribute('class', 'orrery-text-role');
+        textRole.textContent = `// ${member.role}`;
+        labelG.appendChild(textRole);
+      }
+
+      nodeG.appendChild(labelG);
+
+      nodeG.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.focusPlanet(cfg.id);
+      });
+
+      planetsGroup.appendChild(nodeG);
+    });
+
+    dom.orrery2DViewport.innerHTML = '';
+    dom.orrery2DViewport.appendChild(svg);
+  }
+
+  /**
+   * Bật / tắt Chế độ 2D Siêu Tiết Kiệm (0% GPU Load cho máy yếu)
+   */
+  setGraphicsMode(isLow, playSound = true) {
+    this.set2DMode(isLow, playSound);
+  }
+
+  set2DMode(is2D, playSound = true) {
+    this.isLowGraphics = is2D;
+    this.is2DMode = is2D;
+    try {
+      localStorage.setItem('cosmic_mode_2d', is2D ? 'true' : 'false');
+    } catch (e) {}
+
+    document.body.classList.toggle('mode-2d-active', is2D);
+
+    if (dom.solarSystem2D) {
+      dom.solarSystem2D.hidden = !is2D;
+    }
+    if (dom.canvas) {
+      dom.canvas.style.display = is2D ? 'none' : 'block';
+    }
+    if (dom.labelsContainer) {
+      dom.labelsContainer.style.display = is2D ? 'none' : 'block';
+    }
+
+    if (dom.btnGraphicsToggle) {
+      dom.btnGraphicsToggle.classList.toggle('active-2d-mode', is2D);
+      dom.btnGraphicsToggle.setAttribute('aria-pressed', is2D ? 'true' : 'false');
+      dom.btnGraphicsToggle.title = is2D
+        ? 'Đang ở Chế độ 2D Siêu Tiết Kiệm (Bấm để bật lại Vũ trụ 3D WebGL)'
+        : 'Bấm để giảm hẳn xuống Chế độ 2D (Tắt 3D WebGL, 0% GPU cho máy yếu)';
+    }
+
+    if (dom.graphicsStatusText) {
+      dom.graphicsStatusText.innerHTML = is2D
+        ? '<span class="label-full">🌌 BẬT LẠI 3D</span><span class="label-short">3D</span>'
+        : '<span class="label-full">⚡ CHẾ ĐỘ 2D</span><span class="label-short">2D</span>';
+    }
+
+    if (dom.currentFocusReadout) {
+      dom.currentFocusReadout.textContent = is2D
+        ? 'TELEMETRY // CHẾ ĐỘ 2D SIÊU TIẾT KIỆM (0% GPU · MƯỢT TUYỆT ĐỐI)'
+        : (this.focusedPlanet 
+            ? `TARGET LOCKED // ${this.focusedPlanet.symbol} ${this.focusedPlanet.name.toUpperCase()}`
+            : 'TELEMETRY // HỆ MẶT TRỜI 3D (WEBGL)');
+    }
+
+    if (playSound) {
+      if (is2D) {
+        audio.playCelestialChime(420);
+      } else {
+        audio.playWarpSound();
+      }
+    }
+
+    // Nếu quay lại 3D thì khởi động lại vòng lặp render
+    if (!is2D) {
+      requestAnimationFrame(this.animate.bind(this));
+    }
+  }
+
+  toggleGraphicsMode() {
+    this.set2DMode(!this.is2DMode, true);
   }
 
   /**
@@ -2591,6 +2907,14 @@ class MilkyWaySolarSystemEngine {
     if (dom.currentFocusReadout) {
       dom.currentFocusReadout.textContent = `TARGET LOCKED // ${data.symbol} ${data.name.toUpperCase()} (${data.vnName.toUpperCase()})`;
     }
+
+    // Đồng bộ highlight cho Bản đồ 2D
+    document.querySelectorAll('.orrery-planet-node').forEach((node) => {
+      node.classList.toggle('is-selected-2d', node.getAttribute('data-id') === id);
+    });
+    document.querySelectorAll('.orrery-orbit-path').forEach((orbit) => {
+      orbit.classList.toggle('is-active-orbit', orbit.getAttribute('data-orbit-id') === id);
+    });
 
     document.querySelectorAll('.orbit-pill').forEach((pill) => {
       pill.classList.toggle('active-pill', pill.getAttribute('data-id') === id);
@@ -2748,6 +3072,8 @@ class MilkyWaySolarSystemEngine {
       if (mem && mem.github) {
         dom.panelGithubLink.hidden = false;
         dom.panelGithubLink.href = mem.github;
+        const ghUsername = mem.github.split('/').filter(Boolean).pop();
+        dom.panelGithubLink.textContent = `GitHub: @${ghUsername} ↗`;
       } else {
         dom.panelGithubLink.hidden = true;
       }
@@ -3005,8 +3331,10 @@ class MilkyWaySolarSystemEngine {
     // 7. Cập nhật nhãn AR
     this.updateARLabels();
 
-    // 8. Render chuẩn điện ảnh qua Unreal Bloom Postprocessing EffectComposer
-    if (this.composer) {
+    // 8. Render chuẩn điện ảnh (Chế độ tiết kiệm render trực tiếp để tối ưu FPS)
+    if (this.isLowGraphics) {
+      this.renderer.render(this.scene, this.camera);
+    } else if (this.composer) {
       this.composer.render();
     } else {
       this.renderer.render(this.scene, this.camera);
@@ -3056,10 +3384,14 @@ class MilkyWaySolarSystemEngine {
     window.addEventListener('pointerup', (e) => {
       // 1. Nếu đang trong chế độ toàn cảnh (Photo mode), chạm nhẹ vào màn hình là thoát ngay
       if (this.isPhotoMode) {
+        // Nếu chạm vào chính nút thoát hoặc toast thì để click listener xử lý, không xử lý ở đây
+        if (e.target.closest('#photoModeToast') || e.target.closest('#btnExitPhoto')) {
+          return;
+        }
         const deltaX = Math.abs(e.clientX - pointerStartX);
         const deltaY = Math.abs(e.clientY - pointerStartY);
         if (deltaX < 15 && deltaY < 15) {
-          this.togglePhotoMode();
+          this.exitPhotoMode();
           return;
         }
       }
@@ -3156,7 +3488,7 @@ class MilkyWaySolarSystemEngine {
         this.togglePhotoMode();
       } else if (e.key === 'Escape') {
         if (this.isPhotoMode) {
-          this.togglePhotoMode();
+          this.exitPhotoMode();
         } else {
           this.resetToOverview();
         }
@@ -3311,18 +3643,33 @@ class MilkyWaySolarSystemEngine {
 
     // Chế độ quan sát toàn cảnh / Chụp ảnh (Clean Photo Mode [H])
     if (dom.btnPhotoMode) {
-      dom.btnPhotoMode.addEventListener('click', () => this.togglePhotoMode());
-    }
-
-    if (dom.btnExitPhoto) {
-      dom.btnExitPhoto.addEventListener('click', (e) => {
-        e.stopPropagation();
+      dom.btnPhotoMode.addEventListener('click', (e) => {
+        e.preventDefault();
         this.togglePhotoMode();
       });
     }
 
+    if (dom.btnExitPhoto) {
+      dom.btnExitPhoto.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.exitPhotoMode();
+      });
+    }
+
     if (dom.photoModeToast) {
-      dom.photoModeToast.addEventListener('click', () => this.togglePhotoMode());
+      dom.photoModeToast.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.exitPhotoMode();
+      });
+    }
+
+    // Nút chuyển chế độ đồ họa (Graphics Quality Toggle)
+    if (dom.btnGraphicsToggle) {
+      dom.btnGraphicsToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.toggleGraphicsMode();
+      });
     }
 
     window.addEventListener('click', () => audio.startAmbience(), { once: true });
@@ -3462,8 +3809,19 @@ class MilkyWaySolarSystemEngine {
 
 // Khởi tạo Engine an toàn bất kể thời điểm script thực thi
 function launchEngine() {
-  const engine = new MilkyWaySolarSystemEngine();
-  engine.init();
+  try {
+    const engine = new MilkyWaySolarSystemEngine();
+    engine.init();
+    window.__milkyWayEngine = engine;
+  } catch (err) {
+    console.error('MilkyWaySolarSystemEngine init error, falling back to 2D:', err);
+    if (window.__dismissPreloader) window.__dismissPreloader();
+    const s2d = document.getElementById('solarSystem2D');
+    if (s2d) {
+      s2d.hidden = false;
+      document.body.classList.add('mode-2d-active');
+    }
+  }
 }
 
 if (document.readyState === 'loading') {

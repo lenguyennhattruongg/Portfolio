@@ -1,6 +1,6 @@
 /**
  * members.data.js — Nguồn dữ liệu duy nhất và chính xác cho 6 thành viên Nhóm 02
- * Quy tắc: Các trường chưa xác minh để null hoặc mảng rỗng [], tuyệt đối KHÔNG điền phỏng đoán.
+ * Cập nhật định danh GitHub và chuyên môn kỹ thuật chính xác cho từng thành viên.
  */
 
 export const TAGS = {};
@@ -13,10 +13,10 @@ export const MEMBERS = [
     name: 'Nguyễn Xuân Hiếu',
     shortName: 'Hiếu',
     symbol: 'Hi',
-    role: 'Trưởng nhóm',
-    headline: null,
-    tags: [],
-    github: null,
+    role: 'Trưởng nhóm / Full-Stack & System',
+    headline: 'Xây dựng ứng dụng toàn diện từ giao diện người dùng, logic hệ thống cho đến hạ tầng mạng vững chắc.',
+    tags: ['Full-Stack', 'Python', 'PHP / PDO', 'PostgreSQL', 'Docker', 'Network Admin'],
+    github: 'https://github.com/nguyenxuanhieu2903',
     avatar: './avatars/nguyen-xuan-hieu.jpg',
     portfolio: './members/nguyen-xuan-hieu/index.html',
     portfolioStatus: 'live'
@@ -28,10 +28,10 @@ export const MEMBERS = [
     name: 'Lê Nguyễn Nhật Trường',
     shortName: 'Trường',
     symbol: 'Tr',
-    role: null,
-    headline: null,
-    tags: [],
-    github: null,
+    role: 'Software Engineer Trainee (Backend Focus)',
+    headline: 'Tập trung kiến trúc hướng đối tượng Java OOP, truyền nhận Socket TCP/IP và hệ thống backend hiệu năng cao.',
+    tags: ['Java Core', 'OOP Architecture', 'Socket TCP/IP', 'Multithreading', 'SQL', 'C/C++'],
+    github: 'https://github.com/lenguyennhattruongg',
     avatar: './avatars/le-nguyen-nhat-truong.png',
     portfolio: './members/le-nguyen-nhat-truong/index.html',
     portfolioStatus: 'live'
@@ -43,10 +43,10 @@ export const MEMBERS = [
     name: 'Nguyễn Thị Thảo Như',
     shortName: 'Như',
     symbol: 'Nh',
-    role: null,
-    headline: null,
-    tags: [],
-    github: null,
+    role: 'Thành viên / Frontend Developer',
+    headline: 'Thiết kế giao diện hiện đại, tối ưu trải nghiệm người dùng và thẩm mỹ tương tác web.',
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'UI/UX'],
+    github: 'https://github.com/NhuThiNguyen',
     avatar: null,
     portfolio: './members/nguyen-thi-thao-nhu/index.html',
     portfolioStatus: 'live'
@@ -58,10 +58,10 @@ export const MEMBERS = [
     name: 'Nguyễn Phạm Y Huỳnh',
     shortName: 'Huỳnh',
     symbol: 'Hy',
-    role: null,
-    headline: null,
-    tags: [],
-    github: null,
+    role: 'Thành viên / Frontend & Data Processing',
+    headline: 'Xử lý dữ liệu và phát triển giao diện người dùng thân thiện, trực quan.',
+    tags: ['JavaScript', 'HTML5/CSS3', 'Data Processing', 'API Integration'],
+    github: 'https://github.com/yhuynh06',
     avatar: null,
     portfolio: './members/nguyen-pham-y-huynh/index.html',
     portfolioStatus: 'live'
@@ -73,10 +73,10 @@ export const MEMBERS = [
     name: 'Lê Hữu Châu',
     shortName: 'Châu',
     symbol: 'Ch',
-    role: null,
-    headline: null,
-    tags: [],
-    github: null,
+    role: 'Thành viên / Web Developer',
+    headline: 'Lập trình ứng dụng web, kiểm thử giao diện và tích hợp tính năng hệ thống.',
+    tags: ['JavaScript', 'HTML5', 'CSS3', 'Web Development'],
+    github: 'https://github.com/lechau06',
     avatar: null,
     portfolio: './members/le-huu-chau/index.html',
     portfolioStatus: 'live'
@@ -88,15 +88,17 @@ export const MEMBERS = [
     name: 'Nguyễn Anh Thư',
     shortName: 'Thư',
     symbol: 'Th',
-    role: null,
-    headline: null,
-    tags: [],
-    github: null,
+    role: 'Thành viên / UI/UX & Web Designer',
+    headline: 'Thiết kế trải nghiệm người dùng tinh tế, phối màu hài hòa và giao diện trực quan.',
+    tags: ['UI/UX Design', 'HTML5', 'CSS3', 'Frontend Layout'],
+    github: 'https://github.com/geneyeah',
     avatar: null,
     portfolio: './members/nguyen-anh-thu/index.html',
     portfolioStatus: 'live'
   }
 ];
+
+export const members = MEMBERS;
 
 /**
  * Chuẩn hóa chuỗi tiếng Việt phục vụ tìm kiếm không phân biệt dấu và chữ đ/Đ
