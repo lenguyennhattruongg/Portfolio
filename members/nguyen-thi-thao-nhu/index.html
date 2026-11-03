@@ -35,7 +35,7 @@
       try {
         var fx = localStorage.getItem('portfolio-fx');
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (fx === 'off' || (!fx && reduce)) document.documentElement.classList.add('fx-off');
+        if (fx === 'off') document.documentElement.classList.add('fx-off');
       } catch (e) {}
     })();
   </script>

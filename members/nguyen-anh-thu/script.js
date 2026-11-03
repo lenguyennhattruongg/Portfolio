@@ -169,7 +169,7 @@ const clothesline = document.querySelector(".clothesline");
 const clothesStage = clothesline ? clothesline.querySelector(".clothesline-stage") : null;
 const clothesRope = clothesline ? clothesline.querySelector(".clothesline-rope") : null;
 const clothesMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-if (clothesline && clothesStage && clothesRope && !clothesMotion.matches) {
+if (clothesline && clothesStage && clothesRope) {
   const originals = [...clothesStage.children];
   let cards = [];
   let width = clothesline.clientWidth;
@@ -290,7 +290,7 @@ function animateEduYear(year, id, delay) {
 }
 
 function playEducation() {
-  if (!eduStage || eduMotionQuery.matches) return;
+  if (!eduStage) return;
   const id = ++eduPlayId;
   eduStage.classList.remove("is-playing");
   eduStage.querySelectorAll(".edu-year").forEach((year) => {
@@ -405,7 +405,7 @@ const interestStage = document.querySelector(".interest-stage");
 const interestGallery = document.querySelector("#interest-gallery");
 const interestArticles = interestStage ? [...interestStage.querySelectorAll(".interest-copy article")] : [];
 if (interestStage && interestGallery && interestArticles.length) {
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reduceMotion = { matches: false };
   const phoneQuery = window.matchMedia("(max-width: 820px)");
   const pool = [];
   let items = [];
