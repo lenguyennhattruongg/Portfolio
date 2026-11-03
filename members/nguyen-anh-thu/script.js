@@ -405,7 +405,7 @@ const interestStage = document.querySelector(".interest-stage");
 const interestGallery = document.querySelector("#interest-gallery");
 const interestArticles = interestStage ? [...interestStage.querySelectorAll(".interest-copy article")] : [];
 if (interestStage && interestGallery && interestArticles.length) {
-  const reduceMotion = { matches: false };
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const phoneQuery = window.matchMedia("(max-width: 820px)");
   const pool = [];
   let items = [];
@@ -492,7 +492,7 @@ if (interestStage && interestGallery && interestArticles.length) {
     if (!drag && dt > 0) {
       flick *= Math.pow(0.05, dt);
       if (Math.abs(flick) < 6) flick = 0;
-      offset += ((reduceMotion.matches ? 0 : 50 * unit) + flick) * dt;
+      offset += (50 * unit + flick) * dt;
     }
     const loop = items.length * pitch;
     offset = ((offset % loop) + loop) % loop;
@@ -555,7 +555,7 @@ if (interestStage && interestGallery && interestArticles.length) {
       activeIndex = nearestItem;
       interestArticles.forEach((article, index) => article.classList.toggle("is-active", index === nearestItem));
     }
-    return Boolean(drag) || flick !== 0 || !reduceMotion.matches;
+    return true;
   }
 
   function tick(time) {
