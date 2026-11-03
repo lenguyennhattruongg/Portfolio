@@ -577,9 +577,12 @@ main {
   background-color: #FFFFFF;
   border: 2px solid var(--metro-ink);
   border-left: 8px solid var(--metro-orange);
-  padding: 1rem 1.25rem;
+  padding: 1.15rem 1.35rem;
   box-shadow: var(--shadow-hard-sm);
   margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
 }
 
 .position-tag {
@@ -589,15 +592,32 @@ main {
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--metro-ink-muted);
-  margin-bottom: 0.2rem;
 }
 
 .position-title {
+  display: block;
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.01em;
+  line-height: 1.35;
   color: var(--metro-ink);
+}
+
+.position-sub {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 0.35rem 0.75rem;
+  background-color: #FFF7ED;
+  border: 1px dashed var(--metro-orange);
+  color: #C2410C;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border-radius: 2px;
+  margin-top: 0.2rem;
 }
 
 .hero-lead-text {
@@ -2895,6 +2915,12 @@ html, body {
 
   .position-title {
     font-size: 0.92rem;
+    word-break: break-word;
+  }
+
+  .position-sub {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.5rem;
     word-break: break-word;
   }
 
