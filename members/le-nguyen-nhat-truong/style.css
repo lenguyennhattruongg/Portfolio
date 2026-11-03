@@ -2656,7 +2656,7 @@ main {
   border: 1.5px solid var(--metro-border);
   border-radius: 4px;
   overflow: hidden;
-  height: 140px;
+  height: 160px;
   background: #0B0F19;
 }
 
@@ -2665,6 +2665,42 @@ main {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  display: block;
+}
+
+/* BANNER MINH HỌA BLUEPRINT KHOANG TẢI GA 03 */
+.skills-blueprint-banner {
+  margin: 1.5rem 0 2rem 0;
+  border: 2px solid var(--metro-ink);
+  box-shadow: var(--shadow-hard-md);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0E131F;
+}
+
+.skills-blueprint-img {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  display: block;
+}
+
+/* BANNER INFOGRAPHIC TIẾN ĐỘ ĐÀO TẠO GA 05 */
+.academic-infographic-banner {
+  margin-bottom: 2rem;
+  border: 2px solid var(--metro-ink);
+  box-shadow: var(--shadow-hard-md);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0E131F;
+}
+
+.academic-infographic-img {
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+  object-fit: contain;
   display: block;
 }
 
