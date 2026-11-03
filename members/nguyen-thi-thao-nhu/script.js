@@ -1,5 +1,4 @@
 // Portfolio Nguyen Thi Thao Nhu - Base Script
-console.log('Portfolio Nguyen Thi Thao Nhu initialized.');
 /**
  * ==========================================================================
  * PERSONAL PORTFOLIO - NGUYỄN THỊ THẢO NHƯ
@@ -39,58 +38,16 @@ function bootPortfolio() {
         localStorage.setItem('portfolio-fx', fxOn() ? 'on' : 'off');
       } catch (e) {}
       syncFxButton();
+      if (window.__liquidEther) {
+        if (fxOn()) window.__liquidEther.start();
+        else window.__liquidEther.pause();
+      }
+      if (window.__contactHands) {
+        if (fxOn()) window.__contactHands.start();
+        else window.__contactHands.stop();
+      }
     });
   }
-
-  /* --------------------------------------------------------------------------
-     1. TYPING EFFECT (HERO SECTION)
-     -------------------------------------------------------------------------- */
-  const typingElement = document.getElementById('typingText');
-  const wordsToType = [
-    'Backend Developer',
-    'Web Developer',
-    'IT Student'
-  ];
-
-  let currentWordIndex = 0;
-  let currentCharIndex = 0;
-  let isDeleting = false;
-  let typingSpeed = 100;
-
-  function typeTextEffect() {
-    if (!typingElement) return;
-
-    const currentWord = wordsToType[currentWordIndex];
-
-    if (isDeleting) {
-      // Đang xóa chữ
-      typingElement.textContent = currentWord.substring(0, currentCharIndex - 1);
-      currentCharIndex--;
-      typingSpeed = 50; // Tốc độ xóa nhanh hơn
-    } else {
-      // Đang gõ chữ
-      typingElement.textContent = currentWord.substring(0, currentCharIndex + 1);
-      currentCharIndex++;
-      typingSpeed = 110; // Tốc độ gõ tự nhiên
-    }
-
-    // Khi đã gõ hết từ
-    if (!isDeleting && currentCharIndex === currentWord.length) {
-      typingSpeed = 1800; // Dừng lại để người xem kịp đọc
-      isDeleting = true;
-    } 
-    // Khi đã xóa hết từ
-    else if (isDeleting && currentCharIndex === 0) {
-      isDeleting = false;
-      currentWordIndex = (currentWordIndex + 1) % wordsToType.length;
-      typingSpeed = 400; // Nghỉ một chút trước khi gõ từ tiếp theo
-    }
-
-    setTimeout(typeTextEffect, typingSpeed);
-  }
-
-  // Khởi động hiệu ứng typing
-  typeTextEffect();
 
   const heroTitle = document.getElementById('heroTitle');
   const heroButtons = document.querySelectorAll('.btn-hero-outline, .btn-hero-ghost');
@@ -351,8 +308,6 @@ function bootPortfolio() {
 
   const projectModal = document.getElementById('projectModal');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
-  const openModalButtons = document.querySelectorAll('.open-modal-btn');
-
   // DOM elements bên trong modal
   const modalBadge = document.getElementById('modalBadge');
   const modalTitle = document.getElementById('modalTitle');
@@ -421,165 +376,212 @@ function bootPortfolio() {
     document.body.style.overflow = ''; // Mở lại cuộn trang
   }
 
-  // Lắng nghe sự kiện click mở modal
-  openModalButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const projectId = btn.getAttribute('data-project');
-      openModal(projectId);
-    });
-  });
+  initContactHands();
 
-  const reduceProjectMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function initContactHands() {
+    const canvas = document.getElementById('contactDots');
+    const section = document.getElementById('contact');
+    if (!canvas || !section) return;
+    const ctx = canvas.getContext('2d');
+    const SRC = {
+      LA: [0, 0.06, 0.47, 0.40],
+      RA: [0.53, 0.06, 0.47, 0.40],
+      LB: [0, 0.55, 0.47, 0.40],
+      RB: [0.53, 0.55, 0.47, 0.40]
+    };
+    let tiles = null;
+    let cols = 0;
+    let rows = 0;
+    let step = 7;
+    let rowStep = 14;
+    let radius = 3;
+    let viewW = 1;
+    let viewH = 1;
+    let dpr = 1;
+    let fieldA;
+    let fieldB;
+    let running = false;
+    let visible = false;
+    const started = performance.now();
+    const LOOP = 20;
 
-  document.querySelectorAll('.project-fan-card[data-project]').forEach((card) => {
-    card.addEventListener('click', (event) => {
-      if (event.target.closest('a, button')) return;
-      const projectId = card.getAttribute('data-project');
-      if (projectId) openModal(projectId);
-    });
-  });
-
-  function initCoverflow(fan) {
-    if (!fan) return;
-    const cards = Array.from(fan.querySelectorAll('.project-fan-card'));
-    const sparksCanvas = fan.querySelector('.projects-fan-sparks');
-    if (!cards.length) return;
-
-    const n = cards.length;
-    let focusF = n <= 3 ? 1 : Math.floor((n - 1) / 2);
-    let pausedUntil = 0;
-    let hovering = false;
-
-    cards.forEach((card, index) => {
-      if (card.getAttribute('data-project')) return;
-      card.addEventListener('click', (event) => {
-        if (event.target.closest('a, button')) return;
-        let offset = index - focusF;
-        if (offset > n / 2) offset -= n;
-        if (offset < -n / 2) offset += n;
-        if (offset < -0.2) focusF = (Math.round(focusF) - 1 + n) % n;
-        else if (offset > 0.2) focusF = (Math.round(focusF) + 1) % n;
-        pausedUntil = performance.now() + 4200;
-      });
-    });
-
-    if (reduceProjectMotion) return;
-
-    let lookX = 0;
-    let lookY = 0;
-    let targetX = 0;
-    let targetY = 0;
-    let idle = 0;
-    const sparks = [];
-    const sparkCtx = sparksCanvas ? sparksCanvas.getContext('2d') : null;
-
-    function layoutSparks() {
-      if (!sparksCanvas) return;
-      const rect = fan.getBoundingClientRect();
-      sparksCanvas.width = Math.floor(rect.width);
-      sparksCanvas.height = Math.floor(rect.height);
+    function hash(a, b) {
+      const x = Math.sin(a * 127.1 + b * 311.7) * 43758.5453;
+      return x - Math.floor(x);
+    }
+    function smooth(edge0, edge1, value) {
+      const t = Math.max(0, Math.min(1, (value - edge0) / ((edge1 - edge0) || 1)));
+      return t * t * (3 - 2 * t);
+    }
+    function mixAt(time, on, off, duration) {
+      return smooth(on, on + duration, time) * (1 - smooth(off, off + duration, time));
     }
 
-    function placeCards() {
-      idle += 0.012;
-      lookX += (targetX - lookX) * 0.08;
-      lookY += (targetY - lookY) * 0.08;
-      const wave = Math.sin(idle) * 6;
+    function resize() {
+      const rect = section.getBoundingClientRect();
+      viewW = Math.max(1, Math.floor(rect.width));
+      viewH = Math.max(1, Math.floor(rect.height));
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      canvas.width = Math.floor(viewW * dpr);
+      canvas.height = Math.floor(viewH * dpr);
+      step = Math.max(5, viewW / 205);
+      rowStep = step * 2.05;
+      cols = Math.ceil(viewW / step);
+      rows = Math.ceil(viewH / rowStep);
+      radius = step * 0.46;
+      fieldA = document.createElement('canvas');
+      fieldB = document.createElement('canvas');
+      fieldA.width = fieldB.width = cols;
+      fieldA.height = fieldB.height = rows;
+    }
 
-      if (n > 3 && fxOn() && !hovering && performance.now() > pausedUntil) {
-        focusF += 0.0042;
-        if (focusF >= n) focusF -= n;
-      }
-
-      cards.forEach((card, index) => {
-        let slotOffset = index - 1;
-        if (n > 3) {
-          let offset = index - focusF;
-          if (offset > n / 2) offset -= n;
-          if (offset < -n / 2) offset += n;
-          const visible = Math.abs(offset) <= 1.28;
-          card.classList.toggle('is-away', !visible);
-          if (!visible) return;
-          slotOffset = offset;
-        }
-
-        const slot = slotOffset * 40 + lookX * 20 + wave * slotOffset;
-        const depth = Math.cos((slot * Math.PI) / 180);
-        const tx = Math.sin((slot * Math.PI) / 180) * 300;
-        const tz = 60 + depth * 150;
-        const lift = lookY * -18 + Math.sin(idle * 1.4 + index) * 8;
-        const scale = 0.86 + depth * 0.2;
-        const glow = 0.25 + Math.max(0, depth) * 0.85;
-        card.style.setProperty('--ry', `${slot}deg`);
-        card.style.setProperty('--tx', `${tx}px`);
-        card.style.setProperty('--tz', `${tz}px`);
-        card.style.setProperty('--lift', `${lift}px`);
-        card.style.setProperty('--scale', scale.toFixed(3));
-        card.style.setProperty('--glow', glow.toFixed(3));
-        card.classList.toggle('is-active', depth > 0.65);
-        card.classList.toggle('is-dim', depth < 0.35);
+    function sliceTiles(image) {
+      const sheetW = image.naturalWidth;
+      const sheetH = image.naturalHeight;
+      tiles = {};
+      Object.keys(SRC).forEach((key) => {
+        const [fx, fy, fw, fh] = SRC[key];
+        const tile = document.createElement('canvas');
+        const sourceW = fw * sheetW;
+        const sourceH = fh * sheetH;
+        tile.width = 420;
+        tile.height = Math.max(1, Math.round(420 * (sourceH / sourceW)));
+        const tileCtx = tile.getContext('2d');
+        tileCtx.imageSmoothingQuality = 'high';
+        tileCtx.drawImage(image, fx * sheetW, fy * sheetH, sourceW, sourceH, 0, 0, tile.width, tile.height);
+        tiles[key] = tile;
       });
     }
 
-    function drawSparks() {
-      if (!sparkCtx || !sparksCanvas) return;
-      sparkCtx.clearRect(0, 0, sparksCanvas.width, sparksCanvas.height);
-      for (let i = sparks.length - 1; i >= 0; i -= 1) {
-        const spark = sparks[i];
-        spark.x += spark.vx;
-        spark.y += spark.vy;
-        spark.life -= 0.02;
-        if (spark.life <= 0) {
-          sparks.splice(i, 1);
-          continue;
+    function handCenterY() {
+      const hello = section.querySelector('.contact-hello');
+      if (!hello) return viewH * (viewH > viewW ? 0.66 : 0.54);
+      const sectionBox = section.getBoundingClientRect();
+      const helloBox = hello.getBoundingClientRect();
+      return (helloBox.top + helloBox.bottom) / 2 - sectionBox.top;
+    }
+
+    function drawHand(field, tile, side, time, centerY) {
+      const portrait = viewH > viewW;
+      const angle = (Math.PI * 2 * time) / LOOP;
+      const phase = side === 'L' ? 0 : Math.PI;
+      const handW = viewW * (portrait ? 0.66 : 0.53);
+      const handH = handW * ((0.40 * 1520) / (0.47 * 2688));
+      const reach = (0.035 * Math.sin(angle + phase) + 0.012 * Math.sin(2 * angle + 1.3 + phase)) * viewW;
+      const scale = 1 + 0.07 * Math.sin(angle + 0.9 + phase);
+      const roll = (side === 'L' ? 1 : -1) * 0.045 * Math.sin(angle + 2.1 + phase);
+      const x = side === 'L' ? reach - viewW * 0.045 : viewW - handW + viewW * 0.045 - reach;
+      const pivotX = side === 'L' ? x : x + handW;
+      const fieldCtx = field.getContext('2d', { willReadFrequently: true });
+      fieldCtx.save();
+      fieldCtx.imageSmoothingEnabled = false;
+      fieldCtx.scale(cols / viewW, rows / viewH);
+      fieldCtx.translate(pivotX, centerY);
+      fieldCtx.rotate(roll);
+      fieldCtx.scale(scale, scale);
+      fieldCtx.translate(-pivotX, -centerY);
+      fieldCtx.drawImage(tile, x, centerY - handH / 2, handW, handH);
+      fieldCtx.restore();
+      return fieldCtx;
+    }
+
+    function render(now) {
+      if (!running) return;
+      if (!tiles || !fieldA) {
+        requestAnimationFrame(render);
+        return;
+      }
+      const time = ((now - started) / 1000) % LOOP;
+      const centerY = handCenterY();
+      const ctxA = fieldA.getContext('2d', { willReadFrequently: true });
+      const ctxB = fieldB.getContext('2d', { willReadFrequently: true });
+      ctxA.setTransform(1, 0, 0, 1, 0, 0);
+      ctxB.setTransform(1, 0, 0, 1, 0, 0);
+      ctxA.fillStyle = '#fff';
+      ctxB.fillStyle = '#fff';
+      ctxA.fillRect(0, 0, cols, rows);
+      ctxB.fillRect(0, 0, cols, rows);
+      drawHand(fieldA, tiles.LA, 'L', time, centerY);
+      drawHand(fieldA, tiles.RA, 'R', time, centerY);
+      drawHand(fieldB, tiles.LB, 'L', time, centerY);
+      drawHand(fieldB, tiles.RB, 'R', time, centerY);
+      const dataA = ctxA.getImageData(0, 0, cols, rows).data;
+      const dataB = ctxB.getImageData(0, 0, cols, rows).data;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, viewW, viewH);
+      ctx.fillStyle = document.body.classList.contains('dark-mode') ? '#f8fafc' : '#1e1b4b';
+      const tick = Math.floor(time * 7);
+      const mixLeft = mixAt(time, 6.2, 14.6, 1.6);
+      const mixRight = mixAt(time, 2.4, 10.4, 1.6);
+      const shifts = [];
+      for (let row = 0; row < rows; row += 1) {
+        shifts[row] = hash(row, tick) > 0.965 ? Math.round((hash(tick, row) - 0.5) * 8) : 0;
+      }
+      for (let row = 0; row < rows; row += 1) {
+        for (let col = 0; col < cols; col += 1) {
+          const seed = 0.55 * hash(col, row) + 0.45 * hash(row * 3.1, 7.7);
+          const mix = col < cols / 2 ? mixLeft : mixRight;
+          let sample = col - shifts[row];
+          if (sample < 0) sample = 0;
+          if (sample > cols - 1) sample = cols - 1;
+          const index = (row * cols + sample) * 4;
+          const lum = ((seed < mix ? dataB : dataA)[index]) / 255;
+          let value = (1 - lum - 0.16) / 0.42;
+          if (value < 0) value = 0;
+          if (value > 1) value = 1;
+          if (value <= 0) continue;
+          value *= 0.86 + 0.14 * Math.sin(time * 3.2 + seed * 40);
+          if (mix > 0.001 && mix < 0.999 && Math.abs(seed - mix) < 0.12) {
+            value *= Math.abs(seed - mix) / 0.12;
+            if (hash(col + tick, row) <= 0.4) value *= 0.3;
+          }
+          const levels = [0, 0.26, 0.52, 0.78, 1];
+          let level = 0;
+          levels.forEach((item) => {
+            if (value >= item - 0.13) level = item;
+          });
+          if (level <= 0) continue;
+          ctx.beginPath();
+          ctx.arc((col + 0.5) * step, (row + 0.5) * rowStep, level === 0.26 ? radius * 0.38 : radius * level, 0, Math.PI * 2);
+          ctx.fill();
         }
-        sparkCtx.beginPath();
-        sparkCtx.fillStyle = `rgba(${spark.c}, ${spark.life})`;
-        sparkCtx.arc(spark.x, spark.y, spark.s * spark.life, 0, Math.PI * 2);
-        sparkCtx.fill();
       }
+      requestAnimationFrame(render);
     }
 
-    function tick() {
-      if (fxOn()) {
-        placeCards();
-        drawSparks();
-      }
-      requestAnimationFrame(tick);
+    function start() {
+      if (running || !visible || !tiles || !fxOn() || document.hidden) return;
+      running = true;
+      requestAnimationFrame(render);
+    }
+    function stop() {
+      running = false;
     }
 
-    layoutSparks();
-    window.addEventListener('resize', layoutSparks);
-    fan.addEventListener('pointerenter', () => {
-      hovering = n > 3;
+    const image = new Image();
+    image.crossOrigin = 'anonymous';
+    image.onload = () => {
+      sliceTiles(image);
+      resize();
+      start();
+    };
+    image.src = 'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261030_025250_100df7b8-31fd-4614-aa4a-c1b7d5b6b273.png&w=1600&q=85';
+    resize();
+    const observer = new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible) start();
+      else stop();
+    }, { threshold: 0.08 });
+    observer.observe(section);
+    window.addEventListener('resize', () => {
+      resize();
     });
-    fan.addEventListener('pointermove', (event) => {
-      hovering = n > 3;
-      const rect = fan.getBoundingClientRect();
-      targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-      targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-      if (sparks.length < 40) {
-        sparks.push({
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-          vx: (Math.random() - 0.5) * 1.6,
-          vy: -1 - Math.random() * 1.4,
-          s: 1.4 + Math.random() * 2.2,
-          life: 1,
-          c: ['244,114,182', '168,85,247', '255,255,255'][Math.floor(Math.random() * 3)]
-        });
-      }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+      else start();
     });
-    fan.addEventListener('pointerleave', () => {
-      hovering = false;
-      targetX = 0;
-      targetY = 0;
-    });
-    requestAnimationFrame(tick);
+    window.__contactHands = { start, stop };
   }
-
-  initCoverflow(document.getElementById('activitiesFan'));
 
   function initWorksDesk() {
     const desk = document.getElementById('worksDesk');
@@ -650,131 +652,6 @@ function bootPortfolio() {
       toastNotification.classList.remove('show');
     }, 4500);
   }
-
-  const contactLanyard = document.getElementById('contactLanyard');
-  const contactBadge = document.getElementById('contactBadge');
-  const passStrap = document.getElementById('passStrap');
-  const lanyardArm = document.getElementById('lanyardArm');
-  const reduceLanyardMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (contactLanyard && contactBadge && passStrap && lanyardArm && !reduceLanyardMotion) {
-    const REST_LEN = 88;
-    const MIN_LEN = 72;
-    const MAX_LEN = 220;
-    let angle = 0;
-    let length = REST_LEN;
-    let targetAngle = 0;
-    let targetLen = REST_LEN;
-    let angVel = 0;
-    let lenVel = 0;
-    let dragging = false;
-    let hovering = false;
-    let hoverX = 0;
-    let time = 0;
-
-    function anchorPoint() {
-      const box = contactLanyard.getBoundingClientRect();
-      return {
-        x: box.left + box.width / 2,
-        y: box.top + 6
-      };
-    }
-
-    function applyPose() {
-      const sway = Math.sin(time * 1.1) * 2.2;
-      const lift = Math.sin(time * 0.85) * 3;
-      lanyardArm.style.transform = `rotate(${-(angle + sway)}deg)`;
-      passStrap.style.height = `${length}px`;
-      contactBadge.style.transform = `translateY(${lift}px) rotate(${angle * 0.16}deg) rotateY(${-angle * 0.28}deg)`;
-    }
-
-    function aimAt(clientX, clientY) {
-      const a = anchorPoint();
-      const dx = clientX - a.x;
-      const dy = Math.max(40, clientY - a.y);
-      targetAngle = Math.atan2(dx, dy) * (180 / Math.PI);
-      targetLen = Math.max(MIN_LEN, Math.min(MAX_LEN, Math.hypot(dx, dy) - 24));
-    }
-
-    function tick() {
-      if (!fxOn() && !dragging) {
-        requestAnimationFrame(tick);
-        return;
-      }
-      time += 0.016;
-      if (!dragging) {
-        if (hovering) {
-          targetAngle += (hoverX * 12 - targetAngle) * 0.06;
-          targetLen += (REST_LEN + Math.abs(hoverX) * 10 - targetLen) * 0.06;
-        } else {
-          targetAngle = Math.sin(time * 0.65) * 8 + Math.sin(time * 1.05) * 3.2;
-          targetLen = REST_LEN + Math.sin(time * 0.8) * 7;
-        }
-      }
-      angVel += (targetAngle - angle) * 0.055;
-      angVel *= 0.9;
-      angle += angVel;
-      lenVel += (targetLen - length) * 0.07;
-      lenVel *= 0.88;
-      length += lenVel;
-      applyPose();
-      requestAnimationFrame(tick);
-    }
-
-    contactLanyard.addEventListener('pointermove', (event) => {
-      const box = contactLanyard.getBoundingClientRect();
-      hoverX = ((event.clientX - box.left) / box.width - 0.5) * 2;
-      hovering = !dragging;
-      if (dragging) aimAt(event.clientX, event.clientY);
-    });
-    contactLanyard.addEventListener('pointerleave', () => {
-      hovering = false;
-    });
-
-    contactBadge.addEventListener('pointerdown', (event) => {
-      if (event.button !== undefined && event.button !== 0) return;
-      event.preventDefault();
-      dragging = true;
-      hovering = false;
-      lanyardArm.classList.add('is-dragging');
-      contactBadge.classList.add('is-dragging');
-      contactBadge.setPointerCapture(event.pointerId);
-      aimAt(event.clientX, event.clientY);
-    });
-
-    contactBadge.addEventListener('pointermove', (event) => {
-      if (!dragging) return;
-      aimAt(event.clientX, event.clientY);
-    });
-
-    function endDrag() {
-      if (!dragging) return;
-      dragging = false;
-      lanyardArm.classList.remove('is-dragging');
-      contactBadge.classList.remove('is-dragging');
-    }
-
-    contactBadge.addEventListener('pointerup', endDrag);
-    contactBadge.addEventListener('pointercancel', endDrag);
-    applyPose();
-    requestAnimationFrame(tick);
-  }
-
-
-  /* --------------------------------------------------------------------------
-     7. BACK TO TOP BUTTON
-     -------------------------------------------------------------------------- */
-  const backToTopBtn = document.getElementById('backToTopBtn');
-
-  if (backToTopBtn) {
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
-
 
   /* --------------------------------------------------------------------------
      8. THEME TOGGLE (LIGHT / DARK MODE)
@@ -967,344 +844,75 @@ function bootPortfolio() {
   }
 
   /* --------------------------------------------------------------------------
-     SITE STARFIELD: twinkle, shooting stars, cursor glow, click bursts
+     INTERESTS
      -------------------------------------------------------------------------- */
-  const starCanvas = document.getElementById('siteStars');
-  if (starCanvas) {
-    const starCtx = starCanvas.getContext('2d');
-    const prefersLessMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const starColors = [
-      [219, 39, 119],
-      [244, 114, 182],
-      [147, 51, 234],
-      [168, 85, 247],
-      [79, 70, 229],
-      [236, 72, 153]
-    ];
+  const interestSwitch = document.getElementById('interestSwitch');
+  if (interestSwitch) {
+    const frames = [...interestSwitch.querySelectorAll('.interest-frame')];
+    const copy = document.getElementById('interestCopy');
+    const kicker = document.getElementById('interestKicker');
+    const title = document.getElementById('interestTitle');
+    const body = document.getElementById('interestBody');
+    const meta = document.getElementById('interestMeta');
+    let current = -1;
+    let swapToken = 0;
 
-    let stars = [];
-    let meteors = [];
-    let sparks = [];
-    let mouseX = window.innerWidth * 0.5;
-    let mouseY = window.innerHeight * 0.35;
-    let parallaxX = 0;
-    let parallaxY = 0;
-    let lastMeteor = 0;
+    const show = (frame) => {
+      const index = frames.indexOf(frame);
+      if (index === current) return;
+      current = index;
+      const token = ++swapToken;
+      copy.classList.add('is-swap');
+      window.setTimeout(() => {
+        if (token !== swapToken) return;
+        kicker.textContent = frame.dataset.kicker;
+        title.textContent = frame.dataset.title;
+        body.textContent = frame.dataset.body;
+        meta.textContent = frame.dataset.meta;
+        copy.classList.remove('is-swap');
+      }, 140);
+    };
 
-    function isDarkSky() {
-      return document.body.classList.contains('dark-mode');
-    }
-
-    function resizeStarfield() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      starCanvas.width = Math.floor(window.innerWidth * dpr);
-      starCanvas.height = Math.floor(window.innerHeight * dpr);
-      starCanvas.style.width = `${window.innerWidth}px`;
-      starCanvas.style.height = `${window.innerHeight}px`;
-      starCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      seedStars();
-    }
-
-    function seedStars() {
-      const count = Math.round(Math.min(220, Math.max(110, window.innerWidth * 0.14)));
-      stars = Array.from({ length: count }, (_, index) => {
-        const color = starColors[Math.floor(Math.random() * starColors.length)];
-        const hero = index % 7 === 0;
-        return {
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-          size: hero ? 3.4 + Math.random() * 2.8 : 1.4 + Math.random() * 2.2,
-          twinkle: Math.random() * Math.PI * 2,
-          speed: 0.028 + Math.random() * 0.045,
-          depth: 0.2 + Math.random() * 0.8,
-          sparkle: hero || Math.random() > 0.62,
-          color
-        };
+    const pick = () => {
+      const mid = window.innerHeight * 0.5;
+      let nearest = frames[0];
+      let distance = Infinity;
+      frames.forEach((frame) => {
+        const box = frame.getBoundingClientRect();
+        const delta = Math.abs(box.top + box.height / 2 - mid);
+        if (delta < distance) {
+          distance = delta;
+          nearest = frame;
+        }
       });
-    }
+      if (nearest) show(nearest);
+    };
 
-    function drawSparkle(x, y, size, r, g, b, alpha) {
-      starCtx.save();
-      starCtx.translate(x, y);
-      starCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-      starCtx.beginPath();
-      starCtx.moveTo(0, -size * 3.4);
-      starCtx.lineTo(size * 0.55, 0);
-      starCtx.lineTo(0, size * 3.4);
-      starCtx.lineTo(-size * 0.55, 0);
-      starCtx.closePath();
-      starCtx.fill();
-      starCtx.beginPath();
-      starCtx.moveTo(-size * 3.4, 0);
-      starCtx.lineTo(0, size * 0.55);
-      starCtx.lineTo(size * 3.4, 0);
-      starCtx.lineTo(0, -size * 0.55);
-      starCtx.closePath();
-      starCtx.fill();
-      starCtx.restore();
-    }
-
-    function spawnMeteor(fromX, fromY) {
-      const startX = fromX ?? (window.innerWidth * (Math.random() > 0.5 ? -0.05 : 0.08 + Math.random() * 0.7));
-      const startY = fromY ?? (Math.random() * window.innerHeight * 0.55);
-      const speed = 13 + Math.random() * 10;
-      const angle = (16 + Math.random() * 28) * (Math.PI / 180);
-      meteors.push({
-        x: startX,
-        y: startY,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        life: 1,
-        length: 140 + Math.random() * 120,
-        width: 2.6 + Math.random() * 2.2
-      });
-    }
-
-    function spawnBurst(x, y) {
-      for (let i = 0; i < 22; i += 1) {
-        const angle = (Math.PI * 2 * i) / 22 + Math.random() * 0.35;
-        const speed = 1.8 + Math.random() * 4.6;
-        const color = starColors[Math.floor(Math.random() * starColors.length)];
-        sparks.push({
-          x,
-          y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          life: 1,
-          size: 2.2 + Math.random() * 2.8,
-          color
-        });
-      }
-      spawnMeteor(x, y);
-      spawnMeteor(x - 24, y - 10);
-    }
-
-    function drawStarfield(time) {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      if (!fxOn()) {
-        requestAnimationFrame(drawStarfield);
-        return;
-      }
-      const dark = isDarkSky();
-      starCtx.clearRect(0, 0, width, height);
-
-      parallaxX += ((mouseX - width / 2) * 0.06 - parallaxX) * 0.08;
-      parallaxY += ((mouseY - height / 2) * 0.06 - parallaxY) * 0.08;
-
-      stars.forEach((star) => {
-        star.twinkle += star.speed;
-        const dx = star.x - mouseX;
-        const dy = star.y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const near = Math.max(0, 1 - dist / 260);
-        const pulse = 0.25 + Math.abs(Math.sin(star.twinkle)) * 0.75 + near * 0.7;
-        const px = star.x + parallaxX * star.depth + (near > 0 ? dx * -0.08 * near : 0);
-        const py = star.y + parallaxY * star.depth + (near > 0 ? dy * -0.08 * near : 0);
-        const [r, g, b] = star.color;
-        const alpha = (dark ? 1 : 0.95) * Math.min(1, pulse);
-        const radius = star.size + near * 2.2;
-        drawSparkle(px, py, radius, r, g, b, alpha);
-      });
-
-      if (!prefersLessMotion && time - lastMeteor > 1100 + Math.random() * 900) {
-        spawnMeteor();
-        if (Math.random() > 0.55) spawnMeteor();
-        lastMeteor = time;
-      }
-
-      meteors = meteors.filter((meteor) => meteor.life > 0);
-      meteors.forEach((meteor) => {
-        meteor.x += meteor.vx;
-        meteor.y += meteor.vy;
-        meteor.life -= 0.012;
-        const fade = Math.max(0, meteor.life);
-        const tailX = meteor.x - meteor.vx * (meteor.length / 10);
-        const tailY = meteor.y - meteor.vy * (meteor.length / 10);
-        const glow = starCtx.createLinearGradient(tailX, tailY, meteor.x, meteor.y);
-        glow.addColorStop(0, 'rgba(168, 85, 247, 0)');
-        glow.addColorStop(0.35, `rgba(244, 114, 182, ${0.45 * fade})`);
-        glow.addColorStop(0.75, `rgba(255, 255, 255, ${0.85 * fade})`);
-        glow.addColorStop(1, `rgba(255, 255, 255, ${fade})`);
-        starCtx.strokeStyle = glow;
-        starCtx.lineWidth = meteor.width + 2;
-        starCtx.lineCap = 'round';
-        starCtx.beginPath();
-        starCtx.moveTo(tailX, tailY);
-        starCtx.lineTo(meteor.x, meteor.y);
-        starCtx.stroke();
-        starCtx.lineWidth = meteor.width;
-        starCtx.stroke();
-        starCtx.beginPath();
-        starCtx.fillStyle = `rgba(255, 255, 255, ${fade})`;
-        starCtx.arc(meteor.x, meteor.y, 3.2, 0, Math.PI * 2);
-        starCtx.fill();
-        starCtx.beginPath();
-        starCtx.fillStyle = `rgba(244, 114, 182, ${0.45 * fade})`;
-        starCtx.arc(meteor.x, meteor.y, 8, 0, Math.PI * 2);
-        starCtx.fill();
-      });
-
-      sparks = sparks.filter((spark) => spark.life > 0);
-      sparks.forEach((spark) => {
-        spark.x += spark.vx;
-        spark.y += spark.vy;
-        spark.vy += 0.03;
-        spark.life -= 0.03;
-        const [r, g, b] = spark.color;
-        starCtx.beginPath();
-        starCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${Math.max(0, spark.life)})`;
-        starCtx.arc(spark.x, spark.y, spark.size * spark.life, 0, Math.PI * 2);
-        starCtx.fill();
-      });
-
-      requestAnimationFrame(drawStarfield);
-    }
-
-    window.addEventListener('resize', resizeStarfield);
-    window.addEventListener('pointermove', (event) => {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-    });
-    window.addEventListener('pointerdown', (event) => {
-      if (!fxOn()) return;
-      if (event.target.closest('a, button, input, textarea, select, label, #contactBadge, #contactLanyard, #lanyardArm')) return;
-      spawnBurst(event.clientX, event.clientY);
-    });
-
-    resizeStarfield();
-    requestAnimationFrame(drawStarfield);
-    setTimeout(() => {
-      if (fxOn() && !prefersLessMotion) spawnMeteor();
-    }, 900);
+    pick();
+    window.addEventListener('scroll', pick, { passive: true });
+    window.addEventListener('resize', pick);
   }
 
-  /* --------------------------------------------------------------------------
-     INTERESTS CINEMA REEL
-     -------------------------------------------------------------------------- */
-  const interestsReel = document.getElementById('interestsReel');
-  const reelCards = interestsReel ? Array.from(interestsReel.querySelectorAll('.reel-card')) : [];
-  const reelPrev = document.getElementById('reelPrev');
-  const reelNext = document.getElementById('reelNext');
-  const reelDots = document.getElementById('reelDots');
-  const reduceReelMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (interestsReel && reelCards.length) {
-    let active = 0;
-    let timer = null;
-    let lookX = 0;
-    let lookY = 0;
-    let targetX = 0;
-    let targetY = 0;
-    let hovering = false;
-
-    reelCards.forEach((_, index) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Sở thích ${index + 1}`);
-      dot.addEventListener('click', () => goTo(index, true));
-      reelDots.appendChild(dot);
-    });
-
-    function wrapOffset(index) {
-      const n = reelCards.length;
-      let offset = index - active;
-      if (offset > n / 2) offset -= n;
-      if (offset < -n / 2) offset += n;
-      return offset;
-    }
-
-    function layout() {
-      lookX += (targetX - lookX) * 0.08;
-      lookY += (targetY - lookY) * 0.08;
-      reelCards.forEach((card, index) => {
-        const offset = wrapOffset(index);
-        const tx = offset * 235 + lookX * 22;
-        const ry = offset * -28;
-        const tz = 110 - Math.abs(offset) * 130;
-        const scale = offset === 0 ? 1.12 : 0.88;
-        const lift = (offset === 0 ? -8 : 18) + lookY * -12;
-        card.style.setProperty('--tx', `${tx}px`);
-        card.style.setProperty('--ry', `${ry}deg`);
-        card.style.setProperty('--tz', `${tz}px`);
-        card.style.setProperty('--scale', scale.toFixed(3));
-        card.style.setProperty('--lift', `${lift}px`);
-        card.classList.toggle('is-active', offset === 0);
-        card.classList.toggle('is-side', Math.abs(offset) === 1);
-        card.classList.toggle('is-far', Math.abs(offset) >= 2);
-        if (offset !== 0) card.classList.remove('is-open');
+  const goalStage = document.getElementById('goalStage');
+  if (goalStage && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const panels = [...goalStage.querySelectorAll('.goal-card')];
+    const dots = [...goalStage.querySelectorAll('.goal-dot')];
+    const showGoal = (index) => {
+      panels.forEach((panel, i) => {
+        const on = i === index;
+        panel.classList.toggle('is-on', on);
+        panel.setAttribute('aria-hidden', on ? 'false' : 'true');
       });
-      Array.from(reelDots.children).forEach((dot, index) => {
-        dot.classList.toggle('is-on', index === active);
+      dots.forEach((dot, i) => {
+        const on = i === index;
+        dot.setAttribute('aria-selected', on ? 'true' : 'false');
+        if (on) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
       });
-    }
-
-    function goTo(index, fromUser) {
-      const n = reelCards.length;
-      active = ((index % n) + n) % n;
-      if (fromUser) restartTimer();
-      layout();
-    }
-
-    function restartTimer() {
-      clearInterval(timer);
-      if (reduceReelMotion) return;
-      timer = setInterval(() => {
-        const storyOpen = reelCards.some((card) => card.classList.contains('is-open'));
-        if (!hovering && !storyOpen) goTo(active + 1);
-      }, 4500);
-    }
-
-    reelPrev.addEventListener('click', () => goTo(active - 1, true));
-    reelNext.addEventListener('click', () => goTo(active + 1, true));
-
-    reelCards.forEach((card, index) => {
-      card.addEventListener('click', (event) => {
-        if (event.target.closest('.reel-play')) return;
-        if (!card.classList.contains('is-active')) {
-          goTo(index, true);
-          return;
-        }
-        card.classList.toggle('is-open');
-      });
-      const play = card.querySelector('.reel-play');
-      if (play) {
-        play.addEventListener('click', (event) => {
-          event.stopPropagation();
-          goTo(index, true);
-          card.classList.add('is-open');
-        });
-      }
+    };
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => showGoal(index));
     });
-
-    interestsReel.addEventListener('pointermove', (event) => {
-      const rect = interestsReel.getBoundingClientRect();
-      targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-      targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-      hovering = true;
-    });
-    interestsReel.addEventListener('pointerleave', () => {
-      targetX = 0;
-      targetY = 0;
-      hovering = false;
-    });
-
-    document.addEventListener('keydown', (event) => {
-      const rect = interestsReel.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (!inView) return;
-      if (event.key === 'ArrowLeft') goTo(active - 1, true);
-      if (event.key === 'ArrowRight') goTo(active + 1, true);
-    });
-
-    function tick() {
-      if (fxOn()) layout();
-      requestAnimationFrame(tick);
-    }
-
-    layout();
-    restartTimer();
-    if (!reduceReelMotion) requestAnimationFrame(tick);
   }
 
   if (eduJourney) {
@@ -1321,104 +929,36 @@ function bootPortfolio() {
   /* --------------------------------------------------------------------------
      SKILL ICONS: gentle float + magnetic pointer
      -------------------------------------------------------------------------- */
-  const skillsStage = document.querySelector('.skills-stage');
-  const skillIcons = skillsStage ? [...skillsStage.querySelectorAll('.skill-icon')] : [];
-  const reduceSkillMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (skillsStage && skillIcons.length && !reduceSkillMotion) {
-    const bits = skillIcons.map((el, i) => ({
-      el,
-      phase: i * 0.84,
-      ampX: 3.5 + (i % 4) * 1.2,
-      ampY: 5.5 + (i % 5) * 1.1,
-      speed: 0.62 + (i % 6) * 0.07,
-      tilt: 1.4 + (i % 3) * 0.45,
-      x: 0,
-      y: 0,
-      s: 1,
-      r: 0
-    }));
-
-    skillIcons.forEach((el) => el.classList.add('is-live'));
-
-    let pointerX = 0;
-    let pointerY = 0;
-    let pointerIn = false;
-
-    skillsStage.addEventListener('pointermove', (event) => {
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      pointerIn = true;
+  document.querySelectorAll('.skill-file').forEach((file) => {
+    const hit = file.querySelector('.skill-file-hit');
+    let locked = false;
+    const setOpen = (open) => {
+      file.classList.toggle('is-open', open);
+      if (hit) hit.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    file.addEventListener('pointerenter', () => setOpen(true));
+    file.addEventListener('pointerleave', () => {
+      if (!locked) setOpen(false);
     });
-    skillsStage.addEventListener('pointerleave', () => {
-      pointerIn = false;
+    file.addEventListener('click', () => {
+      locked = !locked;
+      setOpen(locked || file.matches(':hover'));
     });
-    skillIcons.forEach((el) => {
-      el.addEventListener('click', () => {
-        if (!fxOn()) return;
-        el.style.transition = 'transform 0.18s ease';
-        const current = bits.find((b) => b.el === el);
-        if (!current) return;
-        current.s = 1.22;
-        requestAnimationFrame(() => {
-          el.style.transition = '';
-        });
+    file.querySelectorAll('.skill-icon').forEach((icon) => {
+      icon.addEventListener('pointermove', (event) => {
+        if (!file.classList.contains('is-open') || !fxOn()) return;
+        const box = icon.getBoundingClientRect();
+        const x = (event.clientX - (box.left + box.width / 2)) * 0.22;
+        const y = (event.clientY - (box.top + box.height / 2)) * 0.22;
+        icon.style.setProperty('--drift-x', `${x.toFixed(1)}px`);
+        icon.style.setProperty('--drift-y', `${y.toFixed(1)}px`);
+      });
+      icon.addEventListener('pointerleave', () => {
+        icon.style.removeProperty('--drift-x');
+        icon.style.removeProperty('--drift-y');
       });
     });
-
-    function tickSkills(now) {
-      if (fxOn()) {
-        const t = now * 0.001;
-        bits.forEach((bit) => {
-          const bobX = Math.sin(t * bit.speed + bit.phase) * bit.ampX;
-          const bobY = Math.cos(t * bit.speed * 0.86 + bit.phase * 1.25) * bit.ampY;
-          const bobR = Math.sin(t * bit.speed * 0.55 + bit.phase) * bit.tilt;
-
-          let magX = 0;
-          let magY = 0;
-          let extra = 0;
-          const box = bit.el.getBoundingClientRect();
-          const cx = box.left + box.width / 2;
-          const cy = box.top + box.height / 2;
-
-          if (pointerIn) {
-            const dx = pointerX - cx;
-            const dy = pointerY - cy;
-            const dist = Math.hypot(dx, dy);
-            const radius = 150;
-            if (dist < radius) {
-              const force = 1 - dist / radius;
-              const eased = force * force;
-              magX = dx * eased * 0.22;
-              magY = dy * eased * 0.22;
-              extra = eased * 0.16;
-              bit.el.classList.toggle('is-near', force > 0.35);
-            } else {
-              bit.el.classList.remove('is-near');
-            }
-          } else {
-            bit.el.classList.remove('is-near');
-          }
-
-          const tx = bobX + magX;
-          const ty = bobY + magY;
-          const ts = 1 + extra;
-          const tr = bobR + magX * 0.04;
-
-          bit.x += (tx - bit.x) * 0.1;
-          bit.y += (ty - bit.y) * 0.1;
-          bit.s += (ts - bit.s) * 0.12;
-          bit.r += (tr - bit.r) * 0.1;
-
-          bit.el.style.transform = `translate3d(${bit.x.toFixed(2)}px, ${bit.y.toFixed(2)}px, 0) rotate(${bit.r.toFixed(2)}deg) scale(${bit.s.toFixed(3)})`;
-        });
-      }
-      requestAnimationFrame(tickSkills);
-    }
-
-    requestAnimationFrame(tickSkills);
-  }
-
+  });
 }
 
 if (document.readyState === 'loading') {
