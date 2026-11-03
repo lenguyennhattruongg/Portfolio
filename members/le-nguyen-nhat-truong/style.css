@@ -72,7 +72,7 @@ body {
   color: var(--metro-ink);
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Lựa chọn văn bản màu cam tín hiệu */
@@ -239,7 +239,10 @@ pre,
   z-index: 3;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  justify-content: space-between;
+  flex-grow: 1;
+  height: 100%;
+  min-height: 420px;
 }
 
 .station-stop {
@@ -2522,6 +2525,149 @@ main {
   pointer-events: none;
 }
 
+/* DẢI 3 ẢNH MINH CHỨNG TRỰC TIẾP TRÊN MẶT VÉ (TRIPLE-EVIDENCE GALLERY STRIP) */
+.ticket-gallery-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.ticket-gallery-item {
+  position: relative;
+  border: 1.5px solid var(--metro-border);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0B0F19;
+  height: 105px;
+  cursor: pointer;
+  transition: transform var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.ticket-gallery-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--metro-orange);
+}
+
+.ticket-gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.ticket-gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(11, 15, 25, 0.9);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #E2E8F0;
+  padding: 3px 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* THƯ VIỆN KHOẢNH KHẮC CÁ NHÂN (PERSONAL GALLERY TRONG GA 02) */
+.personal-gallery-block {
+  margin-top: 2.5rem;
+  background: #FFFFFF;
+  border: 2px solid var(--metro-ink);
+  box-shadow: var(--shadow-hard-md);
+  padding: 1.5rem;
+}
+
+.personal-gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--metro-ink);
+}
+
+.personal-gallery-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--metro-ink);
+  margin: 0;
+}
+
+.personal-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.personal-photo-card {
+  border: 1.5px solid var(--metro-border);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--metro-paper);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.personal-photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hard-sm);
+  border-color: var(--metro-ink);
+}
+
+.personal-photo-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+
+.personal-photo-caption {
+  padding: 0.85rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--metro-ink);
+  background: #FFFFFF;
+  border-top: 1px solid var(--metro-border);
+  flex-grow: 1;
+}
+
+.personal-photo-tag {
+  display: block;
+  font-weight: 800;
+  color: var(--metro-orange);
+  margin-bottom: 0.25rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+}
+
+/* ẢNH MINH HỌA TRONG BEYOND CODING */
+.beyond-card-img-wrap {
+  margin: 10px 0 14px 0;
+  border: 1.5px solid var(--metro-border);
+  border-radius: 4px;
+  overflow: hidden;
+  height: 140px;
+  background: #0B0F19;
+}
+
+.beyond-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
 /* Ảnh minh chứng trong Modal */
 .modal-proof-gallery {
   margin: 16px 0 20px 0;
@@ -2818,19 +2964,19 @@ main {
 
 /* Ngăn chặn tuyệt đối tràn thanh cuộn ngang trên mọi thiết bị */
 html, body {
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
   -webkit-tap-highlight-color: transparent;
 }
 
 .metro-layout {
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
   max-width: 100vw;
 }
 
 .metro-main-content {
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
   max-width: 100%;
   min-width: 0;
