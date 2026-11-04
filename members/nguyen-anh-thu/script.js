@@ -169,7 +169,7 @@ const clothesline = document.querySelector(".clothesline");
 const clothesStage = clothesline ? clothesline.querySelector(".clothesline-stage") : null;
 const clothesRope = clothesline ? clothesline.querySelector(".clothesline-rope") : null;
 const clothesMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-if (clothesline && clothesStage && clothesRope && !clothesMotion.matches) {
+if (clothesline && clothesStage && clothesRope) {
   const originals = [...clothesStage.children];
   let cards = [];
   let width = clothesline.clientWidth;
@@ -290,7 +290,7 @@ function animateEduYear(year, id, delay) {
 }
 
 function playEducation() {
-  if (!eduStage || eduMotionQuery.matches) return;
+  if (!eduStage) return;
   const id = ++eduPlayId;
   eduStage.classList.remove("is-playing");
   eduStage.querySelectorAll(".edu-year").forEach((year) => {
@@ -492,7 +492,7 @@ if (interestStage && interestGallery && interestArticles.length) {
     if (!drag && dt > 0) {
       flick *= Math.pow(0.05, dt);
       if (Math.abs(flick) < 6) flick = 0;
-      offset += ((reduceMotion.matches ? 0 : 50 * unit) + flick) * dt;
+      offset += (50 * unit + flick) * dt;
     }
     const loop = items.length * pitch;
     offset = ((offset % loop) + loop) % loop;
@@ -555,7 +555,7 @@ if (interestStage && interestGallery && interestArticles.length) {
       activeIndex = nearestItem;
       interestArticles.forEach((article, index) => article.classList.toggle("is-active", index === nearestItem));
     }
-    return Boolean(drag) || flick !== 0 || !reduceMotion.matches;
+    return true;
   }
 
   function tick(time) {

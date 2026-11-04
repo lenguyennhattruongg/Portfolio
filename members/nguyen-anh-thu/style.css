@@ -578,14 +578,5 @@ h1 span, .section-heading h2 span, .contact-copy h2 span { color: var(--blue); }
   .edu-card h3 { font-size: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { transform: none; opacity: 1; }
-  .edu-stage.is-static .edu-reveal { opacity: 1 !important; filter: none !important; transform: none !important; animation: none !important; }
-  .edu-stage.is-static::before { transform: scaleY(1) !important; animation: none !important; }
-  .edu-stage.is-static .edu-card-motion,
-  .edu-stage.is-static .edu-play::after { animation: none !important; }
-  .id-swing { animation: none; transform: none; }
-  .clothesline { height: auto; overflow: visible; cursor: auto; }
-  .clothesline-stage { position: static; display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; padding-top: 28px; }
-  .line-card { position: static; }
 }

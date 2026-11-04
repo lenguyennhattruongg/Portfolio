@@ -33,19 +33,28 @@
 Dự án được xây dựng và triển khai tự động qua **GitHub Actions** lên **GitHub Pages**:
 
 * 🌌 **Trang Chủ Cổng Không Gian 3D (Cosmic 3D Solar System):**  
-  👉 **[https://nguyenxuanhieu2903.github.io/portfolio-group/](https://nguyenxuanhieu2903.github.io/portfolio-group/)**  
+  👉 **[https://lenguyennhattruongg.github.io/Portfolio/](https://lenguyennhattruongg.github.io/Portfolio/)**  
   *(Không gian WebGL 3D tương tác toàn diện, vật liệu PBR 2K, hậu kỳ Unreal Bloom, âm thanh synthesizer không gian và bộ điều khiển HUD viễn tưởng).*
 
-* 🚀 **Truy Cập Nhanh Portfolio Cá Nhân Đã Hoàn Thành (3/6 Thành Viên):**
+* 🚀 **Truy Cập Nhanh Portfolio Thành Viên Nhóm 02 (Bản Triển Khai Hoàn Chỉnh):**
   * 🌍 **Lê Nguyễn Nhật Trường** *(Trái Đất — Earth):*  
-    👉 **[Xem Portfolio Tuyến Metro K24 ↗](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-nguyen-nhat-truong/index.html)**  
-    *(Chủ đề UTH Metro Bespoke, chuyển ga tàu động GA 01 - GA 06, giả lập Terminal CLI, đo lường chỉ số động và CV chi tiết).*
+    👉 **[Xem Portfolio Tuyến Metro K24 ↗](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/)** • **[Bản CV Web ↗](https://lenguyennhattruongg.github.io/Portfolio/members/le-nguyen-nhat-truong/cv.html)**  
+    *(Chủ đề UTH Metro Bespoke, chuyển ga tàu động GA 01 - GA 06, giả lập Terminal CLI, 4 vé đồ án thực chiến chuẩn 4 khối, đo lường chỉ số động và bộ CV đa nền tảng).*
   * 🔴 **Nguyễn Xuân Hiếu** *(Sao Hỏa — Mars):*  
-    👉 **[Xem Portfolio UTH Lanyard Badge ↗](https://nguyenxuanhieu2903.github.io/portfolio-group/members/nguyen-xuan-hieu/index.html)**  
+    👉 **[Xem Portfolio UTH Lanyard Badge ↗](https://lenguyennhattruongg.github.io/Portfolio/members/nguyen-xuan-hieu/)**  
     *(Điểm nhấn Thẻ sinh viên UTH treo dây đàn hồi tương tác vật lý, hệ màu Jade Pebble Morning, sơ đồ kiến trúc hệ thống SVG và Metrics Dashboard).*
   * ♃ **Lê Hữu Châu** *(Sao Mộc — Jupiter):*  
-    👉 **[Xem Portfolio Khung Tranh Nghệ Thuật ↗](https://nguyenxuanhieu2903.github.io/portfolio-group/members/le-huu-chau/index.html)**  
+    👉 **[Xem Portfolio Khung Tranh Nghệ Thuật ↗](https://lenguyennhattruongg.github.io/Portfolio/members/le-huu-chau/)**  
     *(Ý tưởng phòng trưng bày mỹ thuật số, khung tranh tương tác vật lý kéo thả, nền WebGL Canvas nghệ thuật và typography Playfair Display).*
+  * ♀️ **Nguyễn Thị Thảo Như** *(Sao Kim — Venus):*  
+    👉 **[Xem Portfolio Backend & UI Interaction ↗](https://lenguyennhattruongg.github.io/Portfolio/members/nguyen-thi-thao-nhu/)**  
+    *(Giao diện hiện đại, modal chi tiết dự án, hiệu ứng card tương tác và điều khiển âm thanh).*
+  * ♄ **Nguyễn Anh Thư** *(Sao Thổ — Saturn):*  
+    👉 **[Xem Portfolio Business Analyst & Web Designer ↗](https://lenguyennhattruongg.github.io/Portfolio/members/nguyen-anh-thu/)**  
+    *(Dây phơi kỹ năng đung đưa vật lý, thẻ sinh viên lắc lư, timeline học vấn tương tác và vòng xoay sở thích 3D lượn sóng).*
+  * ☿️ **Nguyễn Phạm Ý Huỳnh** *(Sao Thủy — Mercury):*  
+    👉 **[Xem Portfolio Frontend & Data Processing ↗](https://lenguyennhattruongg.github.io/Portfolio/members/nguyen-pham-y-huynh/)**  
+    *(Giao diện tối giản hiện đại, xử lý dữ liệu trực quan và song ngữ Anh - Việt).*
 
 ---
 
@@ -124,9 +133,9 @@ portfolio-group/
 | 1 | **Nguyễn Xuân Hiếu** | 🔴 **Sao Hỏa** *(Mars)* | Trưởng nhóm • Full-Stack & System Admin | `members/nguyen-xuan-hieu/` | ![Merged](https://img.shields.io/badge/Merged-Done-success?style=flat-square) |
 | 2 | **Lê Nguyễn Nhật Trường** | 🌍 **Trái Đất** *(Earth)* | Thành viên • Full-Stack & Creative UI (Metro Concept) | `members/le-nguyen-nhat-truong/` | ![Merged](https://img.shields.io/badge/Merged-Done-success?style=flat-square) |
 | 3 | **Lê Hữu Châu** | ♃ **Sao Mộc** *(Jupiter)* | Thành viên • Frontend & Gallery Digital Artist | `members/le-huu-chau/` | ![Merged](https://img.shields.io/badge/Merged-Done-success?style=flat-square) |
-| 4 | **Nguyễn Thị Thảo Như** | ♀️ **Sao Kim** *(Venus)* | Thành viên • Backend Developer Aspirant | `members/nguyen-thi-thao-nhu/` | ![In Progress](https://img.shields.io/badge/In%20Progress-Pending-orange?style=flat-square) |
-| 5 | **Nguyễn Phạm Y Huỳnh** | ☿️ **Sao Thủy** *(Mercury)* | Thành viên • Frontend Developer Aspirant | `members/nguyen-pham-y-huynh/` | ![In Progress](https://img.shields.io/badge/In%20Progress-Pending-orange?style=flat-square) |
-| 6 | **Nguyễn Anh Thư** | ♄ **Sao Thổ** *(Saturn)* | Thành viên • Frontend & Web Designer Aspirant | `members/nguyen-anh-thu/` | ![In Progress](https://img.shields.io/badge/In%20Progress-Pending-orange?style=flat-square) |
+| 4 | **Nguyễn Thị Thảo Như** | ♀️ **Sao Kim** *(Venus)* | Thành viên • Backend Developer Aspirant | `members/nguyen-thi-thao-nhu/` | ![Merged](https://img.shields.io/badge/Merged-Done-success?style=flat-square) |
+| 5 | **Nguyễn Phạm Y Huỳnh** | ☿️ **Sao Thủy** *(Mercury)* | Thành viên • Frontend Developer Aspirant | `members/nguyen-pham-y-huynh/` | ![Merged](https://img.shields.io/badge/Merged-Done-success?style=flat-square) |
+| 6 | **Nguyễn Anh Thư** | ♄ **Sao Thổ** *(Saturn)* | Thành viên • Frontend & Web Designer Aspirant | `members/nguyen-anh-thu/` | ![Merged](https://img.shields.io/badge/Merged-Done-success?style=flat-square) |
 
 ---
 
@@ -141,8 +150,8 @@ Mở Terminal / PowerShell và thực hiện tuần tự các lệnh sau:
 
 ```bash
 # 1. Sao chép (clone) repository về máy cá nhân
-git clone https://github.com/nguyenxuanhieu2903/portfolio-group.git
-cd portfolio-group
+git clone https://github.com/lenguyennhattruongg/Portfolio.git
+cd Portfolio
 
 # 2. Cài đặt các gói thư viện phụ thuộc (bao gồm Three.js và Vite)
 npm install
